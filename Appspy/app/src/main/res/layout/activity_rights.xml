@@ -7,6 +7,20 @@
     tools:context="com.epfl.appspy.RightsActivity">
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/text"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVpermissions"
+        android:layout_below="@+id/text"/>
+
+
+    <Button
+        android:text="next package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TVpermissions"
+        android:onClick="nextPackage"/>
 
 </RelativeLayout>
