@@ -1,5 +1,6 @@
 package com.epfl.appspy;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -29,12 +30,22 @@ public class RightsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_rights);
 
 
+
+
+        // SHOW INSTALLED APP AND THEIR PERMISSION
         PackageManager p = getPackageManager();
 
         List<PackageInfo> allPkg = p.getInstalledPackages(PackageManager.GET_PERMISSIONS);
 
+        Log.d("Appspy","-------------------------------------------------------");
+        Log.d("Appspy","-------------------------------------------------------");
         Log.d("Appspy","LOGGING PERMISSION OF ALL THIRD PARTY APPLICATION");
         for(PackageInfo pkg :allPkg) {
+
+            //only show non-system apps
+            // check if bit the for the flag "system" is 1. If it is the case, it returns something other than 0
+            // (basic bitwise operation)
+
             if ((pkg.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 Log.d("Appspy", "##########");
                 Log.d("Appspy","-" + pkg.applicationInfo.loadLabel(p));
@@ -50,6 +61,48 @@ public class RightsActivity extends ActionBarActivity {
                 }
             }
         }
+
+
+
+        // SHOW ACTIVE APPS
+
+        final boolean SHOW_SYSTEM = true; //set != 0 to show system stuff (can be interesting)
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(ACTIVITY_SERVICE);
+
+        List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
+
+        Log.d("Appspy","#################################################\n");
+        Log.d("Appspy","ACTIVE TASKS:");
+        for(ActivityManager.RunningAppProcessInfo task : tasks){
+            //if(task.ac != null)
+
+            String[] pkgsString= task.pkgList;
+
+            for(String pkgString : pkgsString) {
+
+                PackageManager pm = getPackageManager();
+
+                try {
+
+                    PackageInfo pi = pm.getPackageInfo(pkgString, PackageManager.GET_META_DATA);
+
+                    if(((pi.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) != SHOW_SYSTEM)
+                        Log.d("Appspy","Is running:" + pi.applicationInfo.loadLabel(pm));// + "     Package name:" + pkgString);
+
+                }
+                catch(PackageManager.NameNotFoundException e){
+
+                }
+
+                //Log.d("Appspy", task.processName);
+            }
+
+
+        }
+
+        Log.d("Appspy","-------------------------------------------------------");
+        Log.d("Appspy","-------------------------------------------------------");
 
 
 
