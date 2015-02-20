@@ -22,6 +22,18 @@
             android:name=".RightsActivity"
             android:label="@string/title_activity_rights" >
         </activity>
+
+
+        <receiver android:name=".PeriodicTaskReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="com.example.app.PERIODIC_TASK_HEART_BEAT" />
+            </intent-filter>
+        </receiver>
+
+
+
     </application>
 
 </manifest>
