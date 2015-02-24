@@ -1,8 +1,10 @@
 package com.epfl.appspy;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Application;
 import android.app.FragmentManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,43 +20,75 @@ import java.util.List;
 
 
 public class PeriodicTaskReceiver extends BroadcastReceiver {
-    private static String TAG = "PeriodicTaskReceiver";
+    private static final String TAG = "PeriodicTaskReceiver";
 
+    private static final String EXTRA = "extra";
+    private enum EXTRA_ACTION_PERIODICITY {HALF_HOUR, MINUTE, TEN_SECONDS };
+    private final int NO_EXTRA = -1;
+
+
+    public void createAlarms(Context context, Intent intent){
+        Log.d("Appspy", "Alarm is set");
+        Intent backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, backgroundChecker, 0);
+
+
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        int interval = 10000;
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("Appspy", "%%%%%%%%%%%% onReceive");
 
-        getCurrentlyUsedApp(context, false);
+        Log.d("Appspy","INTENT IS ROCO: " + intent);
+        Log.d("Appspy","ACTION: " + intent.getAction());
 
-//        List<PackageInfo> installedApps = getInstalledApps(context, false);
-//        Hashtable<PackageInfo, String[]> permissionsForApp = getAppsPermissions(installedApps, context);
-//        List<PackageInfo> activeApps = getActiveApps(context,false);
-//
-//        //log
-//
-//        Log.d("Appspy","-------------------------------");
-//        Log.d("Appspy","Permissions");
-//        Log.d("Appspy","-------------------------------");
-//        for(PackageInfo app : installedApps){
-//            String[] permissions = permissionsForApp.get(app);
-//            Log.d("Appspy","" + app.applicationInfo.loadLabel(context.getPackageManager()));
-//
-//            for(String p : permissions){
-//                Log.d("Appspy", p);
-//            }
-//            Log.d("Appspy","===============================");
-//
-//        }
-//
-//
-//        Log.d("Appspy","-------------------------------");
-//        Log.d("Appspy","Active apps");
-//        Log.d("Appspy","-------------------------------");
-//        for(PackageInfo app : activeApps){
-//            Log.d("Appspy","" + app.applicationInfo.loadLabel(context.getPackageManager()));
-//        }
+        if(intent.getAction() != null) {
 
+            if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+                // Register your reporting alarms here.
+                createAlarms(context,intent);
+
+            } else if (intent.getAction().equals(Intent.ACTION_SEND)
+                    && (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) == EXTRA_ACTION_PERIODICITY.TEN_SECONDS ){
+                Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
+
+                getCurrentlyUsedApp(context, false);
+
+                List<PackageInfo> installedApps = getInstalledApps(context, false);
+                Hashtable<PackageInfo, String[]> permissionsForApp = getAppsPermissions(installedApps, context);
+                List<PackageInfo> activeApps = getActiveApps(context, false);
+
+                //log
+
+                Log.d("Appspy", "-------------------------------");
+                Log.d("Appspy", "Permissions");
+                Log.d("Appspy", "-------------------------------");
+                for (PackageInfo app : installedApps) {
+                    String[] permissions = permissionsForApp.get(app);
+                    Log.d("Appspy", "" + app.applicationInfo.loadLabel(context.getPackageManager()));
+
+                    for (String p : permissions) {
+                        Log.d("Appspy", p);
+                    }
+                    Log.d("Appspy", "===============================");
+
+                }
+
+
+                Log.d("Appspy", "-------------------------------");
+                Log.d("Appspy", "Active apps");
+                Log.d("Appspy", "-------------------------------");
+                for (PackageInfo app : activeApps) {
+                    Log.d("Appspy", "" + app.applicationInfo.loadLabel(context.getPackageManager()));
+                }
+            }
+        }
     }
 
 

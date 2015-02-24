@@ -11,7 +11,32 @@ public class ApplicationUseRecord {
     private long useTime;
     private boolean background;
 
-    public ApplicationUseRecord(int id, String applicationName, String packageName, long useTime, boolean background){
+
+    /**
+     * Create a record, for which the ID is known (already in the database)
+     * @param id
+     * @param applicationName
+     * @param packageName
+     * @param useTime
+     * @param background
+     */
+    protected ApplicationUseRecord(int id, String applicationName, String packageName, long useTime, boolean background){
+        this.id = id;
+        this.applicationName = applicationName;
+        this.packageName = packageName;
+        this.useTime = useTime;
+        this.background = background;
+    }
+
+
+    /**
+     * Create a new record.
+     * @param applicationName
+     * @param packageName
+     * @param useTime
+     * @param background
+     */
+    public ApplicationUseRecord(String applicationName, String packageName, long useTime, boolean background){
         this.id = id;
         this.applicationName = applicationName;
         this.packageName = packageName;
