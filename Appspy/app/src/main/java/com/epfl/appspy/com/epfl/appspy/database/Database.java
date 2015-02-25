@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     //Database name
     private static final String DB_NAME = "DATABASE";
@@ -43,8 +44,8 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_WAS_BACKGROUND = "was_background";
 
     private static final String CREATE_TABLE_APP_ACTIVE_TIMESTAMPS = "CREATE TABLE " + TABLE_APP_ACTIVE_TIMESTAMPS
-            + "(" + COL_KEY_ID + "INTEGER PRIMARY KEY" + COL_APP_NAME + "TEXT" + COL_APP_PKG_NAME + "TEXT"
-            + COL_TIMESTAMP + "INTEGER" + COL_WAS_BACKGROUND + "INTEGER";
+            + "(" + COL_KEY_ID + " INTEGER PRIMARY KEY, " + COL_APP_NAME + " TEXT, " + COL_APP_PKG_NAME + " TEXT, "
+            + COL_TIMESTAMP + " INTEGER, " + COL_WAS_BACKGROUND + " INTEGER)";
 
 
     public Database(Context context){
@@ -58,9 +59,12 @@ public class Database extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         //TODO
+        db.execSQL("DROP TABLE " + TABLE_APP_ACTIVE_TIMESTAMPS);
+        db.execSQL(CREATE_TABLE_APP_ACTIVE_TIMESTAMPS);
     }
 
     public void addApplicationActiveTimestamp(ApplicationUseRecord record){
+        Log.i("Appspy DB", "new AppActiveTimestamp record added in Table " + TABLE_APP_ACTIVE_TIMESTAMPS);
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

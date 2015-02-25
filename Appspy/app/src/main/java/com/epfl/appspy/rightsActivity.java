@@ -1,8 +1,11 @@
 package com.epfl.appspy;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Application;
 import android.app.FragmentManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -58,6 +61,49 @@ public class RightsActivity extends ActionBarActivity {
 
 
     public void nextPackage(View v){
+
+        /*
+        *
+        * DEBUG CODE ONLY
+         */
+        Context context = getApplicationContext();
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        final String EXTRA = "extra";
+
+
+        final int tenSeconds = 10000;
+        final int minute = 60000;
+        final int halfHour = 30000; //60000 * 30; //For now: 30 seconds
+        final int CODE_ONE = 12323;
+        final int CODE_TWO = 12324;
+
+        Intent backgroundChecker;
+        PendingIntent pendingIntent;
+
+
+        //Ten second periodicity
+        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
+        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
+                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), tenSeconds, pendingIntent);
+
+        //Halft hour periodicity
+        backgroundChecker = null;
+        pendingIntent = null;
+        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.HALF_HOUR);
+        pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
+                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), halfHour, pendingIntent);
+
+        /*
+        *
+        * END DEBUG CODE ONLY
+         */
 
     }
 }
