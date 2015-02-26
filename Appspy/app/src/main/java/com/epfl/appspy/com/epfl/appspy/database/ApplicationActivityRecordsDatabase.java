@@ -18,7 +18,7 @@ import java.util.List;
  *
 * Created by Jonathan Duss on 22.02.15.
 */
-public class Database extends SQLiteOpenHelper {
+public class ApplicationActivityRecordsDatabase extends SQLiteOpenHelper {
 
     public enum ACTIVE_STATE {
         ACTIVE_BACKGROUND,
@@ -26,10 +26,9 @@ public class Database extends SQLiteOpenHelper {
         ACTIVE //active not dependinf if the app is in background or in foreground
     }
 
-
+    //Database version
     private static final int DB_VERSION = 2;
 
-    //Database name
     private static final String DB_NAME = "DATABASE";
 
     //Tables names
@@ -48,7 +47,7 @@ public class Database extends SQLiteOpenHelper {
             + COL_TIMESTAMP + " INTEGER, " + COL_WAS_BACKGROUND + " INTEGER)";
 
 
-    public Database(Context context){
+    public ApplicationActivityRecordsDatabase(Context context){
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -63,7 +62,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_APP_ACTIVE_TIMESTAMPS);
     }
 
-    public void addApplicationActiveTimestamp(ApplicationUseRecord record){
+    public void addApplicationActiveTimestamp(ApplicationActivityRecord record){
         Log.i("Appspy DB", "new AppActiveTimestamp record added in Table " + TABLE_APP_ACTIVE_TIMESTAMPS);
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -79,14 +78,14 @@ public class Database extends SQLiteOpenHelper {
     }
 
     //returns the list of timestamps for that app
-    public List<ApplicationUseRecord> getApplicationActiveTimestamp(ACTIVE_STATE state){
+    public List<ApplicationActivityRecord> getApplicationActiveTimestamp(ACTIVE_STATE state){
         SQLiteDatabase db = getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_APP_ACTIVE_TIMESTAMPS + " WHERE " + COL_WAS_BACKGROUND + " = 0 ";
 
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<ApplicationUseRecord> records = new ArrayList<ApplicationUseRecord>();
+        ArrayList<ApplicationActivityRecord> records = new ArrayList<ApplicationActivityRecord>();
 
         if(cursor.moveToFirst()){
             do{
@@ -95,7 +94,7 @@ public class Database extends SQLiteOpenHelper {
                 String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
                 long timestampTime = cursor.getLong(cursor.getColumnIndex(COL_TIMESTAMP));
                 boolean wasBackground = cursor.getInt(cursor.getColumnIndex(COL_WAS_BACKGROUND)) == 1;
-                records.add(new ApplicationUseRecord(id,name,pkgName, timestampTime, wasBackground));
+                records.add(new ApplicationActivityRecord(id,name,pkgName, timestampTime, wasBackground));
             } while(cursor.moveToNext());
         }
 

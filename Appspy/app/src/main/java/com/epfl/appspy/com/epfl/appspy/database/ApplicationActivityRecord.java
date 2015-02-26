@@ -3,7 +3,14 @@ package com.epfl.appspy.com.epfl.appspy.database;
 /**
  * Created by Jo on 22.02.15.
  */
-public class ApplicationUseRecord {
+
+/**
+ * This class is a record of the activity of an app at a given time.
+ * Ex: MeteoSwiss, was active in background, 20.1.2015 at 22:30
+ *     Facebook, was active in foreground, 20.1.2015 at 22:30
+*
+ */
+public class ApplicationActivityRecord {
 
     private int id;
     private String applicationName;
@@ -20,7 +27,7 @@ public class ApplicationUseRecord {
      * @param useTime
      * @param background
      */
-    protected ApplicationUseRecord(int id, String applicationName, String packageName, long useTime, boolean background){
+    protected ApplicationActivityRecord(int id, String applicationName, String packageName, long useTime, boolean background){
         this.id = id;
         this.applicationName = applicationName;
         this.packageName = packageName;
@@ -36,7 +43,7 @@ public class ApplicationUseRecord {
      * @param useTime
      * @param background
      */
-    public ApplicationUseRecord(String applicationName, String packageName, long useTime, boolean background){
+    public ApplicationActivityRecord(String applicationName, String packageName, long useTime, boolean background){
         this.id = id;
         this.applicationName = applicationName;
         this.packageName = packageName;

@@ -1,24 +1,17 @@
 package com.epfl.appspy;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
-import android.app.Application;
-import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationUseRecord;
-import com.epfl.appspy.com.epfl.appspy.database.Database;
+import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
+import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecordsDatabase;
+import com.epfl.appspy.com.epfl.appspy.database.PermissionsDatabase;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -136,13 +129,10 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             }
             long currentTime = System.currentTimeMillis();
 
-            ApplicationUseRecord record = new ApplicationUseRecord(appName,pkgName,currentTime,isOnBackground);
+            ApplicationActivityRecord record = new ApplicationActivityRecord(appName,pkgName,currentTime,isOnBackground);
 
-            Database db = new Database(this.context);
+            ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
             db.addApplicationActiveTimestamp(record);
-
-            Log.d("Appspy","nb in db:" + db.getApplicationActiveTimestamp(Database.ACTIVE_STATE.ACTIVE).size());
-
         }
 
 
@@ -156,14 +146,14 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 30 minutes");
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(false);
-        Hashtable<PackageInfo, String[]> permissionsForApp = appInformation.getAppsPermissions(installedApps);
+        Hashtable<PackageInfo, String[]> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
 
         Log.d("Appspy", "-------------------------------");
         Log.d("Appspy", "Permissions");
         Log.d("Appspy", "-------------------------------");
 
         for (PackageInfo app : installedApps) {
-            String[] permissions = permissionsForApp.get(app);
+            String[] permissions = permissionsForAllApps.get(app);
             Log.d("Appspy", "" + appInformation.getAppName(app));
 
             for (String p : permissions) {
@@ -172,6 +162,11 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             Log.d("Appspy", "===============================");
 
         }
+
+//        PermissionsDatabase db = new PermissionsDatabase(context);
+//        db.addPermissions(permissionsForAllApps);
+//
+//        db.getCurrentPermisions(true);
     }
 
 
