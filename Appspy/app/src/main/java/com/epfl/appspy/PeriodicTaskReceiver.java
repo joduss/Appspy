@@ -8,9 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.util.Log;
 
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecordsDatabase;
-import com.epfl.appspy.com.epfl.appspy.database.PermissionsDatabase;
+import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
+import com.epfl.appspy.com.epfl.appspy.database.Database;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -27,6 +26,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     ;
     private static ApplicationsInformation appInformation;
     private final int NO_EXTRA = -1;
+
+
+    private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
 
     public void createAlarms(Context context, Intent intent) {
@@ -110,8 +112,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     public void periodicCheckTenSeconds() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
 
-        List<PackageInfo> activeApps = appInformation.getActiveApps(false);
-        PackageInfo foregroundApp = appInformation.getCurrentlyUsedApp(false);
+        List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
+        PackageInfo foregroundApp = appInformation.getCurrentlyUsedApp(INCLUDE_SYSTEM);
 
         //log
 
@@ -129,11 +131,21 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             }
             long currentTime = System.currentTimeMillis();
 
-            ApplicationActivityRecord record = new ApplicationActivityRecord(appName,pkgName,currentTime,isOnBackground);
+            //ApplicationActivityRecord record = new ApplicationActivityRecord(appName,pkgName,currentTime,isOnBackground);
 
-            ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
-            db.addApplicationActiveTimestamp(record);
+            //ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
+            //db.addApplicationActiveTimestamp(record);
+
+
+
+
+
+
+
         }
+
+
+
 
 
     }
@@ -145,12 +157,14 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     public void periodicCheckHalfHour() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 30 minutes");
 
-        List<PackageInfo> installedApps = appInformation.getInstalledApps(false);
+        List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
         Hashtable<PackageInfo, String[]> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
 
         Log.d("Appspy", "-------------------------------");
         Log.d("Appspy", "Permissions");
         Log.d("Appspy", "-------------------------------");
+
+        Database db = new Database(this.context);
 
         for (PackageInfo app : installedApps) {
             String[] permissions = permissionsForAllApps.get(app);
@@ -161,7 +175,19 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             }
             Log.d("Appspy", "===============================");
 
+            long installationDate = app.firstInstallTime;
+            boolean isSystem = appInformation.isSystem(app);
+
+            String appName = appInformation.getAppName(app);
+            String pkgName = app.packageName;
+            boolean appSystem = appInformation.isSystem(app);
+            ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate, 0, "", "", appSystem);
+            db.addOrUpdateApplicationInstallationRecord(record);
+
         }
+
+
+
 
 //        PermissionsDatabase db = new PermissionsDatabase(context);
 //        db.addPermissions(permissionsForAllApps);

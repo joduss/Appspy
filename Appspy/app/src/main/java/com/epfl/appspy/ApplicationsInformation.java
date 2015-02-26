@@ -122,14 +122,14 @@ public class ApplicationsInformation {
     public PackageInfo getCurrentlyUsedApp(boolean includeSystem) {
 
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
+        List<ActivityManager.RunningServiceInfo> tasks = activityManager.getRunningServices(100000);
         List<PackageInfo> activeApps = new ArrayList<>();
 
-        for (ActivityManager.RunningAppProcessInfo task : tasks) {
+        for (ActivityManager.RunningServiceInfo task : tasks) {
 
             //Check if the task is the one on foreground, thus, displayed on the screen and currently used by the user
-            if(task.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND){
-                String[] pkgsString = task.pkgList;
+            if(task.foreground == true){
+                String[] pkgsString = tasks(1).;
 
                 for(String pkgName : pkgsString) {
 

@@ -12,74 +12,62 @@ package com.epfl.appspy.com.epfl.appspy.database;
  */
 public class ApplicationActivityRecord {
 
-    private int id;
-    private String applicationName;
-    private String packageName;
+
+    private int recordId;
+    private int appId;
     private long useTime;
     private boolean background;
 
 
     /**
-     * Create a record, for which the ID is known (already in the database)
-     * @param id
-     * @param applicationName
-     * @param packageName
+     *
+     * @param recordId
+     * @param appId
      * @param useTime
      * @param background
      */
-    protected ApplicationActivityRecord(int id, String applicationName, String packageName, long useTime, boolean background){
-        this.id = id;
-        this.applicationName = applicationName;
-        this.packageName = packageName;
+    protected ApplicationActivityRecord(int recordId, int appId, long useTime, boolean background){
+        this.recordId = recordId;
+        this.appId = appId;
         this.useTime = useTime;
         this.background = background;
     }
 
 
     /**
-     * Create a new record.
-     * @param applicationName
-     * @param packageName
+     *
+     * @param appId
      * @param useTime
      * @param background
      */
-    public ApplicationActivityRecord(String applicationName, String packageName, long useTime, boolean background){
-        this.id = id;
-        this.applicationName = applicationName;
-        this.packageName = packageName;
+    public ApplicationActivityRecord(int appId, long useTime, boolean background){
+        this.appId = appId;
         this.useTime = useTime;
         this.background = background;
     }
 
 
-    public int getId() {
-        return id;
+
+
+    public int getRecordId() {
+        return recordId;
     }
 
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRecordId(int recordId) {
+        this.recordId = recordId;
     }
 
 
-    public String getApplicationName() {
-        return applicationName;
+    public int getAppId() {
+        return appId;
     }
 
 
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
+    public void setAppId(int appId) {
+        this.appId = appId;
     }
 
-
-    public String getPackageName() {
-        return packageName;
-    }
-
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
 
 
     public long getUseTime() {
@@ -100,4 +88,6 @@ public class ApplicationActivityRecord {
     public void setBackground(boolean background) {
         this.background = background;
     }
+
+
 }

@@ -81,7 +81,7 @@ public class RightsActivity extends ActionBarActivity {
         Intent backgroundChecker;
         PendingIntent pendingIntent;
 
-
+        Log.d("Appspy","RESET ALARM");
         //Ten second periodicity
         backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
         backgroundChecker.setAction(Intent.ACTION_SEND);
