@@ -47,18 +47,16 @@ public class ApplicationInstallationRecord {
      * @param installationDate
      * @param uninstallationDate
      * @param currentPermissions
-     * @param maximumPermissions
      * @param isSystem
      */
     public ApplicationInstallationRecord(String applicationName, String packageName, long installationDate,
                                          long uninstallationDate, String currentPermissions,
-                                         String maximumPermissions, boolean isSystem) {
+                                         boolean isSystem) {
         this.applicationName = applicationName;
         this.packageName = packageName;
         this.installationDate = installationDate;
         this.uninstallationDate = uninstallationDate;
         this.currentPermissions = currentPermissions;
-        this.maximumPermissions = maximumPermissions;
         this.isSystem = isSystem;
     }
 

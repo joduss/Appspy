@@ -10,7 +10,9 @@ import android.util.Log;
 
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
+import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -86,7 +88,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
             //Log.d("Appspy", "HEY: " + intent.getExtras().containsKey(EXTRA));
 
-        //Executes the correct task according to the notified action in the broadcast
+            //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
                 // Register your reporting alarms here.
                 createAlarms(context, intent);
@@ -112,7 +114,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     public void periodicCheckTenSeconds() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
 
-        List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
+        //TODO UN COMMENT
+        // List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
+        List<PackageInfo> activeApps = new ArrayList<>();
         PackageInfo foregroundApp = appInformation.getCurrentlyUsedApp(INCLUDE_SYSTEM);
 
         //log
@@ -126,7 +130,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             String appName = appInformation.getAppName(app);
             String pkgName = app.packageName;
             boolean isOnBackground = false;
-            if(foregroundApp != null) {
+            if (foregroundApp != null) {
                 isOnBackground = app.packageName.equals(foregroundApp.packageName);
             }
             long currentTime = System.currentTimeMillis();
@@ -137,15 +141,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             //db.addApplicationActiveTimestamp(record);
 
 
-
-
-
-
-
         }
-
-
-
 
 
     }
@@ -158,7 +154,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 30 minutes");
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
-        Hashtable<PackageInfo, String[]> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
+        Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
+
 
         Log.d("Appspy", "-------------------------------");
         Log.d("Appspy", "Permissions");
@@ -166,10 +163,10 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
         Database db = new Database(this.context);
 
-        for (PackageInfo app : installedApps) {
-            String[] permissions = permissionsForAllApps.get(app);
-            Log.d("Appspy", "" + appInformation.getAppName(app));
+        for (PackageInfo app : permissionsForAllApps.keySet()) {
+            List<String> permissions = permissionsForAllApps.get(app);
 
+            Log.d("Appspy", appInformation.getAppName(app));
             for (String p : permissions) {
                 Log.d("Appspy", p);
             }
@@ -181,12 +178,16 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             String appName = appInformation.getAppName(app);
             String pkgName = app.packageName;
             boolean appSystem = appInformation.isSystem(app);
-            ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate, 0, "", "", appSystem);
+
+            //Format the permission before putting it in the DB
+            PermissionsJSON jsonPermissions = new PermissionsJSON(permissions);
+
+            //Add or update the record in the database
+            ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
+                                                                                     0, jsonPermissions.toString(),
+                                                                                     appSystem);
             db.addOrUpdateApplicationInstallationRecord(record);
-
         }
-
-
 
 
 //        PermissionsDatabase db = new PermissionsDatabase(context);
@@ -199,7 +200,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     /**
      * Enum for the periodicity of the tasks
      */
-    protected enum EXTRA_ACTION_PERIODICITY {NONE, HALF_HOUR, MINUTE, TEN_SECONDS}
+    protected enum EXTRA_ACTION_PERIODICITY {
+        NONE, HALF_HOUR, MINUTE, TEN_SECONDS
+    }
 
 
 }
