@@ -232,6 +232,22 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
+    public int getAppId(String packageName){
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT " + COL_APP_ID + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" + packageName + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst() && cursor.getCount() == 1) {
+            return cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
+
+        }
+        else {
+            return -1;
+        }
+
+
+    }
+
     /**
      * @param record
      */
@@ -244,6 +260,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_APP_ID, record.getAppId());
         values.put(COL_TIMESTAMP, record.getUseTime());
         values.put(COL_WAS_BACKGROUND, record.isBackground());
+
         db.insert(TABLE_APPS_ACTIVITY, null, values);
         db.close();
     }

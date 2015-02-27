@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.util.Log;
 
+import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
@@ -115,8 +116,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
 
         //TODO UN COMMENT
-        // List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
-        List<PackageInfo> activeApps = new ArrayList<>();
+        List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
+        //List<PackageInfo> activeApps = new ArrayList<>();
         PackageInfo foregroundApp = appInformation.getCurrentlyUsedApp(INCLUDE_SYSTEM);
 
         //log
@@ -134,6 +135,18 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
                 isOnBackground = app.packageName.equals(foregroundApp.packageName);
             }
             long currentTime = System.currentTimeMillis();
+
+
+            Database db = new Database(context);
+            int appId = db.getAppId(app.packageName);
+
+            //TODO: get all apps running
+            // + for the one that is on foreground, set isOnBackground to false
+            // maybe follow how done with finding the one on foreground. GetRunningTask puis, check is running?
+
+            ApplicationActivityRecord record = new ApplicationActivityRecord(appId, currentTime, isOnBackground);
+
+
 
             //ApplicationActivityRecord record = new ApplicationActivityRecord(appName,pkgName,currentTime,isOnBackground);
 
