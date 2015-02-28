@@ -81,15 +81,6 @@ public class RightsActivity extends ActionBarActivity {
         Intent backgroundChecker;
         PendingIntent pendingIntent;
 
-        Log.d("Appspy","RESET ALARM");
-        //Ten second periodicity
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), tenSeconds, pendingIntent);
-
         //Halft hour periodicity
         backgroundChecker = null;
         pendingIntent = null;
@@ -100,10 +91,26 @@ public class RightsActivity extends ActionBarActivity {
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
         manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), halfHour, pendingIntent);
 
+        Log.d("Appspy","RESET ALARM");
+        //Ten second periodicity
+        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
+        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
+                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), tenSeconds, pendingIntent);
+
         /*
         *
         * END DEBUG CODE ONLY
          */
+
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+
+        List<ActivityManager.RunningAppProcessInfo> info = activityManager.getRunningAppProcesses();
+        for(ActivityManager.RunningAppProcessInfo i : info){
+            Log.d("Appspy-2", i.processName);
+        }
 
     }
 }

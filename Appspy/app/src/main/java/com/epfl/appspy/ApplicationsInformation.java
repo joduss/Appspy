@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.util.Log;
 
@@ -109,25 +110,22 @@ public class ApplicationsInformation {
 
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
+
+        List<PackageInfo> installedApps = getInstalledApps(true);
+        List<String> runningAppProcesses = new ArrayList<>();
+
         List<PackageInfo> activeApps = new ArrayList<>();
 
+        for(ActivityManager.RunningAppProcessInfo i : tasks){
+            runningAppProcesses.add(i.processName);
+        }
 
-        for (ActivityManager.RunningAppProcessInfo task : tasks) {
+        for(PackageInfo app : installedApps){
+            String pName = app.applicationInfo.processName;
 
-            String[] pkgsString = task.pkgList;
-
-            for (String pkgString : pkgsString) {
-
-                try {
-                    PackageInfo packageInfo = packageManager.getPackageInfo(pkgString, PackageManager.GET_META_DATA);
-
-                    //we add the app to the list if it is not system OR if we include system apps
-                    if ((isSystem(packageInfo) == false) || includeSystem) {
-                        activeApps.add(packageInfo);
-                    }
-                } catch (PackageManager.NameNotFoundException e) {
-                    //nothing to do
-                }
+            if(runningAppProcesses.contains(pName)){
+                Log.d("Appspy-2", "is active: " + this.getAppName(app));
+                activeApps.add(app);
             }
         }
         return activeApps;
@@ -151,53 +149,25 @@ public class ApplicationsInformation {
         if (Build.VERSION.SDK_INT < 21) {
             List<ActivityManager.RunningTaskInfo> runningTask = activityManager.getRunningTasks(1);
             ActivityManager.RunningTaskInfo taskRunning = runningTask.get(0);
+
+            String packageName = taskRunning.topActivity.getPackageName();
+
+            try {
+                return packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA);
+            }
+            catch(PackageManager.NameNotFoundException e){
+                return null;
+            }
+
         } else {
             //FOR API > 21
             //TODO, use statistic usage
             //http://stackoverflow.com/questions/24590533/how-to-get-recent-tasks-on-android-l
+            return null;
         }
 
 
-        for (ActivityManager.RunningAppProcessInfo task : tasks) {
 
-            //Check if the task is the one on foreground, thus, displayed on the screen and currently used by the user
-            if (task.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                String[] pkgsString = task.pkgList;
-
-                ActivityManager.RunningServiceInfo service;
-
-//                List<ActivityManager.RunningServiceInfo> runningProcessInfo = activityManager.getRunningServices(9999);
-//
-//
-//                for(ActivityManager.RunningServiceInfo rsi : runningProcessInfo){
-//                    if(rsi.process.equals(task.processName) == false){
-//                        for(String pkgName : pkgsString) {
-//                            Log.d("Appspy", "FOREGROUND: " + pkgName);
-//                        }
-//                    }
-//                }
-
-
-//                for(String pkgName : pkgsString) {
-//
-//                    try {
-//                        PackageInfo packageInfo = packageManager.getPackageInfo(pkgName, PackageManager.GET_META_DATA);
-//
-//                        if ((isSystem(packageInfo) == false) || includeSystem) {
-//                            //exclude our app from it (because always on foreground) ???
-//                            if(context.getApplicationInfo().processName.equals(packageInfo.applicationInfo.processName) == false) {
-//                                Log.d("Appspy", "" + getAppName(packageInfo));
-//                                return packageInfo;
-//                            }
-//                        }
-//
-//                    } catch (PackageManager.NameNotFoundException e) {
-//                        //nothing to do
-//                    }
-//                }
-            }
-        }
-        return null;
     }
 
 

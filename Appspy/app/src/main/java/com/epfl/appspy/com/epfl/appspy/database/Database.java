@@ -24,7 +24,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 25;
+    private static final int DB_VERSION = 31;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -52,7 +52,7 @@ public class Database extends SQLiteOpenHelper {
             COL_CURRENT_PERMISSIONS + " TEXT, " + COL_MAX_PERMISSIONS + " TEXT, " + COL_IS_SYSTEM + " INTEGER" + ")";
     private static final String CREATE_TABLE_APPS_ACTIVITY =
             "CREATE TABLE " + TABLE_APPS_ACTIVITY + "(" + COL_RECORD_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_ID + " INTEGER, " + COL_TIMESTAMP + " TEXT, " +
+            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT, " + COL_TIMESTAMP + " TEXT, " +
             COL_WAS_BACKGROUND + " INTEGER " + ")";
 
 
@@ -149,10 +149,12 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_IS_SYSTEM, newRecord.isSystem());
 
             db.insert(TABLE_INSTALLED_APPS, null, values);
-        } else {
-            Log.i("Appspy DB", "one applicationInstallationRecord has been updated");
+        }
+        else {
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
             // Thus we update the columns uninstallation_date, the current_permissions and the max_permissions
+            Log.i("Appspy DB", "one applicationInstallationRecord has been updated");
+
 
             //newRecord contains the updated values
             //oldRecord contains the one already in the DB
@@ -266,7 +268,7 @@ public class Database extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         //id will be created, none exist for the new record
-        values.put(COL_APP_ID, record.getAppId());
+        values.put(COL_APP_PKG_NAME, record.getPackageName());
         values.put(COL_TIMESTAMP, record.getUseTime());
         values.put(COL_WAS_BACKGROUND, record.isBackground());
 

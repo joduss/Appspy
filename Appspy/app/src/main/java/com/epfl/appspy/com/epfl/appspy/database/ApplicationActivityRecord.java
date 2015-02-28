@@ -14,7 +14,7 @@ public class ApplicationActivityRecord {
 
 
     private int recordId;
-    private int appId;
+    private String packageName;
     private long useTime;
     private boolean background;
 
@@ -22,13 +22,13 @@ public class ApplicationActivityRecord {
     /**
      *
      * @param recordId
-     * @param appId
+     * @param packageName
      * @param useTime
      * @param background
      */
-    protected ApplicationActivityRecord(int recordId, int appId, long useTime, boolean background){
+    protected ApplicationActivityRecord(int recordId, String packageName, long useTime, boolean background){
         this.recordId = recordId;
-        this.appId = appId;
+        this.packageName = packageName;
         this.useTime = useTime;
         this.background = background;
     }
@@ -36,12 +36,12 @@ public class ApplicationActivityRecord {
 
     /**
      *
-     * @param appId
+     * @param packageName
      * @param useTime
      * @param background
      */
-    public ApplicationActivityRecord(int appId, long useTime, boolean background){
-        this.appId = appId;
+    public ApplicationActivityRecord(String packageName, long useTime, boolean background){
+        this.packageName = packageName;
         this.useTime = useTime;
         this.background = background;
     }
@@ -59,15 +59,14 @@ public class ApplicationActivityRecord {
     }
 
 
-    public int getAppId() {
-        return appId;
+    public String getPackageName() {
+        return packageName;
     }
 
 
-    public void setAppId(int appId) {
-        this.appId = appId;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
-
 
 
     public long getUseTime() {

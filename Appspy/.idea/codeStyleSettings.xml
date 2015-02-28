@@ -39,7 +39,9 @@
         </XML>
         <codeStyleSettings language="JAVA">
           <option name="KEEP_LINE_BREAKS" value="false" />
+          <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
           <option name="BLANK_LINES_AROUND_METHOD" value="2" />
+          <option name="ELSE_ON_NEW_LINE" value="true" />
           <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
           <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
           <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
@@ -51,6 +53,7 @@
           <option name="BINARY_OPERATION_WRAP" value="1" />
           <option name="ARRAY_INITIALIZER_WRAP" value="1" />
           <option name="ASSIGNMENT_WRAP" value="1" />
+          <option name="IF_BRACE_FORCE" value="3" />
           <arrangement>
             <groups>
               <group>

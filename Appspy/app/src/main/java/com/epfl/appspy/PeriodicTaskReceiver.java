@@ -31,10 +31,15 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     private final int NO_EXTRA = -1;
 
 
+
     private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
 
     public void createAlarms(Context context, Intent intent) {
+
+        periodicCheckHalfHour();
+        periodicCheckTenSeconds();
+
         Log.d("Appspy", "Alarm is set");
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -74,9 +79,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        // Log.d("Appspy","INTENT IS ROCO: " + intent);
-        Log.d("Appspy", "ACTION: " + intent.getAction());
-
         //Init class members
         if (this.context == null || this.appInformation == null) {
             this.context = context;
@@ -94,15 +96,17 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
                 // Register your reporting alarms here.
                 createAlarms(context, intent);
 
-            } else if (intent.getAction().equals(
-                    Intent.ACTION_SEND) && (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(
-                    EXTRA) == EXTRA_ACTION_PERIODICITY.TEN_SECONDS) {
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
+                     (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
+                     EXTRA_ACTION_PERIODICITY.TEN_SECONDS) {
 
                 periodicCheckTenSeconds();
 
-            } else if (intent.getAction().equals(
-                    Intent.ACTION_SEND) && (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(
-                    EXTRA) == EXTRA_ACTION_PERIODICITY.HALF_HOUR) {
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
+                     (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
+                     EXTRA_ACTION_PERIODICITY.HALF_HOUR) {
                 periodicCheckHalfHour();
             }
         }
@@ -115,47 +119,41 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     public void periodicCheckTenSeconds() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
 
-        //TODO UN COMMENT
         List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
-        //List<PackageInfo> activeApps = new ArrayList<>();
         PackageInfo foregroundApp = appInformation.getCurrentlyUsedApp(INCLUDE_SYSTEM);
 
-        //log
 
-        Log.d("Appspy", "-------------------------------");
-        Log.d("Appspy", "Active apps");
-        Log.d("Appspy", "-------------------------------");
+        Log.d("Appspy-loginfo", "-------------------------------");
+        Log.d("Appspy-loginfo", "Active apps");
+        Log.d("Appspy-loginfo", "-------------------------------");
+
         for (PackageInfo app : activeApps) {
-            Log.d("Appspy", "" + app.applicationInfo.loadLabel(context.getPackageManager()));
+
+            Database db = new Database(context);
 
             String appName = appInformation.getAppName(app);
             String pkgName = app.packageName;
-            boolean isOnBackground = false;
-            if (foregroundApp != null) {
-                isOnBackground = app.packageName.equals(foregroundApp.packageName);
+            boolean isOnBackground = true;
+            if (foregroundApp != null && app.packageName.equals(foregroundApp.packageName)) {
+                isOnBackground = false;
+                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()) + " <----- Foreground");
+            }
+            else {
+                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()));
             }
             long currentTime = System.currentTimeMillis();
 
 
-            Database db = new Database(context);
-            int appId = db.getAppId(app.packageName);
-
             //TODO: get all apps running
             // + for the one that is on foreground, set isOnBackground to false
             // maybe follow how done with finding the one on foreground. GetRunningTask puis, check is running?
-
-            ApplicationActivityRecord record = new ApplicationActivityRecord(appId, currentTime, isOnBackground);
+            ApplicationActivityRecord record = new ApplicationActivityRecord(pkgName, currentTime, isOnBackground);
             db.addApplicationActivityRecord(record);
-
 
 
             //ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
             //db.addApplicationActiveTimestamp(record);
-
-
         }
-
-
     }
 
 
@@ -169,20 +167,22 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
 
 
-        Log.d("Appspy", "-------------------------------");
-        Log.d("Appspy", "Permissions");
-        Log.d("Appspy", "-------------------------------");
+        Log.d("Appspy-loginfo", "-------------------------------");
+        Log.d("Appspy-loginfo", "Permissions");
+        Log.d("Appspy-loginfo", "-------------------------------");
 
         Database db = new Database(this.context);
 
+        //For each app, insert or update a record about the time of the installations/uninstallation, permissions, etc
         for (PackageInfo app : permissionsForAllApps.keySet()) {
             List<String> permissions = permissionsForAllApps.get(app);
 
-            Log.d("Appspy", appInformation.getAppName(app));
-            for (String p : permissions) {
-                Log.d("Appspy", p);
-            }
-            Log.d("Appspy", "===============================");
+            Log.d("Appspy-loginfo", appInformation.getAppName(app));
+            Log.d("Appspy-loginfo","some permissions...");
+//            for (String p : permissions) {
+//                Log.d("Appspy-loginfo", p);
+//            }
+            Log.d("Appspy-loginfo", "===============================");
 
             long installationDate = app.firstInstallTime;
             boolean isSystem = appInformation.isSystem(app);
@@ -200,12 +200,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
                                                                                      appSystem);
             db.addOrUpdateApplicationInstallationRecord(record);
         }
-
-
-//        PermissionsDatabase db = new PermissionsDatabase(context);
-//        db.addPermissions(permissionsForAllApps);
-//
-//        db.getCurrentPermisions(true);
     }
 
 
