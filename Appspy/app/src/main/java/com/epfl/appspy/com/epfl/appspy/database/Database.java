@@ -24,26 +24,36 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 21;
+    private static final int DB_VERSION = 25;
     private static final String DB_NAME = "Appspy_database";
+
     //Tables names
     private static final String TABLE_APPS_ACTIVITY = "Table_applications_activity";
     private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
+
     //TABLE_APPS_ACTIVITY columns names
     private static final String COL_APP_ID = "app_id";
-    //...
     private static final String COL_RECORD_ID = "record_id";
     private static final String COL_APP_NAME = "app_name";
     private static final String COL_APP_PKG_NAME = "package_name";
     private static final String COL_TIMESTAMP = "use_time";
-    private static final String CREATE_TABLE_APPS_ACTIVITY = "CREATE TABLE " + TABLE_APPS_ACTIVITY + "(" + COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_TIMESTAMP + " TEXT" + ")";
     private static final String COL_WAS_BACKGROUND = "was_background";
     private static final String COL_INSTALLATION_DATE = "installation_date";
     private static final String COL_UNINSTALLATION_DATE = "uninstallation_date";
     private static final String COL_CURRENT_PERMISSIONS = "current_permissions";
     private static final String COL_MAX_PERMISSIONS = "maximum_permissions";
     private static final String COL_IS_SYSTEM = "is_system";
-    private static final String CREATE_TABLE_INSTALLED_APPS = "CREATE TABLE " + TABLE_INSTALLED_APPS + "(" + COL_APP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT SECONDARY KEY UNIQUE, " + COL_APP_NAME + " TEXT, " + COL_INSTALLATION_DATE + " INTEGER, " + COL_UNINSTALLATION_DATE + " INTEGER, " + COL_CURRENT_PERMISSIONS + " TEXT, " + COL_MAX_PERMISSIONS + " TEXT, " + COL_IS_SYSTEM + " INTEGER" + ")";
+
+    //Table creation SQL statement
+    private static final String CREATE_TABLE_INSTALLED_APPS =
+            "CREATE TABLE " + TABLE_INSTALLED_APPS + "(" + COL_APP_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT SECONDARY KEY UNIQUE, " +
+            COL_APP_NAME + " TEXT, " + COL_INSTALLATION_DATE + " INTEGER, " + COL_UNINSTALLATION_DATE + " INTEGER, " +
+            COL_CURRENT_PERMISSIONS + " TEXT, " + COL_MAX_PERMISSIONS + " TEXT, " + COL_IS_SYSTEM + " INTEGER" + ")";
+    private static final String CREATE_TABLE_APPS_ACTIVITY =
+            "CREATE TABLE " + TABLE_APPS_ACTIVITY + "(" + COL_RECORD_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_ID + " INTEGER, " + COL_TIMESTAMP + " TEXT, " +
+            COL_WAS_BACKGROUND + " INTEGER " + ")";
 
 
     public Database(Context context) {
@@ -64,8 +74,8 @@ public class Database extends SQLiteOpenHelper {
         Log.d("Appspy", "HEY DROP TABLE SQL");
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
         db.execSQL("DROP TABLE " + TABLE_APPS_ACTIVITY);
-        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
+        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
     }
 
 
@@ -104,28 +114,20 @@ public class Database extends SQLiteOpenHelper {
     public boolean installationRecordExists(String packageName) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String query = "SELECT " + COL_APP_PKG_NAME + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + " =\"" + packageName + "\"";
+        String query =
+                "SELECT " + COL_APP_PKG_NAME + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + " =\"" +
+                packageName + "\"";
 
         Cursor cursor = db.rawQuery(query, null);
-
-//        if(cursor.moveToFirst()){
-//            do{
-//                int appId = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
-//                String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
-//
-//                if(pkgName.equals(packageName)){
-//                    return true;
-//                }
-//            } while(cursor.moveToNext());
-//        }
 
         return cursor.getCount() > 0;
     }
 
 
     /**
-     * Add an installation record about an app in the database if there is none, or update it if it already exists.
-     * The existence is determined based on the package name.
+     * Add an installation record about an app in the database if there is none, or update it if it already exists. The
+     * existence is determined based on the package name.
+     *
      * @param newRecord the new record to add, or to update if the package is already stored
      */
     public void addOrUpdateApplicationInstallationRecord(ApplicationInstallationRecord newRecord) {
@@ -203,12 +205,15 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Get the ApplicationInstallationRecord about the application whose package name is provided in argument
+     *
      * @param packageName the package name of the record wanted
      * @return the ApplicationInstallationRecord associated to the packageName
      */
     public ApplicationInstallationRecord getApplicationInstallationRecord(String packageName) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" + packageName + "\"";
+        String query =
+                "SELECT * FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" + packageName +
+                "\"";
         Cursor cursor = db.rawQuery(query, null);
 
         //Verify that the is exactly one record. As the package name is unique, there is 0 or 1 row in the cursor.
@@ -232,21 +237,25 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public int getAppId(String packageName){
+    /**
+     * Returns the id (called appID) associated with that packageName in the table of installed apps
+     * @param packageName
+     * @return
+     */
+    public int getAppId(String packageName) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT " + COL_APP_ID + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" + packageName + "\"";
-
+        String query =
+                "SELECT " + COL_APP_ID + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" +
+                packageName + "\"";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst() && cursor.getCount() == 1) {
             return cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
 
-        }
-        else {
+        } else {
             return -1;
         }
-
-
     }
+
 
     /**
      * @param record

@@ -42,10 +42,218 @@
           <option name="BLANK_LINES_AROUND_METHOD" value="2" />
           <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
           <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+          <option name="ALIGN_MULTILINE_BINARY_OPERATION" value="true" />
+          <option name="ALIGN_MULTILINE_ASSIGNMENT" value="true" />
           <option name="ALIGN_MULTILINE_METHOD_BRACKETS" value="true" />
           <option name="CALL_PARAMETERS_WRAP" value="1" />
           <option name="METHOD_PARAMETERS_WRAP" value="1" />
           <option name="THROWS_LIST_WRAP" value="1" />
+          <option name="BINARY_OPERATION_WRAP" value="1" />
+          <option name="ARRAY_INITIALIZER_WRAP" value="1" />
+          <option name="ASSIGNMENT_WRAP" value="1" />
+          <arrangement>
+            <groups>
+              <group>
+                <type>GETTERS_AND_SETTERS</type>
+                <order>KEEP</order>
+              </group>
+              <group>
+                <type>OVERRIDDEN_METHODS</type>
+                <order>KEEP</order>
+              </group>
+            </groups>
+            <rules>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PROTECTED />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PACKAGE_PRIVATE />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PRIVATE />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PUBLIC />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PROTECTED />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PACKAGE_PRIVATE />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PRIVATE />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PUBLIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PROTECTED />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PACKAGE_PRIVATE />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <PRIVATE />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PUBLIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PROTECTED />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PACKAGE_PRIVATE />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <PRIVATE />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <FIELD />
+                    <FINAL />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <FIELD />
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <CONSTRUCTOR />
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <METHOD />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <METHOD />
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <ENUM />
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <INTERFACE />
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <AND>
+                    <CLASS />
+                    <STATIC />
+                  </AND>
+                </match>
+              </rule>
+              <rule>
+                <match>
+                  <CLASS />
+                </match>
+              </rule>
+            </rules>
+          </arrangement>
         </codeStyleSettings>
         <codeStyleSettings language="XML">
           <option name="FORCE_REARRANGE_MODE" value="1" />

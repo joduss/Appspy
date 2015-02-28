@@ -145,10 +145,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             // maybe follow how done with finding the one on foreground. GetRunningTask puis, check is running?
 
             ApplicationActivityRecord record = new ApplicationActivityRecord(appId, currentTime, isOnBackground);
+            db.addApplicationActivityRecord(record);
 
 
-
-            //ApplicationActivityRecord record = new ApplicationActivityRecord(appName,pkgName,currentTime,isOnBackground);
 
             //ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
             //db.addApplicationActiveTimestamp(record);
