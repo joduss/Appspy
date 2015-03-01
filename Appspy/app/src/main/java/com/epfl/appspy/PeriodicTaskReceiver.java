@@ -13,7 +13,6 @@ import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -116,11 +115,11 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     /**
      * Handle of the tasks that should be done every 10 seconds
      */
-    public void periodicCheckTenSeconds() {
+    private void periodicCheckTenSeconds() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
 
-        List<PackageInfo> activeApps = appInformation.getActiveApps(INCLUDE_SYSTEM);
-        PackageInfo foregroundApp = appInformation.getCurrentlyUsedApp(INCLUDE_SYSTEM);
+        List<PackageInfo> activeApps = appInformation.getActiveApps();
+        PackageInfo foregroundApp = appInformation.getUsedForegroundApp();
 
 
         Log.d("Appspy-loginfo", "-------------------------------");
@@ -160,7 +159,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     /**
      * Handles the task that should be done every half hour
      */
-    public void periodicCheckHalfHour() {
+    private void periodicCheckHalfHour() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 30 minutes");
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
@@ -168,7 +167,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
 
         Log.d("Appspy-loginfo", "-------------------------------");
-        Log.d("Appspy-loginfo", "Permissions");
+        Log.d("Appspy-loginfo", "Installed apps + Permissions");
         Log.d("Appspy-loginfo", "-------------------------------");
 
         Database db = new Database(this.context);
@@ -178,11 +177,11 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             List<String> permissions = permissionsForAllApps.get(app);
 
             Log.d("Appspy-loginfo", appInformation.getAppName(app));
-            Log.d("Appspy-loginfo","some permissions...");
+            //Log.d("Appspy-loginfo","some permissions...");
 //            for (String p : permissions) {
 //                Log.d("Appspy-loginfo", p);
 //            }
-            Log.d("Appspy-loginfo", "===============================");
+            //Log.d("Appspy-loginfo", "===============================");
 
             long installationDate = app.firstInstallTime;
             boolean isSystem = appInformation.isSystem(app);

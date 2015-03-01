@@ -103,10 +103,9 @@ public class ApplicationsInformation {
     /**
      * Return all the active applications, in background or foreground
      *
-     * @param includeSystem set to true to include also system apps
      * @return list of active apps
      */
-    public List<PackageInfo> getActiveApps(boolean includeSystem) {
+    public List<PackageInfo> getActiveApps() {
 
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
@@ -116,15 +115,17 @@ public class ApplicationsInformation {
 
         List<PackageInfo> activeApps = new ArrayList<>();
 
+        //get the running processes
         for(ActivityManager.RunningAppProcessInfo i : tasks){
             runningAppProcesses.add(i.processName);
         }
 
+        //Check which ones of those processes correspond to a process of one installed app
+        // is excluded this way all the system processes
         for(PackageInfo app : installedApps){
             String pName = app.applicationInfo.processName;
 
             if(runningAppProcesses.contains(pName)){
-                Log.d("Appspy-2", "is active: " + this.getAppName(app));
                 activeApps.add(app);
             }
         }
@@ -137,7 +138,7 @@ public class ApplicationsInformation {
      *
      * @return The app the user is using now or null otherwise
      */
-    public PackageInfo getCurrentlyUsedApp(boolean includeSystem) {
+    public PackageInfo getUsedForegroundApp() {
 
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
