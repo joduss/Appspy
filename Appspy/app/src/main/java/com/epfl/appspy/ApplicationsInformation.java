@@ -81,7 +81,7 @@ public class ApplicationsInformation {
                 pkg = packageManager.getPackageInfo(pkg.packageName, PackageManager.GET_PERMISSIONS);
                 String permissionsForThatApp[] = pkg.requestedPermissions;
 
-                //test if there are permissions. If null, then, there are no permissions and we add a String to say so
+                //testAccess if there are permissions. If null, then, there are no permissions and we add a String to say so
                 if (permissionsForThatApp != null) {
                     for (String pi : permissionsForThatApp) {
                         appPermissions.add(pi);
@@ -141,8 +141,8 @@ public class ApplicationsInformation {
     public PackageInfo getUsedForegroundApp() {
 
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
-        List<PackageInfo> activeApps = new ArrayList<>();
+        //List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
+        //List<PackageInfo> activeApps = new ArrayList<>();
 
 
         //FOR API < 21
@@ -159,16 +159,15 @@ public class ApplicationsInformation {
             catch(PackageManager.NameNotFoundException e){
                 return null;
             }
-
         } else {
             //FOR API > 21
             //TODO, use statistic usage
             //http://stackoverflow.com/questions/24590533/how-to-get-recent-tasks-on-android-l
+
+
+
             return null;
         }
-
-
-
     }
 
 

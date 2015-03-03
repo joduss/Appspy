@@ -21,6 +21,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVpermissions"
-        android:onClick="nextPackage"/>
+        android:onClick="nextPackage"
+        android:id="@+id/button_next_package"/>
+
+    <Button
+        android:text="Test Path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_next_package"
+        android:onClick="testAccess"
+        android:id="@+id/button_test_path"/>
+
+    <EditText
+        android:hint="Enter path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPath"
+        android:layout_below="@+id/button_test_path"/>
 
 </RelativeLayout>
