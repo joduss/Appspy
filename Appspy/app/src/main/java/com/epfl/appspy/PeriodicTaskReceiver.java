@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.net.TrafficStats;
 import android.util.Log;
 
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
@@ -44,9 +45,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 
-        final int tenSeconds = 10000;
+        final int tenSeconds = 30000; // TODO PUT BACK 10000
         final int minute = 60000;
-        final int halfHour = 30000; //60000 * 30; //For now: 30 seconds
+        final int halfHour = 30000; //TODO 60000 * 30; //For now: 30 seconds
         final int CODE_ONE = 12323;
         final int CODE_TWO = 12324;
 
@@ -132,13 +133,16 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
             String appName = appInformation.getAppName(app);
             String pkgName = app.packageName;
+
+            long t = TrafficStats.getUidTxPackets(app.applicationInfo.uid);
             boolean isOnBackground = true;
             if (foregroundApp != null && app.packageName.equals(foregroundApp.packageName)) {
                 isOnBackground = false;
-                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()) + " <----- Foreground");
+                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()) + " <----- Foreground" + " t:"+t);
+
             }
             else {
-                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()));
+                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager())  + " t:"+t );
             }
             long currentTime = System.currentTimeMillis();
 

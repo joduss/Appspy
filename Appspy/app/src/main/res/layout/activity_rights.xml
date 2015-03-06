@@ -33,7 +33,7 @@
         android:id="@+id/button_test_path"/>
 
     <EditText
-        android:hint="Enter path"
+        android:hint="Enter path or shell command"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvPath"

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.epfl.appspy.LogA;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -50,6 +52,7 @@ public class Database extends SQLiteOpenHelper {
             " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT SECONDARY KEY UNIQUE, " +
             COL_APP_NAME + " TEXT, " + COL_INSTALLATION_DATE + " INTEGER, " + COL_UNINSTALLATION_DATE + " INTEGER, " +
             COL_CURRENT_PERMISSIONS + " TEXT, " + COL_MAX_PERMISSIONS + " TEXT, " + COL_IS_SYSTEM + " INTEGER" + ")";
+
     private static final String CREATE_TABLE_APPS_ACTIVITY =
             "CREATE TABLE " + TABLE_APPS_ACTIVITY + "(" + COL_RECORD_ID +
             " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT, " + COL_TIMESTAMP + " TEXT, " +
@@ -106,7 +109,6 @@ public class Database extends SQLiteOpenHelper {
         throw new Resources.NotFoundException();
     }
 
-
     /**
      * @param packageName
      * @return
@@ -123,7 +125,6 @@ public class Database extends SQLiteOpenHelper {
         return cursor.getCount() > 0;
     }
 
-
     /**
      * Add an installation record about an app in the database if there is none, or update it if it already exists. The
      * existence is determined based on the package name.
@@ -139,7 +140,7 @@ public class Database extends SQLiteOpenHelper {
 
         //If the package_name does not exist, we add a new record
         if (installationRecordExists(newRecord.getPackageName()) == false) {
-            Log.i("Appspy DB", "A new ApplicationInstallationRecord has been added");
+            LogA.i("Appspy DB", "A new ApplicationInstallationRecord has been added");
             values.put(COL_MAX_PERMISSIONS, newRecord.getCurrentPermissions());
             values.put(COL_APP_NAME, newRecord.getApplicationName());
             values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
@@ -153,7 +154,7 @@ public class Database extends SQLiteOpenHelper {
         else {
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
             // Thus we update the columns uninstallation_date, the current_permissions and the max_permissions
-            Log.i("Appspy DB", "one applicationInstallationRecord has been updated");
+            LogA.i("Appspy DB", "one applicationInstallationRecord has been updated");
 
 
             //newRecord contains the updated values
@@ -263,7 +264,7 @@ public class Database extends SQLiteOpenHelper {
      * @param record
      */
     public void addApplicationActivityRecord(ApplicationActivityRecord record) {
-        Log.i("Appspy DB", "A new AppActiveTimestamp record has been added");
+        LogA.i("Appspy DB", "A new AppActiveTimestamp record has been added");
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

@@ -2,6 +2,8 @@ package com.epfl.appspy;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -13,9 +15,14 @@ import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Class providing functions to get information about the app installed on the device.
@@ -160,9 +167,54 @@ public class ApplicationsInformation {
                 return null;
             }
         } else {
+
+            Log.d("Appspy","PDFPASDPPFADPSDPFSDPSFAPFSD");
             //FOR API > 21
             //TODO, use statistic usage
             //http://stackoverflow.com/questions/24590533/how-to-get-recent-tasks-on-android-l
+
+            String context_usage_stats_service = "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
+
+            @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
+
+            Map<String,UsageStats> stats = manager.queryAndAggregateUsageStats(System.currentTimeMillis() - 10000, System.currentTimeMillis());
+            List<UsageStats> stats2 = manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, System.currentTimeMillis() - 30000, System.currentTimeMillis());
+
+            Set<String> set = stats.keySet();
+
+//            for(String s : set){
+//                UsageStats stat = stats.get(s);
+//                Date d1 = new Date(stat.getLastTimeUsed());
+//                Date d2 = new Date(stat.getFirstTimeStamp());
+//                Date d3 = new Date(stat.getLastTimeStamp());
+//                SimpleDateFormat f = new SimpleDateFormat("k:m");
+//
+//                Log.d("Appspy","Hello " + s + " - foreground:"+stat.getTotalTimeInForeground() + " - last used:"+ f.format(d1));
+//                Log.d("Appspy"," - first:" + f.format(d2) + " - last:"+ f.format(d3));
+//
+//
+//            }
+
+            for(UsageStats stat : stats2){
+                Date d1 = new Date(stat.getLastTimeUsed());
+                Date d2 = new Date(stat.getFirstTimeStamp());
+                Date d3 = new Date(stat.getLastTimeStamp());
+                SimpleDateFormat f = new SimpleDateFormat("k:m:s");
+                SimpleDateFormat f2 = new SimpleDateFormat("m:s");
+
+
+                try {
+                    PackageInfo p = packageManager.getPackageInfo(stat.getPackageName(),PackageManager.GET_META_DATA);
+
+
+                Log.d("Appspy","Hello " + getAppName(p) + " - foreground is "+f2.format(stat.getTotalTimeInForeground()) + " - last used is "+ f.format(d1));
+                Log.d("Appspy"," - first is " + f.format(d2) + " - last is "+ f.format(d3));
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+}
+
 
 
 

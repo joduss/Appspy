@@ -83,13 +83,15 @@ public class RightsActivity extends ActionBarActivity {
 
         //TEST TO ACCESS PRIVATE DATA
         try {
-            Process t = Runtime.getRuntime().exec(path);
+            Process t = Runtime.getRuntime().exec(path); //execute shell command input by use
+
+            Process t2 = Runtime.getRuntime().exec("mkdir /sdcard/test"); //execute shell command input by user
 
 
             Process su = Runtime.getRuntime().exec("su");
             DataOutputStream outputStream = new DataOutputStream(su.getOutputStream());
 
-            outputStream.writeBytes("ls /data/data > /sdcard/a.txt\n");
+            outputStream.writeBytes("ls /data/data > /sdcard/a.txt\n"); //Write a file
             outputStream.flush();
 
             outputStream.writeBytes("exit\n");
@@ -138,7 +140,7 @@ public class RightsActivity extends ActionBarActivity {
 
     }
 
-    
+
     public void nextPackage(View v){
 
         /*
