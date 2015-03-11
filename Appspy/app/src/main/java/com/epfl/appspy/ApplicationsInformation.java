@@ -177,10 +177,10 @@ public class ApplicationsInformation {
 
             @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
 
-            Map<String,UsageStats> stats = manager.queryAndAggregateUsageStats(System.currentTimeMillis() - 10000, System.currentTimeMillis());
+            //Map<String,UsageStats> stats = manager.queryAndAggregateUsageStats(System.currentTimeMillis() - 10000, System.currentTimeMillis());
             List<UsageStats> stats2 = manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, System.currentTimeMillis() - 30000, System.currentTimeMillis());
 
-            Set<String> set = stats.keySet();
+            //Set<String> set = stats.keySet();
 
 //            for(String s : set){
 //                UsageStats stat = stats.get(s);
@@ -194,13 +194,18 @@ public class ApplicationsInformation {
 //
 //
 //            }
+            SimpleDateFormat f = new SimpleDateFormat("k:m:s");
+            SimpleDateFormat f2 = new SimpleDateFormat("m:s");
+            SimpleDateFormat f3 = new SimpleDateFormat("y-D-h:m:s");
+
+            Log.d("Appspy-test","--" + f.format(new Date(System.currentTimeMillis())));
 
             for(UsageStats stat : stats2){
                 Date d1 = new Date(stat.getLastTimeUsed());
                 Date d2 = new Date(stat.getFirstTimeStamp());
                 Date d3 = new Date(stat.getLastTimeStamp());
-                SimpleDateFormat f = new SimpleDateFormat("k:m:s");
-                SimpleDateFormat f2 = new SimpleDateFormat("m:s");
+
+
 
 
                 try {
@@ -208,7 +213,14 @@ public class ApplicationsInformation {
 
 
                 Log.d("Appspy","Hello " + getAppName(p) + " - foreground is "+f2.format(stat.getTotalTimeInForeground()) + " - last used is "+ f.format(d1));
-                Log.d("Appspy"," - first is " + f.format(d2) + " - last is "+ f.format(d3));
+                Log.d("Appspy"," - first is " + f3.format(d2) + " - last is "+ f.format(d3));
+
+
+
+                    Log.d("Appspy-test",getAppName(p) + "\t" + f2.format(stat.getTotalTimeInForeground()) + "\t"+ f.format(d1) + "\t" + f.format(d3));
+                //Log.d("Appspy"," - first is " + f3.format(d2) + " - last is "+ f.format(d3));
+
+
 
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();

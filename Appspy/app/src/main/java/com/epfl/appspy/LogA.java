@@ -10,4 +10,8 @@ public class LogA {
     public static void i(String tag, String message){
         //Log.i(tag, message);
     }
+
+    public static void d(String tag, String message){
+        //Log.d(tag, message);
+    }
 }

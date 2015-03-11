@@ -26,7 +26,10 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -153,14 +156,46 @@ public class RightsActivity extends ActionBarActivity {
         final String EXTRA = "extra";
 
 
-        final int tenSeconds = 10000;
+
+
+        final int tenSeconds = 30000; // TODO PUT BACK 10000
         final int minute = 60000;
-        final int halfHour = 30000; //60000 * 30; //For now: 30 seconds
+        final int halfHour = 30000; //TODO 60000 * 30; //For now: 30 seconds
         final int CODE_ONE = 12323;
         final int CODE_TWO = 12324;
 
         Intent backgroundChecker;
         PendingIntent pendingIntent;
+
+
+        //Ten second periodicity
+        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
+        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
+                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+
+        SimpleDateFormat f = new SimpleDateFormat("y,D,H,m");
+
+        Date d = new Date();
+        d.setTime(System.currentTimeMillis());
+
+        String currentTimeString = f.format(d);
+
+        Date roundToMinute;
+        try {
+            roundToMinute = f.parse(currentTimeString);
+
+        } catch(ParseException e){
+            //in case of errer, use the currentTimeMillis
+            roundToMinute = d;
+        }
+
+        long millisToStart = roundToMinute.getTime();
+
+
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, tenSeconds, pendingIntent);
 
         //Halft hour periodicity
         backgroundChecker = null;
@@ -170,16 +205,7 @@ public class RightsActivity extends ActionBarActivity {
         backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.HALF_HOUR);
         pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), halfHour, pendingIntent);
-
-        Log.d("Appspy","RESET ALARM");
-        //Ten second periodicity
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), tenSeconds, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, halfHour, pendingIntent);
 
         /*
         *

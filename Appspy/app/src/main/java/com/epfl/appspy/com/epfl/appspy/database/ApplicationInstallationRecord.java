@@ -16,47 +16,37 @@ public class ApplicationInstallationRecord {
 
 
     /**
-     *
-     * @param appId
+     *  @param appId
      * @param applicationName
      * @param packageName
      * @param installationDate
      * @param uninstallationDate
-     * @param currentPermissions
-     * @param maximumPermissions
      * @param isSystem
      */
     public ApplicationInstallationRecord(int appId, String applicationName, String packageName, long installationDate,
-                                         long uninstallationDate, String currentPermissions,
-                                         String maximumPermissions, boolean isSystem) {
+                                         long uninstallationDate, boolean isSystem) {
         this.appId = appId;
         this.applicationName = applicationName;
         this.packageName = packageName;
         this.installationDate = installationDate;
         this.uninstallationDate = uninstallationDate;
-        this.currentPermissions = currentPermissions;
-        this.maximumPermissions = maximumPermissions;
         this.isSystem = isSystem;
     }
 
 
     /**
-     *
-     * @param applicationName
+     *  @param applicationName
      * @param packageName
      * @param installationDate
      * @param uninstallationDate
-     * @param currentPermissions
      * @param isSystem
      */
     public ApplicationInstallationRecord(String applicationName, String packageName, long installationDate,
-                                         long uninstallationDate, String currentPermissions,
-                                         boolean isSystem) {
+                                         long uninstallationDate, boolean isSystem) {
         this.applicationName = applicationName;
         this.packageName = packageName;
         this.installationDate = installationDate;
         this.uninstallationDate = uninstallationDate;
-        this.currentPermissions = currentPermissions;
         this.isSystem = isSystem;
     }
 
@@ -108,26 +98,6 @@ public class ApplicationInstallationRecord {
 
     public void setUninstallationDate(long uninstallationDate) {
         this.uninstallationDate = uninstallationDate;
-    }
-
-
-    public String getCurrentPermissions() {
-        return currentPermissions;
-    }
-
-
-    public void setCurrentPermissions(String currentPermissions) {
-        this.currentPermissions = currentPermissions;
-    }
-
-
-    public String getMaximumPermissions() {
-        return maximumPermissions;
-    }
-
-
-    public void setMaximumPermissions(String maximumPermissions) {
-        this.maximumPermissions = maximumPermissions;
     }
 
 

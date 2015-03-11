@@ -14,6 +14,9 @@ import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -61,7 +64,28 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
         pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), tenSeconds, pendingIntent);
+
+        SimpleDateFormat f = new SimpleDateFormat("y,D,H,m");
+
+        Date d = new Date();
+        d.setTime(System.currentTimeMillis());
+
+        String currentTimeString = f.format(d);
+
+        Date roundToMinute;
+        try {
+            roundToMinute = f.parse(currentTimeString);
+
+        } catch(ParseException e){
+            //in case of errer, use the currentTimeMillis
+            roundToMinute = d;
+        }
+
+        long millisToStart = roundToMinute.getTime()-1;
+
+
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, tenSeconds, pendingIntent);
 
         //Halft hour periodicity
         backgroundChecker = null;
@@ -71,7 +95,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
         pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), halfHour, pendingIntent);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, halfHour, pendingIntent);
 
     }
 
@@ -123,9 +147,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         PackageInfo foregroundApp = appInformation.getUsedForegroundApp();
 
 
-        Log.d("Appspy-loginfo", "-------------------------------");
-        Log.d("Appspy-loginfo", "Active apps");
-        Log.d("Appspy-loginfo", "-------------------------------");
+        LogA.d("Appspy-loginfo", "-------------------------------");
+        LogA.d("Appspy-loginfo", "Active apps");
+        LogA.d("Appspy-loginfo", "-------------------------------");
 
         for (PackageInfo app : activeApps) {
 
@@ -138,11 +162,11 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             boolean isOnBackground = true;
             if (foregroundApp != null && app.packageName.equals(foregroundApp.packageName)) {
                 isOnBackground = false;
-                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()) + " <----- Foreground" + " t:"+t);
+                LogA.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()) + " <----- Foreground" + " t:"+t);
 
             }
             else {
-                Log.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager())  + " t:"+t );
+                LogA.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager())  + " t:"+t );
             }
             long currentTime = System.currentTimeMillis();
 
@@ -170,9 +194,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
 
 
-        Log.d("Appspy-loginfo", "-------------------------------");
-        Log.d("Appspy-loginfo", "Installed apps + Permissions");
-        Log.d("Appspy-loginfo", "-------------------------------");
+        LogA.d("Appspy-loginfo", "-------------------------------");
+        LogA.d("Appspy-loginfo", "Installed apps + Permissions");
+        LogA.d("Appspy-loginfo", "-------------------------------");
 
         Database db = new Database(this.context);
 
@@ -180,7 +204,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         for (PackageInfo app : permissionsForAllApps.keySet()) {
             List<String> permissions = permissionsForAllApps.get(app);
 
-            Log.d("Appspy-loginfo", appInformation.getAppName(app));
+            LogA.d("Appspy-loginfo", appInformation.getAppName(app));
             //Log.d("Appspy-loginfo","some permissions...");
 //            for (String p : permissions) {
 //                Log.d("Appspy-loginfo", p);
@@ -199,8 +223,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
             //Add or update the record in the database
             ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
-                                                                                     0, jsonPermissions.toString(),
-                                                                                     appSystem);
+                                                                                     0, appSystem);
             db.addOrUpdateApplicationInstallationRecord(record);
         }
     }
