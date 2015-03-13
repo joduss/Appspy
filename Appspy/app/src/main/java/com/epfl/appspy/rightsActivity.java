@@ -150,69 +150,15 @@ public class RightsActivity extends ActionBarActivity {
         *
         * DEBUG CODE ONLY
          */
-        Context context = getApplicationContext();
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            PeriodicTaskReceiver.createAlarms(getApplicationContext());
 
-        final String EXTRA = "extra";
-
-
-
-
-        final int tenSeconds = 30000; // TODO PUT BACK 10000
-        final int minute = 60000;
-        final int halfHour = 30000; //TODO 60000 * 30; //For now: 30 seconds
-        final int CODE_ONE = 12323;
-        final int CODE_TWO = 12324;
-
-        Intent backgroundChecker;
-        PendingIntent pendingIntent;
-
-
-        //Ten second periodicity
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
-
-        SimpleDateFormat f = new SimpleDateFormat("y,D,H,m");
-
-        Date d = new Date();
-        d.setTime(System.currentTimeMillis());
-
-        String currentTimeString = f.format(d);
-
-        Date roundToMinute;
-        try {
-            roundToMinute = f.parse(currentTimeString);
-
-        } catch(ParseException e){
-            //in case of errer, use the currentTimeMillis
-            roundToMinute = d;
-        }
-
-        long millisToStart = roundToMinute.getTime();
-
-
-
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, tenSeconds, pendingIntent);
-
-        //Halft hour periodicity
-        backgroundChecker = null;
-        pendingIntent = null;
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, PeriodicTaskReceiver.EXTRA_ACTION_PERIODICITY.HALF_HOUR);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, halfHour, pendingIntent);
 
         /*
         *
         * END DEBUG CODE ONLY
          */
 
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
 
         List<ActivityManager.RunningAppProcessInfo> info = activityManager.getRunningAppProcesses();
         for(ActivityManager.RunningAppProcessInfo i : info){

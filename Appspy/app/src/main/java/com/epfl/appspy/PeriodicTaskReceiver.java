@@ -1,12 +1,15 @@
 package com.epfl.appspy;
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.TrafficStats;
+import android.os.Build;
 import android.util.Log;
 
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
@@ -16,6 +19,7 @@ import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -34,23 +38,25 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     private final int NO_EXTRA = -1;
 
 
+    private static boolean alarmSet = false;
+
+
 
     private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
 
-    public void createAlarms(Context context, Intent intent) {
+    public static void createAlarms(Context context) {
 
-        periodicCheckHalfHour();
-        periodicCheckTenSeconds();
 
         Log.d("Appspy", "Alarm is set");
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
+        final int repeating = 30; //this one is used now (seconds)
 
-        final int tenSeconds = 30000; // TODO PUT BACK 10000
-        final int minute = 60000;
-        final int halfHour = 30000; //TODO 60000 * 30; //For now: 30 seconds
+        final int tenSeconds = 60000*5; // TODO PUT BACK 10000
+        final int halfHour = 60000*5; //TODO 60000 * 30; //For now: 30 seconds
+
         final int CODE_ONE = 12323;
         final int CODE_TWO = 12324;
 
@@ -65,27 +71,38 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
 
-        SimpleDateFormat f = new SimpleDateFormat("y,D,H,m");
 
-        Date d = new Date();
-        d.setTime(System.currentTimeMillis());
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minutes = cal.get(Calendar.MINUTE);
+        int seconds = cal.get(Calendar.SECOND);
 
-        String currentTimeString = f.format(d);
-
-        Date roundToMinute;
-        try {
-            roundToMinute = f.parse(currentTimeString);
-
-        } catch(ParseException e){
-            //in case of errer, use the currentTimeMillis
-            roundToMinute = d;
+        if(seconds > (31-15) && seconds < (31+15)){
+            cal.set(year,month,day,hour,minutes, 31);
+        }
+        else {
+            cal.set(year,month,day,hour,minutes, 1);
         }
 
-        long millisToStart = roundToMinute.getTime()-1;
+        cal.add(Calendar.SECOND, repeating);
 
 
 
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, tenSeconds, pendingIntent);
+        long millisToStart = cal.getTimeInMillis();
+
+
+        Log.d("Appspy-test","Next alarm at:" + cal.get(Calendar.HOUR) +"h" +cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND));
+
+
+        if(Build.VERSION.SDK_INT < 19) {
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, tenSeconds, pendingIntent);
+
+        } else {
+            manager.setExact(AlarmManager.RTC_WAKEUP, millisToStart, pendingIntent);
+        }
 
         //Halft hour periodicity
         backgroundChecker = null;
@@ -95,13 +112,24 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
         pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, halfHour, pendingIntent);
+
+
+
+        if(Build.VERSION.SDK_INT < 19) {
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, millisToStart, halfHour, pendingIntent);
+        } else {
+            manager.setExact(AlarmManager.RTC_WAKEUP, millisToStart, pendingIntent);
+        }
 
     }
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+
+        createAlarms(context);
+
 
         //Init class members
         if (this.context == null || this.appInformation == null) {
@@ -118,7 +146,10 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
                 // Register your reporting alarms here.
-                createAlarms(context, intent);
+
+                //periodicCheckHalfHour();
+                //periodicCheckTenSeconds();
+
 
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
