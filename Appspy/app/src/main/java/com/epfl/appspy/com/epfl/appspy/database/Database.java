@@ -12,6 +12,7 @@ import android.util.Log;
 import com.epfl.appspy.LogA;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -25,30 +26,34 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 33;
+    private static final int DB_VERSION = 35;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
     private static final String TABLE_APPS_ACTIVITY = "Table_applications_activity";
     private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
     private static final String TABLE_PERMISSIONS = "Table_permissions";
-    private static final String TABLE_INTERNET_ACTIVITY = "Table_internet_activity";
+    //private static final String TABLE_INTERNET_ACTIVITY = "Table_internet_activity";
 
     //TABLE_APPS_ACTIVITY columns names
     private static final String COL_APP_ID = "app_id"; //id in installed app
     private static final String COL_RECORD_ID = "record_id"; //id in any table, except in installed apps
     private static final String COL_APP_NAME = "app_name";
     private static final String COL_APP_PKG_NAME = "package_name";
-    private static final String COL_TIMESTAMP = "use_time";
+    //private static final String COL_TIMESTAMP = "use_time";
     private static final String COL_WAS_BACKGROUND = "was_background";
     private static final String COL_INSTALLATION_DATE = "installation_date";
     private static final String COL_UNINSTALLATION_DATE = "uninstallation_date";
-    private static final String COL_CURRENT_PERMISSIONS = "current_permissions";
-    private static final String COL_MAX_PERMISSIONS = "maximum_permissions";
+    //private static final String COL_CURRENT_PERMISSIONS = "current_permissions";
+    //private static final String COL_MAX_PERMISSIONS = "maximum_permissions";
     private static final String COL_IS_SYSTEM = "is_system";
     private static final String COL_PERMISSION_NAME = "permission_name";
     private static final String COL_PERMISSION_FIRST_USE = "first_use";
     private static final String COL_PERMISSION_LAST_USE = "last_use";
+
+    private static final String COL_START_USE_TIME = "start_using";
+    private static final String COL_STOP_USE_TIME = "stop_using";
+
     private static final String COL_UPLOADED_DATA = "uploaded_data";
     private static final String COL_DOWNLOADED_DATA = "downloaded_data";
 
@@ -62,8 +67,10 @@ public class Database extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_APPS_ACTIVITY =
             "CREATE TABLE " + TABLE_APPS_ACTIVITY + "(" + COL_RECORD_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT, " + COL_TIMESTAMP + " TEXT, " +
-            COL_WAS_BACKGROUND + " INTEGER " + ")";
+            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT, " + COL_START_USE_TIME +
+            " INTEGER, " + COL_STOP_USE_TIME + " INTEGER," +
+            COL_DOWNLOADED_DATA + " INTEGER, " + COL_UPLOADED_DATA + " INTEGER, " + COL_WAS_BACKGROUND + " INTEGER " +
+            ")";
 
     private static final String CREATE_TABLE_PERMISSIONS = "CREATE TABLE " + TABLE_PERMISSIONS + "(" + COL_RECORD_ID +
                                                            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
@@ -71,7 +78,7 @@ public class Database extends SQLiteOpenHelper {
                                                            COL_PERMISSION_NAME + " TEXT, " + COL_PERMISSION_FIRST_USE +
                                                            " INTEGER, " + COL_PERMISSION_LAST_USE + " INTEGER" + ")";
 
-    private static final String CREATE_TABLE_INTERNET_ACTIVITY = "CREATE TABLE " + TABLE_INTERNET_ACTIVITY + "(" + COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_TIMESTAMP + " INTEGER, " + COL_UPLOADED_DATA + " INTEGER, "  + COL_DOWNLOADED_DATA + " INTEGER" + ")";
+    //private static final String CREATE_TABLE_INTERNET_ACTIVITY = "CREATE TABLE " + TABLE_INTERNET_ACTIVITY + "(" + COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_TIMESTAMP + " INTEGER, " + COL_UPLOADED_DATA + " INTEGER, "  + COL_DOWNLOADED_DATA + " INTEGER" + ")";
 
 
 
@@ -85,8 +92,6 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
-        db.execSQL(CREATE_TABLE_INTERNET_ACTIVITY);
-
     }
 
 
@@ -96,12 +101,10 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
         db.execSQL("DROP TABLE " + TABLE_APPS_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
-        db.execSQL("DROP TABLE " + TABLE_INTERNET_ACTIVITY);
 
         db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
-        db.execSQL(CREATE_TABLE_INTERNET_ACTIVITY);
     }
 
 
@@ -131,6 +134,32 @@ public class Database extends SQLiteOpenHelper {
         //If nothing found, that means there is an error
         throw new Resources.NotFoundException();
     }
+
+
+    /**
+     * Returns the id (called appID) associated with that packageName in the table of installed apps
+     * @param packageName
+     * @return
+     */
+    public int getAppId(String packageName) {
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT " + COL_APP_ID + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" +
+                packageName + "\"";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst() && cursor.getCount() == 1) {
+            return cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
+
+        } else {
+            return -1;
+        }
+    }
+
+    //##################################################################################################################
+    //##################################################################################################################
+    // TABLE APPLICATION INSTALLED APPS
+    //##################################################################################################################
+    //##################################################################################################################
 
     /**
      * @param packageName
@@ -173,6 +202,7 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_IS_SYSTEM, newRecord.isSystem());
 
             db.insert(TABLE_INSTALLED_APPS, null, values);
+
         }
         else {
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
@@ -184,8 +214,6 @@ public class Database extends SQLiteOpenHelper {
             //oldRecord contains the one already in the DB
             ApplicationInstallationRecord oldRecord = getApplicationInstallationRecord(newRecord.getPackageName());
 
-            //For col maxPermissions do union of currentPermission and the maximumPermission of the existing records
-            HashSet<String> maxPermissions = new HashSet<>();
 
             //update only a few columns. The other stay the same.
             values.put(COL_APP_ID, oldRecord.getAppId());
@@ -194,6 +222,8 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_INSTALLATION_DATE, oldRecord.getInstallationDate());
             values.put(COL_UNINSTALLATION_DATE, newRecord.getUninstallationDate()); //updated with new
             values.put(COL_IS_SYSTEM, oldRecord.isSystem());
+
+
 
             //SQL query. Update the row for the current packageName
             String[] args = {newRecord.getPackageName()};
@@ -253,25 +283,13 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    /**
-     * Returns the id (called appID) associated with that packageName in the table of installed apps
-     * @param packageName
-     * @return
-     */
-    public int getAppId(String packageName) {
-        SQLiteDatabase db = getReadableDatabase();
-        String query =
-                "SELECT " + COL_APP_ID + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" +
-                packageName + "\"";
-        Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst() && cursor.getCount() == 1) {
-            return cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
 
-        } else {
-            return -1;
-        }
-    }
 
+    //##################################################################################################################
+    //##################################################################################################################
+    // TABLE APPLICATION ACTIVITY
+    //##################################################################################################################
+    //##################################################################################################################
 
     /**
      * @param record
@@ -280,10 +298,16 @@ public class Database extends SQLiteOpenHelper {
         LogA.i("Appspy DB", "A new AppActiveTimestamp record has been added");
         SQLiteDatabase db = this.getWritableDatabase();
 
+
+        //FIRST: check if there exists a record that exits, without end time for that app
+        //then verify that this record starttime is today
+        //then update start time
+
+
+
         ContentValues values = new ContentValues();
         //id will be created, none exist for the new record
         values.put(COL_APP_PKG_NAME, record.getPackageName());
-        values.put(COL_TIMESTAMP, record.getUseTime());
         values.put(COL_WAS_BACKGROUND, record.isBackground());
 
         db.insert(TABLE_APPS_ACTIVITY, null, values);
@@ -320,12 +344,60 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public void addInternetActivityRecord(InternetActivityRecord record){
+    /**
+     * Add or update the permissions records for the app having the packageName provided
+     * @param packageName the package name of the app to which the permissions have to be updated
+     * @param records Update of the permissions
+     */
+    public void updatePermissionRecordsForApp(String packageName, HashMap<String, PermissionRecord> records) {
+        SQLiteDatabase db = getWritableDatabase();
 
-    }
+        LogA.i("Appspy DB", "permission record closed");
 
-    public void addPermissionRecord(){
 
+        //Query first to get all the permission for an app, which are currently in use (=last time used = 0)
+        String query = "SELECT * FROM " + TABLE_PERMISSIONS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" +
+                       packageName + "\"" + " AND " + COL_PERMISSION_LAST_USE + "=0";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+
+            //For all the currently used permissions in the DB for that app, we check if they are
+            //in the permissions just checked. If they are, it means that they are still in used
+            //thus, nothing need to be done. We remove them from the hashmap.
+            do {
+                String permissionName = cursor.getString(cursor.getColumnIndex(COL_PERMISSION_NAME));
+                if (records.containsKey(permissionName)) {
+                    records.remove(permissionName);
+                }
+                else {
+                    //If they are not in the hashmap, it means they are not used anymore and we update the record
+                    //and set the time where the permission has been dropped as NOW.
+                    ContentValues values = new ContentValues();
+                    values.put(COL_RECORD_ID, cursor.getLong(cursor.getColumnIndex(COL_RECORD_ID)));
+                    values.put(COL_APP_PKG_NAME, cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME)));
+                    values.put(COL_PERMISSION_NAME, cursor.getString(cursor.getColumnIndex(COL_PERMISSION_NAME)));
+                    values.put(COL_PERMISSION_FIRST_USE,
+                               cursor.getLong(cursor.getColumnIndex(COL_PERMISSION_FIRST_USE)));
+                    values.put(COL_PERMISSION_LAST_USE, System.currentTimeMillis());
+                    db.update(TABLE_PERMISSIONS, values,
+                              COL_RECORD_ID + "=" + cursor.getLong(cursor.getColumnIndex(COL_RECORD_ID)), null);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        //At this point, the hashmap only contains permissions that should be inserted in the DB
+        //New ones, or "old ones" that were not used anymore, but that are used again, thus it is a new record
+        for (PermissionRecord record : records.values()) {
+            LogA.i("Appspy DB", "new permission record");
+            ContentValues values = new ContentValues();
+            values.put(COL_APP_PKG_NAME, record.getPackageName());
+            values.put(COL_PERMISSION_NAME, record.getPermissionName());
+            values.put(COL_PERMISSION_FIRST_USE, record.getTimestamp());
+            values.put(COL_PERMISSION_LAST_USE, 0); //start using permission now. no lastuse so set = 0
+            db.insert(TABLE_PERMISSIONS, null, values);
+        }
     }
 
 

@@ -1,26 +1,23 @@
 package com.epfl.appspy;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.TrafficStats;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
+import com.epfl.appspy.com.epfl.appspy.database.PermissionRecord;
 import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -45,6 +42,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
 
+    private static int interval = 60000*2;
+
+
     public static void createAlarms(Context context) {
 
 
@@ -52,7 +52,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        final int repeating = 30; //this one is used now (seconds)
+        final int repeating = 20; //this one is used now (seconds)
+        interval = repeating * 1000;
 
         final int tenSeconds = 60000*5; // TODO PUT BACK 10000
         final int halfHour = 60000*5; //TODO 60000 * 30; //For now: 30 seconds
@@ -80,18 +81,14 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         int minutes = cal.get(Calendar.MINUTE);
         int seconds = cal.get(Calendar.SECOND);
 
-        if(seconds > (31-15) && seconds < (31+15)){
-            cal.set(year,month,day,hour,minutes, 31);
-        }
-        else {
-            cal.set(year,month,day,hour,minutes, 1);
-        }
-
         cal.add(Calendar.SECOND, repeating);
 
 
 
         long millisToStart = cal.getTimeInMillis();
+
+        //millisToStart = System.currentTimeMillis() + 10000;
+
 
 
         Log.d("Appspy-test","Next alarm at:" + cal.get(Calendar.HOUR) +"h" +cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND));
@@ -126,7 +123,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
 
         createAlarms(context);
 
@@ -165,6 +161,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
                 periodicCheckHalfHour();
             }
         }
+
+        //show message on screen to show that it is working
+        Toast.makeText(context, "Broadcast received", Toast.LENGTH_LONG).show();
     }
 
 
@@ -175,7 +174,7 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
 
         List<PackageInfo> activeApps = appInformation.getActiveApps();
-        PackageInfo foregroundApp = appInformation.getUsedForegroundApp();
+        PackageInfo foregroundApp = appInformation.getUsedForegroundApp(interval);
 
 
         LogA.d("Appspy-loginfo", "-------------------------------");
@@ -205,8 +204,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             //TODO: get all apps running
             // + for the one that is on foreground, set isOnBackground to false
             // maybe follow how done with finding the one on foreground. GetRunningTask puis, check is running?
-            ApplicationActivityRecord record = new ApplicationActivityRecord(pkgName, currentTime, isOnBackground);
-            db.addApplicationActivityRecord(record);
+            //ApplicationActivityRecord record = new ApplicationActivityRecord(pkgName, currentTime, isOnBackground);
+            //db.addApplicationActivityRecord(record);
 
 
             //ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
@@ -256,6 +255,14 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
                                                                                      0, appSystem);
             db.addOrUpdateApplicationInstallationRecord(record);
+
+            //Update the permissions records for the app
+            HashMap<String, PermissionRecord> permissionRecords = new HashMap<>();
+            for(String permissionName : permissions){
+                PermissionRecord permRecord = new PermissionRecord(pkgName, permissionName, System.currentTimeMillis());
+                permissionRecords.put(permissionName, permRecord);
+            }
+            db.updatePermissionRecordsForApp(app.packageName, permissionRecords);
         }
     }
 

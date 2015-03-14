@@ -8,23 +8,25 @@ public class PermissionRecord {
     private long id;
     private String packageName;
     private String permissionName;
-    private long permissionFirtUse;
-    private long permissionLastUse;
+    private long timestamp = 0;
+    private long permissionFirstUse = 0;
+    private long permissionLastUse = 0;
 
 
-    public PermissionRecord(long id, String packageName, String permissionName, long permissionFirtUse, long permissionLastUse){
+    public PermissionRecord(long id, String packageName, String permissionName, long permissionFirstUse, long permissionLastUse){
         this.id = id;
         this.packageName = packageName;
         this.permissionName = permissionName;
-        this.permissionFirtUse = permissionFirtUse;
+        this.permissionFirstUse = permissionFirstUse;
         this.permissionLastUse = permissionLastUse;
     }
 
-    public PermissionRecord(String packageName, String permissionName, long permissionFirtUse, long permissionLastUse){
+
+    public PermissionRecord(String packageName, String permissionName, long timestamp){
         this.packageName = packageName;
         this.permissionName = permissionName;
-        this.permissionFirtUse = permissionFirtUse;
-        this.permissionLastUse = permissionLastUse;
+        this.timestamp = timestamp;
+        //this.permissionLastUse = permissionLastUse;
     }
 
 
@@ -35,6 +37,16 @@ public class PermissionRecord {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
 
@@ -58,13 +70,13 @@ public class PermissionRecord {
     }
 
 
-    public long getPermissionFirtUse() {
-        return permissionFirtUse;
+    public long getPermissionFirstUse() {
+        return permissionFirstUse;
     }
 
 
-    public void setPermissionFirtUse(long permissionFirtUse) {
-        this.permissionFirtUse = permissionFirtUse;
+    public void setPermissionFirstUse(long permissionFirtUse) {
+        this.permissionFirstUse = permissionFirtUse;
     }
 
 
