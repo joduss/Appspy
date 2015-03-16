@@ -79,7 +79,7 @@
 //        //id will be created, none exist for the new record
 //        values.put(COL_APP_NAME, record.getApplicationName());
 //        values.put(COL_APP_PKG_NAME, record.getPackageName());
-//        values.put(COL_TIMESTAMP, record.getUseTime());
+//        values.put(COL_TIMESTAMP, record.getForegroundTime());
 //        values.put(COL_WAS_BACKGROUND, record.isBackground());
 //
 //        db.insert(TABLE_APPS_ACTIVITY, null, values);

@@ -10,8 +10,6 @@ public class ApplicationInstallationRecord {
     private String packageName;
     private long installationDate;
     private long uninstallationDate;
-    private String currentPermissions;
-    private String maximumPermissions;
     private boolean isSystem;
 
 

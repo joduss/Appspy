@@ -5,56 +5,65 @@ package com.epfl.appspy.com.epfl.appspy.database;
  */
 
 /**
- * This class is a record of the activity of an app at a given time.
- * Ex: MeteoSwiss, was active in background, 20.1.2015 at 22:30
- *     Facebook, was active in foreground, 20.1.2015 at 22:30
-*
+ * This class is a record of the activity of an app at a given time. Ex: MeteoSwiss, was active in background, 20.1.2015
+ * at 22:30 Facebook, was active in foreground, 20.1.2015 at 22:30
  */
 public class ApplicationActivityRecord {
 
 
-    private int recordId;
+    private long recordId;
     private String packageName;
-    private long useTime;
-    private boolean background;
+    private long foregroundTime;
+    private long lastTimeUsed;
+    long uploadedData;
+    long downloadedData;
+    long recordTime;
 
 
     /**
      *
      * @param recordId
      * @param packageName
-     * @param useTime
-     * @param background
+     * @param foregroundTime
+     * @param lastTimeUsed
+     * @param uploadedData
+     * @param downloadedData
      */
-    protected ApplicationActivityRecord(int recordId, String packageName, long useTime, boolean background){
+    protected ApplicationActivityRecord(long recordId, String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData) {
         this.recordId = recordId;
         this.packageName = packageName;
-        this.useTime = useTime;
-        this.background = background;
+        this.foregroundTime = foregroundTime;
+        this.lastTimeUsed = lastTimeUsed;
+        this.uploadedData = uploadedData;
+        this.downloadedData = downloadedData;
+        this.recordTime = recordTime;
     }
 
 
     /**
      *
      * @param packageName
-     * @param useTime
-     * @param background
+     * @param foregroundTime
+     * @param lastTimeUsed
+     * @param uploadedData
+     * @param downloadedData
      */
-    public ApplicationActivityRecord(String packageName, long useTime, boolean background){
+    public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData) {
         this.packageName = packageName;
-        this.useTime = useTime;
-        this.background = background;
+        this.foregroundTime = foregroundTime;
+        this.lastTimeUsed = lastTimeUsed;
+        this.uploadedData = uploadedData;
+        this.downloadedData = downloadedData;
+        this.recordTime = recordTime;
     }
 
 
-
-
-    public int getRecordId() {
+    public long getRecordId() {
         return recordId;
     }
 
 
-    public void setRecordId(int recordId) {
+    public void setRecordId(long recordId) {
         this.recordId = recordId;
     }
 
@@ -69,24 +78,51 @@ public class ApplicationActivityRecord {
     }
 
 
-    public long getUseTime() {
-        return useTime;
+    public long getForegroundTime() {
+        return foregroundTime;
     }
 
 
-    public void setUseTime(long useTime) {
-        this.useTime = useTime;
+    public void setForegroundTime(long foregroundTime) {
+        this.foregroundTime = foregroundTime;
+    }
+
+    public long getLastTimeUsed() {
+        return lastTimeUsed;
     }
 
 
-    public boolean isBackground() {
-        return background;
+    public void setLastTimeUsed(long lastTimeUsed) {
+        this.lastTimeUsed = lastTimeUsed;
     }
 
 
-    public void setBackground(boolean background) {
-        this.background = background;
+    public long getUploadedData() {
+        return uploadedData;
     }
 
 
+    public void setUploadedData(long uploadedData) {
+        this.uploadedData = uploadedData;
+    }
+
+
+    public long getDownloadedData() {
+        return downloadedData;
+    }
+
+
+    public void setDownloadedData(long downloadedData) {
+        this.downloadedData = downloadedData;
+    }
+
+
+    public long getRecordTime() {
+        return recordTime;
+    }
+
+
+    public void setRecordTime(long recordTime) {
+        this.recordTime = recordTime;
+    }
 }

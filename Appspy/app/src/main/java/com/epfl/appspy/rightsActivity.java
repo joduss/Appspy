@@ -158,12 +158,12 @@ public class RightsActivity extends ActionBarActivity {
         * END DEBUG CODE ONLY
          */
 
-        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-
-        List<ActivityManager.RunningAppProcessInfo> info = activityManager.getRunningAppProcesses();
-        for(ActivityManager.RunningAppProcessInfo i : info){
-            Log.d("Appspy-2", i.processName);
-        }
+//        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+//
+//        List<ActivityManager.RunningAppProcessInfo> info = activityManager.getRunningAppProcesses();
+//        for(ActivityManager.RunningAppProcessInfo i : info){
+//            Log.d("Appspy-2", i.processName);
+//        }
 
     }
 }

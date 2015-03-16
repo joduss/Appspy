@@ -145,93 +145,17 @@ public class ApplicationsInformation {
      *
      * @return The app the user is using now or null otherwise
      */
-    public PackageInfo getUsedForegroundApp() {
+    public List<UsageStats> getUsedForegroundApp(long interval) {
 
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        //List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
-        //List<PackageInfo> activeApps = new ArrayList<>();
+        String context_usage_stats_service = "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
+        @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
 
+        List<UsageStats> statistics =
+                manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, System.currentTimeMillis() - interval,
+                                        System.currentTimeMillis());
 
-        //FOR API < 21
-        final int deprecationFrom = 21;
-        if (Build.VERSION.SDK_INT < 21) {
-            List<ActivityManager.RunningTaskInfo> runningTask = activityManager.getRunningTasks(1);
-            ActivityManager.RunningTaskInfo taskRunning = runningTask.get(0);
+        return statistics;
 
-            String packageName = taskRunning.topActivity.getPackageName();
-
-            try {
-                return packageManager.getPackageInfo(packageName, PackageManager.GET_META_DATA);
-            }
-            catch(PackageManager.NameNotFoundException e){
-                return null;
-            }
-        } else {
-
-            Log.d("Appspy","PDFPASDPPFADPSDPFSDPSFAPFSD");
-            //FOR API > 21
-            //TODO, use statistic usage
-            //http://stackoverflow.com/questions/24590533/how-to-get-recent-tasks-on-android-l
-
-            String context_usage_stats_service = "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
-
-            @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
-
-            //Map<String,UsageStats> stats = manager.queryAndAggregateUsageStats(System.currentTimeMillis() - 10000, System.currentTimeMillis());
-            List<UsageStats> stats2 = manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, System.currentTimeMillis() - 30000, System.currentTimeMillis());
-
-            //Set<String> set = stats.keySet();
-
-//            for(String s : set){
-//                UsageStats stat = stats.get(s);
-//                Date d1 = new Date(stat.getLastTimeUsed());
-//                Date d2 = new Date(stat.getFirstTimeStamp());
-//                Date d3 = new Date(stat.getLastTimeStamp());
-//                SimpleDateFormat f = new SimpleDateFormat("k:m");
-//
-//                Log.d("Appspy","Hello " + s + " - foreground:"+stat.getTotalTimeInForeground() + " - last used:"+ f.format(d1));
-//                Log.d("Appspy"," - first:" + f.format(d2) + " - last:"+ f.format(d3));
-//
-//
-//            }
-            SimpleDateFormat f = new SimpleDateFormat("k:m:s");
-            SimpleDateFormat f2 = new SimpleDateFormat("m:s");
-            SimpleDateFormat f3 = new SimpleDateFormat("y-D-h:m:s");
-
-            Log.d("Appspy-test","--" + f.format(new Date(System.currentTimeMillis())));
-
-            for(UsageStats stat : stats2){
-                Date d1 = new Date(stat.getLastTimeUsed());
-                Date d2 = new Date(stat.getFirstTimeStamp());
-                Date d3 = new Date(stat.getLastTimeStamp());
-
-
-
-
-                try {
-                    PackageInfo p = packageManager.getPackageInfo(stat.getPackageName(),PackageManager.GET_META_DATA);
-
-
-                Log.d("Appspy","Hello " + getAppName(p) + " - foreground is "+f2.format(stat.getTotalTimeInForeground()) + " - last used is "+ f.format(d1));
-                Log.d("Appspy"," - first is " + f3.format(d2) + " - last is "+ f.format(d3));
-
-
-
-                    Log.d("Appspy-test",getAppName(p) + "\t" + f2.format(stat.getTotalTimeInForeground()) + "\t"+ f.format(d1) + "\t" + f.format(d3));
-                //Log.d("Appspy"," - first is " + f3.format(d2) + " - last is "+ f.format(d3));
-
-
-
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-}
-
-
-
-
-            return null;
-        }
     }
 
 

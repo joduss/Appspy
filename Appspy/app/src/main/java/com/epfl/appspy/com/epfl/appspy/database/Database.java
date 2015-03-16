@@ -26,14 +26,13 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 35;
+    private static final int DB_VERSION = 37;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
-    private static final String TABLE_APPS_ACTIVITY = "Table_applications_activity";
+    private static final String TABLE_APPS_FOREGROUND_ACTIVITY = "Table_applications_activity";
     private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
     private static final String TABLE_PERMISSIONS = "Table_permissions";
-    //private static final String TABLE_INTERNET_ACTIVITY = "Table_internet_activity";
 
     //TABLE_APPS_ACTIVITY columns names
     private static final String COL_APP_ID = "app_id"; //id in installed app
@@ -44,41 +43,49 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_WAS_BACKGROUND = "was_background";
     private static final String COL_INSTALLATION_DATE = "installation_date";
     private static final String COL_UNINSTALLATION_DATE = "uninstallation_date";
-    //private static final String COL_CURRENT_PERMISSIONS = "current_permissions";
-    //private static final String COL_MAX_PERMISSIONS = "maximum_permissions";
+
     private static final String COL_IS_SYSTEM = "is_system";
     private static final String COL_PERMISSION_NAME = "permission_name";
     private static final String COL_PERMISSION_FIRST_USE = "first_use";
     private static final String COL_PERMISSION_LAST_USE = "last_use";
 
-    private static final String COL_START_USE_TIME = "start_using";
-    private static final String COL_STOP_USE_TIME = "stop_using";
+    private static final String COL_FOREGROUND_TIME_USAGE = "foreground_time_usage";
+    private static final String COL_LAST_TIME_USE = "last_time_use";
 
     private static final String COL_UPLOADED_DATA = "uploaded_data";
     private static final String COL_DOWNLOADED_DATA = "downloaded_data";
 
+    private static final String COL_RECORD_TIME = "record_time";
+
 
     //Table creation SQL statement
     private static final String CREATE_TABLE_INSTALLED_APPS =
-            "CREATE TABLE " + TABLE_INSTALLED_APPS + "(" + COL_APP_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT SECONDARY KEY UNIQUE, " +
-            COL_APP_NAME + " TEXT, " + COL_INSTALLATION_DATE + " INTEGER, " + COL_UNINSTALLATION_DATE + " INTEGER, " +
+            "CREATE TABLE " + TABLE_INSTALLED_APPS + "(" +
+            COL_APP_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COL_APP_PKG_NAME + " TEXT SECONDARY KEY UNIQUE, " +
+            COL_APP_NAME + " TEXT, " +
+            COL_INSTALLATION_DATE + " INTEGER, " +
+            COL_UNINSTALLATION_DATE + " INTEGER, " +
             COL_IS_SYSTEM + " INTEGER" + ")";
 
-    private static final String CREATE_TABLE_APPS_ACTIVITY =
-            "CREATE TABLE " + TABLE_APPS_ACTIVITY + "(" + COL_RECORD_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_APP_PKG_NAME + " TEXT, " + COL_START_USE_TIME +
-            " INTEGER, " + COL_STOP_USE_TIME + " INTEGER," +
-            COL_DOWNLOADED_DATA + " INTEGER, " + COL_UPLOADED_DATA + " INTEGER, " + COL_WAS_BACKGROUND + " INTEGER " +
-            ")";
+    private static final String CREATE_TABLE_APPS_FOREGROUND_ACTIVITY =
+            "CREATE TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY + "("
+            + COL_RECORD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COL_APP_PKG_NAME + " TEXT, " +
+            COL_RECORD_TIME + " INTEGER, " +
+            COL_FOREGROUND_TIME_USAGE + " INTEGER SECONDARY KEY, " +
+            COL_LAST_TIME_USE + " INTEGER," +
+            COL_DOWNLOADED_DATA + " INTEGER, " +
+            COL_UPLOADED_DATA + " INTEGER "
+            + ")";
 
-    private static final String CREATE_TABLE_PERMISSIONS = "CREATE TABLE " + TABLE_PERMISSIONS + "(" + COL_RECORD_ID +
-                                                           " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                                                           COL_APP_PKG_NAME + " TEXT SECONDARY KEY, " +
-                                                           COL_PERMISSION_NAME + " TEXT, " + COL_PERMISSION_FIRST_USE +
-                                                           " INTEGER, " + COL_PERMISSION_LAST_USE + " INTEGER" + ")";
+    private static final String CREATE_TABLE_PERMISSIONS =
+            "CREATE TABLE " + TABLE_PERMISSIONS + "(" +
+            COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COL_APP_PKG_NAME + " TEXT SECONDARY KEY, " +
+            COL_PERMISSION_NAME + " TEXT, " + COL_PERMISSION_FIRST_USE +" INTEGER, " +
+            COL_PERMISSION_LAST_USE + " INTEGER" + ")";
 
-    //private static final String CREATE_TABLE_INTERNET_ACTIVITY = "CREATE TABLE " + TABLE_INTERNET_ACTIVITY + "(" + COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COL_TIMESTAMP + " INTEGER, " + COL_UPLOADED_DATA + " INTEGER, "  + COL_DOWNLOADED_DATA + " INTEGER" + ")";
 
 
 
@@ -89,7 +96,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
+        db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
     }
@@ -99,10 +106,10 @@ public class Database extends SQLiteOpenHelper {
         //TODO
         Log.d("Appspy", "HEY DROP TABLE SQL");
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
-        db.execSQL("DROP TABLE " + TABLE_APPS_ACTIVITY);
+        db.execSQL("DROP TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
 
-        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
+        db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
     }
@@ -174,7 +181,7 @@ public class Database extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(query, null);
 
-        return cursor.getCount() > 0;
+        return cursor.moveToFirst();
     }
 
     /**
@@ -197,8 +204,6 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
             values.put(COL_INSTALLATION_DATE, newRecord.getInstallationDate());
             values.put(COL_UNINSTALLATION_DATE, newRecord.getUninstallationDate());
-            //values.put(COL_CURRENT_PERMISSIONS, newRecord.getCurrentPermissions());
-            //values.put(COL_MAX_PERMISSIONS, newRecord.getCurrentPermissions());
             values.put(COL_IS_SYSTEM, newRecord.isSystem());
 
             db.insert(TABLE_INSTALLED_APPS, null, values);
@@ -229,24 +234,26 @@ public class Database extends SQLiteOpenHelper {
             String[] args = {newRecord.getPackageName()};
             db.update(TABLE_INSTALLED_APPS, values, COL_APP_PKG_NAME + " = ?", args);
         }
+
+        //close db
         db.close();
     }
 
 
     public List<ApplicationInstallationRecord> getAllApplicationInstallationRecords() {
         //TODO implement for real
-        SQLiteDatabase db = getReadableDatabase();
-
-        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + " = 0 ";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-
-        if (cursor.moveToFirst()) {
-            do {
-                Log.d("Appspy", "IS IN DB:" + cursor.getString(cursor.getColumnIndex(COL_APP_NAME)));
-            } while (cursor.moveToNext());
-        }
+//        SQLiteDatabase db = getReadableDatabase();
+//
+//        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + " = 0 ";
+//
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                Log.d("Appspy", "IS IN DB:" + cursor.getString(cursor.getColumnIndex(COL_APP_NAME)));
+//            } while (cursor.moveToNext());
+//        }
         return null;
     }
 
@@ -295,7 +302,6 @@ public class Database extends SQLiteOpenHelper {
      * @param record
      */
     public void addApplicationActivityRecord(ApplicationActivityRecord record) {
-        LogA.i("Appspy DB", "A new AppActiveTimestamp record has been added");
         SQLiteDatabase db = this.getWritableDatabase();
 
 
@@ -303,15 +309,81 @@ public class Database extends SQLiteOpenHelper {
         //then verify that this record starttime is today
         //then update start time
 
+        final String query = "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " +
+                             COL_APP_PKG_NAME + "=\"" +record.getPackageName() + "\" AND " +
+                             COL_LAST_TIME_USE + "=" + record.getLastTimeUsed() + " AND " +
+                             COL_FOREGROUND_TIME_USAGE + "=" + record.getForegroundTime() + " AND " +
+                             COL_DOWNLOADED_DATA + "=" + record.getDownloadedData() + " AND " +
+                             COL_UPLOADED_DATA + "=" + record.getUploadedData();
+
+        Cursor c = db.rawQuery(query, null);
 
 
-        ContentValues values = new ContentValues();
-        //id will be created, none exist for the new record
-        values.put(COL_APP_PKG_NAME, record.getPackageName());
-        values.put(COL_WAS_BACKGROUND, record.isBackground());
+        if(c.moveToFirst()){
+            //there is a record that is the same, do nothing
+        }
+        else {
 
-        db.insert(TABLE_APPS_ACTIVITY, null, values);
-        db.close();
+
+            ContentValues values = new ContentValues();
+            //id will be created, none exist for the new record
+            values.put(COL_APP_PKG_NAME, record.getPackageName());
+            values.put(COL_RECORD_TIME, record.getRecordTime());
+            values.put(COL_FOREGROUND_TIME_USAGE, record.getForegroundTime());
+            values.put(COL_LAST_TIME_USE, record.getLastTimeUsed());
+            values.put(COL_DOWNLOADED_DATA, record.getDownloadedData());
+            values.put(COL_UPLOADED_DATA, record.getUploadedData());
+
+            db.insert(TABLE_APPS_FOREGROUND_ACTIVITY, null, values);
+            db.close();
+
+            LogA.i("Appspy DB", "New application activity record added");
+
+        }
+
+        //TODO
+
+        /*
+            1. check if the same record exists
+            2. if yes, abord
+            3. if no, add it
+         */
+    }
+
+
+    /**
+     * Return the most recent record about the application
+     * @param packageName the package name of the app
+     * @return the most recent record
+     */
+    public ApplicationActivityRecord getLastApplicationActivityRecord(String packageName){
+        //SELECT * FROM Table_applications_activity where last_time_use = (SELECT max(last_time_use) FROM Table_applications_activity WHERE package_name=...)
+
+        String query = "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " + COL_RECORD_TIME + "=" +
+                "(" +
+                "SELECT MAX(" + COL_RECORD_TIME + ") FROM " + TABLE_APPS_FOREGROUND_ACTIVITY +
+                " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName + "\"" +
+                ")";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor result = db.rawQuery(query, null);
+
+        if (result.moveToFirst()) {
+            do {
+                long recordID = result.getLong(result.getColumnIndex(COL_RECORD_ID));
+                long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
+                long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
+                long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
+                long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
+                long uploded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+
+                return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
+                                                     uploded, downloaded);
+
+            } while (result.moveToNext());
+        }
+        return null;
     }
 
 
@@ -321,29 +393,35 @@ public class Database extends SQLiteOpenHelper {
      */
     //TODO adapt according to state (and also system app or not system app)
     public List<ApplicationActivityRecord> getApplicationActivityRecords(ACTIVE_STATE state, boolean includeSystem) {
-        SQLiteDatabase db = getReadableDatabase();
-
-        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + "=0";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        ArrayList<ApplicationActivityRecord> records = new ArrayList<ApplicationActivityRecord>();
-
-        if (cursor.moveToFirst()) {
-            do {
-//                int id = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
-//                String name = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
-//                String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
-//                long timestampTime = cursor.getLong(cursor.getColumnIndex(COL_TIMESTAMP));
-//                boolean wasBackground = cursor.getInt(cursor.getColumnIndex(COL_WAS_BACKGROUND)) == 1;
-//                records.add(new ApplicationActivityRecord(id,name,pkgName, timestampTime, wasBackground));
-            } while (cursor.moveToNext());
-        }
-
-        return records;
+//        SQLiteDatabase db = getReadableDatabase();
+//
+//        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + "=0";
+//
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//        ArrayList<ApplicationActivityRecord> records = new ArrayList<ApplicationActivityRecord>();
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+////                int id = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
+////                String name = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
+////                String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
+////                long timestampTime = cursor.getLong(cursor.getColumnIndex(COL_TIMESTAMP));
+////                boolean wasBackground = cursor.getInt(cursor.getColumnIndex(COL_WAS_BACKGROUND)) == 1;
+////                records.add(new ApplicationActivityRecord(id,name,pkgName, timestampTime, wasBackground));
+//            } while (cursor.moveToNext());
+//        }
+//
+//        return records;
+        return null;
     }
 
 
+    //##################################################################################################################
+    //##################################################################################################################
+    // TABLE PERMISSIONS
+    //##################################################################################################################
+    //##################################################################################################################
     /**
      * Add or update the permissions records for the app having the packageName provided
      * @param packageName the package name of the app to which the permissions have to be updated
@@ -351,9 +429,6 @@ public class Database extends SQLiteOpenHelper {
      */
     public void updatePermissionRecordsForApp(String packageName, HashMap<String, PermissionRecord> records) {
         SQLiteDatabase db = getWritableDatabase();
-
-        LogA.i("Appspy DB", "permission record closed");
-
 
         //Query first to get all the permission for an app, which are currently in use (=last time used = 0)
         String query = "SELECT * FROM " + TABLE_PERMISSIONS + " WHERE " + COL_APP_PKG_NAME + "=" + "\"" +
@@ -383,6 +458,7 @@ public class Database extends SQLiteOpenHelper {
                     values.put(COL_PERMISSION_LAST_USE, System.currentTimeMillis());
                     db.update(TABLE_PERMISSIONS, values,
                               COL_RECORD_ID + "=" + cursor.getLong(cursor.getColumnIndex(COL_RECORD_ID)), null);
+
                 }
             } while (cursor.moveToNext());
         }
@@ -398,6 +474,9 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_PERMISSION_LAST_USE, 0); //start using permission now. no lastuse so set = 0
             db.insert(TABLE_PERMISSIONS, null, values);
         }
+
+        //closing the db
+        db.close();
     }
 
 
