@@ -15,6 +15,12 @@ import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +28,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -183,6 +190,42 @@ public class ApplicationsInformation {
      */
     public String getAppName(PackageInfo packageInfo) {
         return (String) packageInfo.applicationInfo.loadLabel(packageManager);
+    }
+
+
+
+    public long getUploadedDataAmount(int uid){
+
+        String result = "";
+        try {
+            File fr = new File("/proc/uid_stat/" + uid + "/tcp_snd");
+            Scanner sc = new Scanner(new FileReader(fr));
+
+            while (sc.hasNext()) {
+                result += sc.nextLine();
+            }
+            return Long.parseLong(result);
+        } catch (IOException e) {
+            Log.d("Appspy", e.toString());
+        }
+        return 0;
+    }
+
+    public long getDownloadedDataAmount(int uid){
+
+        String result = "";
+        try {
+            File fr = new File("/proc/uid_stat/" + uid + "/tcp_rcv");
+            Scanner sc = new Scanner(new FileReader(fr));
+
+            while (sc.hasNext()) {
+                result += sc.nextLine();
+            }
+            return Long.parseLong(result);
+        } catch (IOException e) {
+            Log.d("Appspy", e.toString());
+        }
+        return 0;
     }
 
 }

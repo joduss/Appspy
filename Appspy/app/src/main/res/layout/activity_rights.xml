@@ -25,12 +25,14 @@
         android:id="@+id/button_next_package"/>
 
     <Button
-        android:text="Test Path"
+        android:text="Test Path / test command / show data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_next_package"
         android:onClick="testAccess"
         android:id="@+id/button_test_path"/>
+
+
 
     <EditText
         android:hint="Enter path or shell command"
@@ -38,5 +40,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvPath"
         android:layout_below="@+id/button_test_path"/>
+
+    <Button
+        android:text="Compute stat now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPath"
+        android:onClick="computeStatNow"
+        android:id="@+id/button_compute_now"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_compute_now"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview"/>
+    </ScrollView>
+
 
 </RelativeLayout>

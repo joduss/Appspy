@@ -51,6 +51,52 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     private static int interval;
 
 
+
+    ////FOR DEBUG ONLY
+    public static void computeDirection(Context context){
+        Log.d("Appspy", "Alarm is set");
+
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        final int CODE_ONE = 12323;
+        final int CODE_TWO = 12324;
+
+        Intent backgroundChecker;
+        PendingIntent pendingIntent;
+
+
+        //Ten second periodicity
+        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
+        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
+                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+
+
+        long nextAlarmInMillis = System.currentTimeMillis()+3000;
+
+        //millisToStart = System.currentTimeMillis() + 10000;
+
+
+
+        Log.d("Appspy-test","Ask for direct stat computation");
+            manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
+
+        //Halft hour periodicity
+        backgroundChecker = null;
+        pendingIntent = null;
+        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker.setAction(Intent.ACTION_SEND);
+        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
+        pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
+                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+
+        manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
+        ////END FOR DEBUG ONLY
+
+    }
+
+
     public static void createAlarms(Context context) {
 
 
@@ -98,8 +144,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         //millisToStart = System.currentTimeMillis() + 10000;
 
 
-
-        Log.d("Appspy-test","Next alarm at:" + cal.get(Calendar.HOUR) +"h" +cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND));
+        Log.d("Appspy-test", "Next alarm at:" + cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + ":" +
+                             cal.get(Calendar.SECOND));
 
 
         if(Build.VERSION.SDK_INT < 19) {
@@ -115,13 +161,14 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
         backgroundChecker.setAction(Intent.ACTION_SEND);
         backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
+        pendingIntent =
+                PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker, PendingIntent.FLAG_CANCEL_CURRENT);
 
 
-        if(Build.VERSION.SDK_INT < 19) {
+        if (Build.VERSION.SDK_INT < 19) {
             manager.setRepeating(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, interval, pendingIntent);
-        } else {
+        }
+        else {
             manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
         }
 
@@ -132,7 +179,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         createAlarms(context);
-
 
         //Init class members
         if (this.context == null || this.appInformation == null) {
@@ -189,13 +235,15 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         LogA.d("Appspy-loginfo", "-------------------------------");
 
 
-        String context_usage_stats_service = "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
-        @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
+        String context_usage_stats_service =
+                "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
+        @SuppressWarnings("ResourceType") UsageStatsManager manager =
+                (UsageStatsManager) context.getSystemService(context_usage_stats_service);
 
         List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
         PackageManager pkgManager = context.getPackageManager();
 
-        Log.d("Appspy","number of US: " + statistics.size());
+        Log.d("Appspy", "number of US: " + statistics.size());
 
         long now = System.currentTimeMillis();
         Database db = new Database(context);
@@ -208,24 +256,39 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
                 long downloadedData = TrafficStats.getUidRxBytes(pi.applicationInfo.uid);
                 long uploadedData = TrafficStats.getUidTxBytes(pi.applicationInfo.uid);
 
-                Log.d("Appspy","data: Rx" + TrafficStats.getTotalRxBytes() + "   Tx:"+ TrafficStats.getTotalTxBytes()
-                     + "    total:" + TrafficStats.getUidTxBytes(pi.applicationInfo.uid));
 
-                ApplicationActivityRecord record =
-                        new ApplicationActivityRecord(stat.getPackageName(), now, stat.getTotalTimeInForeground(),
-                                                      stat.getLastTimeUsed(), downloadedData, uploadedData);
-                db.addApplicationActivityRecord(record);
 
                 SimpleDateFormat f2 = new SimpleDateFormat("m:s");
                 SimpleDateFormat f = new SimpleDateFormat("k:m:s");
 
 
                 Date d1 = new Date(stat.getLastTimeUsed());
-                Date d2 = new Date(stat.getFirstTimeStamp());
-                Date d3 = new Date(stat.getLastTimeStamp());
+                //Date d2 = new Date(stat.getFirstTimeStamp());
+                //Date d3 = new Date(stat.getLastTimeStamp());
+
+                long snd = appInformation.getUploadedDataAmount(pi.applicationInfo.uid);
+                long rcv = appInformation.getDownloadedDataAmount(pi.applicationInfo.uid);
+
+                Log.d("Appspy", "snd egal?" + (snd == uploadedData) + "   \t" + snd + "|\t" + uploadedData);
+                Log.d("Appspy", "rcv egal?" + (rcv == downloadedData) + "   \t" + rcv + "|\t" + downloadedData);
+
 
                 Log.d("Appspy", "Hello " + appInformation.getAppName(pi) + " - foreground is " +
                                 f2.format(stat.getTotalTimeInForeground()) + " - last used is " + f.format(d1));
+
+
+                //If TrafficStats is working, use these data, otherwise, load data from another way
+                //if TrafficsStat is not working, then data will be 0.
+                //So if 0, maybe, TrafficStats does not work, so use the other method. The latter will return 0
+                //if indeed, no data were sent
+                long bestDownData = (downloadedData == 0) ? downloadedData : rcv;
+                long bestUpData = (uploadedData == 0) ? uploadedData : snd;
+
+                ApplicationActivityRecord record =
+                        new ApplicationActivityRecord(stat.getPackageName(), now, stat.getTotalTimeInForeground(),
+                                                      stat.getLastTimeUsed(), bestDownData, bestUpData);
+                db.addApplicationActivityRecord(record);
+
 
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
