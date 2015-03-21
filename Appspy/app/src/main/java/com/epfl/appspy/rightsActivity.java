@@ -13,9 +13,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.net.TrafficStats;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -174,10 +176,6 @@ public class RightsActivity extends ActionBarActivity {
                 long snd = appInformation.getUploadedDataAmount(pi.applicationInfo.uid);
                 long rcv = appInformation.getDownloadedDataAmount(pi.applicationInfo.uid);
 
-
-
-
-
                 Log.d("Appspy", "uploaded TS:?" + uploadedData + "| file: " + snd);
                 Log.d("Appspy", "downloaded TS:?" + downloadedData + "| file: " + rcv);
 
@@ -193,11 +191,14 @@ public class RightsActivity extends ActionBarActivity {
 
             }
             catch(PackageManager.NameNotFoundException e){
-
+                System.err.println("##############\n This error should not happen. If it happens, try to see why!!");
+                e.printStackTrace();
+                System.exit(1);
             }
         }
         textView.setText(t);
-
+//        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+//        clipboard.setText(t);
 
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -205,6 +206,43 @@ public class RightsActivity extends ActionBarActivity {
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
 
+
+    }
+
+
+    public void sendDB(View v){
+        try {
+
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File f = new File(path + "/tmp");
+            if(f.exists() == false){
+                f.mkdir();
+            }
+
+
+
+        Process root2 = Runtime.getRuntime().exec("cp /data/data/com.epfl.appspy/databases/Appspy_database " + path + "/tmp/data2.zip");
+
+            String fileDB = path + "/tmp/data2.zip";
+
+            File f2 = new File(fileDB);
+            Log.d("Appspy","exits: " + f2.exists() );
+            Log.d("Appspy","exits2: " + new File(path).exists() );
+
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+        intent.setType("file/*");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
+        //intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:/" + fileDB));
+        intent.setData(Uri.parse("mailto:zatixjo@gmail.com")); // or just "mailto:" for blank
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+        startActivity(intent);
+
+            //Process root3 = Runtime.getRuntime().exec("rm /sdcard/tmp/database.db");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

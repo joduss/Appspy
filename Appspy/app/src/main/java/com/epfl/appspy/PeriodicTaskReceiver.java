@@ -24,8 +24,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -221,10 +223,10 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
 
     /**
-     * Handle of the tasks that should be done every 10 seconds
+     * Handle of the tasks that should be done often
      */
     private void periodicCheckOften() {
-        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 10 seconds");
+        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK often");
 
         List<PackageInfo> activeApps = appInformation.getActiveApps();
         //PackageInfo foregroundApp = appInformation.getUsedForegroundApp(interval);
@@ -247,51 +249,59 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
         long now = System.currentTimeMillis();
         Database db = new Database(context);
+        boolean foregroundAppStatsAvailable = false;
+        Set<String> foregroundPackageName = new HashSet<>();
+
         for (UsageStats stat : statistics) {
-            long lastUsed = stat.getLastTimeUsed();
+            foregroundAppStatsAvailable = true;
             try {
                 PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
+                foregroundPackageName.add(pi.packageName);
 
+                //BEGIN DEBUG
+//                long downloadedData = TrafficStats.getUidRxBytes(pi.applicationInfo.uid);
+//                long uploadedData = TrafficStats.getUidTxBytes(pi.applicationInfo.uid);
+//
+//                SimpleDateFormat f2 = new SimpleDateFormat("m:s");
+//                SimpleDateFormat f = new SimpleDateFormat("k:m:s");
+//
+//                Date d1 = new Date(stat.getLastTimeUsed());
+//                //Date d2 = new Date(stat.getFirstTimeStamp());
+//                //Date d3 = new Date(stat.getLastTimeStamp());
+//
+//                long snd = appInformation.getUploadedDataAmountFromFile(pi.applicationInfo.uid);
+//                long rcv = appInformation.getDownloadedDataAmountFromFile(pi.applicationInfo.uid);
+//
+//                Log.d("Appspy", "snd egal?" + (snd == uploadedData) + "   \t" + snd + "|\t" + uploadedData);
+//                Log.d("Appspy", "rcv egal?" + (rcv == downloadedData) + "   \t" + rcv + "|\t" + downloadedData);
+//
+//
+//                Log.d("Appspy", "Hello " + appInformation.getAppName(pi) + " - foreground is " +
+//                                f2.format(stat.getTotalTimeInForeground()) + " - last used is " + f.format(d1));
+                //END DEBUG
 
-                long downloadedData = TrafficStats.getUidRxBytes(pi.applicationInfo.uid);
-                long uploadedData = TrafficStats.getUidTxBytes(pi.applicationInfo.uid);
-
-
-
-                SimpleDateFormat f2 = new SimpleDateFormat("m:s");
-                SimpleDateFormat f = new SimpleDateFormat("k:m:s");
-
-
-                Date d1 = new Date(stat.getLastTimeUsed());
-                //Date d2 = new Date(stat.getFirstTimeStamp());
-                //Date d3 = new Date(stat.getLastTimeStamp());
-
-                long snd = appInformation.getUploadedDataAmount(pi.applicationInfo.uid);
-                long rcv = appInformation.getDownloadedDataAmount(pi.applicationInfo.uid);
-
-                Log.d("Appspy", "snd egal?" + (snd == uploadedData) + "   \t" + snd + "|\t" + uploadedData);
-                Log.d("Appspy", "rcv egal?" + (rcv == downloadedData) + "   \t" + rcv + "|\t" + downloadedData);
-
-
-                Log.d("Appspy", "Hello " + appInformation.getAppName(pi) + " - foreground is " +
-                                f2.format(stat.getTotalTimeInForeground()) + " - last used is " + f.format(d1));
-
-
-                //If TrafficStats is working, use these data, otherwise, load data from another way
-                //if TrafficsStat is not working, then data will be 0.
-                //So if 0, maybe, TrafficStats does not work, so use the other method. The latter will return 0
-                //if indeed, no data were sent
-                long bestDownData = (downloadedData == 0) ? downloadedData : rcv;
-                long bestUpData = (uploadedData == 0) ? uploadedData : snd;
+                final int uid = pi.applicationInfo.uid;
 
                 ApplicationActivityRecord record =
                         new ApplicationActivityRecord(stat.getPackageName(), now, stat.getTotalTimeInForeground(),
-                                                      stat.getLastTimeUsed(), bestDownData, bestUpData);
-                db.addApplicationActivityRecord(record);
-
+                                                      stat.getLastTimeUsed(), appInformation.getUploadedDataAmount(uid),
+                                                      appInformation.getDownloadedDataAmount(uid));
+                db.addApplicationActivityRecordIntelligent(record);
 
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
+            }
+        }
+
+        if(foregroundAppStatsAvailable){
+            //now also get the info about background processes
+            List<PackageInfo> runningApps = appInformation.getActiveApps();
+
+            //need to exclude foreground apps!
+            for(PackageInfo pi : runningApps){
+                if(foregroundPackageName.contains(pi.packageName) == false){
+
+                }
             }
         }
 
@@ -330,10 +340,10 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
 
     /**
-     * Handles the task that should be done every half hour
+     * Handles the task that should be done not too often
      */
     private void periodicCheckSometimes() {
-        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK every 30 minutes");
+        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK sometimes");
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);

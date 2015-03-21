@@ -18,6 +18,7 @@ public class ApplicationActivityRecord {
     long uploadedData;
     long downloadedData;
     long recordTime;
+    boolean wasForeground;
 
 
     /**
@@ -29,7 +30,7 @@ public class ApplicationActivityRecord {
      * @param uploadedData
      * @param downloadedData
      */
-    protected ApplicationActivityRecord(long recordId, String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData) {
+    protected ApplicationActivityRecord(long recordId, String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData, boolean wasForeground) {
         this.recordId = recordId;
         this.packageName = packageName;
         this.foregroundTime = foregroundTime;
@@ -37,17 +38,30 @@ public class ApplicationActivityRecord {
         this.uploadedData = uploadedData;
         this.downloadedData = downloadedData;
         this.recordTime = recordTime;
+        this.wasForeground = wasForeground;
     }
 
 
     /**
-     *
      * @param packageName
+     * @param recordTime
      * @param foregroundTime
      * @param lastTimeUsed
      * @param uploadedData
      * @param downloadedData
+     * @param wasForeground
      */
+    public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData, boolean wasForeground) {
+        this.packageName = packageName;
+        this.foregroundTime = foregroundTime;
+        this.lastTimeUsed = lastTimeUsed;
+        this.uploadedData = uploadedData;
+        this.downloadedData = downloadedData;
+        this.recordTime = recordTime;
+        this.wasForeground = wasForeground;
+    }
+
+
     public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData) {
         this.packageName = packageName;
         this.foregroundTime = foregroundTime;
@@ -124,5 +138,15 @@ public class ApplicationActivityRecord {
 
     public void setRecordTime(long recordTime) {
         this.recordTime = recordTime;
+    }
+
+
+    public boolean isWasForeground() {
+        return wasForeground;
+    }
+
+
+    public void setWasForeground(boolean wasForeground) {
+        this.wasForeground = wasForeground;
     }
 }

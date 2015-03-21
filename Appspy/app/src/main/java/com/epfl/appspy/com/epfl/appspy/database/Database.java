@@ -26,7 +26,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 37;
+    private static final int DB_VERSION = 42;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -40,7 +40,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_APP_NAME = "app_name";
     private static final String COL_APP_PKG_NAME = "package_name";
     //private static final String COL_TIMESTAMP = "use_time";
-    private static final String COL_WAS_BACKGROUND = "was_background";
+    //private static final String COL_WAS_BACKGROUND = "was_background";
     private static final String COL_INSTALLATION_DATE = "installation_date";
     private static final String COL_UNINSTALLATION_DATE = "uninstallation_date";
 
@@ -56,6 +56,8 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_DOWNLOADED_DATA = "downloaded_data";
 
     private static final String COL_RECORD_TIME = "record_time";
+
+    private static final String COL_WAS_FOREGROUND = "was_foreground";
 
 
     //Table creation SQL statement
@@ -76,7 +78,8 @@ public class Database extends SQLiteOpenHelper {
             COL_FOREGROUND_TIME_USAGE + " INTEGER SECONDARY KEY, " +
             COL_LAST_TIME_USE + " INTEGER," +
             COL_DOWNLOADED_DATA + " INTEGER, " +
-            COL_UPLOADED_DATA + " INTEGER "
+            COL_UPLOADED_DATA + " INTEGER, " +
+            COL_WAS_FOREGROUND + " INTEGER"
             + ")";
 
     private static final String CREATE_TABLE_PERMISSIONS =
@@ -104,7 +107,6 @@ public class Database extends SQLiteOpenHelper {
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //TODO
-        Log.d("Appspy", "HEY DROP TABLE SQL");
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
         db.execSQL("DROP TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
@@ -199,7 +201,7 @@ public class Database extends SQLiteOpenHelper {
 
         //If the package_name does not exist, we add a new record
         if (installationRecordExists(newRecord.getPackageName()) == false) {
-            LogA.i("Appspy DB", "A new ApplicationInstallationRecord has been added");
+            LogA.i("Appspy-DB", "A new ApplicationInstallationRecord has been added");
             values.put(COL_APP_NAME, newRecord.getApplicationName());
             values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
             values.put(COL_INSTALLATION_DATE, newRecord.getInstallationDate());
@@ -212,7 +214,7 @@ public class Database extends SQLiteOpenHelper {
         else {
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
             // Thus we update the columns uninstallation_date, the current_permissions and the max_permissions
-            LogA.i("Appspy DB", "one applicationInstallationRecord has been updated");
+            LogA.i("Appspy-DB", "one applicationInstallationRecord has been updated");
 
 
             //newRecord contains the updated values
@@ -298,10 +300,71 @@ public class Database extends SQLiteOpenHelper {
     //##################################################################################################################
     //##################################################################################################################
 
+
     /**
+     *
      * @param record
+     * @return if a record was added, meaning if app was active on foreground
      */
-    public void addApplicationActivityRecord(ApplicationActivityRecord record) {
+//    public boolean addApplicationActivityRecord(ApplicationActivityRecord record) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//
+//        //FIRST: check if there exists a record that exits, without end time for that app
+//        //then verify that this record starttime is today
+//        //then update start time
+//
+//        //of the last_use_time
+//
+//        final String query = "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " +
+//                             COL_APP_PKG_NAME + "=\"" +record.getPackageName() + "\" AND " +
+//                             COL_LAST_TIME_USE + "=" + record.getLastTimeUsed() + " AND " +
+//                             COL_FOREGROUND_TIME_USAGE + "=" + record.getForegroundTime() + " AND "// +
+////                             COL_DOWNLOADED_DATA + "=" + record.getDownloadedData() + " AND " +
+////                             COL_UPLOADED_DATA + "=" + record.getUploadedData();
+//
+//        Cursor c = db.rawQuery(query, null);
+//
+//
+//        if(c.moveToFirst()){
+//            //there is a record that is the same, do nothing
+//        }
+//        else {
+//
+//
+//            ContentValues values = new ContentValues();
+//            //id will be created, none exist for the new record
+//            values.put(COL_APP_PKG_NAME, record.getPackageName());
+//            values.put(COL_RECORD_TIME, record.getRecordTime());
+//            values.put(COL_FOREGROUND_TIME_USAGE, record.getForegroundTime());
+//            values.put(COL_LAST_TIME_USE, record.getLastTimeUsed());
+//            values.put(COL_DOWNLOADED_DATA, record.getDownloadedData());
+//            values.put(COL_UPLOADED_DATA, record.getUploadedData());
+//
+//            db.insert(TABLE_APPS_FOREGROUND_ACTIVITY, null, values);
+//            db.close();
+//
+//            LogA.i("Appspy-DB", "New application activity record added");
+//
+//        }
+//
+//        //TODO
+//
+//        /*
+//            1. check if the same record exists
+//            2. if yes, abord
+//            3. if no, add it
+//         */
+//    }
+
+
+    /**
+     * Add activity record and automatically set if the app was active on foreground. In the othercase, it check
+     * if an activity occured on background. Otherwise, no record is added
+     * @param newRecord
+     * @return if a record was added, meaning if app was active on foreground
+     */
+    public void addApplicationActivityRecordIntelligent(ApplicationActivityRecord newRecord) {
         SQLiteDatabase db = this.getWritableDatabase();
 
 
@@ -309,46 +372,62 @@ public class Database extends SQLiteOpenHelper {
         //then verify that this record starttime is today
         //then update start time
 
-        final String query = "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " +
-                             COL_APP_PKG_NAME + "=\"" +record.getPackageName() + "\" AND " +
-                             COL_LAST_TIME_USE + "=" + record.getLastTimeUsed() + " AND " +
-                             COL_FOREGROUND_TIME_USAGE + "=" + record.getForegroundTime() + " AND " +
-                             COL_DOWNLOADED_DATA + "=" + record.getDownloadedData() + " AND " +
-                             COL_UPLOADED_DATA + "=" + record.getUploadedData();
+        //of the last_use_time
 
-        Cursor c = db.rawQuery(query, null);
+        ApplicationActivityRecord lastRecord = getLastApplicationActivityRecord(newRecord.getPackageName());
+        boolean wasForeground;
+        boolean wasActiveInBackground;
 
+        //Check if apps was active on foreground
+        if(lastRecord == null){
+            //mean the app was open, thus active
+            wasForeground = true;
+            wasActiveInBackground = false;
+            Log.d("Appspy-DB","NULL");
+        }
+        else if(lastRecord.getForegroundTime() != newRecord.getForegroundTime()){
+            wasForeground = true;
+            wasActiveInBackground = false;
+            Log.d("Appspy-DB","else if + " + lastRecord.getForegroundTime() + "   " + newRecord.getForegroundTime());
 
-        if(c.moveToFirst()){
-            //there is a record that is the same, do nothing
         }
         else {
+            wasForeground = false;
+            //then the app was in background. Need to check if it was active (did down/upload data)
+            //check if app was active in background (did downloaded/upload some data
+            if(lastRecord.getUploadedData() != newRecord.getUploadedData() ||
+               lastRecord.getDownloadedData() != newRecord.getDownloadedData()) {
+                wasActiveInBackground = true;
+            }
+            else {
+                wasActiveInBackground = false;
+            }
 
+            Log.d("Appspy-DB","active back: " + wasActiveInBackground);
+
+        }
+
+
+        //If is was active in a way, we add the record to the DB
+        if(wasForeground || wasActiveInBackground){
 
             ContentValues values = new ContentValues();
             //id will be created, none exist for the new record
-            values.put(COL_APP_PKG_NAME, record.getPackageName());
-            values.put(COL_RECORD_TIME, record.getRecordTime());
-            values.put(COL_FOREGROUND_TIME_USAGE, record.getForegroundTime());
-            values.put(COL_LAST_TIME_USE, record.getLastTimeUsed());
-            values.put(COL_DOWNLOADED_DATA, record.getDownloadedData());
-            values.put(COL_UPLOADED_DATA, record.getUploadedData());
+            values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
+            values.put(COL_RECORD_TIME, newRecord.getRecordTime());
+            values.put(COL_FOREGROUND_TIME_USAGE, newRecord.getForegroundTime());
+            values.put(COL_LAST_TIME_USE, newRecord.getLastTimeUsed());
+            values.put(COL_DOWNLOADED_DATA, newRecord.getDownloadedData());
+            values.put(COL_UPLOADED_DATA, newRecord.getUploadedData());
+            values.put(COL_WAS_FOREGROUND, wasForeground);
 
             db.insert(TABLE_APPS_FOREGROUND_ACTIVITY, null, values);
             db.close();
 
-            LogA.i("Appspy DB", "New application activity record added");
-
+            LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
         }
-
-        //TODO
-
-        /*
-            1. check if the same record exists
-            2. if yes, abord
-            3. if no, add it
-         */
     }
+
 
 
     /**
@@ -363,7 +442,9 @@ public class Database extends SQLiteOpenHelper {
                 "(" +
                 "SELECT MAX(" + COL_RECORD_TIME + ") FROM " + TABLE_APPS_FOREGROUND_ACTIVITY +
                 " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName + "\"" +
-                ")";
+                ")" +
+                " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\"";
+
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -376,10 +457,11 @@ public class Database extends SQLiteOpenHelper {
                 long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
                 long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
                 long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
-                long uploded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+                long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+                boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
 
                 return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploded, downloaded);
+                                                     uploaded, downloaded, wasForeground);
 
             } while (result.moveToNext());
         }
@@ -466,7 +548,7 @@ public class Database extends SQLiteOpenHelper {
         //At this point, the hashmap only contains permissions that should be inserted in the DB
         //New ones, or "old ones" that were not used anymore, but that are used again, thus it is a new record
         for (PermissionRecord record : records.values()) {
-            LogA.i("Appspy DB", "new permission record");
+            LogA.i("Appspy-DB", "new permission record");
             ContentValues values = new ContentValues();
             values.put(COL_APP_PKG_NAME, record.getPackageName());
             values.put(COL_PERMISSION_NAME, record.getPermissionName());

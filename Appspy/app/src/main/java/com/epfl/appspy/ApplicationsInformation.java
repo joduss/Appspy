@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
+import android.net.TrafficStats;
 import android.os.Build;
 import android.util.Log;
 
@@ -162,7 +163,6 @@ public class ApplicationsInformation {
                                         System.currentTimeMillis());
 
         return statistics;
-
     }
 
 
@@ -193,9 +193,7 @@ public class ApplicationsInformation {
     }
 
 
-
-    public long getUploadedDataAmount(int uid){
-
+    protected long getUploadedDataAmountFromFile(int uid){
         String result = "";
         try {
             File fr = new File("/proc/uid_stat/" + uid + "/tcp_snd");
@@ -206,13 +204,11 @@ public class ApplicationsInformation {
             }
             return Long.parseLong(result);
         } catch (IOException e) {
-            Log.d("Appspy", e.toString());
+            return 0;
         }
-        return 0;
     }
 
-    public long getDownloadedDataAmount(int uid){
-
+    protected long getDownloadedDataAmountFromFile(int uid){
         String result = "";
         try {
             File fr = new File("/proc/uid_stat/" + uid + "/tcp_rcv");
@@ -223,9 +219,30 @@ public class ApplicationsInformation {
             }
             return Long.parseLong(result);
         } catch (IOException e) {
-            Log.d("Appspy", e.toString());
+            return 0;
         }
-        return 0;
+    }
+
+
+
+    public long getUploadedDataAmount(int uid){
+        long uploadedData = TrafficStats.getUidTxBytes(uid);
+        long snd = getUploadedDataAmountFromFile(uid);
+        //If TrafficStats is working, use these data, otherwise, load data from another way
+        //if TrafficsStat is not working, then data will be 0.
+        //So if 0, maybe, TrafficStats does not work, so use the other method. The latter will return 0
+        //if indeed, no data were sent
+        return (uploadedData != 0) ? uploadedData : snd;
+    }
+
+    public long getDownloadedDataAmount(int uid){
+        long downloadedData = TrafficStats.getUidRxBytes(uid);
+        long snd = getDownloadedDataAmountFromFile(uid);
+        //If TrafficStats is working, use these data, otherwise, load data from another way
+        //if TrafficsStat is not working, then data will be 0.
+        //So if 0, maybe, TrafficStats does not work, so use the other method. The latter will return 0
+        //if indeed, no data were sent
+        return (downloadedData != 0) ? downloadedData : snd;
     }
 
 }
