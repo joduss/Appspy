@@ -26,7 +26,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 42;
+    private static final int DB_VERSION = 44;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names

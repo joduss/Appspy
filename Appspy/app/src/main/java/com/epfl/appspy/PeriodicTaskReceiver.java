@@ -228,19 +228,12 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
     private void periodicCheckOften() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK often");
 
-        List<PackageInfo> activeApps = appInformation.getActiveApps();
-        //PackageInfo foregroundApp = appInformation.getUsedForegroundApp(interval);
-
 
         LogA.d("Appspy-loginfo", "-------------------------------");
         LogA.d("Appspy-loginfo", "Active apps");
         LogA.d("Appspy-loginfo", "-------------------------------");
 
 
-        String context_usage_stats_service =
-                "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
-        @SuppressWarnings("ResourceType") UsageStatsManager manager =
-                (UsageStatsManager) context.getSystemService(context_usage_stats_service);
 
         List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
         PackageManager pkgManager = context.getPackageManager();
@@ -249,11 +242,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
         long now = System.currentTimeMillis();
         Database db = new Database(context);
-        boolean foregroundAppStatsAvailable = false;
         Set<String> foregroundPackageName = new HashSet<>();
 
         for (UsageStats stat : statistics) {
-            foregroundAppStatsAvailable = true;
             try {
                 PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
                 foregroundPackageName.add(pi.packageName);
@@ -293,49 +284,25 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             }
         }
 
-        if(foregroundAppStatsAvailable){
-            //now also get the info about background processes
-            List<PackageInfo> runningApps = appInformation.getActiveApps();
+        //now also get the info about background processes
+        List<PackageInfo> runningApps = appInformation.getActiveApps();
 
-            //need to exclude foreground apps!
-            for(PackageInfo pi : runningApps){
-                if(foregroundPackageName.contains(pi.packageName) == false){
+        //need to exclude already processed apps
 
-                }
+        //if the app is not in the stat, then the foreground time for that day is 0
+        //that means the app may have background task running even if not open by the user
+        for (PackageInfo pi : runningApps) {
+            if (foregroundPackageName.contains(pi.packageName) == false) {
+                final int uid = pi.applicationInfo.uid;
+                ApplicationActivityRecord record = new ApplicationActivityRecord(pi.packageName, now, 0, 0,
+                                                                                 appInformation.getUploadedDataAmount(
+                                                                                         uid),
+                                                                                 appInformation.getDownloadedDataAmount(
+                                                                                         uid), false);
+                db.addApplicationActivityRecordIntelligent(record);
             }
         }
 
-
-//        for (PackageInfo app : activeApps) {
-//
-//            Database db = new Database(context);
-//
-//            String appName = appInformation.getAppName(app);
-//            String pkgName = app.packageName;
-//
-//            long t = TrafficStats.getUidTxPackets(app.applicationInfo.uid);
-//            boolean isOnBackground = true;
-//            if (foregroundApp != null && app.packageName.equals(foregroundApp.packageName)) {
-//                isOnBackground = false;
-//                LogA.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager()) + " <----- Foreground" + " t:"+t);
-//            }
-//            else {
-//                LogA.d("Appspy-loginfo", "" + app.applicationInfo.loadLabel(context.getPackageManager())  + " t:"+t );
-//            }
-//            long currentTime = System.currentTimeMillis();
-//
-//
-//
-//            //TODO: get all apps running
-//            // + for the one that is on foreground, set isOnBackground to false
-//            // maybe follow how done with finding the one on foreground. GetRunningTask puis, check is running?
-//            //ApplicationActivityRecord record = new ApplicationActivityRecord(pkgName, currentTime, isOnBackground);
-//            //db.addApplicationActivityRecord(record);
-//
-//
-//            //ApplicationActivityRecordsDatabase db = new ApplicationActivityRecordsDatabase(this.context);
-//            //db.addApplicationActiveTimestamp(record);
-//        }
     }
 
 
