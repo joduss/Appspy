@@ -54,6 +54,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
 
 
+
+
     ////FOR DEBUG ONLY
     public static void computeDirection(Context context){
         Log.d("Appspy", "Alarm is set");
@@ -302,6 +304,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
                 db.addApplicationActivityRecordIntelligent(record);
             }
         }
+
+        db.close();
 
     }
 

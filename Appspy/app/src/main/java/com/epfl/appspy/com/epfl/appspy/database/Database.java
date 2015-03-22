@@ -26,13 +26,14 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 44;
+    private static final int DB_VERSION = 50;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
     private static final String TABLE_APPS_FOREGROUND_ACTIVITY = "Table_applications_activity";
     private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
     private static final String TABLE_PERMISSIONS = "Table_permissions";
+    private static final String TABLE_APPS_INTERNET_USE_LAST_TIME = "Table_internet_use_last_time";
 
     //TABLE_APPS_ACTIVITY columns names
     private static final String COL_APP_ID = "app_id"; //id in installed app
@@ -89,7 +90,14 @@ public class Database extends SQLiteOpenHelper {
             COL_PERMISSION_NAME + " TEXT, " + COL_PERMISSION_FIRST_USE +" INTEGER, " +
             COL_PERMISSION_LAST_USE + " INTEGER" + ")";
 
-
+    private static final String CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME =
+            "CREATE TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME + "("
+            + COL_RECORD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COL_APP_PKG_NAME + " TEXT, " +
+            COL_RECORD_TIME + " INTEGER, " +
+            COL_DOWNLOADED_DATA + " INTEGER, " +
+            COL_UPLOADED_DATA + " INTEGER " +
+            ")";
 
 
     public Database(Context context) {
@@ -102,6 +110,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
+        db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
     }
 
 
@@ -110,10 +119,18 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
         db.execSQL("DROP TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
+        db.execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
+
 
         db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
+        db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
+    }
+
+    public void deviceStarted(){
+        this.getWritableDatabase().execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
+        this.getWritableDatabase().execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
     }
 
 
@@ -274,7 +291,8 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         //Verify that the is exactly one record. As the package name is unique, there is 0 or 1 row in the cursor.
-        if (cursor.moveToFirst() && cursor.getCount() == 1) {
+        //if 0, moveToFirst returns false
+        if (cursor.moveToFirst()) {
             int appId = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
             String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
             String appName = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
@@ -301,11 +319,11 @@ public class Database extends SQLiteOpenHelper {
     //##################################################################################################################
 
 
-    /**
-     *
-     * @param record
-     * @return if a record was added, meaning if app was active on foreground
-     */
+//    /**
+//     *
+//     * @param record
+//     * @return if a record was added, meaning if app was active on foreground
+//     */
 //    public boolean addApplicationActivityRecord(ApplicationActivityRecord record) {
 //        SQLiteDatabase db = this.getWritableDatabase();
 //
@@ -358,12 +376,13 @@ public class Database extends SQLiteOpenHelper {
 //    }
 
 
-    /**
-     * Add activity record and automatically set if the app was active on foreground. In the othercase, it check
-     * if an activity occured on background. Otherwise, no record is added
-     * @param newRecord
-     * @return if a record was added, meaning if app was active on foreground
-     */
+
+        /**
+         * Add activity record and automatically set if the app was active on foreground. In the othercase, it check
+         * if an activity occured on background. Otherwise, no record is added
+         * @param newRecord
+         * @return if a record was added, meaning if app was active on foreground
+         */
     public void addApplicationActivityRecordIntelligent(ApplicationActivityRecord newRecord) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -411,18 +430,27 @@ public class Database extends SQLiteOpenHelper {
         //If is was active in a way, we add the record to the DB
         if(wasForeground || wasActiveInBackground){
 
+            long downloadedData = newRecord.getDownloadedData() - getLastTotalDataDownloaded(newRecord.getPackageName());
+            long uploadedData = newRecord.getUploadedData() - getLastTotalDataUploaded(newRecord.getPackageName());
+
+            long totalDownloadedData = newRecord.getDownloadedData();
+            long totalUploadedData = newRecord.getUploadedData();
+            addLastInternetUse(newRecord.getPackageName(), newRecord.getDownloadedData(), newRecord.getUploadedData());
+
+
             ContentValues values = new ContentValues();
             //id will be created, none exist for the new record
             values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
             values.put(COL_RECORD_TIME, newRecord.getRecordTime());
             values.put(COL_FOREGROUND_TIME_USAGE, newRecord.getForegroundTime());
             values.put(COL_LAST_TIME_USE, newRecord.getLastTimeUsed());
-            values.put(COL_DOWNLOADED_DATA, newRecord.getDownloadedData());
-            values.put(COL_UPLOADED_DATA, newRecord.getUploadedData());
+            values.put(COL_DOWNLOADED_DATA, downloadedData);
+            values.put(COL_UPLOADED_DATA, uploadedData);
             values.put(COL_WAS_FOREGROUND, wasForeground);
 
             db.insert(TABLE_APPS_FOREGROUND_ACTIVITY, null, values);
-            db.close();
+            Log.d("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
+
 
             LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
         }
@@ -496,6 +524,81 @@ public class Database extends SQLiteOpenHelper {
 //
 //        return records;
         return null;
+    }
+
+
+    /**
+     * Add or update the previous stats about total data uploaded/downloaded since boot for that app
+     * @param packageName
+     * @param totalDownloadedData
+     * @param totalUploadedData
+     */
+    private void addLastInternetUse(String packageName, long totalDownloadedData, long totalUploadedData) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_APPS_INTERNET_USE_LAST_TIME +
+                       " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
+
+        Cursor result = db.rawQuery(query, null);
+
+
+
+        if (result.moveToFirst()) {
+            ContentValues values = new ContentValues();
+            values.put(COL_RECORD_ID, result.getLong(result.getColumnIndex(COL_RECORD_ID)));
+            values.put(COL_APP_PKG_NAME, result.getString(result.getColumnIndex(COL_APP_PKG_NAME)));
+            values.put(COL_DOWNLOADED_DATA, totalDownloadedData);
+            values.put(COL_UPLOADED_DATA, totalUploadedData);
+
+            db.update(TABLE_APPS_INTERNET_USE_LAST_TIME, values, COL_APP_PKG_NAME + "=\"" + packageName + "\"", null);
+        }
+        else{
+            ContentValues values = new ContentValues();
+            values.put(COL_APP_PKG_NAME, packageName);
+            values.put(COL_DOWNLOADED_DATA, totalDownloadedData);
+            values.put(COL_UPLOADED_DATA, totalUploadedData);
+
+            db.insert(TABLE_APPS_INTERNET_USE_LAST_TIME, null, values);
+        }
+        //db.close();
+    }
+
+
+    /**
+     * Return the total data downloaded by the app for the last record
+     * @param packageName
+     * @return
+     */
+    private long getLastTotalDataDownloaded(String packageName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COL_DOWNLOADED_DATA + " FROM " + TABLE_APPS_INTERNET_USE_LAST_TIME +
+                       " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
+
+        Cursor result = db.rawQuery(query, null);
+        long downloaded = 0;
+        if (result.moveToFirst()) {
+            downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
+        }
+        //db.close();
+        return downloaded;
+    }
+
+    /**
+     * Return the total data uploaded by the app for the last record
+     * @param packageName
+     * @return
+     */
+    private long getLastTotalDataUploaded(String packageName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COL_UPLOADED_DATA + " FROM " + TABLE_APPS_INTERNET_USE_LAST_TIME +
+                       " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
+
+        Cursor result = db.rawQuery(query, null);
+        long uploaded = 0;
+        if (result.moveToFirst()) {
+            uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+        }
+        //db.close();
+        return uploaded;
     }
 
 
