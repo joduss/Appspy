@@ -296,12 +296,23 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         for (PackageInfo pi : runningApps) {
             if (foregroundPackageName.contains(pi.packageName) == false) {
                 final int uid = pi.applicationInfo.uid;
-                ApplicationActivityRecord record = new ApplicationActivityRecord(pi.packageName, now, 0, 0,
-                                                                                 appInformation.getUploadedDataAmount(
-                                                                                         uid),
-                                                                                 appInformation.getDownloadedDataAmount(
-                                                                                         uid), false);
+
+                long lastForegroundTime = 0;
+                long lastLastUsedTime = 0;
+                ApplicationActivityRecord lastRecord = db.getLastApplicationActivityRecord(pi.packageName);
+                if(lastRecord != null){
+                    lastForegroundTime = lastRecord.getForegroundTime();
+                    lastLastUsedTime = lastRecord.getLastTimeUsed();
+                }
+
+
+                ApplicationActivityRecord record =
+                        new ApplicationActivityRecord(pi.packageName, now, lastForegroundTime,
+                                                      lastLastUsedTime,
+                                                      appInformation.getUploadedDataAmount(uid),
+                                                      appInformation.getDownloadedDataAmount(uid), false);
                 db.addApplicationActivityRecordIntelligent(record);
+                Log.d("Appspy-DB", "Running process " + pi.packageName);
             }
         }
 

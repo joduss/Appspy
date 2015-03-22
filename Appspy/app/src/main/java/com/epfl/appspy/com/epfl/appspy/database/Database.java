@@ -13,7 +13,6 @@ import com.epfl.appspy.LogA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 50;
+    private static final int DB_VERSION = 71;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -380,7 +379,7 @@ public class Database extends SQLiteOpenHelper {
         /**
          * Add activity record and automatically set if the app was active on foreground. In the othercase, it check
          * if an activity occured on background. Otherwise, no record is added
-         * @param newRecord
+         * @param newRecord new record, with down/uploaded data total for that app that day. Computation will be made autmatically
          * @return if a record was added, meaning if app was active on foreground
          */
     public void addApplicationActivityRecordIntelligent(ApplicationActivityRecord newRecord) {
@@ -393,9 +392,14 @@ public class Database extends SQLiteOpenHelper {
 
         //of the last_use_time
 
+
         ApplicationActivityRecord lastRecord = getLastApplicationActivityRecord(newRecord.getPackageName());
         boolean wasForeground;
         boolean wasActiveInBackground;
+
+
+        long downloadedData = newRecord.getDownloadedData() - getLastTotalDataDownloaded(newRecord.getPackageName());
+        long uploadedData = newRecord.getUploadedData() - getLastTotalDataUploaded(newRecord.getPackageName());
 
         //Check if apps was active on foreground
         if(lastRecord == null){
@@ -408,14 +412,13 @@ public class Database extends SQLiteOpenHelper {
             wasForeground = true;
             wasActiveInBackground = false;
             Log.d("Appspy-DB","else if + " + lastRecord.getForegroundTime() + "   " + newRecord.getForegroundTime());
-
         }
         else {
             wasForeground = false;
             //then the app was in background. Need to check if it was active (did down/upload data)
             //check if app was active in background (did downloaded/upload some data
-            if(lastRecord.getUploadedData() != newRecord.getUploadedData() ||
-               lastRecord.getDownloadedData() != newRecord.getDownloadedData()) {
+            if(lastRecord.getUploadedData() != uploadedData ||
+               lastRecord.getDownloadedData() != downloadedData) {
                 wasActiveInBackground = true;
             }
             else {
@@ -426,16 +429,34 @@ public class Database extends SQLiteOpenHelper {
 
         }
 
-
         //If is was active in a way, we add the record to the DB
         if(wasForeground || wasActiveInBackground){
 
-            long downloadedData = newRecord.getDownloadedData() - getLastTotalDataDownloaded(newRecord.getPackageName());
-            long uploadedData = newRecord.getUploadedData() - getLastTotalDataUploaded(newRecord.getPackageName());
-
             long totalDownloadedData = newRecord.getDownloadedData();
             long totalUploadedData = newRecord.getUploadedData();
-            addLastInternetUse(newRecord.getPackageName(), newRecord.getDownloadedData(), newRecord.getUploadedData());
+            addLastInternetUse(newRecord.getPackageName(), newRecord.getUploadedData(), newRecord.getDownloadedData());
+
+
+            //if the app was used a long time and no stat were fired for a moment, some records may say the app was in
+            //background. So need to update correctly these
+            long activeTime = newRecord.getForegroundTime();
+            if(lastRecord !=null && wasForeground){
+                activeTime = activeTime - lastRecord.getForegroundTime();
+                long beginActivity = newRecord.getLastTimeUsed() - activeTime - 60000; //TODO: 60000 = interval of sampling, dynamic please
+                List<ApplicationActivityRecord> records = getRecordIntImeRange(beginActivity, newRecord.getRecordTime(), newRecord.getPackageName());
+
+
+                for(ApplicationActivityRecord record : records){
+                    //these were on foreground. Need to update them
+                    record.setWasForeground(true);
+                    updateApplicationActivityRecord(record);
+                    Log.d("Appspy-DB", "one update");
+                }
+
+                Log.d("Appspy-DB", "UPDATE foreground " + newRecord.getPackageName());
+
+                //all these records have been active on foreground
+            }
 
 
             ContentValues values = new ContentValues();
@@ -530,10 +551,10 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Add or update the previous stats about total data uploaded/downloaded since boot for that app
      * @param packageName
-     * @param totalDownloadedData
      * @param totalUploadedData
+     * @param totalDownloadedData
      */
-    private void addLastInternetUse(String packageName, long totalDownloadedData, long totalUploadedData) {
+    private void addLastInternetUse(String packageName, long totalUploadedData, long totalDownloadedData) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_APPS_INTERNET_USE_LAST_TIME +
                        " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
@@ -599,6 +620,57 @@ public class Database extends SQLiteOpenHelper {
         }
         //db.close();
         return uploaded;
+    }
+
+
+    public void updateApplicationActivityRecord(ApplicationActivityRecord record){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        //id will be created, none exist for the new record
+        values.put(COL_RECORD_ID, record.getRecordId());
+        values.put(COL_APP_PKG_NAME, record.getPackageName());
+        values.put(COL_RECORD_TIME, record.getRecordTime());
+        values.put(COL_FOREGROUND_TIME_USAGE, record.getForegroundTime());
+        values.put(COL_LAST_TIME_USE, record.getLastTimeUsed());
+        values.put(COL_DOWNLOADED_DATA, record.getDownloadedData());
+        values.put(COL_UPLOADED_DATA, record.getUploadedData());
+        values.put(COL_WAS_FOREGROUND, record.isWasForeground());
+
+        db.update(TABLE_APPS_FOREGROUND_ACTIVITY, values, COL_RECORD_ID + "=" + record.getRecordId(), null);
+
+
+    }
+
+    public List<ApplicationActivityRecord> getRecordIntImeRange(long begining, long end, String packageName){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query =
+                "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
+                " AND " + COL_RECORD_TIME + "<=" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\"";
+
+        Cursor result = db.rawQuery(query, null);
+
+        ArrayList<ApplicationActivityRecord> records = new ArrayList<>();
+
+        if(result.moveToFirst()){
+            do{
+                long recordID = result.getLong(result.getColumnIndex(COL_RECORD_ID));
+                long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
+                long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
+                long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
+                long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
+                long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+                boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
+
+                records.add(new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
+                                                     uploaded, downloaded, wasForeground));
+            } while(result.moveToNext());
+        }
+
+        return records;
     }
 
 
