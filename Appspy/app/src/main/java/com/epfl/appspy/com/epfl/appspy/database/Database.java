@@ -12,6 +12,8 @@ import android.util.Log;
 import com.epfl.appspy.LogA;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +27,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 71;
+    private static final int DB_VERSION = 120;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -58,6 +60,8 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_RECORD_TIME = "record_time";
 
     private static final String COL_WAS_FOREGROUND = "was_foreground";
+
+
 
 
     //Table creation SQL statement
@@ -125,11 +129,14 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
+
     }
 
     public void deviceStarted(){
         this.getWritableDatabase().execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         this.getWritableDatabase().execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
+
+
     }
 
 
@@ -374,7 +381,23 @@ public class Database extends SQLiteOpenHelper {
 //         */
 //    }
 
+    boolean checkIfFirstRecordOfDay(String packageName){
+        ApplicationActivityRecord record = getLastApplicationActivityRecord(packageName);
 
+        Date d = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+
+        Log.d("Appspy","time: " + c.getTimeInMillis());
+
+        if(record == null || record.getRecordTime() < c.getTimeInMillis()){
+            return true;
+        }
+        return false;
+
+
+    }
 
         /**
          * Add activity record and automatically set if the app was active on foreground. In the othercase, it check
@@ -393,6 +416,10 @@ public class Database extends SQLiteOpenHelper {
         //of the last_use_time
 
 
+
+
+
+
         ApplicationActivityRecord lastRecord = getLastApplicationActivityRecord(newRecord.getPackageName());
         boolean wasForeground;
         boolean wasActiveInBackground;
@@ -406,6 +433,7 @@ public class Database extends SQLiteOpenHelper {
             //mean the app was open, thus active
             wasForeground = true;
             wasActiveInBackground = false;
+
             Log.d("Appspy-DB","NULL");
         }
         else if(lastRecord.getForegroundTime() != newRecord.getForegroundTime()){
@@ -417,8 +445,8 @@ public class Database extends SQLiteOpenHelper {
             wasForeground = false;
             //then the app was in background. Need to check if it was active (did down/upload data)
             //check if app was active in background (did downloaded/upload some data
-            if(lastRecord.getUploadedData() != uploadedData ||
-               lastRecord.getDownloadedData() != downloadedData) {
+            if(uploadedData > 0 ||
+               downloadedData > 0) {
                 wasActiveInBackground = true;
             }
             else {
@@ -442,7 +470,7 @@ public class Database extends SQLiteOpenHelper {
             long activeTime = newRecord.getForegroundTime();
             if(lastRecord !=null && wasForeground){
                 activeTime = activeTime - lastRecord.getForegroundTime();
-                long beginActivity = newRecord.getLastTimeUsed() - activeTime - 60000; //TODO: 60000 = interval of sampling, dynamic please
+                long beginActivity = newRecord.getLastTimeUsed() - activeTime - 59000; //TODO: 60000 = interval of sampling, dynamic please
                 List<ApplicationActivityRecord> records = getRecordIntImeRange(beginActivity, newRecord.getRecordTime(), newRecord.getPackageName());
 
 
@@ -458,6 +486,10 @@ public class Database extends SQLiteOpenHelper {
                 //all these records have been active on foreground
             }
 
+            //fix border effect when booting
+            if(checkIfFirstRecordOfDay(newRecord.getPackageName())) {
+                wasForeground = false;
+            }
 
             ContentValues values = new ContentValues();
             //id will be created, none exist for the new record
@@ -475,6 +507,8 @@ public class Database extends SQLiteOpenHelper {
 
             LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
         }
+
+
     }
 
 

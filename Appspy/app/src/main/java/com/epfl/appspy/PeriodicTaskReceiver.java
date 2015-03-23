@@ -202,7 +202,8 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
                 //periodicCheckSometimes();
                 //periodicCheckTenSeconds();
-
+                Database db = new Database(context);
+                db.deviceStarted();
 
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
