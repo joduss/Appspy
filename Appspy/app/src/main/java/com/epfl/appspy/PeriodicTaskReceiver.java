@@ -222,6 +222,10 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             }
         }
 
+        if(intent.getAction().equals(Intent.ACTION_SHUTDOWN)){
+            Log.d("Appspy","########################## SHUTDOWN");
+        }
+
         //show message on screen to show that it is working
         Toast.makeText(context, "Broadcast received", Toast.LENGTH_LONG).show();
     }
