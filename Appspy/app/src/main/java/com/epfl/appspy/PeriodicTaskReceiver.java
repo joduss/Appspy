@@ -197,14 +197,16 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             //Log.d("Appspy", "HEY: " + intent.getExtras().containsKey(EXTRA));
 
             //Executes the correct task according to the notified action in the broadcast
-            if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)
+                                         || intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
                 // Register your reporting alarms here.
 
                 //periodicCheckSometimes();
                 //periodicCheckTenSeconds();
                 Database db = new Database(context);
                 db.deviceStarted();
-
+                periodicCheckOften();
+                periodicCheckSometimes();
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
