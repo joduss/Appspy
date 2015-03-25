@@ -1,0 +1,5 @@
+from Crawler import *
+
+packageNames = topAppsPackageName(False)
+
+print("Loaded " + str(len(packageNames)) + " package names")
