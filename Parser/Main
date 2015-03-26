@@ -1,5 +1,8 @@
 from Crawler import *
+from Parser import *
 
 packageNames = topAppsPackageName(False)
 
-print("Loaded " + str(len(packageNames)) + " package names")
+#print("Loaded " + str(len(packageNames)) + " package names")
+
+parse(packageNames)

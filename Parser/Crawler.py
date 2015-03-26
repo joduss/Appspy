@@ -27,7 +27,8 @@ def topAppsPackageName(redownload):
          lines = f.readlines()
 
       for line in lines:
-         packageNames.add(line)
+         newLine = line.rstrip("\n")
+         packageNames.add(newLine)
    else:
       needDownload = True
 

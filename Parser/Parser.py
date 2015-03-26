@@ -3,26 +3,90 @@ from urllib.request import *
 from Crawler import *
 
 
+class AppInfo:
+	category = ""
+	download = ""
+	rating = 0
+	ratingCount = 0
+	packageName = ""
 
-packageNames = topAppsPackageName(true)
-text_file = open("p.txt", "w")
+	def __init__(self, packageName, category, download, rating, ratingCount):
+		self.category = category
+		self.download = download
+		self.rating = rating
+		self.ratingCount = ratingCount
+		self.packageName = packageName
+
+	def printAppInfo(self):
+		print(self.packageName + " :" + self.category + ", downloads:" + self.download + ", rating:" + str(self.rating) + ", ratingCount:" + str(self.ratingCount))
+		#print("salut")
 
 
-for packageName in packageNames:
-	#packageName = "com.gamesforfriends.trueorfalse.de"
 
-	response = urlopen("https://play.google.com/store/apps/details?id=" + packageName + "&hl=en")
+infos = set()
 
-	#print(response.read())
+def parse(packageNames):
 
-	soup = BeautifulSoup(response.read())
-	tag = soup.find("span", attrs={"itemprop":u"genre"})
+	i = 1
 
-	#category = print(tag.text)
+	text_file = open("appinfo.txt", "w")
+	text_file.write("packageName\tcategory\tdownloads\trating\tratingCount\n")
 
-	#print(packageName)
-	text_file.write(str(packageName) + "\n")
+	text_file.close()
 
-text_file.close()
+	for packageName in packageNames:
+		#packageName = "com.gamesforfriends.trueorfalse.de"
+		url = "https://play.google.com/store/apps/details?hl=en&id=" + packageName
+		#print(url)
+		packageName.replace("\n","")
+
+		response = urlopen(url)
+
+		#print(response.read())
+
+		soup = BeautifulSoup(response.read())
+
+		#get category
+		#####
+		categoryTag = soup.find("span", attrs={"itemprop":u"genre"})
+		#print(categoryTag)
+		category = ""
+		if(categoryTag):
+			category = categoryTag.text
+
+		#get ratings and stats related
+		####
+		rating = soup.find("meta", attrs={"itemprop" : "ratingValue"}).get("content")
+		ratingCount = soup.find("meta", attrs={"itemprop" : "ratingCount"}).get("content")
+
+		#get download number
+		####
+		downloadsTag = soup.find("div", attrs={"itemprop":u"numDownloads"})
+		downloads = ""
+		#print(downloadsTag)
+		if(downloadsTag):
+			downloads = downloadsTag.text
+
+
+
+		info = AppInfo(packageName, category, downloads, rating, ratingCount)
+		info.printAppInfo()
+		print(str(i) + "/" + str(len(packageNames))+ "\n")
+
+		infos.add(info)
+		i = i+1
+
+		text_file = open("appinfo.txt", "a")
+		text_file.write(packageName + "\t" + category + "\t" + downloads + "\t" + rating + "\t" + ratingCount + "\n")
+		text_file.close()
+
+
+
+		#print(packageName)
+		#text_file.write(str(packageName) + "\n")
+
+
+
+	
 
 
