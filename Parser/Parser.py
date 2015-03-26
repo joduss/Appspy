@@ -48,7 +48,7 @@ def parse(packageNames):
 
 		#get category
 		#####
-		categoryTag = soup.find("span", attrs={"itemprop":u"genre"})
+		categoryTag = soup.find("span", attrs={"itemprop": "genre"})
 		#print(categoryTag)
 		category = ""
 		if(categoryTag):
@@ -61,7 +61,7 @@ def parse(packageNames):
 
 		#get download number
 		####
-		downloadsTag = soup.find("div", attrs={"itemprop":u"numDownloads"})
+		downloadsTag = soup.find("div", attrs={"itemprop": "numDownloads"})
 		downloads = ""
 		#print(downloadsTag)
 		if(downloadsTag):
