@@ -1,0 +1,24 @@
+from bs4 import BeautifulSoup
+from urllib.request import *
+from Crawler import *
+
+
+
+
+text_file = open("categories.txt", "r", encoding="utf-8")
+
+
+txt = text_file.read()
+
+soup = BeautifulSoup(txt)
+
+categoriesTag = soup.find_all("a", attrs={"class" : "child-submenu-link"})
+
+
+for cat in categoriesTag:
+	categoryURL = cat.get("href")
+	categoryURL = "\"" + categoryURL.replace("/store/apps/category/", "") + "\","
+	print(categoryURL)
+
+
+text_file.close()
