@@ -84,22 +84,65 @@ def topAppsPackageName(redownload):
 
       text_file = open(fname, "w")
       for pkg in packageNames:
-      	text_file.write(str(pkg) + "\n")
+         text_file.write(str(pkg) + "\n")
 
       text_file.close()
 
    print("Return " + str(len(packageNames)) + " app package names")
 
-      # for n in packageName:
-      # print(n)
-      # https://play.google.com/store/apps/category/ARCADE/collection/topselling_paid?start=#{start}&num=24&hl=en
+   # for n in packageName:
+   # print(n)
+   # https://play.google.com/store/apps/category/ARCADE/collection/topselling_paid?start=#{start}&num=24&hl=en
 
    return packageNames
 
 
 def createUrls():
    prices = ["free", "paid"]
-   categories = ["GAME", "SOCIAL", "GAME_CASUAL", "GAME_STRATEGY"]
+   categories = ["NEWS_AND_MAGAZINES",
+                 "COMICS",
+                 "LIBRARIES_AND_DEMO",
+                 "COMMUNICATION",
+                 "ENTERTAINMENT",
+                 "EDUCATION",
+                 "FINANCE",
+                 "APP_WALLPAPER",
+                 "BOOKS_AND_REFERENCE",
+                 "MEDIA_AND_VIDEO",
+                 "MUSIC_AND_AUDIO",
+                 "MEDICAL",
+                 "WEATHER",
+                 "TOOLS",
+                 "PERSONALIZATION",
+                 "PHOTOGRAPHY",
+                 "PRODUCTIVITY",
+                 "BUSINESS",
+                 "HEALTH_AND_FITNESS",
+                 "SHOPPING",
+                 "SOCIAL",
+                 "SPORTS",
+                 "LIFESTYLE",
+                 "TRANSPORTATION",
+                 "TRAVEL_AND_LOCAL",
+                 "APP_WIDGETS",
+                 "GAME_ACTION",
+                 "GAME_ARCADE",
+                 "GAME_ADVENTURE",
+                 "GAME_CARD",
+                 "GAME_CASINO",
+                 "GAME_TRIVIA",
+                 "GAME_FAMILY",
+                 "GAME_RACING",
+                 "GAME_ROLE_PLAYING",
+                 "GAME_BOARD",
+                 "GAME_CASUAL",
+                 "GAME_WORD",
+                 "GAME_MUSIC",
+                 "GAME_PUZZLE",
+                 "GAME_SIMULATION",
+                 "GAME_SPORTS",
+                 "GAME_STRATEGY",
+                 "GAME_EDUCATIONAL"]
 
    urls = []
 
