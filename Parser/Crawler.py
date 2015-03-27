@@ -18,7 +18,7 @@ def topAppsPackageName(redownload):
    # ]
    fname = "package_name.txt"
 
-   packageNames = set()
+   packageNames = list()
    lines = [""]
    needDownload = redownload
 
@@ -28,7 +28,7 @@ def topAppsPackageName(redownload):
 
       for line in lines:
          newLine = line.rstrip("\n")
-         packageNames.add(newLine)
+         packageNames.append(newLine)
    else:
       needDownload = True
 
@@ -72,7 +72,7 @@ def topAppsPackageName(redownload):
                   for x in tag:
                      # print(x.encode('utf-8'))
                      # print(x.get("data-docid"))
-                     packageNames.add(x.get("data-docid"))
+                     packageNames.append(x.get("data-docid"))
 
                   trial = 3
 
