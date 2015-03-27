@@ -41,33 +41,36 @@ def parse(packageNames):
 
    #	p.map(sq, list(range(1,100)))
 
-   text_file = open("appinfo.txt", "w")
-   text_file.write("packageName\tcategory\tdownloads\trating\tratingCount\n")
 
-   text_file.close()
 
    #p = Pool(12)
 
    proc = list()
    #infos = p.map(parallelFunc, packageNames)
 
-   lenDiv = math.floor(len(packageNames) / 12)
+   numThread = 16
+
+   lenDiv = math.floor(len(packageNames) / numThread)
 
    lock = Lock()
 
-   for i in range(0,12):
+   for i in range(0,numThread):
       start = i * lenDiv
       stop = (i+1) * lenDiv - 1
+
+      text_file = open("appinfo" +str(i) +".txt", "w")
+      text_file.write("packageName\tcategory\tdownloads\trating\tratingCount\n")
+      text_file.close()
       print(start)
       print(stop)
-      if(i != 11):
-         proc.append(Process(target=parallelFunc,args=(packageNames[start:stop],lock,)))
+      if(i != (numThread-1)):
+         proc.append(Process(target=parallelFunc,args=(packageNames[start:stop],lock,i,)))
       else:
-         proc.append(Process(target=parallelFunc,args=(packageNames[start:],lock,)))
+         proc.append(Process(target=parallelFunc,args=(packageNames[start:],lock,i,)))
 
       #p.join()
 
-   for i in range(0,12) : 
+   for i in range(0,numThread): 
       proc[i].start()
       print("starting " + str(i))
 
@@ -94,7 +97,7 @@ def parse(packageNames):
    #       error_file.close()
 
 
-def parallelFunc(packageNames, lock):
+def parallelFunc(packageNames, lock, i):
 
    print("CCCC " + packageNames[0] + str(len(packageNames)))
 
@@ -151,11 +154,9 @@ def parallelFunc(packageNames, lock):
 
                trials = 50
                #print("1 done")
-               lock.acquire()
-               text_file = open("appinfo.txt", "a")
+               text_file = open("appinfo" + str(i) + ".txt", "a")
                text_file.write(packageName + "\t" + category + "\t" + downloads + "\t" + rating + "\t" + ratingCount + "\n")
                text_file.close()
-               lock.release()
          
                #return info
 

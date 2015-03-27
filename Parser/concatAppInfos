@@ -1,0 +1,22 @@
+import os.path
+
+
+for i in range(0, 16):
+    fname = "appinfo" + str(i) + ".txt"
+    infos = list()
+    lines = [""]
+
+    if(os.path.isfile(fname)):
+      with open(fname) as f:
+         lines = f.readlines()
+
+      lineNum = 0
+      for line in lines:
+      	 if(lineNum != 0):
+         	infos.append(line)
+
+    text_file = open("all_appinfo.txt", "w")
+    text_file.write("packageName\tcategory\tdownloads\trating\tratingCount\n")
+    for info in infos:
+    	text_file.write(info)
+    text_file.close()

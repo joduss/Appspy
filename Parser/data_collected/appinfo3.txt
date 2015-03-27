@@ -1,0 +1,2468 @@
+packageName	category	downloads	rating	ratingCount
+com.audiocicerone.AudioguiaCaceresMonumental	Travel & Local	  50 - 100  	5	5
+com.lge.tv.remoteapps	Entertainment	  5,000,000 - 10,000,000  	4.080071449279785	123752
+com.devesphere.drawanime	Education	  10,000 - 50,000  	4.152019023895264	842
+com.hard2bit.apps.chatsim	Entertainment	  10,000 - 50,000  	4.219428539276123	875
+com.goodbarber.miamznutella	Lifestyle	  50,000 - 100,000  	4.005188941955566	1349
+gt.ninja.online.gpcharge.global.thai	Strategy	  100,000 - 500,000  	4.362819671630859	25379
+com.np.comvigo	Business	  50,000 - 100,000  	3.9789936542510986	2047
+com.ikeyboard.theme.Fire	Personalization	  100,000 - 500,000  	4.182920455932617	3876
+com.survivalgamesstudio.assassinsfreedunitedgames	Adventure	  50,000 - 100,000  	2.960452079772949	1062
+uk.co.finebyte.pebbleglance	Communication	  100,000 - 500,000  	4.307278633117676	2418
+com.zyxxeil.zyxx.ui	Personalization	  10,000 - 50,000  	4.0791826248168945	783
+com.aqg.namethatreptile	Trivia	  500 - 1,000  	5	10
+com.stackexchange.marvin	Social	  100,000 - 500,000  	4.44002628326416	9054
+com.elift.hdplayer	Media & Video	  10,000,000 - 50,000,000  	4.135008811950684	250467
+dalmax.games.turnBasedGames.connect4	Board	  100,000 - 500,000  	3.8936169147491455	940
+com.appdaddy.compassnav	Transportation	  1,000 - 5,000  	3.9000000953674316	20
+com.esenthel.rts	Strategy	  1,000 - 5,000  	3.5849056243896484	106
+com.cookinggamesmedia.android_macncheese	Family	  10,000 - 50,000  	3.4244186878204346	344
+com.beatsnbobs.kentuckyDerby	Card	  100 - 500  	4	3
+com.craigahart.android.wordgamepro	Word	  5,000 - 10,000  	4.25	188
+de.obi.pflanzenfinder	Lifestyle	  10,000 - 50,000  	3.744985580444336	349
+com.twenty_four_option_app	Finance	  50,000 - 100,000  	3.8390445709228516	963
+com.widebeamgames.pocketbo	Entertainment	  10,000 - 50,000  	3.9496402740478516	139
+sammyeong.Claendar.price2015	Entertainment	  100 - 500  	5	1
+com.synapseDeveloppement.CordialPocket	Education	  50,000 - 100,000  	3.7028112411499023	747
+com.atrilliongames.solitairecardgames	Card	  50,000 - 100,000  	4.086795806884766	1083
+com.wepowder.android.Salomon	Weather	  10,000 - 50,000  	4.4478631019592285	585
+air.com.spilgames.operatenow.tonsil	Simulation	  1,000,000 - 5,000,000  	3.181626796722412	14249
+com.vinwap.opengl2project	Personalization	  5,000 - 10,000  	4.053272247314453	657
+com.nuevoirispro	Sports	  100 - 500  	5	1
+com.joshclemm.android.alerter.pro	Weather	  5,000 - 10,000  	4.064516067504883	186
+com.fsdigital.papercraftstudio	Entertainment	  10,000 - 50,000  	3.924290180206299	634
+kov.theme.nox	Personalization	  10,000 - 50,000  	4.77115535736084	4077
+com.ulmon.android.playnewyork	Travel & Local	  10,000 - 50,000  	4.3177337646484375	406
+com.razmobi.gokartracing	Racing	  1,000 - 5,000  	3.954545497894287	22
+com.tabtale.babytrainstation	Family	  100,000 - 500,000  	3.619611978530884	5568
+com.highsierraattitude.pctwashington	Travel & Local	  100 - 500  	4.166666507720947	6
+com.dada.es.marinaluz	Educational	  100 - 500  	4	1
+com.zeus.jackpot	Casino	  50,000 - 100,000  	4.054764747619629	913
+appinventor.ai_mmfrutos7878.Ancleaner_Pro	Tools	  1,000 - 5,000  	4.396647930145264	179
+com.cashflow.sheet	Board	  500 - 1,000  	4.588235378265381	17
+net.ifao.android.cytricMobile	Business	  1,000 - 5,000  	3.730769157409668	26
+appinventor.ai_oreficemauro.Bolletta	Sports	  100 - 500  	3.133333444595337	15
+appinventor.ai_martinpx.Maigrir_Rapidement	Health & Fitness	  5,000 - 10,000  	3.4666666984558105	15
+inrix.android.ui	Transportation	  1,000,000 - 5,000,000  	3.942511558532715	6726
+com.eastbeachtrading.nursingIQandroid	Educational	  500 - 1,000  	4.400000095367432	15
+ch.swift.ipilot.ch	Education	  10 - 50  	4.400000095367432	5
+com.dc.mhp	Personalization	  10,000 - 50,000  	4.580015659332275	1281
+com.mediathek_3sat.android	Media & Video	  100,000 - 500,000  	3.652482271194458	846
+com.gpit.android.physical.drug	Medical	  1,000 - 5,000  	4.125	40
+house_intellect.keyring	Tools	  1,000 - 5,000  	4.3227667808532715	347
+com.giantixstudios.wordchaos	Word	  10,000 - 50,000  	4.00424337387085	707
+de.litegames.mahjong.lite	Board	  10,000 - 50,000  	3.8056538105010986	283
+com.tinymission.dailyabworkoutpaid	Health & Fitness	  50,000 - 100,000  	4.624325752258301	2039
+com.sonymobile.areffect.comic_theme	Photography	  1,000,000 - 5,000,000  	3.9637808799743652	21149
+com.ipc.ipcamera	Media & Video	  100,000 - 500,000  	3.611443281173706	1171
+com.androidwasabi.livewallpaper.waterdrop	Personalization	  10,000,000 - 50,000,000  	4.168002128601074	78243
+com.marbotic.jusquacent	Educational	  50 - 100  	4.25	4
+com.sic.android.uta	Business	  5,000 - 10,000  	3.747368335723877	95
+com.sgg.shadows2	Word	  100,000 - 500,000  	4.1922712326049805	5279
+ch.netcetera.polizeibasel	News & Magazines	  5,000 - 10,000  	3.759999990463257	50
+com.baseapp.eyeem	Photography	  5,000,000 - 10,000,000  	4.216588020324707	145950
+com.sanitas.sanitas	Health & Fitness	  1,000 - 5,000  	3.9285714626312256	42
+air.com.bigfishgames.fairwayrevengegooguniversalf2p	Card	  500,000 - 1,000,000  	4.494762897491455	60912
+com.blackparrot.truthordare	Entertainment	  100,000 - 500,000  	3.626974582672119	1646
+de.bund.toxfox	Health & Fitness	  50,000 - 100,000  	4.349924564361572	663
+com.CarsLiveWallpaperHQ	Personalization	  1,000,000 - 5,000,000  	3.897962808609009	17229
+com.ccode.onsale	Shopping	  10,000 - 50,000  	3.706237316131592	497
+com.agaming.mentalhospitaliiilite	Action	  100,000 - 500,000  	4.045365333557129	6128
+com.wapp.stickers	Communication	  100,000 - 500,000  	4.06752347946167	4280
+com.mpisoft.doorsguide	Books & Reference	  1,000,000 - 5,000,000  	3.9981892108917236	10492
+air.dpflashes.clearvision2	Arcade	  100,000 - 500,000  	4.505589485168457	7067
+com.dts.angry.bull.attack	Simulation	  50,000 - 100,000  	3.3931450843811035	496
+chaves.jump	Adventure	  1,000,000 - 5,000,000  	3.4643948078155518	35978
+com.celticspear.matches	Puzzle	  10,000,000 - 50,000,000  	4.218572616577148	139625
+air.com.theblueapp.cam2pet.paid	Lifestyle	  100 - 500  	4.166666507720947	12
+com.TropicalBeachLiveWallpaperHDHQ	Personalization	  100,000 - 500,000  	3.993847370147705	2438
+binaryearth.handygps	Sports	  1,000 - 5,000  	4.561403274536133	114
+com.mobirix.backgammon	Board	  100,000 - 500,000  	3.829450845718384	1202
+com.tordedroid.jwtrivial	Trivia	  100,000 - 500,000  	4.4876484870910645	3279
+com.tcc.android.tuttonapoli	Sports	  100,000 - 500,000  	4.445189952850342	2682
+com.no1creativeapli.romantic.photoeditor	Photography	  100,000 - 500,000  	3.9708850383758545	3469
+com.spaceO.herbrem	Medical	  500 - 1,000  	3.884615421295166	26
+com.stageoneone.heavytraffic	Racing	  10,000 - 50,000  	3.57053279876709	319
+com.craneballs.Overkill2	Action	  1,000,000 - 5,000,000  	3.8644323348999023	57285
+mobi.infolife.eraser	Tools	  10,000,000 - 50,000,000  	4.5869340896606445	187048
+com.gaussianknights.games.rewardchart	Lifestyle	  1,000 - 5,000  	3.7931034564971924	116
+com.mobiland.sadquotes	Social	  10,000 - 50,000  	4.035010814666748	457
+com.greentube.sc15.ch	Sports	  50,000 - 100,000  	4.117140769958496	1511
+com.vialsoft.radars_uk_free	Transportation	  50,000 - 100,000  	3.83967924118042	499
+com.nuttyapps.princess.hair.salon	Casual	  1,000,000 - 5,000,000  	3.541327714920044	40578
+com.softwego.universaldetector	Casual	  1,000,000 - 5,000,000  	3.3078932762145996	30988
+com.storytoys.goodnightmo.Paid.Android.GooglePlay	Books & Reference	  1,000 - 5,000  	4.557692527770996	156
+com.lescapadou.picturespellingfr	Education	  1,000 - 5,000  	4.322580814361572	31
+com.glu.samuzombie2	Action	  5,000,000 - 10,000,000  	4.522326469421387	325174
+com.jb.gokeyboard.theme.twreallyfancykeyboard	Personalization	  100,000 - 500,000  	4.171700954437256	2516
+com.allbiblestories.tja.AOUKREXJIQDBGHHUV	Books & Reference	  1,000,000 - 5,000,000  	4.395334243774414	15688
+com.music.player.mp3player.white.paid	Music & Audio	  500 - 1,000  	4.329545497894287	88
+com.paytm.paywith	Finance	  100,000 - 500,000  	4.028099060058594	6050
+de.econa.giga.android	News & Magazines	  50,000 - 100,000  	4.049292087554932	1907
+com.audioaddict.jr	Music & Audio	  1,000,000 - 5,000,000  	4.65291690826416	15564
+coolcherrytrees.games.reactor	Family	  10,000,000 - 50,000,000  	4.103097438812256	140495
+com.PM.PirateDawn	Role Playing	  5,000 - 10,000  	3.9196617603302	946
+com.insideguidance.ferientag	Travel & Local	  1,000 - 5,000  	5	2
+com.highbrow.games.TOF	Role Playing	  100,000 - 500,000  	3.9131126403808594	10669
+kemco.execreate.alphadia	Role Playing	  10,000 - 50,000  	4.067331790924072	401
+in.bitmagic.wiki.offline	Books & Reference	  50,000 - 100,000  	4.3447418212890625	3214
+com.southernstudio.chickenthunt	Action	  100,000 - 500,000  	3.6571359634399414	4162
+ilpesce.web.agenda_2015	Productivity	  100,000 - 500,000  	3.908491849899292	2732
+com.iqevo.hiddenpics	Trivia	  5,000 - 10,000  	3.970588207244873	238
+com.ulmon.android.citymaps2gofull	Travel & Local	  50,000 - 100,000  	4.238514423370361	2612
+com.kkkeyboard.emoji.keyboard.theme.PinkKeyboard	Personalization	  100,000 - 500,000  	3.898556709289551	2425
+com.kbvstudios.monkeywrestle	Arcade	  50,000 - 100,000  	2.7430167198181152	895
+cnbce.mobil	Finance	  100,000 - 500,000  	4.012960433959961	1466
+jaime.mapas	Sports	  10,000 - 50,000  	3.9718310832977295	71
+com.lyrebirdstudio.eyecolorchanger.pro	Photography	  1,000 - 5,000  	3.880000114440918	125
+com.submad.bluesky.pro	Personalization	  500 - 1,000  	4.602941036224365	68
+com.milibris.standalone.app.nationalgeographic	News & Magazines	  100,000 - 500,000  	4.053333282470703	1200
+com.wMembagikanFileDapatDollar	Business	  1 - 5  	0	0
+com.webprancer.google.homesweetgarfield	Personalization	  1,000 - 5,000  	4.3608245849609375	97
+com.highsierraattitude.cdtidaho	Travel & Local	  10 - 50  	5	1
+com.ideonteam.farmadventureforkids	Educational	  10 - 50  	0	0
+br.com.tunglabs.piadas.sogra.lite.portugues	Comics	  100,000 - 500,000  	3.7839999198913574	500
+com.isandroid.hwracer	Racing	  1,000,000 - 5,000,000  	3.9685299396514893	76676
+com.spellsdd5	Role Playing	  1,000 - 5,000  	4.547008514404297	117
+com.Syncrom.Fishing_The_Fishes_Juego_de_pesca	Educational	  100,000 - 500,000  	3.728884220123291	959
+ro.amarkovits.android.chinesepoker	Card	  100,000 - 500,000  	4.068108081817627	925
+com.galaxystudio.note4.lwp	Personalization	  100,000 - 500,000  	3.9767441749572754	3483
+com.dimastersoftware.v1.planet105	Music & Audio	  1,000 - 5,000  	3.9696969985961914	33
+air.com.tutotoons.app.sweetbabygirldaycare3	Family	  100,000 - 500,000  	3.37093186378479	4486
+de.topobyte.apps.offline.stadtplan.stuttgart	Travel & Local	  500 - 1,000  	4.333333492279053	6
+com.electricfrenchfries.htct.free	Entertainment	  1,000,000 - 5,000,000  	3.5712082386016846	25932
+com.yoavzibin.megagame	Board	  500 - 1,000  	2.3333332538604736	6
+com.bullbitz.wordbible	Word	  100 - 500  	4.642857074737549	28
+flash.alerts.phonecall.sms	Lifestyle	  1,000,000 - 5,000,000  	4.097837924957275	12858
+com.sonymobile.areffect.funky_disco_theme	Photography	  1,000,000 - 5,000,000  	4.005151271820068	12812
+com.germanAppDev.lovecalculator	Arcade	  500,000 - 1,000,000  	3.350259780883789	1733
+com.dg.puzzlebrothers.mahjong.thefoxsays	Board	  1,000 - 5,000  	4.472972869873047	74
+nl.jacobras.notes	Productivity	  500,000 - 1,000,000  	4.104089260101318	8608
+com.hvtsoft.dreamworkshop.mywod	Health & Fitness	  10,000 - 50,000  	4.499017715454102	1018
+com.daddyshort	Arcade	  500 - 1,000  	3.811594247817993	1311
+com.moviestarplanet.BoonierescueAndroid	Casual	  1,000,000 - 5,000,000  	4.014832019805908	67355
+appinventor.ai_mizuyama_kizai.GOLF	Sports	  50 - 100  	0	0
+at.mroland.android.apps.imagedecoder	Libraries & Demo	  10,000 - 50,000  	4.144542694091797	339
+air.com.happyplanetgames.pyramidsolitairemummyscurse	Card	  500 - 1,000  	3.82608699798584	23
+com.clockwatchers.freecell	Card	  100 - 500  	2.75	4
+com.ozguruygulama2.ronaldohdduvarkagitlari	Sports	  10,000 - 50,000  	4.360475540161133	1093
+best.currency.converter.exchange.rate	Finance	  10,000 - 50,000  	4.233644962310791	321
+com.mahalo.learnfinalcutpro.free	Media & Video	  100,000 - 500,000  	2.7807953357696533	1031
+com.wikimediacom.wifidisplayhelper	Media & Video	  1,000,000 - 5,000,000  	3.2350876331329346	5700
+com.g5e.virtualcity	Strategy	  1,000,000 - 5,000,000  	4.278327941894531	34428
+ch.threema.voicemessageplugin	Communication	  100,000 - 500,000  	4.326443672180176	4935
+com.gamelabdesign.sport.basketball.ball.game	Sports	  100,000 - 500,000  	3.196859836578369	828
+space.works.quakealertpro	Weather	  10 - 50  	5	1
+com.AndrewWilleitner.ZigZagRun	Arcade	  10,000 - 50,000  	3.7161715030670166	303
+com.palta.tsunami	News & Magazines	  1,000 - 5,000  	3.555555582046509	82
+com.hunterforsyth.reactorlab	Casual	  1,000 - 5,000  	4.112500190734863	240
+pebble.apps.pebbleapps	Lifestyle	  50,000 - 100,000  	4.168428897857666	1324
+com.papago.M11ID	Transportation	  100 - 500  	3.2352941036224365	17
+com.enrasoft.keepcalm.pro	Entertainment	  1,000 - 5,000  	4.322404384613037	183
+com.dvloper.slendermanriseagainfree	Arcade	  1,000,000 - 5,000,000  	4.159698009490967	41591
+com.outfit7.talkingtom2free	Entertainment	  100,000,000 - 500,000,000  	4.325260639190674	2229362
+com.fitnessworld.nineminutesarms	Health & Fitness	  100,000 - 500,000  	3.607163429260254	1731
+com.gamesoatchikra.wifipasswordackerprank	Entertainment	  50,000 - 100,000  	3.1651885509490967	902
+com.bigfishgames.ptsmgoogfull	Casual	  500 - 1,000  	3.8888888359069824	63
+com.dof100.gamersarmyknife.chessclock	Board	  1,000 - 5,000  	4.599999904632568	15
+com.hispavista.ManualInversionBolsa	Finance	  10 - 50  	5	1
+uk.co.bitninja.kmtpro	Communication	  1,000 - 5,000  	4.702127456665039	47
+com.maxelus.shadowgalaxylivewallpaper	Personalization	  1,000,000 - 5,000,000  	4.542229652404785	44685
+de.mobileeventguide.adpd2015	Business	  100 - 500  	3.857142925262451	7
+com.cootek.smartinputv5	Productivity	  10,000,000 - 50,000,000  	4.350118160247803	582318
+air.girlfirstaid	Role Playing	  100,000 - 500,000  	3.2789721488952637	1907
+com.monotype.android.font.free.fifty.love	Personalization	  1,000,000 - 5,000,000  	4.358662128448486	18148
+com.mobirix.bubbleland	Arcade	  1,000,000 - 5,000,000  	3.7500741481781006	10127
+com.accella.paramedicreview	Medical	  1,000 - 5,000  	4.169811248779297	53
+com.flaki.speedometer	Transportation	  10,000 - 50,000  	4.044692516326904	179
+tildegame.hexwar	Strategy	  10,000 - 50,000  	3.553657293319702	1873
+com.istomgames.rmnyan	Family	  1,000,000 - 5,000,000  	4.222360134124756	44302
+com.vrginteractive.fifthpocket	Lifestyle	  50,000 - 100,000  	3.0544872283935547	312
+com.mcapture.sharks2014	Action	  500,000 - 1,000,000  	2.85782527923584	4396
+com.chenhan.coolkitty	Comics	  50,000 - 100,000  	4.2780585289001465	989
+ch.veloplus.mobile.android	Shopping	  1,000 - 5,000  	3.838709592819214	62
+com.ministrycentered.PlanningCenter	Productivity	  100,000 - 500,000  	4.338047504425049	2902
+com.BombApps.TheBestWeedSmokerPro	Casual	  100 - 500  	4	7
+org.krapp.equals	Education	  100,000 - 500,000  	3.647381544113159	2005
+com.fatbatstudio.airhockey3d	Sports	  500,000 - 1,000,000  	3.7437126636505127	10855
+com.convekta.android.chessplanet	Board	  50,000 - 100,000  	4.397104263305664	1934
+com.mcr.cidadefm	Music & Audio	  50,000 - 100,000  	4.06454610824585	1069
+az.myvidei.aztvapp	Media & Video	  100,000 - 500,000  	3.6375787258148193	1272
+com.ashimpd.watermark.paid	Media & Video	  10 - 50  	5	1
+com.magmamobile.game.BubbleBlast3D	Puzzle	  500,000 - 1,000,000  	3.7315621376037598	9410
+com.majescoentertainment.agentp_goo	Family	  1,000,000 - 5,000,000  	3.8245441913604736	77957
+com.GeoDuell.pro	Trivia	  50 - 100  	4.5714287757873535	7
+com.carwash.free	Family	  100,000 - 500,000  	3.5963566303253174	2086
+com.vicplay.lwp.springGlobe	Personalization	  100 - 500  	4.676470756530762	34
+com.livestream.player	Media & Video	  50,000 - 100,000  	3.9810924530029297	952
+com.outthinking.videoreverse	Photography	  100,000 - 500,000  	3.147474765777588	5445
+ivan.davidov.weather.forecast	Weather	  10,000 - 50,000  	3.8959391117095947	394
+com.BeltraWay.LevitOn	Racing	  1,000 - 5,000  	4.197478771209717	238
+com.syntellia.fleksy.kb	Productivity	  1,000,000 - 5,000,000  	4.264235973358154	102821
+com.movinapp.dict.frit.free	Books & Reference	  100,000 - 500,000  	3.5267093181610107	936
+com.expensemanager	Finance	  1,000,000 - 5,000,000  	4.299314022064209	41692
+com.appbody.handyNote.key.memo.google	Productivity	  1,000 - 5,000  	3.6315789222717285	38
+com.rtp.android	News & Magazines	  100,000 - 500,000  	4.1769208908081055	9931
+com.catmario.hd	Arcade	  100,000 - 500,000  	3.742934226989746	9624
+com.haikugamesco.escapewickham	Puzzle	  100,000 - 500,000  	4.407495975494385	48052
+com.ntlworld.madridquiz	Sports	  5,000 - 10,000  	4	101
+de.bk.tools.motobike	Transportation	  100 - 500  	3.5333333015441895	15
+com.beupfront.socialchannel.mariasharapovaapp	Sports	  10,000 - 50,000  	4.674666881561279	375
+com.BestVoiceChanger.voicechangerwitheffects	Personalization	  10,000 - 50,000  	3.583892583847046	149
+com.zeichenkraftwerk.vr2cp	Role Playing	  100 - 500  	3.6363637447357178	33
+ch.ktipp.testsieger	Tools	  1,000 - 5,000  	2.941176414489746	34
+com.eminemsongsquiz	Trivia	  10,000 - 50,000  	4.355932235717773	354
+com.intuit.quickbooks	Business	  500,000 - 1,000,000  	4.285656452178955	9844
+com.ikeyboard.theme.Glass	Entertainment	  10,000 - 50,000  	4.3359375	512
+de.apptiv.business.android.aldi_ch	Shopping	  100,000 - 500,000  	3.675623893737793	521
+com.korrisoft.voxfx.premium	Entertainment	  5,000 - 10,000  	3.7515528202056885	161
+com.flyingfox.supercube_rebel	Personalization	  5,000 - 10,000  	4.475471496582031	265
+com.netdonkeylabs.cashflow	Finance	  1,000 - 5,000  	4.530864238739014	162
+mediau_full.player	Music & Audio	  10,000 - 50,000  	3.840909004211426	572
+com.devsegroak.phoneelectricdisplayjoke	Simulation	  50,000 - 100,000  	3.6429998874664307	1000
+com.nhl.gc1314.nsh	Sports	  10,000 - 50,000  	4.54295539855957	291
+com.revstudios.sanidumps.full	Travel & Local	  1,000 - 5,000  	3.875	80
+com.bigfishgames.google.empress1full	Casual	  10,000 - 50,000  	4.197932243347168	677
+com.bblab.offroafrussd	Racing	  10 - 50  	0	0
+com.mbartl.perfectchessdatabase.android	Board	  500 - 1,000  	3.857142925262451	49
+matrixinform.energieportale	Lifestyle	  10 - 50  	3	4
+com.taxpowderliberty.pity	Tools	  100,000 - 500,000  	3.9944801330566406	1087
+com.zeroone.yumoriseki5	Entertainment	  500 - 1,000  	4.909090995788574	22
+com.doubledigital.fishschooling	Libraries & Demo	  1,000 - 5,000  	3.7647058963775635	17
+com.zeroone.yumoriseki1	Entertainment	  1,000 - 5,000  	4.567567348480225	37
+com.ouzhanuglu.SahinDrift	Racing	  1,000,000 - 5,000,000  	3.8116226196289062	40679
+com.zeroone.yumoriseki2	Entertainment	  500 - 1,000  	4.8125	16
+ch.glue.android.mezi.lenzburg	Transportation	  500 - 1,000  	4.111111164093018	9
+com.thesoundagency.study	Education	  10,000 - 50,000  	3.7160494327545166	972
+com.app4wawa.lerirejaune	News & Magazines	  5,000 - 10,000  	4.061320781707764	212
+com.noxgames.FlappyFootballer	Sports	  100,000 - 500,000  	3.5406267642974854	3766
+com.trinitigame.android.callofminidinohunter	Action	  1,000,000 - 5,000,000  	4.007150173187256	167543
+dk.gn.resound	Medical	  500 - 1,000  	5	3
+com.karacasoft.cardboardmediaplayer	Media & Video	  10,000 - 50,000  	2.4285714626312256	126
+nu.tommie.inbrowser	Communication	  1,000,000 - 5,000,000  	4.079354286193848	10285
+com.realtech.romamobilita	Transportation	  100,000 - 500,000  	3.567256212234497	2431
+it.ideasolutions.kyms	Media & Video	  10,000 - 50,000  	4.167030334472656	916
+fishnoodle.eggs	Personalization	  1,000 - 5,000  	4.354838848114014	31
+com.oanda.currencyconverter	Travel & Local	  1,000,000 - 5,000,000  	4.192145824432373	21857
+com.cec.android.mbanking	Finance	  100 - 500  	5	2
+air.air.com.gosugroup.battlefrontheroes	Strategy	  1,000,000 - 5,000,000  	4.28251838684082	76165
+org.korosoft.simplenotepad.android	Productivity	  100,000 - 500,000  	4.223505973815918	3029
+com.alawar.FF3VikingHeroes.Premium	Arcade	  1,000 - 5,000  	4.407322883605957	437
+com.bostone.droidin	Social	  1,000 - 5,000  	3.683333396911621	122
+br.com.rodrigokolb.classicdrum	Music	  1,000,000 - 5,000,000  	4.172371864318848	31990
+com.cercaapp	Social	  1,000,000 - 5,000,000  	3.8807034492492676	10235
+com.appbasic.romanticphotoframes	Photography	  10,000 - 50,000  	4.133333206176758	390
+nl.giejay.nzbsearcher	Media & Video	  100 - 500  	4.181818008422852	11
+air.com.essig.spielplatz2	Board	  500 - 1,000  	3.4000000953674316	5
+air.com.essig.spielplatz1	Educational	  1,000 - 5,000  	4.360655784606934	61
+air.tv.spiegel.sptv	Entertainment	  100,000 - 500,000  	2.9321963787078857	2404
+com.goat.wolfrpgsim2	Simulation	  50,000 - 100,000  	3.5247788429260254	1130
+via.crucis	Education	  10 - 50  	0	0
+com.ladikapps.dino.beast.counter.attack.shooting3d	Action	  10,000 - 50,000  	3.701711416244507	409
+au.com.yamoya.mildura100	Sports	  10 - 50  	3.5	2
+com.friskyapps.bloodtestresult	Medical	  1,000 - 5,000  	3.9629628658294678	27
+ut.ewh.audiometrytest	Medical	  1,000 - 5,000  	3.125	16
+com.wordsearch.sopaletras	Word	  100,000 - 500,000  	3.99873685836792	2375
+com.worldradios.portugal	Music & Audio	  500 - 1,000  	4.696969509124756	33
+com.gogiigames.com.RQ	Adventure	  50,000 - 100,000  	3.7405452728271484	2274
+com.fentazy.mybaby2	Casual	  1,000,000 - 5,000,000  	3.80267333984375	55289
+com.bbqarmy.kungfusounds	Libraries & Demo	  1,000 - 5,000  	4	25
+cmm.liwenwen20131497.redleaf	Libraries & Demo	  100,000 - 500,000  	4.060575008392334	2922
+com.chrislyle.pokeroddspro	Card	  500 - 1,000  	4.679999828338623	25
+com.android_rsap.rsap	Communication	  10,000 - 50,000  	4.335329532623291	668
+se.softwerk.stoneridge.dds.android	Transportation	  10,000 - 50,000  	4.029850959777832	67
+com.modgames.xylophone	Music	  5,000 - 10,000  	3.621951103210449	82
+jp.co.unbalance.android.tumesyo	Board	  5,000 - 10,000  	4.417910575866699	67
+com.buymeapie.bmap.pro	Shopping	  10,000 - 50,000  	4.4555864334106445	3231
+net.baduktv.siljeon1dan	Media & Video	  50 - 100  	5	1
+de.remidias.free	Medical	  10,000 - 50,000  	3.775510311126709	147
+com.foobnix.pdf.reader	Productivity	  5,000,000 - 10,000,000  	3.9421889781951904	69018
+com.guides.minecraftnewmods.pe	News & Magazines	  500,000 - 1,000,000  	3.036738157272339	6941
+jp.sweet.jasdf.app	Entertainment	  100 - 500  	4.199999809265137	10
+com.mobile.bizo.makeababy2	Entertainment	  100,000 - 500,000  	2.8360495567321777	3068
+com.funbly.guesstextpro	Trivia	  50 - 100  	4	2
+air.com.flipline.papaspizzeriatogo	Strategy	  10,000 - 50,000  	4.215292453765869	2341
+com.bestringtonesapps.soundeffects	Music & Audio	  100,000 - 500,000  	3.900512933731079	4875
+com.ucoz.mysites	News & Magazines	  100,000 - 500,000  	3.897012948989868	2243
+com.kidstatic.toddleranimalsoundsenglish	Education	  10,000 - 50,000  	4.318359375	512
+com.weather.forecast.widget.pro	Weather	  500 - 1,000  	4.083333492279053	108
+uk.co.bigheadgames.Snooker	Sports	  10,000 - 50,000  	4.137430191040039	896
+com.giraffegames.bocce	Sports	  5,000,000 - 10,000,000  	4.051077842712402	120072
+appinventor.ai_nurettinarapsoy_NA.Tabu	Word	  50 - 100  	3	2
+com.yellowdogapps.nascast	Media & Video	  1,000 - 5,000  	3	76
+com.debia.domjiven	Educational	  1 - 5  	0	0
+air.com.tribeplay.drpanda	Education	  10,000 - 50,000  	4.122615814208984	367
+com.tcc.android.fcinter1908	Sports	  100,000 - 500,000  	4.558771133422852	2800
+com.infiapps.winterslots	Casino	  10,000 - 50,000  	4.2580647468566895	558
+com.svox.pico.voice.spa.esp	Libraries & Demo	  500,000 - 1,000,000  	3.9762697219848633	4510
+appinventor.ai_peppexsonia.Cable_Size	Business	  100 - 500  	4.5	2
+com.ogqcorp.bgh	Personalization	  50,000,000 - 100,000,000  	4.634481430053711	1581958
+ch.migrosbank.android.tablet	Finance	  500 - 1,000  	2.357142925262451	14
+biz.quetzal.MusicTheory	Music	  1,000 - 5,000  	3.2592592239379883	54
+com.FantasyPhotoEditornn	Photography	  500,000 - 1,000,000  	3.8913612365722656	5348
+com.frugalflyer.airport.ema	Travel & Local	  100 - 500  	3.944444417953491	18
+com.icechen1.sleepytime.plus	Lifestyle	  1,000 - 5,000  	4.72580623626709	186
+com.disney.WMPLite	Puzzle	  10,000,000 - 50,000,000  	4.2384467124938965	416784
+com.mastermind.boardgame	Board	  100,000 - 500,000  	3.8216943740844727	5642
+com.wizrocket.android.sdk.twenty48	Board	  10 - 50  	5	1
+com.wTheMostBoringMMOEver	Role Playing	  5,000 - 10,000  	3.0505051612854004	396
+com.jeedup.getfollowerstumblr	Productivity	  100,000 - 500,000  	3.8317651748657227	2657
+com.mobisystems.mobiscannerpro	Business	  10 - 50  	3.6666667461395264	3
+pt.eleven.suecariscos	Card	  10,000 - 50,000  	3.1914894580841064	94
+com.kalicinscy.wallpaper.starfield.paid	Personalization	  5,000 - 10,000  	4.57267427444458	688
+com.burpsgames.battlewizardattack	Role Playing	  1,000 - 5,000  	3.786407709121704	103
+com.google.android.launcher	Tools	  10,000,000 - 50,000,000  	4.3305745124816895	405261
+air.Airship2	Casual	  10,000 - 50,000  	4.2324323654174805	925
+com.academmedia.RuinsEscape_as	Action	  100,000 - 500,000  	3.365913152694702	9024
+com.aapvs.international.scarystories5.lite	Books & Reference	  100,000 - 500,000  	4.277690410614014	14617
+com.smurfinc.kisgiyim	Shopping	  50,000 - 100,000  	3.6993987560272217	499
+com.tablas.mrv	Music	  10,000 - 50,000  	3.077151298522949	337
+expense.manager.money.tracker.free	Finance	  100,000 - 500,000  	4.335604667663574	7631
+ch.corten.aha.worldclock	Travel & Local	  100,000 - 500,000  	4.101676940917969	954
+com.qxmd.readbyqxmd	Medical	  10,000 - 50,000  	4.5721211433410645	825
+com.arthisoft.cargaragefun	Educational	  500,000 - 1,000,000  	3.744896650314331	7397
+com.softcraft.englishbible	Books & Reference	  1,000,000 - 5,000,000  	4.3976287841796875	13832
+nz.co.rumbl.driftkhana	Racing	  10,000 - 50,000  	4.214450836181641	1730
+com.mikeperrow.spiral	Libraries & Demo	  1,000,000 - 5,000,000  	4.042907238006592	8741
+org.adwfreak.launcher	Personalization	  500,000 - 1,000,000  	4.324051856994629	28711
+com.androbros.fourpics1word	Word	  10,000 - 50,000  	3.922652006149292	181
+com.vg.threed_driving_school_yard_parking	Simulation	  100,000 - 500,000  	3.492471218109131	1129
+air.ru.fixiclub.memorygame	Educational	  500 - 1,000  	3.909090995788574	11
+amp.biblereader.olivetree	Books & Reference	  5,000 - 10,000  	4.705357074737549	337
+de.pictofun.labyrinthone	Puzzle	  1,000,000 - 5,000,000  	3.5916411876678467	12729
+ch.bernerzeitung.app	News & Magazines	  10,000 - 50,000  	3.0682926177978516	205
+com.princessmobileentertainment.android_valentinedress	Music	  1,000 - 5,000  	4	11
+com.spottedbylocals2.Rome	Travel & Local	  100 - 500  	4.400000095367432	10
+tubenosis.hypnose.zum.einschlafen	Health & Fitness	  10,000 - 50,000  	3.29512882232666	349
+com.gamemisctop.rusmototraf	Racing	  100,000 - 500,000  	3.4839837551116943	1717
+com.ausofttech.Crazy8CrossPlatform	Card	  10,000 - 50,000  	3.7759196758270264	299
+ru.grocerylist.android.pro	Shopping	  1,000 - 5,000  	4.143678188323975	174
+com.synk.synkontact	Tools	  10,000 - 50,000  	3.9882352352142334	256
+air.at.lifetool_solutions.TouchMeUnColor.mobile.full	Educational	  50 - 100  	5	1
+com.cereproc.Gabriel	Libraries & Demo	  100 - 500  	3.7096774578094482	31
+com.roidapp.photogrid	Photography	  100,000,000 - 500,000,000  	4.515635013580322	3486276
+com.aceviral.ag2	Arcade	  5,000,000 - 10,000,000  	3.946788787841797	65026
+com.adobe.air	Tools	  100,000,000 - 500,000,000  	3.9057531356811523	804840
+com.okcupid.okcupid	Social	  5,000,000 - 10,000,000  	4.186804294586182	166940
+air.com.appnormals.headcoachbasketball	Sports	  100 - 500  	3.4000000953674316	10
+at.rundquadrat.android.r2mail2license	Communication	  1,000 - 5,000  	4.48913049697876	92
+com.game.SkaterBoy	Arcade	  50,000,000 - 100,000,000  	4.236459255218506	837018
+com.vertumus.atran	Personalization	  5,000 - 10,000  	4.780551910400391	761
+net.solomob.android.newshog	News & Magazines	  500,000 - 1,000,000  	4.166800022125244	14988
+com.wysegames.stayalighthd	Arcade	  1,000,000 - 5,000,000  	4.0732526779174805	121470
+com.igaranti	Finance	  100,000 - 500,000  	4.184502601623535	6672
+com.kbjgames.mikevickgametime	Sports	  1,000,000 - 5,000,000  	4.067257404327393	26183
+com.fever3d.TrafficBandits	Racing	  100,000 - 500,000  	3.4781694412231445	1901
+org.cambridge.grammarseries.esgu	Education	  1,000 - 5,000  	3.9537036418914795	108
+sim.soundboardbaur	Entertainment	  1,000 - 5,000  	3.0602409839630127	86
+com.srowen.bs.android.simple	Shopping	  1,000 - 5,000  	4.111111164093018	63
+com.kauf.imagefaker.photofunfunnypicscreator	Comics	  500,000 - 1,000,000  	4.009557247161865	3976
+com.xiaomi_mi.android	Shopping	  10,000 - 50,000  	3.8294930458068848	434
+com.handy.checkers.free	Board	  1,000 - 5,000  	3.75	60
+com.roundrobin.dragonutz	Role Playing	  100,000 - 500,000  	4.036565780639648	10529
+com.asmolgam.asia	Trivia	  5,000 - 10,000  	4.208333492279053	120
+com.aceviral.agr	Racing	  5,000,000 - 10,000,000  	3.8446667194366455	68852
+com.trt.trttelevizyon	Media & Video	  500,000 - 1,000,000  	3.550623893737793	8494
+air.com.groupebayard.samsamcosmicherofr	Puzzle	  1,000 - 5,000  	4	20
+ncaa.logolwp_northcarolina	Sports	  500 - 1,000  	4.583333492279053	12
+com.nexonm.orcs	Strategy	  1,000,000 - 5,000,000  	3.8257946968078613	27083
+com.ghostmobile.mediaconverter	Tools	  10,000 - 50,000  	4.109800338745117	2204
+com.gau.go.launcherex.theme.fd.whitesoul.fourinone	Personalization	  1,000,000 - 5,000,000  	4.117083549499512	33711
+com.bandagames.tastyquest	Puzzle	  100,000 - 500,000  	4.118824481964111	4797
+de.leihwelt.android.daysleft	Lifestyle	  1,000,000 - 5,000,000  	4.1471710205078125	42224
+com.budgestudios.caillouhouseofpuzzles	Puzzle	  1,000,000 - 5,000,000  	3.532313108444214	12023
+com.bluejabb_mb_full	Social	  50 - 100  	5	2
+com.lock.what	Communication	  500,000 - 1,000,000  	3.686239242553711	4462
+ch.blick.tv.android	Media & Video	  10,000 - 50,000  	3.658862829208374	299
+com.mobisystems.quickwrite.key	Business	  1,000 - 5,000  	4.06779670715332	118
+org.cocos2d.videoPokerDGW	Casino	  10 - 50  	2	1
+com.beach.racer.fast2293	Racing	  1,000,000 - 5,000,000  	3.633854389190674	8188
+com.igg.clash_of_lords	Strategy	  5,000,000 - 10,000,000  	4.6045427322387695	338815
+com.prolo.powerdrift.android	Racing	  50 - 100  	3.5	4
+com.Guides1000.package2013280122953	Travel & Local	  100 - 500  	4.176470756530762	17
+com.ra3al.xperia.unread	Personalization	  1,000 - 5,000  	4.121118068695068	322
+com.anysoftkeyboard.languagepack.hungarian	Libraries & Demo	  100,000 - 500,000  	4.396087169647217	2312
+com.glanzkinder.MigrosStudios.AndroidActivFitness	Health & Fitness	  100 - 500  	3.4000000953674316	5
+jp.co.happyhoppyhappy.escapehorror.android	Adventure	  100,000 - 500,000  	3.716796875	3072
+com.mrb.emrs.guipro	Role Playing	  100 - 500  	4.477612018585205	67
+air.com.studiopango.pangoWhereAreYou	Educational	  1,000 - 5,000  	4.4347825050354	69
+com.egert.piano	Music & Audio	  100,000 - 500,000  	3.8088295459747314	2469
+com.ventel.android.radardroid2	Travel & Local	  10,000 - 50,000  	4.355599880218506	3014
+com.ts.pokerslot	Casino	  500,000 - 1,000,000  	4.083127021789551	2885
+game.monkey.jungle.bird.fly	Adventure	  5,000 - 10,000  	3.5	38
+jonxsoft.diezmil	Board	  500 - 1,000  	4.166666507720947	12
+com.szkb.android.mbanking	Finance	  1,000 - 5,000  	4.296296119689941	27
+com.mickey.adventure	Adventure	  50,000 - 100,000  	3.4221789836883545	514
+com.magmic.phase10.lite	Card	  1,000,000 - 5,000,000  	3.87530779838562	30868
+com.harris.finance.manager	Finance	  500 - 1,000  	4.090909004211426	33
+com.alexblackapps.game2048	Puzzle	  1,000,000 - 5,000,000  	4.373931884765625	27965
+com.dreamgame.templequest	Casual	  100,000 - 500,000  	3.991609573364258	1311
+com.twothumbz.gameday_florida	Sports	  100 - 500  	4.666666507720947	3
+com.hiktek.wSpy	Communication	  1,000,000 - 5,000,000  	3.437429428100586	15063
+com.pinux.compassplus	Tools	  500,000 - 1,000,000  	4.089913845062256	4293
+org.akul.psyplus	Entertainment	  100 - 500  	4.849056720733643	53
+com.PinnacleLabs.fingerprintlockFree	Lifestyle	  1,000,000 - 5,000,000  	3.1952552795410156	6955
+com.lavadip.skeyepro	Books & Reference	  1,000 - 5,000  	4.685279369354248	197
+air.MagicForestSolitaire	Card	  100 - 500  	4.5	12
+com.kevinbradford.games.byanimalsvpp	Family	  100 - 500  	5	1
+jp.snowlife01.android.hdcamera	Photography	  100,000 - 500,000  	3.8507513999938965	5856
+com.newsublang.ort	Books & Reference	  1,000,000 - 5,000,000  	2.95998477935791	10496
+com.codegent.apps.learn.german	Education	  100,000 - 500,000  	3.9869792461395264	1536
+com.mediocre.sprinkle2	Puzzle	  100,000 - 500,000  	4.301599502563477	9128
+com.myGame.mahjong	Card	  10,000 - 50,000  	3.996183156967163	262
+com.bbs.topringtones	Music & Audio	  500,000 - 1,000,000  	3.6375088691711426	5636
+com.oki.puzzles	Educational	  100,000 - 500,000  	3.5830986499786377	2130
+com.ubercab	Transportation	  10,000,000 - 50,000,000  	4.140072345733643	118810
+com.appmk.com.AOURTDMTEGUVDRMW	Libraries & Demo	  10,000 - 50,000  	4.604650974273682	172
+net.fishlabs.vwscc2	Racing	  1,000,000 - 5,000,000  	3.8422646522521973	28738
+com.app.rvb.ppfcbtv	Sports	  100,000 - 500,000  	3.879781484603882	549
+com.and.games505.mythicislands	Strategy	  10,000 - 50,000  	3.7963526248931885	1316
+com.touwolf.cllappmovil	Communication	  50,000 - 100,000  	4.038960933685303	2002
+com.mobileamusements.SnowSlotsMerryChristmasPREMIUM	Casino	  100 - 500  	4.599999904632568	5
+com.storm8.worldwar	Arcade	  10,000,000 - 50,000,000  	4.222360134124756	86087
+com.ngarside.parkour	Sports	  500 - 1,000  	1.3333333730697632	6
+com.handcent.nextsms	Communication	  10,000,000 - 50,000,000  	4.3807053565979	547277
+appinventor.ai_cmelinosky.NIHStrokeScale	Medical	  1,000 - 5,000  	4	16
+com.strangerchat	Social	  100,000 - 500,000  	3.5203487873077393	1032
+casinogamestudios.slotscasino	Card	  100,000 - 500,000  	4.025906562805176	3474
+com.marvelousgames.touchracing2	Racing	  1,000,000 - 5,000,000  	3.857499599456787	23221
+com.flyclops.domino.android	Board	  1,000,000 - 5,000,000  	4.137324333190918	31087
+com.microsoft.crm.crmtablet	Business	  1,000 - 5,000  	1.8536585569381714	82
+com.timeondriver.tod	Transportation	  5,000 - 10,000  	3.672727346420288	55
+com.intentsoftware.crazyeights.full	Card	  5,000 - 10,000  	4.19059419631958	404
+it.ansa.papasmartphone	News & Magazines	  100 - 500  	4.789473533630371	19
+com.hindsightlabs.paprika	Lifestyle	  10,000 - 50,000  	4.407590866088867	606
+com.BoshBashStudios.advancedbatterycalibrator	Tools	  500,000 - 1,000,000  	4.470746040344238	61906
+net.instantanatomy.cranialnerves	Medical	  100 - 500  	4.75	4
+com.gsn.android.casino	Casino	  5,000,000 - 10,000,000  	4.306404113769531	185685
+com.aiqidi.nemo	Health & Fitness	  10,000 - 50,000  	3.9735100269317627	755
+de.namit.eineuro	Shopping	  1,000 - 5,000  	3.1875	32
+com.apps.mypayments.billsreminder	Productivity	  500 - 1,000  	4.150000095367432	40
+ch.stadt.sg.moapp	Travel & Local	  1,000 - 5,000  	3.3469388484954834	49
+com.valuephone.vpedeka	Shopping	  100,000 - 500,000  	4.150155067443848	4189
+com.visualit.zuti.AZVisitor	Travel & Local	  1,000 - 5,000  	3.6417911052703857	67
+com.firerabbit.android.game.tomb.part2	Casual	  100 - 500  	4.090909004211426	22
+com.myswitzerland.cityguide.lugano	Travel & Local	  5,000 - 10,000  	4.206896781921387	29
+com.pnjmobile.realfishingEn	Sports	  500 - 1,000  	3.344827651977539	29
+gamessl.packi.rummysl	Card	  10,000 - 50,000  	3.2248520851135254	169
+com.ebay.annunci	Shopping	  500,000 - 1,000,000  	4.26772403717041	11413
+se.feomedia.quizkampen.it.lite	Trivia	  1,000,000 - 5,000,000  	4.166247367858887	205122
+com.proactiveapp.womanlogpregnancy.pro	Health & Fitness	  10,000 - 50,000  	4.374908924102783	1371
+mindware.wordgamespro	Word	  500 - 1,000  	4.479166507720947	48
+app.howtodraw.monsters	Education	  100,000 - 500,000  	4.073958396911621	2880
+by.flipdev.mem1001group	Comics	  10,000 - 50,000  	4.026395320892334	1326
+com.bigwigmedia.penguindiner3d	Arcade	  100,000 - 500,000  	4.102407455444336	10302
+com.moodscanner.fingerprint.scanner	Casual	  500,000 - 1,000,000  	3.0333762168884277	6202
+com.qublix.farkleBlitz	Card	  100,000 - 500,000  	4.045512676239014	5471
+air.bluewoodhouseescape	Puzzle		4.130681991577148	176
+com.warnerbros.gravity	Arcade	  1,000,000 - 5,000,000  	3.4464423656463623	70905
+com.finperssaver	Finance	  100,000 - 500,000  	4.550390243530273	12820
+com.rupan.srilankagold	Shopping	  5,000 - 10,000  	3.607142925262451	28
+info.androidx.lovelycalen	Lifestyle	  1,000 - 5,000  	4.264705657958984	34
+com.androidwasabi.app.electric	Entertainment	  10,000 - 50,000  	3.643122673034668	269
+com.istudios.akbarbirbal	Comics	  10,000 - 50,000  	4.145559310913086	1216
+com.socialize.bluetwitt	Social	  10 - 50  	3	2
+com.gamecircus.CoinDozerWorld	Casino	  1,000,000 - 5,000,000  	4.161243438720703	27568
+im.maya.legendaryheroes	Role Playing	  1,000,000 - 5,000,000  	4.206564903259277	63520
+com.nitako.move	Puzzle	  1,000,000 - 5,000,000  	4.0128254890441895	59335
+com.SbloccoT4D	Media & Video	  500 - 1,000  	3.7666666507720947	30
+br.thetisgames.mtd.free	Strategy	  100,000 - 500,000  	3.718722343444824	6794
+yau.QNBT.IRONUI	Personalization	  1,000 - 5,000  	4.188976287841797	127
+com.wSimpleTV	Media & Video	  50,000 - 100,000  	3.247058868408203	510
+com.wordsmobile.rugby	Role Playing	  1,000,000 - 5,000,000  	3.9760546684265137	7016
+se.thegreen.themes.rainglow	Personalization	  1,000 - 5,000  	4.267942428588867	209
+com.gff.subway.train.simulator3d.driving	Simulation	  50,000 - 100,000  	2.804285764694214	700
+com.handson.h2o.nhra	Entertainment	  1,000 - 5,000  	3.224043607711792	183
+com.augmentra.viewranger.android	Health & Fitness	  1,000,000 - 5,000,000  	4.138698577880859	18517
+com.droidhen.game.fishpredator	Arcade	  1,000,000 - 5,000,000  	3.9794516563415527	21851
+com.splendapps.splendshot	Tools	  100,000 - 500,000  	3.8176653385162354	1936
+solitaire.card.game	Card	  100,000 - 500,000  	3.705042839050293	2102
+com.nexstreaming.app.kinemasterfree	Media & Video	  1,000,000 - 5,000,000  	4.243115425109863	69140
+us.screen2video.capture	Tools	  50,000 - 100,000  	2.209256887435913	1534
+se.bankgirot.swish	Finance	  1,000,000 - 5,000,000  	4.1122283935546875	6264
+com.luckyfish.omgfortune	Casino	  1,000,000 - 5,000,000  	4.21491813659668	34227
+com.duksel.a.SlotsClub	Casino	  10,000 - 50,000  	4.567741870880127	1395
+com.rubyseven.bigspinbingo	Casino	  100,000 - 500,000  	4.022688388824463	11063
+com.debia.guesspicture	Word	  100,000 - 500,000  	4.370445251464844	1976
+appinventor.ai_kevinlexsanders.hdpredatorcalls	Sports	  1,000 - 5,000  	4.4285712242126465	21
+air.com.differencegames.winterpony	Casual	  50 - 100  	4.666666507720947	3
+com.nuracode.trapflix	Media & Video	  5,000 - 10,000  	4.24271821975708	103
+com.singPost	Business	  100,000 - 500,000  	3.232762575149536	2161
+net.kohakulab.cerisierplus	Social	  500 - 1,000  	4.196078300476074	51
+air.com.canavar.okey	Board	  10,000 - 50,000  	3.9638242721557617	387
+intelgeen.rocketdial.pro	Communication	  10,000 - 50,000  	4.29443359375	2048
+com.dsi.ant.server.btips	Libraries & Demo	  500,000 - 1,000,000  	3.854748487472534	537
+aero.wear.watch.pro	Transportation		0	0
+reddit.news	News & Magazines	  50,000 - 100,000  	4.760812282562256	15122
+air.com.pencilkids.monkeygohappy6paid	Educational	  100 - 500  	3.75	8
+com.simppro.quran.offline	Books & Reference	  100,000 - 500,000  	4.59170389175415	4460
+com.notredameringtone	Sports	  500 - 1,000  	4	4
+com.kvadgroup.cameraplus	Photography	  500,000 - 1,000,000  	3.9819886684417725	9494
+com.summview.rfi.pureradio	News & Magazines	  50,000 - 100,000  	4.013636589050293	660
+jp.yuika.rpg_en	Role Playing	  100,000 - 500,000  	4.385550498962402	13329
+dk.nicolai.buch.andersen.glasswidgets	Personalization	  500,000 - 1,000,000  	4.014393329620361	5979
+com.silverleaf.catgplayground	Casual	  10,000 - 50,000  	4.204819202423096	166
+com.sfu.android.thermometerwidget	Weather	  1,000 - 5,000  	3.8235294818878174	34
+at.schickermueller.android.tankdiary	Transportation	  10 - 50  	4.666666507720947	6
+com.mediadaily24.qifteli	Entertainment	  10,000 - 50,000  	4.546666622161865	675
+com.matcha.slam_dunk	Comics	  10,000 - 50,000  	4.389876842498779	731
+com.frojo.moy2	Casual	  10,000,000 - 50,000,000  	4.104930877685547	339968
+com.cloudmagic.mail	Communication	  1,000,000 - 5,000,000  	4.443175792694092	64374
+com.imperihome.lite.unlockerpro	Lifestyle	  1,000 - 5,000  	4.646789073944092	218
+com.nojokelab.perfectpianopro	Entertainment	  10 - 50  	0	0
+voxygen.tts.eva	Communication	  100 - 500  	4.529411792755127	17
+com.wonderpollsmature.android	Entertainment	  1,000 - 5,000  	3.597402572631836	77
+com.ilegendsoft.mercury	Productivity	  100,000 - 500,000  	4.230071067810059	9584
+air.com.storybookendingsoftware.sew2	Sports	  500 - 1,000  	3.695122003555298	82
+br.com.uol.placaruol.ligacampeoes	Sports	  10,000 - 50,000  	3.982731580734253	637
+com.smaythavee.manyangrybirdscoloringkids	Educational	  50,000 - 100,000  	3.3584229946136475	558
+com.luz.contactsdialerpro	Communication	  1,000 - 5,000  	4.222222328186035	108
+com.dip.paid.smscollection	Social	  10 - 50  	0	0
+com.handycloset.android.eraser	Photography	  1,000,000 - 5,000,000  	4.110314846038818	37112
+com.budgestudios.CaillouCheckUp	Educational	  1,000,000 - 5,000,000  	3.3806347846984863	11691
+com.at.pillalarm	Medical	  5,000 - 10,000  	3.444444417953491	99
+taxi.android.client	Transportation	  1,000,000 - 5,000,000  	4.175369739532471	13521
+com.pixign.fishes.pro.wallpaper	Personalization	  1,000 - 5,000  	4.583333492279053	132
+com.fitnessworld.nineminutesabs	Health & Fitness	  100,000 - 500,000  	3.729524612426758	2503
+com.marlon.searcheverything	Productivity	  50,000 - 100,000  	4.08439302444458	865
+de.abelssoft.washandgo	Productivity	  10,000 - 50,000  	4.035874366760254	446
+com.domobile.iworkout.free.chest	Health & Fitness	  500,000 - 1,000,000  	3.9542720317840576	2493
+com.bose.soundtouch	Music & Audio	  100,000 - 500,000  	3.7239058017730713	2970
+com.blackspruce.lpd	Business	  100,000 - 500,000  	3.755263090133667	760
+com.onemanwithcamera.instacartoon	Photography	  1,000,000 - 5,000,000  	3.8140053749084473	19264
+com.appsministry.mashagame	Arcade	  5,000,000 - 10,000,000  	4.021611213684082	146683
+com.twothumbz.gameday_northcarolina	Sports	  100 - 500  	5	3
+com.zimanekurdi.app	Libraries & Demo	  10,000 - 50,000  	4.465116500854492	172
+com.gametime.policecarsniper	Action	  100,000 - 500,000  	3.368635416030884	5892
+com.crimi.phaseout	Card	  10,000 - 50,000  	4.491031169891357	892
+com.gameloft.android.ANMP.GloftBTHM	Card	  1,000,000 - 5,000,000  	4.397502422332764	247352
+com.supergoodpixel.blackjack	Casino	  100 - 500  	4.526315689086914	19
+avm.androiddukkan.ism	Libraries & Demo	  10,000 - 50,000  	4.289215564727783	204
+com.usatoday.android.news	News & Magazines	  5,000,000 - 10,000,000  	4.193136692047119	36559
+com.firecrackersw.wordbreakerfull	Word	  10,000 - 50,000  	4.461661338806152	626
+com.swisscrmforum.crmforum	Business	  50 - 100  	0	0
+com.newgames.vehicles	Puzzle	  500,000 - 1,000,000  	2.6450347900390625	3313
+com.theIm.imDetective	Board	  100 - 500  	4.102564334869385	39
+com.gameimax.hairdodesign	Family	  1,000,000 - 5,000,000  	3.4332571029663086	31921
+com.noodlecake.pumpedbmxfree	Sports	  500,000 - 1,000,000  	4.1405863761901855	25856
+com.sololearn.sql	Education	  50,000 - 100,000  	4.187954425811768	963
+com.wonder	Education	  1,000,000 - 5,000,000  	4.43660306930542	111859
+com.rayg.loudringtones	Personalization	  1,000,000 - 5,000,000  	4.0190749168396	15308
+org.pbskids.treeproblem	Educational	  500 - 1,000  	4.041666507720947	24
+com.northcube.vsracing2	Racing	  100,000 - 500,000  	4.198047637939453	6044
+com.ausweather.android	Weather	  1,000 - 5,000  	2.200000047683716	35
+com.yahoo.mobile.client.android.flickr	Photography	  5,000,000 - 10,000,000  	4.253929138183594	165184
+com.clumsyclash.DrawWeapons	Family	  50,000 - 100,000  	3.5322580337524414	1054
+pl.pleng.german	Books & Reference	  1,000,000 - 5,000,000  	3.8369150161743164	6798
+com.wulven.shadowera	Card	  1,000,000 - 5,000,000  	4.077877521514893	23937
+com.mandicmagic.android	Social	  5,000,000 - 10,000,000  	3.993168830871582	164391
+com.imagedrome.jihachul	Transportation	  1,000,000 - 5,000,000  	4.098730564117432	5278
+cz.jhg.gmapsspeed.pro	Transportation	  1,000 - 5,000  	2.809523820877075	21
+air.br.com.netcartas.netburaco	Card	  100,000 - 500,000  	4.032244682312012	2419
+com.lwi.android.flappsfull	Productivity	  10,000 - 50,000  	4.177549362182617	1363
+air.com.ravensburgerdigital.playorigamimonster	Family	  5 - 10  	0	0
+com.livewallpapers3d.sakuragardens	Personalization	  10,000 - 50,000  	4.35026741027832	374
+si.pilcom.apps.cakemakerkidsadsfree	Casual	  1,000 - 5,000  	4.244897842407227	49
+com.GameTaiko.monsterTruck	Racing	  100,000 - 500,000  	3.67348575592041	3764
+com.Moosader.FantazioDeEsperanto	Educational	  50 - 100  	4.800000190734863	10
+com.twentyfivesquares.press	News & Magazines	  50,000 - 100,000  	4.327479839324951	5353
+br.com.tapps.myvirtualbear	Educational	  1,000 - 5,000  	4.025000095367432	80
+de.gelbeseiten.android	Books & Reference	  500,000 - 1,000,000  	3.8301069736480713	3927
+it.creact.imussolini	Lifestyle	  100 - 500  	4.185184955596924	27
+com.anbgames.ao_gf	Role Playing	  100,000 - 500,000  	4.367689609527588	23751
+com.sinyee.babybus.paintingII	Educational	  100,000 - 500,000  	3.8014636039733887	3143
+com.pwnwithyourphone.talking_email.full	Communication	  500 - 1,000  	3.3333332538604736	24
+com.amadeus.cmt.client.android	Travel & Local	  100,000 - 500,000  	3.803797483444214	3162
+com.batoki.kids.toddlers.puzzle.digger	Educational	  100,000 - 500,000  	3.1458773612976074	946
+com.Softicecream.SleepingBeautyXkr	Role Playing	  1,000 - 5,000  	3.988593101501465	526
+com.yocs.alice.in.wonderland	Personalization	  500 - 1,000  	4.449999809265137	40
+com.me.PositiveDiscipline	Lifestyle	  1,000 - 5,000  	4.464285850524902	28
+com.better.alarm	Productivity	  100,000 - 500,000  	4.2688727378845215	1934
+nestides.noaa.alaska	Weather	  100 - 500  	5	3
+com.zuuks.games.construction.simulator	Simulation	  50,000 - 100,000  	3.3543148040771484	985
+de.bsi.singlecheck	Social	  100,000 - 500,000  	3.930501937866211	3367
+ch.lernapp.maurer	Education	  5 - 10  	0	0
+air.com.jogatina.domino.android	Board	  100,000 - 500,000  	4.25	3344
+com.surfdog86.winesnob	Shopping	  500 - 1,000  	3.2857143878936768	14
+air.uk.ganymedeltd.slotin	Casino	  50,000 - 100,000  	4.19799280166626	2192
+com.shpagagamessa.epicforces	Role Playing	  100,000 - 500,000  	4.043150901794434	11425
+net.f3j.android.windmeter	Weather	  5,000 - 10,000  	4.108911037445068	101
+com.edusoft.vocabulary_trainer_one	Education	  50,000 - 100,000  	3.8816630840301514	938
+ch.iAgentur.i20Min	News & Magazines	  1,000,000 - 5,000,000  	3.735018253326416	10130
+com.teamlava.fruitsplash	Arcade	  5,000,000 - 10,000,000  	3.9299895763397217	105927
+com.thunderbull_entertainment.fastcarrace	Racing	  1,000,000 - 5,000,000  	3.816134214401245	65265
+com.stoneblade.solforge	Card	  50,000 - 100,000  	3.758225679397583	3404
+com.vkcode.SpaceTube	Arcade	  100,000 - 500,000  	3.807283401489258	9968
+com.mdv.RVFCompanion	Transportation	  10,000 - 50,000  	3.77647066116333	85
+com.devc.cleogold	Tools	  1,000 - 5,000  	4.065573692321777	305
+com.link.yrwidget	Weather	  500 - 1,000  	4.148148059844971	27
+appinventor.ai_DavideDellomonaco.SWISSHELP	Communication	  500 - 1,000  	4.461538314819336	13
+com.sunfremont.qcat.dino.full	Educational	  1,000 - 5,000  	3.875	8
+com.tripadvisor.android.apps.cityguide.brussels	Travel & Local	  50,000 - 100,000  	4.301238059997559	727
+com.valyannan.android.wallpaper.eastereggs3d	Personalization	  10 - 50  	5	3
+fr.cityway.android.st2n	Transportation	  50,000 - 100,000  	3.399385452270508	651
+com.iphone_camera.blockcrushlegend6044	Puzzle	  1,000,000 - 5,000,000  	3.592012882232666	15525
+com.kittithatteam.freevirusprotectionmobilesecurity	Libraries & Demo	  1,000 - 5,000  	3.8709676265716553	62
+com.outplayentertainment.WordTrick	Word	  100,000 - 500,000  	4.269376277923584	5290
+com.mijori.solitario4in1	Card	  10,000 - 50,000  	3.9251701831817627	588
+com.bestgame.climb	Racing	  5,000,000 - 10,000,000  	3.947202682495117	165994
+kr.jw.js.seq7	Finance	  1,000 - 5,000  	3.309523820877075	42
+com.greenstream.uk.newspaper.paid	News & Magazines	  100 - 500  	4.65217399597168	23
+com.ezjoynetwork.petcircus	Puzzle	  100,000 - 500,000  	4.036381721496582	2034
+com.htc.uefa	Sports	  100,000 - 500,000  	4.249375343322754	10807
+app.fastfacebook.com	Social	  5,000,000 - 10,000,000  	3.974471092224121	128364
+com.myfitnesspal.android	Health & Fitness	  10,000,000 - 50,000,000  	4.636717796325684	949978
+com.zynga.FarmVille2CountryEscape	Family	  10,000,000 - 50,000,000  	4.1733479499816895	1215740
+com.milan.novine	News & Magazines	  10,000 - 50,000  	4.42582893371582	573
+com.shocktech.scratchfun_lasvegas	Casino	  100,000 - 500,000  	4.236842155456543	9576
+org.tvbrowser.tvbrowser	Entertainment	  50,000 - 100,000  	4.549540996551514	2069
+com.sony.nfx.app.sfrc	News & Magazines	  10,000,000 - 50,000,000  	4.186695098876953	38903
+nl.nature2u.veldgids	Lifestyle	  500 - 1,000  	3.799999952316284	15
+com.shopgate.android.app10401	Shopping	  10,000 - 50,000  	3.90055251121521	181
+com.macropinch.axe	Tools	  1,000,000 - 5,000,000  	4.318384647369385	99584
+com.lezhi.princessbeautyspasalon	Family	  1,000,000 - 5,000,000  	3.7697792053222656	49661
+com.wear.watch.face.tapani.wearable.NorthAce	Personalization	  1 - 5  	0	0
+com.hoffme.quiz.africageo	Trivia	  500 - 1,000  	3.2857143878936768	14
+com.mobile.nitro	Media & Video	  50 - 100  	5	1
+com.imhangedman.android	Word	  1,000 - 5,000  	3	16
+ca.perdredupoidsrapidementapplication.app	Health & Fitness	  10,000 - 50,000  	3.236842155456543	190
+me.tango.qbattle	Trivia	  100,000 - 500,000  	3.1949777603149414	677
+com.jackpotgames.texaspoker	Card	  100,000 - 500,000  	3.2879936695098877	2507
+luo.digitaldashboardgps_pro	Tools	  1,000 - 5,000  	3.828125	64
+com.nhl.gc1314.van	Sports	  50,000 - 100,000  	4.237926959991455	849
+com.mireo.rtasmartdrive	Transportation	  100,000 - 500,000  	4.462308883666992	10586
+com.appswithlove.sbb.g7r3	Transportation	  10,000 - 50,000  	2.9923954010009766	263
+com.gameye.soldiermt2	Role Playing	  10,000 - 50,000  	3.067065954208374	835
+com.aceviral.mentalmouse	Racing	  1,000,000 - 5,000,000  	3.928837776184082	8854
+com.swisscom.internetbox	Entertainment	  10,000 - 50,000  	3.9255318641662598	188
+com.eclipsim.gpsstatus2	Travel & Local	  10,000,000 - 50,000,000  	4.473060131072998	113690
+com.brave.diamond	Arcade	  5,000,000 - 10,000,000  	4.175937652587891	63893
+com.vvse.daynight	Weather	  1,000 - 5,000  	4.5333333015441895	30
+org.dolansoft.students_service	Shopping	  10 - 50  	5	15
+com.freegames.freesolitaire	Card	  100,000 - 500,000  	4.182980060577393	2973
+com.bluestar.StreetDunkGlobal	Sports	  1,000,000 - 5,000,000  	3.9133286476135254	79715
+com.joshy21.vera.calendarplus	Productivity	  1,000 - 5,000  	4.285123825073242	242
+com.academmedia.HillRacing	Arcade	  1,000,000 - 5,000,000  	3.577927589416504	15123
+com.sergeyotro.sharpsquare	Photography	  5,000,000 - 10,000,000  	4.272111892700195	93502
+air.com.redcodelabs.RadareRO	Transportation	  10,000 - 50,000  	3.9620254039764404	316
+com.taobao.taobao	Shopping	  5,000,000 - 10,000,000  	3.7352471351623535	46895
+com.twelveaxis.newbornphysique.app	Medical	  10 - 50  	5	1
+it.madwebs.backtomycar	Transportation	  10,000 - 50,000  	3.9848484992980957	198
+com.bonusxp.cavemansmash	Strategy	  100,000 - 500,000  	4.101853847503662	9386
+com.mm.android.direct.evoplus	Communication	  1,000 - 5,000  	3.0153846740722656	65
+com.quicksoftapps.jameshdwallpaper	Sports	  10,000 - 50,000  	4.274047374725342	551
+com.mobileroadie.app_10890	News & Magazines	  1,000 - 5,000  	4.400000095367432	10
+com.crowdstar.covetfashion	Casual	  1,000,000 - 5,000,000  	3.9887051582336426	86411
+nl.uva.sunpath	Weather	  1,000 - 5,000  	4.136363506317139	22
+com.ycdroid.videorotate	Media & Video	  5,000 - 10,000  	4.187134265899658	171
+com.google.android.apps.hangoutsdialer	Communication	  1,000,000 - 5,000,000  	4.027470588684082	80778
+com.goorusoft.MetalWars3	Arcade	  10,000 - 50,000  	3.7614879608154297	914
+com.kmcpesh.medicalskillsprocedures	Medical	  10 - 50  	0	0
+com.fw.emojis	Communication	  100,000 - 500,000  	3.8189008235931396	2402
+com.tanzimnaser.bluepad.hidenabler	Entertainment	  100 - 500  	3	1
+com.infiapps.tikislots	Casino	  50,000 - 100,000  	4.221128463745117	1524
+de.florianbussmann.veganscanner	Lifestyle	  500 - 1,000  	3.736842155456543	19
+com.mationmedia.skateboardgame	Sports	  5,000,000 - 10,000,000  	3.3301010131835938	78067
+com.innovativelanguage.wordpower.norwegian	Education	  500 - 1,000  	4.08695650100708	23
+com.dotgears.swing	Arcade	  5,000,000 - 10,000,000  	3.647940158843994	316861
+com.wAddmefastFree	Social	  10,000 - 50,000  	3.0256409645080566	234
+eu.dreamup.ultimatemotorr2free	Racing	  100,000 - 500,000  	4.034920692443848	6930
+com.emojiworld.kawaii	Social	  1,000 - 5,000  	4.304347991943359	23
+eu.mapof.france	Travel & Local	  50,000 - 100,000  	4.573838710784912	3853
+nkjv.biblereader.olivetree	Books & Reference	  5,000 - 10,000  	4.5	413
+com.joelapenna.foursquared	Travel & Local	  10,000,000 - 50,000,000  	4.043345928192139	435515
+com.plus.music.playrv1	Music & Audio	  100,000 - 500,000  	4.040935516357422	2736
+com.alfie.world.run.adventure	Adventure	  1,000,000 - 5,000,000  	3.3999648094177246	17104
+jp.co.johospace.jorte	Productivity	  10,000,000 - 50,000,000  	4.306370258331299	158683
+com.v1.rightviewprounlock	Sports	  5,000 - 10,000  	4.4285712242126465	35
+com.emse.genius.rome.full	Trivia	  100 - 500  	3.8333332538604736	6
+com.reliancegames.icccricketquiz	Trivia	  1 - 5  	3.872340440750122	141
+com.kidsfoodinc.android_make_pastakf	Family	  50,000 - 100,000  	3.5096921920776367	877
+com.starfinanz.mobile.android.pushtan	Finance	  100,000 - 500,000  	3.3072128295898438	1123
+com.gamma.compass2	Tools	  100 - 500  	4.777777671813965	18
+com.accuweather.sony	Lifestyle	  1,000 - 5,000  	3.4482758045196533	116
+fr.unix_experience.owncloud_sms	Communication	  100 - 500  	3.7083332538604736	24
+com.pocketdigi.radioenglish	Education	  100,000 - 500,000  	4.477874279022217	4497
+com.iconology.comics	Comics	  1,000,000 - 5,000,000  	4.012292385101318	28159
+com.workoutroutines.greatbodylite	Health & Fitness	  100,000 - 500,000  	4.0290045738220215	1517
+com.koolappz.EP77702330001	Business	  100 - 500  	5	3
+org.bruxo.radartrap	Travel & Local	  100,000 - 500,000  	3.913926124572754	2463
+com.bluesodalab.boardgames	Board	  10,000 - 50,000  	2.947761297225952	134
+com.domobile.iworkout.full.arms	Health & Fitness	  100 - 500  	3.5	2
+vitesse.compteur.isn	Transportation	  1,000 - 5,000  	4.0714287757873535	28
+com.playink.princessnailart.dressup	Casual	  1,000,000 - 5,000,000  	3.417940139770508	28205
+com.musicisall.challenge	Music	  10,000 - 50,000  	3.117845058441162	297
+com.libiitech.cheerleadersalon	Family	  1,000,000 - 5,000,000  	3.8952293395996094	30247
+com.twisconapps.robotvoice	Entertainment	  5,000,000 - 10,000,000  	3.816657066345215	54908
+com.goodsofttech.littleponyandfriends	Educational	  50,000 - 100,000  	3.8622326850891113	421
+com.gamma.scan	Tools	  10,000 - 50,000  	4.309554100036621	785
+com.netspend.mobileapp.westernunion	Finance	  50,000 - 100,000  	4.084506988525391	426
+com.appyhand.qizzle	Word	  10,000 - 50,000  	4.126436710357666	174
+com.uken.android.elementals	Role Playing	  500,000 - 1,000,000  	4.075565338134766	13882
+com.asustek.aicloud	Productivity	  100,000 - 500,000  	3.8700850009918213	4349
+com.pinkpointer.wordsearch	Word	  5,000,000 - 10,000,000  	4.31846809387207	206228
+com.trias.iTecFone.LatribuneAndroid	News & Magazines	  50,000 - 100,000  	2.872521162033081	353
+com.vicinno.sci11c	Education	  1,000 - 5,000  	4.392857074737549	28
+com.gu.police.vs.thief.action	Action	  100,000 - 500,000  	3.3160173892974854	1386
+pl.idreams.CanKnockdown3	Arcade	  5,000,000 - 10,000,000  	4.129160404205322	265012
+pl.idreams.CanKnockdown2	Casual	  100,000 - 500,000  	4.300586223602295	4266
+com.ubisoft.farcry.arenamaster.companion	Action	  500,000 - 1,000,000  	3.7668986320495605	24706
+co.uk.create.solutions.stopdrunktexting	Communication	  100 - 500  	1.7857142686843872	14
+it.gironacci.cat.licks.pro	Personalization	  1,000 - 5,000  	4.552794933319092	161
+com.rivalogic.android.video	Media & Video	  100,000 - 500,000  	3.713677167892456	2113
+com.rovio.gold	Role Playing	  10,000,000 - 50,000,000  	4.437407493591309	1724577
+com.psa.sa	Transportation	  5,000 - 10,000  	3.197115421295166	208
+com.RockingPocketGames.iFishing3	Sports	  5,000 - 10,000  	3.9011194705963135	536
+com.crtech.android.omtle	Medical	  100 - 500  	4.333333492279053	6
+com.marvel.avengersalliance_goo	Action	  10,000,000 - 50,000,000  	3.9088473320007324	283974
+com.tinypiece.android.ipf	Photography	  10,000,000 - 50,000,000  	4.05004358291626	89622
+com.artfactory.contrepeteries	Word	  500 - 1,000  	4.063492298126221	63
+com.plarium.stormfallrob	Strategy	  1,000,000 - 5,000,000  	4.326626777648926	59943
+com.ptgs.realdemolitionderby	Racing	  100,000 - 500,000  	3.6235244274139404	2372
+yo.app	Weather	  10,000 - 50,000  	4.591800689697266	3415
+com.feztheforeigner.theemotappii	Social	  1,000 - 5,000  	3	28
+de.toar.livewallpaper.tropicalbeach.full	Personalization	  10,000 - 50,000  	4.487077713012695	503
+com.bittales.kitchenking	Arcade	  1,000,000 - 5,000,000  	3.4898369312286377	20418
+com.modelmakertools.simplemindpro	Productivity	  50,000 - 100,000  	4.634805679321289	6068
+com.nanoidea.phfreetxtpro	Communication	  50 - 100  	4.5	8
+com.appbasic.changephotobackground	Photography	  500,000 - 1,000,000  	3.7905774116516113	7535
+com.acontech.ipcamvision.full	Media & Video	  100 - 500  	5	1
+com.op2231.speed.car3d	Simulation	  1,000,000 - 5,000,000  	3.676060438156128	10113
+net.SandStormEarl.CC2	Adventure	  1,000,000 - 5,000,000  	3.094001531600952	30425
+com.codewai.radio	Communication	  100,000 - 500,000  	3.405336618423462	787
+com.beansprites.celebrityfrozenpopsicles	Casual	  500,000 - 1,000,000  	3.3187146186828613	5290
+org.avario	Sports	  10,000 - 50,000  	4.294642925262451	224
+com.divmob.tinybusters	Strategy	  100,000 - 500,000  	3.899193525314331	4216
+com.OptimusMeatron.AFC	Entertainment	  500 - 1,000  	3.418604612350464	44
+com.caisseepargne.android.mobilebanking	Finance	  1,000,000 - 5,000,000  	4.053840637207031	20116
+com.spacecityscape3d.livewallpaper	Personalization	  500 - 1,000  	4.467532634735107	77
+net.nalbam.bvpbaseball2011	Sports	  1,000 - 5,000  	3.3333332538604736	15
+air.com.goda.games.closeupcharacter	Trivia	  50,000 - 100,000  	4.328470706939697	6375
+com.app_margarethaskinderparadies.layout	Business	  50 - 100  	4	3
+com.apofiss.radioactivecat	Personalization	  500 - 1,000  	4.38095235824585	63
+br.com.livrariasaraiva.loja	Shopping	  100,000 - 500,000  	3.3331656455993652	3977
+com.alawar.darkstrokes	Adventure	  10,000 - 50,000  	4.505364418029785	2703
+fr.playsoft.teleloisirs	Entertainment	  1,000,000 - 5,000,000  	4.202983379364014	83726
+com.wallgalaxyy.wallpaper.ButterflyFashion	Personalization	  1,000,000 - 5,000,000  	4.1235432624816895	23595
+de.arvidg.onlineradio	Music & Audio	  1,000,000 - 5,000,000  	3.8338756561279297	14448
+com.jd.jdsports	Shopping	  100,000 - 500,000  	4.070680141448975	6395
+cz.fhejl.pubtran	Transportation	  100,000 - 500,000  	4.741347312927246	11908
+gdg.mtg.mtgdoctor	Entertainment	  1,000 - 5,000  	4.755244731903076	143
+appinventor.ai_copertino1984.stoppa1	Card	  1,000 - 5,000  	3.8768115043640137	276
+de.iloveradio.radio	Music & Audio	  100,000 - 500,000  	4.3241047859191895	3323
+com.x3m.tx4	Racing	  5,000,000 - 10,000,000  	3.9790399074554443	189169
+com.monocept.lmwusf.view	Finance	  5 - 10  	5	1
+com.rethinkbooks.bookshout	Books & Reference	  50,000 - 100,000  	4.042478084564209	1695
+com.google.android.apps.docs.editors.slides	Productivity	  10,000,000 - 50,000,000  	4.039113998413086	75446
+se.appfamily.puzzle.horses.free	Educational	  100,000 - 500,000  	3.5750882625579834	1132
+com.ats.coolfonts	Lifestyle	  500,000 - 1,000,000  	3.7523181438446045	8951
+com.mbi.kvioleta	Entertainment	  50,000 - 100,000  	3.916083812713623	1287
+com.gameloft.android.ANMP.GloftM4HM	Action	  1,000,000 - 5,000,000  	4.446482181549072	179015
+com.VirtualAlchemy.OKD	Educational	  100 - 500  	4.307692527770996	13
+com.magmafortress.hoplite	Role Playing	  100,000 - 500,000  	4.351146697998047	23896
+com.aspiring.savingspassbook	Finance	  50 - 100  	0	0
+com.idriscelik.excavatorsimulatorlite	Simulation	  1,000,000 - 5,000,000  	3.48964262008667	16896
+com.soundblend.acousticelectricguitars	Music & Audio	  10 - 50  	5	3
+net.regalvegas.casino	Casino	  50,000 - 100,000  	3.9004974365234375	804
+com.buildMotorGame	Casual	  1,000,000 - 5,000,000  	2.891697645187378	12936
+com.wisesharksoftware.moviemaker	Media & Video	  1,000 - 5,000  	3.4893617630004883	94
+com.firsttouchgames.dlsa	Sports	  10,000,000 - 50,000,000  	4.440903186798096	1360069
+com.suhainc.testr	Shopping	  10,000 - 50,000  	3.91304349899292	230
+de.appyo.livetv.turkey	Media & Video	  5,000 - 10,000  	3.6865670680999756	67
+com.virtualinfocom.dog.strategy	Strategy	  10,000 - 50,000  	3.25	256
+de.billyboy.vrip	Health & Fitness	  50,000 - 100,000  	2.9055118560791016	254
+air.com.pearsoned.poptropica	Adventure	  500,000 - 1,000,000  	3.911750078201294	18051
+ch.smalltech.ledflashlight.free	Tools	  50,000,000 - 100,000,000  	4.3207879066467285	535684
+am.rep.klondike	Card	  10,000 - 50,000  	3.824096441268921	415
+com.sophos.mobilecontrol.client.android.plugin.samsung	Business	  10,000 - 50,000  	3.8064515590667725	93
+org.shafiquejan.fantasyangelwallpapers	Comics	  10,000 - 50,000  	3.806763172149658	207
+com.giantixstudios.tripeakssolitairechallenge	Card	  100,000 - 500,000  	3.886209011077881	1617
+com.BodorGdev.fridrichsolver2	Puzzle	  50,000 - 100,000  	4.111382007598877	2460
+com.fridayjams.osaka	Travel & Local	  50 - 100  	0	0
+com.kajirin.android.ace	Card	  100 - 500  	3.4285714626312256	7
+mobile.game.boxing	Sports	  10,000 - 50,000  	3.7425150871276855	167
+com.grymala.photoscannerpdftrial	Business	  500,000 - 1,000,000  	4.140509128570557	13202
+air.bbddi.DressRoom.package2	Entertainment	  50 - 100  	4.666666507720947	9
+com.eig.sochistochvip	Sports	  500 - 1,000  	4.125	40
+com.vizi.budget.android_pro	Finance	  1,000 - 5,000  	4.39393949508667	165
+jp.co.onthenet.bomber	Card	  100 - 500  	2.5999999046325684	5
+com.interactiveresources.wipewallmdiphone	Educational	  100 - 500  	0	0
+com.emojifamily.emoji.keyboard.art.BigWhale	Personalization	  10,000 - 50,000  	3.582677125930786	381
+appinventor.ai_bulled_industries.MinecraftGuide	Libraries & Demo	  10,000 - 50,000  	3.7274677753448486	466
+com.spectrum.media	Music & Audio	  1,000,000 - 5,000,000  	4.057940483093262	23576
+com.biggu.shopsavvy	Shopping	  10,000,000 - 50,000,000  	4.113813400268555	260590
+com.gonliapps.italian.kids.learn.game	Educational	  10,000 - 50,000  	4.247761249542236	335
+no.nrk.tv	Entertainment	  100,000 - 500,000  	4.038654804229736	1992
+com.icyspark.guessthatemoji	Trivia	  50,000 - 100,000  	3.7314391136169434	1091
+com.TrinketStudios.ColorSheep	Arcade	  50,000 - 100,000  	4.199589729309082	4389
+com.vladlee.smsblacklist	Communication	  100,000 - 500,000  	3.6871888637542725	3817
+air.com.lumiaware.FOTNRune	Board	  50 - 100  	3	6
+enysoft.baby.paint	Education	  1,000,000 - 5,000,000  	3.945195198059082	9324
+com.runrunnow.l2tpvpn	Communication	  100 - 500  	2.8333332538604736	6
+ch.denner	Shopping	  50,000 - 100,000  	4.331791877746582	865
+com.grapplearts.bigstrong	Sports	  100 - 500  	4.666666507720947	12
+com.redSparkle.logicCars	Board	  500 - 1,000  	4.153846263885498	26
+com.thirtysixyougames.google.slotanddragonsjp	Role Playing	  100,000 - 500,000  	4.066244125366211	3155
+de.jooce.water	Health & Fitness	  500,000 - 1,000,000  	4.472016334533691	8898
+com.touchport.merlinsadventure	Adventure	  100,000 - 500,000  	3.80133056640625	7666
+com.vinylab.radiohammer1	Music	  10,000 - 50,000  	4.173929214477539	2685
+com.deepspace3d.livewallpaper	Personalization	  1,000 - 5,000  	4.225925922393799	270
+verbi.italia	Books & Reference	  10,000 - 50,000  	4.218714714050293	887
+de.radio.android	Music & Audio	  5,000,000 - 10,000,000  	4.14145040512085	39406
+com.alvaromontoro.ninetyseconds	Word	  100 - 500  	3.9166667461395264	12
+com.derlandbote.android.prod	News & Magazines	  100 - 500  	1.8333333730697632	6
+br.purescore.com	Comics	  100,000 - 500,000  	3.8522510528564453	1578
+com.frogsparks.mytrailslicense	Sports	  10,000 - 50,000  	4.557195663452148	271
+com.pyrogen.histoquizz2	Trivia	  5,000 - 10,000  	4.052631378173828	171
+ch.tio.androidv2.app	News & Magazines	  10,000 - 50,000  	3.180281639099121	355
+de.VMSoft.biorhythmusprounlock	Health & Fitness	  1,000 - 5,000  	4.259259223937988	27
+com.pikpok.gbod	Arcade	  1,000,000 - 5,000,000  	4.243978500366211	182718
+com.sunbird.vogelid.sw	Books & Reference	  100 - 500  	4.5	10
+com.bussitpro.noad	Transportation	  100 - 500  	4.666666507720947	30
+stusoft.android.gpssend	Tools	  500 - 1,000  	3.875	16
+se.feomedia.quizkampen.dk.premium	Trivia	  10,000 - 50,000  	4.213296413421631	1083
+com.darty.catalogue	Shopping	  100,000 - 500,000  	3.876697540283203	1841
+com.popbox.flurry	Personalization	  10,000 - 50,000  	4.611062526702881	1141
+com.gravitysensation.igoof	Sports	  1,000,000 - 5,000,000  	3.277984380722046	27980
+com.nttsolmare.game.android.nlp	Adventure	  100,000 - 500,000  	4.266036033630371	17757
+com.subares.friendblenderandroid	Photography	  1,000 - 5,000  	4.106666564941406	75
+com.jpedrodias.weather.almada.pro	Weather	  1 - 5  	0	0
+com.jrummy.apps.boot.animations	Tools	  500,000 - 1,000,000  	3.4930241107940674	10393
+com.catstudio.soldierofgloryfree	Strategy	  1,000,000 - 5,000,000  	4.290463447570801	22441
+roman10.media.converter	Media & Video	  5,000,000 - 10,000,000  	3.813817262649536	44220
+com.tangram3D.AthleticsFree	Sports	  1,000,000 - 5,000,000  	3.8024909496307373	24328
+com.ninety.nine.memory.reboot.pro	Tools	  1,000 - 5,000  	4.54909086227417	275
+gadago.mupon.android2015	Lifestyle	  100 - 500  	4.777777671813965	9
+gogo3.ensa	Transportation	  500 - 1,000  	2.492957830429077	71
+cz.vojtisek.freesmssender	Communication	  1,000,000 - 5,000,000  	3.8864450454711914	25145
+com.topappsonline.musicalinstrumentspro	Music & Audio	  500 - 1,000  	4.214285850524902	14
+in.mettletech.virtualhairstyle	Entertainment	  100,000 - 500,000  	3.425935745239258	1897
+com.mapmyhike.android2	Health & Fitness	  100,000 - 500,000  	4.29178524017334	4565
+tmn.mp3converter	Media & Video	  1,000,000 - 5,000,000  	3.8336284160614014	24842
+com.fungames.ninjarunfree	Action	  1,000,000 - 5,000,000  	4.052188396453857	90269
+appinventor.ai_jackpot63.PedIADE	Medical	  500 - 1,000  	4.840000152587891	25
+com.trionegames.bushpilot	Simulation	  100,000 - 500,000  	3.6561310291290283	2626
+com.walkme.trivial.en.lite	Trivia	  100,000 - 500,000  	3.517535448074341	1055
+com.ingenious.pebble.pro	Lifestyle	  1,000 - 5,000  	3.4846153259277344	130
+de.toar.livewallpaper.spacelive.full	Personalization	  5,000 - 10,000  	4.251748085021973	429
+com.grayfinstudios.android.acceler8full	Racing	  100 - 500  	4.300000190734863	10
+air.com.funteam.MyBrideDressUp	Casual	  1,000,000 - 5,000,000  	3.5765764713287354	15429
+de.dedz.melodie	Comics	  100 - 500  	4.761904716491699	42
+point.gamesfree.riseoforion	Strategy	  1,000 - 5,000  	3.032520294189453	123
+com.astrolis.Horoscope	Lifestyle	  100,000 - 500,000  	4.308810234069824	4472
+com.medicalgroupsoft.medical.refdiseases.ger.free	Medical	  10,000 - 50,000  	4.038461685180664	312
+com.redictstudios.projectslender	Action	  500,000 - 1,000,000  	4.141003608703613	29290
+com.mizerov.poker.drawpoker	Card	  100 - 500  	3	4
+com.guinnessworldrecords.gwr2015	Books & Reference	  100,000 - 500,000  	3.5650649070739746	2851
+com.burakkal.simpleiptv	Media & Video	  5,000 - 10,000  	3.8936169147491455	47
+com.gonliapps.learnspanish	Educational	  10,000 - 50,000  	4.146666526794434	375
+com.babbel.mobile.android.it	Education	  1,000,000 - 5,000,000  	4.4489054679870605	19504
+com.tuokio.smashtheoffice	Action	  1,000,000 - 5,000,000  	3.853487253189087	127006
+org.hicham.salaat	Travel & Local	  1,000,000 - 5,000,000  	4.473761081695557	24011
+com.warnerbros.game300ROE	Action	  10,000,000 - 50,000,000  	4.049525737762451	364700
+com.gncbrown.WeatherAlarm	Weather	  100 - 500  	4.5	6
+com.twitpane.premium	Social	  1,000 - 5,000  	4.505747318267822	174
+com.drashvr.titansofspacecb	Educational	  10,000 - 50,000  	4.379518032073975	332
+com.elex.ram	Role Playing	  5,000,000 - 10,000,000  	4.026610374450684	127882
+com.mtv.utt	Entertainment	  100,000 - 500,000  	3.4794249534606934	7582
+com.ramdroidstudios.bunny	Personalization	  100 - 500  	4.449999809265137	20
+com.msg.mobilinga.klettvoyages	Education	  500 - 1,000  	2.7647058963775635	17
+com.samyak	Business	  500,000 - 1,000,000  	3.587887763977051	2708
+nilesh.retirementplannerpro	Finance	  10 - 50  	0	0
+com.ViperGames.StickmanWarriors	Casual	  1,000,000 - 5,000,000  	4.151541233062744	175332
+com.oxsionsoft.flyislandpro	Personalization	  1,000 - 5,000  	4.475524425506592	143
+com.joypie.game.pianotiles	Music	  1,000 - 5,000  	4.042553424835205	47
+air.com.moviestarplanet.boonieverse	Role Playing	  1,000,000 - 5,000,000  	3.953681707382202	48620
+net.fraja_maroc.meteosouthafrica	Weather	  100 - 500  	3	1
+com.LUCA7.GrandCasinoSlot	Casino	  100 - 500  	5	1
+detectivesChoiceV1Premium.toucher	Role Playing	  10 - 50  	4.666666507720947	3
+com.hg.spsfootballtv	Sports	  10 - 50  	0	0
+net.reecam.ipc.wel	Libraries & Demo	  10,000 - 50,000  	3.578125	64
+net.ingodevices.paint.disney	Entertainment	  50,000 - 100,000  	3.102836847305298	282
+air.seven7v200	Casino	  5,000 - 10,000  	4.037267208099365	161
+com.riatech.vegetarianrecipes	Lifestyle	  100,000 - 500,000  	3.7535762786865234	2167
+at.tomtasche.reader	Business	  1,000,000 - 5,000,000  	3.9578628540039062	19142
+hk.pl.warsawpublictransportpro	Transportation	  5 - 10  	5	2
+com.oysterreader	Transportation	  1,000 - 5,000  	3.2878787517547607	66
+com.nikIT.anderesWort	Books & Reference	  50,000 - 100,000  	4.474178314208984	426
+com.camsam.plus	Transportation	  50,000 - 100,000  	4.342411518096924	5325
+com.radio.radioislame	Music & Audio	  10,000 - 50,000  	4.634328365325928	134
+com.ganjoybus.rslotspaid	Casino	  1,000 - 5,000  	4.296703338623047	182
+com.mercadoventuresbv.mercado	Shopping	  1,000 - 5,000  	4.153846263885498	26
+air.com.arpamedia.prombeautyqueensalon	Family	  500,000 - 1,000,000  	3.4517319202423096	9209
+com.fake.call.simulator	Music	  5,000,000 - 10,000,000  	3.565324306488037	79710
+com.gametime.sniperassassin	Action	  100,000 - 500,000  	3.6541287899017334	2313
+bibel.konkordanz	Books & Reference	  1,000 - 5,000  	4.75	8
+com.spear.spikemasters	Sports	  1,000,000 - 5,000,000  	4.206111431121826	27359
+com.developersinfo.mediashare	Media & Video	  100 - 500  	5	5
+com.bluegnc.AOSBTEAM	Action	  1,000,000 - 5,000,000  	3.9978103637695312	104128
+com.foxfi	Communication	  5,000,000 - 10,000,000  	3.9046761989593506	45571
+botica.salud.natural.AOUYZLZHOSAXZMGI	Medical	  500 - 1,000  	4.4285712242126465	7
+yamayka.apps.NailsTutorial	Lifestyle	  100,000 - 500,000  	4.005817890167236	2922
+de.cyberdream.anrufmonitor	Communication	  1,000 - 5,000  	4.192307472229004	26
+com.pikpok.fkf2.play	Sports	  1,000,000 - 5,000,000  	4.387542724609375	146291
+air.labor	Medical	  1,000 - 5,000  	3.1666667461395264	6
+org.muth.android.trainer_demo_it	Education	  50,000 - 100,000  	4.042016983032227	357
+jungle.game.bunny.run	Adventure	  50,000 - 100,000  	3.515199899673462	625
+com.supermario.superadventure	Adventure	  100,000 - 500,000  	3.544971227645874	2257
+com.PPinera.tdttv	Entertainment	  100 - 500  	1.899999976158142	10
+com.tarsin.android.dilbert	Comics	  100,000 - 500,000  	2.9763617515563965	1949
+com.dwdesign.imhere	Social	  50 - 100  	2	2
+com.pinux.compass	Tools	  500,000 - 1,000,000  	4.0353922843933105	7205
+br.com.gpstrackerbysms	Transportation	  1,000 - 5,000  	3.7555556297302246	45
+com.tgnc.tennistemple	Sports	  500,000 - 1,000,000  	4.22266149520874	3036
+com.paolinoalessandro.cmromdownloader	Tools	  100,000 - 500,000  	4.137707710266113	6492
+com.dg.puzzlebrothers.mahjong.fantasyforest	Board	  1,000 - 5,000  	4.516666889190674	120
+my.handrite.prem	Productivity	  10,000 - 50,000  	4.2688679695129395	1696
+de.daboapps.mathematics	Education	  1,000,000 - 5,000,000  	4.038474082946777	27707
+com.okmansoft.liedetectorjokegame	Casual	  100,000 - 500,000  	2.880722999572754	1660
+at.jku.pervasive.vcm	Sports	  5,000 - 10,000  	3.5999999046325684	75
+jp.co.softbank.cr.GibraltarnoKaze02	Comics	  10 - 50  	0	0
+com.fillevoss.fake.driver.license.generator.pro	Entertainment	  100 - 500  	4.800000190734863	5
+de.shapeservices.implusfull	Communication	  50,000 - 100,000  	4.168503761291504	13524
+de.westwing.android	Shopping	  100,000 - 500,000  	4.183250904083252	3236
+witness.main	Travel & Local	  1,000 - 5,000  	2.5443038940429688	79
+com.monotype.android.font.typowatchhead	Entertainment	  100 - 500  	4.199999809265137	5
+com.coverpro.awesome.template.love	Social	  500 - 1,000  	4.333333492279053	6
+br.com.tapps.mycakemaker	Family	  50,000 - 100,000  	3.761579990386963	2785
+fishnoodle.gallerywp	Personalization	  5,000 - 10,000  	4.149758338928223	207
+pl.vipek.camera2	Photography	  10,000 - 50,000  	4.344574928283691	2046
+net.kaleidos.comicsmagic	Comics	  10,000 - 50,000  	4.1052632331848145	323
+com.i6.trucksimulator3D	Simulation	  500,000 - 1,000,000  	3.6207597255706787	9345
+io.phonegap.hello_cordova	Sports	  100 - 500  	3	3
+com.crossfield.casinogame_poker	Casino	  100,000 - 500,000  	3.4042115211486816	1947
+com.ludia.dragons	Simulation	  10,000,000 - 50,000,000  	4.2047553062438965	708870
+com.libiitech.christmassalon2	Family	  500,000 - 1,000,000  	3.8751518726348877	10701
+com.atherisapps.lovetest	Lifestyle	  100,000 - 500,000  	3.4259655475616455	932
+com.apofiss.yangthecat	Personalization	  10,000 - 50,000  	4.410609245300293	509
+com.crazymizt.ambulanceparking3D	Role Playing	  1,000 - 5,000  	4.1052632331848145	19
+com.gamelabdesign.tennis.sports.ball.game	Sports	  50,000 - 100,000  	2.988997459411621	818
+xTrumps.v1	Card	  50 - 100  	3.6666667461395264	6
+free.langame_de.rivex	Education	  100,000 - 500,000  	3.938739538192749	2269
+com.eat.ch	Lifestyle	  50,000 - 100,000  	3.723259687423706	589
+com.fp.pinkhdzebra	Social	  500 - 1,000  	3.3125	32
+br.com.mundodosaplicativos.digifuel	Transportation	  100 - 500  	3.5	12
+com.animal.sounds.toddler	Educational	  500,000 - 1,000,000  	3.6830451488494873	3297
+com.ea.BejeweledBlitz_row	Puzzle	  5,000,000 - 10,000,000  	3.9981462955474854	88475
+com.fixu.LineeBus	Transportation	  5,000 - 10,000  	4.163793087005615	116
+com.alegrium.iconpopsong	Trivia	  100,000 - 500,000  	4.153925895690918	18340
+ch.tcs.android	Transportation	  100,000 - 500,000  	3.458874464035034	462
+com.ebay.redlaser	Shopping	  5,000,000 - 10,000,000  	4.196542739868164	61058
+ch.vogel_develop.schweizer_mode_shops	Shopping	  1,000 - 5,000  	4.136363506317139	22
+cityguide.Zuerich	Business	  1,000 - 5,000  	4.08695650100708	23
+com.brogent.weatherhd.themeplus.nature	Weather	  100 - 500  	4	3
+com.ESE.InterVar.Mastermind3D	Board	  10,000 - 50,000  	3.299065351486206	214
+mmapps.mirror.free	Lifestyle	  10,000,000 - 50,000,000  	4.175922870635986	266363
+com.cyprusbybus.app	Transportation	  100 - 500  	4.440000057220459	25
+de.topobyte.apps.offline.stadtplan.muenchen	Travel & Local	  1,000 - 5,000  	4.454545497894287	22
+org.msq.babygames	Educational	  1,000,000 - 5,000,000  	3.5636796951293945	10914
+com.cisana.ideacheckmate2	Board	  500 - 1,000  	4.253012180328369	83
+com.mobilesoft.suisseweather	Weather	  5,000 - 10,000  	4.147058963775635	34
+it.bz.smg	Travel & Local	  50,000 - 100,000  	4.1727495193481445	411
+huntsman.stocktickertapepro	Finance	  500 - 1,000  	3.375	40
+com.beeple.DragonWarOr	Strategy	  10 - 50  	5	2
+com.artipunk.dotmaker	Media & Video	  500 - 1,000  	4.639999866485596	50
+com.martinvillar.android.coranfrancais	Books & Reference	  500,000 - 1,000,000  	4.540433883666992	9633
+ch.sweetware.swissjass_free	Card	  100,000 - 500,000  	3.870741844177246	2143
+com.cicatlr.ecicat	Medical	  100 - 500  	3	2
+bside.extremeambient.net.motorsports2google	Sports	  10,000 - 50,000  	4.377456188201904	967
+com.hedgehogacademy.snowwhitefree	Educational	  50,000 - 100,000  	4.05394172668457	1687
+com.garmin.android.apps.phonelink	Travel & Local	  500,000 - 1,000,000  	3.615933895111084	5322
+com.motomex.neonmotocross	Racing	  5,000,000 - 10,000,000  	3.797092914581299	45819
+com.korakot.wordooj.MSWORDREFERENCEVII	Education	  500,000 - 1,000,000  	3.6557557582855225	5438
+com.parfield.prayers.lite	Lifestyle	  5,000,000 - 10,000,000  	4.526099681854248	125767
+com.stanconearts.ms2	Racing	  50,000 - 100,000  	3.9631900787353516	1304
+com.trapped.horrorescape	Puzzle	  1,000,000 - 5,000,000  	4.3044610023498535	42636
+com.smoothdroid.racingpro	Personalization	  1,000 - 5,000  	4.821656227111816	157
+mars.area51.arunchainedgps	Transportation	  1,000 - 5,000  	4.780219554901123	91
+com.doomslots.themagicflute	Casino	  1,000 - 5,000  	4.199999809265137	15
+com.acgfans.beta	Lifestyle	  100,000 - 500,000  	4.52820348739624	15335
+conceiva.mezzmo.pro	Media & Video	  1,000 - 5,000  	4.588235378265381	85
+com.tdsoc.android.plus	Social	  1,000 - 5,000  	3.8504672050476074	107
+com.viseca.myaccount	Finance	  10,000 - 50,000  	4.074712753295898	348
+com.supersolid.adventuretown	Adventure	  1,000,000 - 5,000,000  	4.449130535125732	247024
+com.toremote.audio.waveplayer	Media & Video	  10,000 - 50,000  	4.266159534454346	792
+she.games.bajaNoAds	Racing	  1,000 - 5,000  	3.642857074737549	14
+com.sixwaves.pandora	Casino	  100,000 - 500,000  	4.413412094116211	10856
+com.droidstudio.game.devil2	Adventure	  10,000,000 - 50,000,000  	4.355034828186035	192786
+eu.namcobandaigames.tekkencard	Card	  5,000,000 - 10,000,000  	4.047606468200684	178127
+com.hgvparking.app	Travel & Local	  500 - 1,000  	4.148148059844971	27
+com.cousinHub.PFChartsWidget_PRO	Finance	  100 - 500  	4.625	8
+com.fantasyflightgames.swdice	Entertainment	  10,000 - 50,000  	4.556776523590088	546
+jp.co.a_tm.livewallpaper.holynight	Personalization	  100 - 500  	5	2
+com.sssahha.nadutyatta	Action	  100,000 - 500,000  	3.775052070617676	2405
+com.swisscom.swisscomcockpit	Tools	  10,000 - 50,000  	3.790055274963379	181
+net.traveldeals24.main	Travel & Local	  100,000 - 500,000  	4.404941558837891	1457
+ch.haupt.pilzfuehrer	Books & Reference	  100 - 500  	3.5	4
+com.glutenfreegames.griffinsimulator	Simulation	  5,000 - 10,000  	4.14476203918457	525
+com.lostego.SoothingSounds	Medical	  100 - 500  	3.923076868057251	13
+com.apusapps.theme.pinko	Personalization	  1,000,000 - 5,000,000  	4.3244309425354	48377
+com.dianxinos.dxbs.paid	Productivity	  100,000 - 500,000  	4.633152484893799	20807
+appinventor.ai_i8uwithalime.Tracker	Transportation	  10 - 50  	5	1
+com.buildingexamples.make.lego.building	Puzzle	  500,000 - 1,000,000  	3.5907015800476074	5915
+com.roxia.easycomicviewer	Comics	  100,000 - 500,000  	4.185483932495117	992
+com.blueshieldapps.photoblendpro	Photography		5	4
+com.supersonic.tgssr	Racing	  1,000,000 - 5,000,000  	4.048553466796875	68832
+com.fullfat.android.flickgolffree	Sports	  1,000,000 - 5,000,000  	3.8894431591033936	24657
+com.gadgetjuice.dockclockplus	Lifestyle	  10,000 - 50,000  	4.384279251098633	916
+androidlab.allcall2	Communication	  1,000 - 5,000  	3.7122507095336914	351
+air.lt.almalittera.googoo	Educational	  1 - 5  	0	0
+com.mrmouncet.nokatmaroc2015	Comics	  10,000 - 50,000  	4.021052837371826	95
+com.triple.fifty	Casino	  100,000 - 500,000  	4.231759548187256	3961
+com.szyk.diabetes	Medical	  100,000 - 500,000  	4.203911781311035	2045
+com.ios.caller.screen.sprite.coc	Communication	  500,000 - 1,000,000  	3.6931724548339844	14588
+com.appbasic.photoaquariumlivewallpaper	Personalization	  100,000 - 500,000  	3.987161159515381	3505
+com.rodiniagames.slender	Action	  100,000 - 500,000  	3.6982827186584473	8793
+com.pinama.videotube	Media & Video	  100,000 - 500,000  	3.7649402618408203	753
+com.xenodev.swiss	Sports	  100 - 500  	4.099999904632568	10
+com.duckiedeck.withTeeth	Educational	  100 - 500  	3.700000047683716	10
+com.ifreyr.sw2	Arcade	  500,000 - 1,000,000  	4.046360015869141	32377
+com.loyaltyplant.partner.payboni	Shopping	  100 - 500  	5	2
+com.wapo.slate.android	News & Magazines	  100,000 - 500,000  	2.9539613723754883	934
+com.badgergp.fgpappnew	Sports	  100 - 500  	4.44444465637207	18
+com.goldengame.solitaire3d	Card	  1,000 - 5,000  	3.82608699798584	46
+com.bettertomorrowapps.microphoneblockfree	Libraries & Demo	  50,000 - 100,000  	3.9682958126068115	757
+com.livescore.event.EuropaLeague	Sports	  1,000 - 5,000  	4.666666507720947	42
+com.conduit.app_0e67602283434a1d95cd931d72c89d56.app	News & Magazines	  10,000 - 50,000  	4.2219624519348145	428
+com.yahoo.mobile.client.android.fantasyfootball	Sports	  5,000,000 - 10,000,000  	4.197543144226074	163171
+com.eurotalk.utalk.polish	Travel & Local	  50 - 100  	5	1
+com.nomix.significatodeinomi	Education	  1,000 - 5,000  	4.233333110809326	30
+studio.coldstream.minecraftlwp	Personalization	  1,000,000 - 5,000,000  	4.194355010986328	44677
+com.trash.shadowhunter2	Action	  500,000 - 1,000,000  	3.78322696685791	24468
+com.turboreality.mine.defance.craft	Strategy	  1,000 - 5,000  	3.385964870452881	57
+com.purveyingplanets.mymarkers	Shopping	  1,000 - 5,000  	4.508196830749512	61
+co.romesoft.toddlers.memory.digger	Educational	  100,000 - 500,000  	3.3633387088775635	1833
+com.ulisantana.Ulinho_As10Pragas	Educational	  10 - 50  	3	1
+andrei.brusentcov.survivalmath	Educational	  1,000,000 - 5,000,000  	3.8024277687072754	5684
+com.outofthebit.scopagratis	Card	  50,000 - 100,000  	4.0151896476745605	1580
+com.sydneyapps.ios8.lockscreen	Casual	  1,000,000 - 5,000,000  	4.336798191070557	94956
+com.audi.a3etronapp	Transportation	  500 - 1,000  	3.5	12
+com.awindinc.sphone2tv	Tools	  500,000 - 1,000,000  	3.218472957611084	2944
+com.alephzain.framarootdonation2	Tools	  10,000 - 50,000  	3.482673168182373	404
+pl.rosmedia.musicfull	Music	  1,000 - 5,000  	4.166666507720947	30
+org.tenjin.wallpaper88180	Sports	  10 - 50  	5	3
+com.blogspot.lingkuncheng	Casino	  1,000 - 5,000  	3.9166667461395264	36
+com.wCertifiedDentalAssistant	Medical	  100 - 500  	2	2
+in.defensivedroidapps.spyc.pro	Media & Video	  50 - 100  	3.6666667461395264	3
+com.salsarhythm	Music & Audio	  5,000 - 10,000  	4.58297872543335	235
+com.freecaddiepro	Sports	  10,000 - 50,000  	4.406311511993408	1017
+com.SunriseLiveWallpapersfree	Personalization	  100,000 - 500,000  	4.097628116607666	2909
+com.iphonedevro.learnphysics	Education	  100,000 - 500,000  	4.003283500671387	3350
+com.blossomgames.arcadespeedway	Racing	  100 - 500  	4.5333333015441895	15
+com.enziano.android	Sports	  1,000 - 5,000  	4.038461685180664	26
+com.WAPP.SupwaySimulatorA	Simulation	  100,000 - 500,000  	3.8805861473083496	6825
+com.niksoftware.snapseed	Photography	  10,000,000 - 50,000,000  	4.369025707244873	209606
+com.brains.livre3	Books & Reference	  10,000 - 50,000  	3.9886362552642822	88
+com.LuxuryPictureFramesEditornn	Photography	  100,000 - 500,000  	4.042418003082275	3772
+com.redpiston.cutepolish	Lifestyle	  10,000 - 50,000  	4.438435077667236	869
+de.same.krautmaumau.android	Card	  100,000 - 500,000  	4.053961277008057	2337
+com.FCBarceloneInfo	Sports	  1,000 - 5,000  	4.300000190734863	50
+com.iconnect.app.globalthemeshop	Personalization	  1,000,000 - 5,000,000  	4.018286228179932	11484
+com.funeasylearn.japanese	Education	  100,000 - 500,000  	4.392233848571777	7391
+de.thorstensapps.tt	Productivity	  5,000 - 10,000  	4.411764621734619	136
+com.granita.icloudmail	Communication	  100,000 - 500,000  	3.846029281616211	617
+com.papdevapp.app1	Books & Reference	  10,000 - 50,000  	2.821917772293091	365
+com.BulletParty.BunboGames	Action	  1,000,000 - 5,000,000  	3.854989767074585	26274
+com.OnVation.FitnessRecipeOfTheDay	Health & Fitness	  1,000 - 5,000  	4.132075309753418	53
+com.hdm_i.dm.corp.android.muenchen	Travel & Local	  50,000 - 100,000  	3.7282321453094482	379
+com.appsontoast.ultimatecardock	Transportation	  100,000 - 500,000  	3.895066499710083	1277
+com.bigfishgames.dgpodgoogfull	Casual	  500 - 1,000  	4.5	70
+com.wilcorp.BetStats	Sports	  1,000 - 5,000  	3.774193525314331	31
+com.knmtech.dotsandcoloring	Comics	  10,000 - 50,000  	3.76450514793396	293
+com.GameOven.Bounden	Family	  1,000 - 5,000  	4.667701721191406	322
+com.sevenstar.marble.epic	Casual		4.142490386962891	779
+com.GhostDetector.FunnyPrank	Libraries & Demo	  1,000 - 5,000  	3.625	40
+com.alexma.mWeatherWidgets	Weather	  1,000 - 5,000  	4.069767475128174	43
+com.xinsheng.crush.mania	Trivia	  10,000 - 50,000  	3.938596487045288	228
+com.magna.fever	Medical	  10,000 - 50,000  	2.5714285373687744	49
+com.sgg.riddles	Trivia	  100,000 - 500,000  	4.247952461242676	8792
+com.downhillbike.bikegame	Casino	  100,000 - 500,000  	3.6414763927459717	1138
+com.voice.unlock	Simulation	  100,000 - 500,000  	3.8694186210632324	9496
+com.appforall.ledictionnaire	Books & Reference	  100,000 - 500,000  	3.7407114505767822	1265
+intermaps.iskicorvatsch	Travel & Local	  5,000 - 10,000  	4.288888931274414	45
+com.andromo.dev130378.app175206	Entertainment	  10,000 - 50,000  	4	181
+com.unbound.android.ubuk	Medical	  100 - 500  	4.884615421295166	26
+com.square_enix.android_googleplay.FF4AY_GP	Role Playing	  50,000 - 100,000  	4.495834827423096	5042
+appinventor.ai_Sibboid13.GFS_Mittel_Europa	Weather	  5,000 - 10,000  	3.8085105419158936	47
+ibear.bills	Finance	  5,000 - 10,000  	3.2265193462371826	181
+free.langame_es.rivex	Education	  50,000 - 100,000  	3.898785352706909	494
+ch.bankcoop.mobile.banking.android	Finance	  1,000 - 5,000  	4.184210300445557	38
+com.kauf.talking.baum.TalkingBabsyBaby.premium	Lifestyle	  1,000 - 5,000  	4.129032135009766	31
+de.dresden.magnussoft.madn.ger	Board	  100 - 500  	4	3
+com.androidsx.heliumvideochanger.warping	Family	  100,000 - 500,000  	4.0337443351745605	1541
+com.nevosoft.mykingdomfortheprincess2	Casual	  100 - 500  	1.7692307233810425	13
+com.gypsyguide.tours.gypsyguidetour.oahu.fit	Travel & Local	  500 - 1,000  	4.357142925262451	14
+com.arm.superemf.premium	Entertainment	  1,000 - 5,000  	3.942307710647583	52
+it.prometheo.almanacco.key	News & Magazines	  1,000 - 5,000  	4.569620132446289	158
+com.funghisoft.sbsvideoplayer	Media & Video	  50,000 - 100,000  	3.274590253829956	1220
+com.livecom.arabia	Entertainment	  100,000 - 500,000  	3.5697035789489746	911
+net.kairosoft.android.gamedev3	Casual	  100,000 - 500,000  	4.419153213500977	2079
+com.lionmobi.powerclean	Tools	  1,000,000 - 5,000,000  	4.460835933685303	103896
+com.gsoftteam.heartsmobile	Card	  100,000 - 500,000  	4.048748970031738	3118
+com.kauf.mybabybabsyplaygroundfun2	Family	  50,000 - 100,000  	3.5152440071105957	656
+com.libertysoftcommunity.qibladirection	Travel & Local	  500,000 - 1,000,000  	4.200921535491943	2822
+cellfish.guardians	Entertainment	  1,000,000 - 5,000,000  	3.723574161529541	21409
+multitouchpro.tests	Libraries & Demo	  100,000 - 500,000  	4.352848052978516	1264
+com.realdream.police.radio	Music	  1,000,000 - 5,000,000  	3.669313669204712	9571
+com.alim.pusula	Tools	  1,000,000 - 5,000,000  	4.203329086303711	9733
+com.sonymobile.smartconnect.extension.mynotifications	Communication	  1,000 - 5,000  	4.555970191955566	268
+tr.com.yenimedya.haberler	News & Magazines	  100,000 - 500,000  	3.8861911296844482	9226
+com.bearhugmedia.android_petsalon	Casual	  1,000,000 - 5,000,000  	3.4512202739715576	15283
+jp.mapp.homerunk	Sports	  1,000 - 5,000  	4	11
+com.clickandbuy.mobileapp	Finance	  10,000 - 50,000  	3.9747474193573	198
+com.tapsarena.shadows2	Word	  1,000,000 - 5,000,000  	4.01863431930542	57260
+com.EagleWallpaperWorld	Personalization	  100,000 - 500,000  	4.051718235015869	2823
+de.fiducia.smartphone.android.banking.vr	Finance	  1,000,000 - 5,000,000  	4.129325866699219	7139
+com.ngohung.amazonsboardgame	Board	  10 - 50  	4.5714287757873535	7
+com.mckinsey.mckinseyinsights	Business	  50,000 - 100,000  	4.344197750091553	2025
+com.bessiambre.speedAngiology	Medical	  1,000 - 5,000  	4.191176414489746	69
+com.pzolee.wifiinfoPro	Tools	  100 - 500  	4.777777671813965	18
+com.HBC	Casual	  1,000 - 5,000  	3.6078431606292725	102
+air.com.essig.grammatikduell	Educational	  10 - 50  	5	1
+com.jv.materialfalcon	Social	  50,000 - 100,000  	3.8185932636260986	4862
+com.arubanetworks.quickconnect.android	Communication	  100,000 - 500,000  	3.199450969696045	1093
+com.orchid.flower3d	Personalization	  100,000 - 500,000  	4.082992076873779	5615
+com.msmartinez.motogp	Sports	  10,000 - 50,000  	4.155477046966553	283
+com.photo_touch_effects.lite	Photography	  10,000,000 - 50,000,000  	3.6889822483062744	48830
+com.icc.incoterms	Finance	  100 - 500  	3	2
+com.propertymanager	Business	  1,000 - 5,000  	4.363636493682861	66
+com.speed_wiz.fourlink	Transportation	  1 - 5  	5	1
+com.kick.crane.driver.simulator	Simulation	  100,000 - 500,000  	3.4894206523895264	3970
+com.busuu.android.enc	Education	  5,000,000 - 10,000,000  	4.296485900878906	111809
+com.ziguie.premsa.app.CH	News & Magazines	  5,000 - 10,000  	3.954545497894287	44
+com.cryofy.android.weightmeterfree	Health & Fitness	  1,000,000 - 5,000,000  	3.749464750289917	11679
+com.zombodroid.MemeGeneratorFullGplay	Entertainment	  10,000 - 50,000  	4.666430950164795	1415
+com.gc.demomaterialdesign	Libraries & Demo	  1,000 - 5,000  	4.612903118133545	93
+com.mercurymobilesolutions.twentyfourringtone	Media & Video	  500 - 1,000  	2.700000047683716	10
+com.fantasticdroid.flashalerts	Entertainment	  1,000,000 - 5,000,000  	4.036653518676758	39614
+com.eekgames.worddigger	Word	  50,000 - 100,000  	3.902967929840088	876
+de.arcor.lukas.stefan.maumau.lite	Card	  5,000 - 10,000  	3.6666667461395264	81
+com.faithcomesbyhearing.android.bibleis	Books & Reference	  1,000,000 - 5,000,000  	4.60936164855957	108222
+com.deitykids.XmasTreeKids	Family	  500 - 1,000  	4.548387050628662	31
+mobi.novartapps.zeus	Casino	  50,000 - 100,000  	4.194989204406738	918
+com.jeon.blackbox	Transportation	  500,000 - 1,000,000  	4.256687641143799	6842
+com.jamelock.newgirlponyvideoslist2	Entertainment	  100,000 - 500,000  	3.744952917098999	4458
+net.loadinghome.thegreatfusion	Adventure	  10,000 - 50,000  	4.142541885375977	2266
+com.feelingtouch.swat2	Action	  1,000,000 - 5,000,000  	3.87115216255188	31122
+com.SkillpodMedia.LottoNumbers	Card	  10,000 - 50,000  	3.8366665840148926	300
+com.dts.construction.truck.tractor.simulator.games	Simulation	  1,000,000 - 5,000,000  	3.528984546661377	13766
+jp.hashisoft.race	Finance	  500 - 1,000  	3.4285714626312256	7
+vfc.shapesandcolors	Educational	  10 - 50  	0	0
+org.bbxm.pogodynka	Weather	  100,000 - 500,000  	3.5215516090393066	1392
+com.free.hd.video.downloader	Media & Video	  10,000 - 50,000  	3.924290180206299	317
+tk.quaity.illuminati.android	Simulation	  100,000 - 500,000  	3.6956398487091064	3532
+net.appliforest.Mahjong	Board	  5,000 - 10,000  	3.8709676265716553	62
+air.com.fgl.adrianmarik.charminghotelchambermaidpres	Casual	  50 - 100  	3.25	4
+com.maildroid.pro	Communication	  10,000 - 50,000  	4.346904754638672	2408
+ch.bullfin.android.thermometer	Weather	  10,000 - 50,000  	4.162637233734131	455
+de.liga_tippspiele.schuhalarm	Shopping	  10,000 - 50,000  	3.430769205093384	65
+com.uniformagri.UNIFORM	Business	  1,000 - 5,000  	3.972972869873047	37
+com.cronlygames.cncheckers	Board	  10,000 - 50,000  	3.636666774749756	300
+com.havos.wordsearchplus	Word	  1,000 - 5,000  	4.559523582458496	84
+com.apolloss.PatienceSolitaire	Card	  10 - 50  	1	1
+air.balletdancer	Family	  1,000,000 - 5,000,000  	3.5154848098754883	9816
+de.kibet.b1lite	Education	  50,000 - 100,000  	3.5473685264587402	665
+com.detgames.tank.gunship.battle.helicopter.shooting	Action	  100,000 - 500,000  	3.746842861175537	6731
+com.noodlecake.ssgflap	Action	  500,000 - 1,000,000  	4.146097183227539	38844
+com.dailyhoroscopes.net	Lifestyle	  1,000,000 - 5,000,000  	4.2780890464782715	27112
+com.microsoft.amp.apps.bingsports	Sports	  50,000 - 100,000  	4.380802631378174	2865
+com.hrfy.plus	Medical	  100,000 - 500,000  	4.306277275085449	10164
+com.mcu.antispy	Lifestyle	  1,000 - 5,000  	3.5	38
+org.firstmm.browser.premium	Communication	  100 - 500  	4.4285712242126465	7
+air.com.dragons.omega	Puzzle	  50,000 - 100,000  	4.282635688781738	1624
+com.studiopango.pangoZoo	Family	  500 - 1,000  	4.166666507720947	24
+com.copecom.bsone	Arcade	  1,000 - 5,000  	4.602564334869385	234
+surebaby.pregnancy.calculator	Medical	  100,000 - 500,000  	3.7137176990509033	1006
+com.schnapps.face.scanner.animal	Simulation	  50,000 - 100,000  	3.488752603530884	1467
+com.elinext.swisscities	Travel & Local	  10,000 - 50,000  	3.59375	64
+com.luz.contactdialer	Communication	  500,000 - 1,000,000  	4.130937576293945	8989
+com.tangram3D.Athletics	Sports	  50,000 - 100,000  	3.9725325107574463	2148
+com.alldayapps.android.linelearner	Lifestyle	  1,000 - 5,000  	3.441176414489746	34
+com.airberlin.airberlin	Travel & Local	  10,000 - 50,000  	4.411764621734619	204
+com.adfun.weatherapp	Weather	  1,000 - 5,000  	2.700000047683716	10
+com.benjaminholfeld.speakturkish	Business	  1,000 - 5,000  	4.159999847412109	50
+com.wGETBITCOIN	Business	  50 - 100  	5	5
+com.jb.gokeyboard.plugin.govoice	Music & Audio	  1,000,000 - 5,000,000  	3.9584929943084717	27923
+mobi.trismart.exchangechart	Finance	  100 - 500  	3.9166667461395264	12
+com.qualcomm.qx.neocore	Libraries & Demo	  500,000 - 1,000,000  	4.383927822113037	55191
+bse.echocalcdonate	Medical	  100 - 500  	4.25	8
+com.emse.genius.egypt.full	Trivia	  100 - 500  	4.285714149475098	7
+com.viamichelin.android.michelintraffic	Travel & Local	  1,000,000 - 5,000,000  	3.894676923751831	9675
+vladocar.free.ebooks	Libraries & Demo	  10,000 - 50,000  	3.4642856121063232	56
+com.stoev.selfiesphoto	Photography	  500,000 - 1,000,000  	3.323303699493408	4819
+org.anddev.andengine.GameTemplateFree	Card	  10 - 50  	1	1
+ch.kp.tgmobile	Books & Reference	  5,000 - 10,000  	3.852458953857422	61
+com.huwenqi.feedlyreader.app	News & Magazines	  10,000 - 50,000  	4.301835536956787	1471
+ch.phlu.phluzern	Books & Reference	  1 - 5  	0	0
+com.orangeorapple.flashcards	Education	  10,000 - 50,000  	4.636552333831787	963
+com.ankama.callofcookie	Strategy	  10,000 - 50,000  	3.769024610519409	1866
+com.keesing.android.puzzleplayer.app.fr	Word	  10,000 - 50,000  	3.716783285140991	286
+com.SHDevs.fuzioncraft	Adventure	  1,000 - 5,000  	3.1779661178588867	118
+com.juiceglobal.lines	Arcade	  50,000 - 100,000  	3.361912965774536	2321
+com.madelephantstudios.football2014	Sports	  10,000,000 - 50,000,000  	3.5788145065307617	132820
+de.carlsen.conni.lernspass.mathe2lite	Education	  1,000 - 5,000  	3.3333332538604736	15
+com.iVaccinePre	Medical	  50 - 100  	4	3
+se.feomedia.quizkampen.fr.premium	Trivia	  100,000 - 500,000  	4.4634928703308105	6218
+com.incowia.lemnet	Travel & Local	  1,000 - 5,000  	3.8275861740112305	29
+net.watea.aw.rmshot_moto	Photography	  1,000 - 5,000  	4.286956310272217	115
+com.spiderapps.megahot	Casino	  5,000 - 10,000  	3.961538553237915	52
+com.dosgroup.lta.fctsa	Medical	  50 - 100  	2.5	2
+com.welg.bnc	Racing	  100 - 500  	3.880000114440918	50
+com.g6677.android.cspa	Casual	  5,000,000 - 10,000,000  	3.8289594650268555	78801
+net.kaoriya.android.tts_util	Libraries & Demo	  50,000 - 100,000  	3.993617057800293	470
+com.lazada.android	Shopping	  5,000,000 - 10,000,000  	4.190804958343506	115212
+com.chartcross.gpstestplus	Tools	  50,000 - 100,000  	4.663238048553467	2625
+mobiric.demo.wifiwidget	Libraries & Demo	  10,000 - 50,000  	3.758122682571411	554
+org.nick.kanjirecognizer	Books & Reference	  500,000 - 1,000,000  	4.082455635070801	3323
+com.davda.handball	Sports	  50,000 - 100,000  	2.9956822395324707	1158
+keywordindia.pluspoint	Business	  100 - 500  	4.5	6
+appinventor.ai_jspoores.Drug_News	News & Magazines	  50 - 100  	5	1
+com.CloudieNetwork.GadgetFlow	Shopping	  1,000 - 5,000  	4.042372703552246	118
+air.android.DoggyBecomesMommy	Educational	  10,000 - 50,000  	3.6242170333862305	479
+com.codegent.apps.learn.germanpro	Travel & Local	  1,000 - 5,000  	4.416666507720947	72
+ch.zuerich.ssz	News & Magazines	  100 - 500  	3.777777671813965	9
+com.rexrapps.ksi.sounds	Entertainment	  5,000 - 10,000  	4.552631378173828	152
+com.mobyi.hypertimelapse	Photography	  100,000 - 500,000  	3.4528582096099854	2694
+com.grabow.commuter	Transportation	  50,000 - 100,000  	4.086053371429443	337
+com.rebellion.builder	Family	  100,000 - 500,000  	3.9065098762512207	10707
+com.tractorfarm.parking	Casual	  100,000 - 500,000  	3.0008230209350586	3645
+com.lb.clock3d	Personalization	  1,000 - 5,000  	3.911764621734619	34
+com.ikorolkov.poweramp.skins.icsr	Music & Audio	  1,000 - 5,000  	4.5	104
+com.pirasmani.android.makeup_paid	Casual	  100 - 500  	3.9473683834075928	19
+com.outthinking.videorotate	Media & Video	  100,000 - 500,000  	3.001098155975342	2732
+com.ihandysoft.alarmclock	Tools	  10,000,000 - 50,000,000  	3.971938133239746	42563
+air.eva	Puzzle	  1,000 - 5,000  	4.116279125213623	43
+com.com2us.heroeswar.normal.freefull.google.global.android.common	Role Playing	  1,000,000 - 5,000,000  	4.422030925750732	58645
+kulana.tools.eisprungkalendar	Medical	  10,000 - 50,000  	4	32
+com.bigfishgames.emfoegoogfull	Casual	  500 - 1,000  	4.1744184494018555	86
+com.csipsimple.plugins.codecs.g729	Communication	  1,000 - 5,000  	4.489795684814453	98
+ch.bootstheorie_light.app	Education	  1,000 - 5,000  	4.306451797485352	62
+com.alianza.appsport100	Sports	  10 - 50  	3.75	4
+strategy.mmo.ramses	Strategy	  50,000 - 100,000  	3.678875684738159	1174
+com.jowymcflowy.tv.directo	Entertainment	  100,000 - 500,000  	3.456737518310547	1410
+com.ltnstudios.bubblesfruits	Puzzle	  500,000 - 1,000,000  	3.7507927417755127	5991
+com.grapplearts.submissions	Sports	  1,000 - 5,000  	4.757575988769531	198
+ch.ethz.im.codecheck	Shopping	  100,000 - 500,000  	4.138623237609863	3240
+com.grognak.crackhouse	Role Playing	  10,000 - 50,000  	4.3687214851379395	876
+com.choiceofgames.cityoftheclouds	Role Playing	  1,000 - 5,000  	3.5412843227386475	109
+com.gamesforus.zombie_kong	Arcade	  1,000 - 5,000  	4.016483306884766	182
+com.leonidshkatulo.crossbowshootingd	Sports	  1,000,000 - 5,000,000  	3.4870996475219727	20581
+air.com.kalegu.obamaburgerstand	Strategy	  10,000 - 50,000  	3.2406015396118164	133
+com.jjacrapps.racinglive	Sports	  100 - 500  	4.75	4
+it.navionics.singleAppUsa	Travel & Local	  50,000 - 100,000  	4.2842841148376465	1998
+com.greatbytes.fastreboot	Tools	  5,000,000 - 10,000,000  	4.332562446594238	44127
+com.phil.tv.view	Media & Video	  100,000 - 500,000  	3.3381435871124268	3049
+appinventor.ai_marco_kersting.AcuPoints	Medical	  50 - 100  	3.25	4
+eu.sobtex.shoppinglist	Shopping	  100 - 500  	3.8181817531585693	11
+com.mobimidia.climaTempo	Weather	  1,000,000 - 5,000,000  	4.088028907775879	38794
+com.timewearstudios.watchface.timelessblue	Personalization	  10 - 50  	4.25	4
+com.sgg.phrase	Word	  500,000 - 1,000,000  	4.454266548156738	30013
+com.focusedapps.hittennis3	Sports	  1,000,000 - 5,000,000  	3.8735928535461426	13947
+com.nop.BabaloniaFarm	Educational	  50 - 100  	5	4
+es.mamba.lockscreen	Casual	  500,000 - 1,000,000  	3.8491098880767822	24435
+com.knbmedia.findthemalldinolite	Educational	  10,000 - 50,000  	4.068877696990967	1176
+org.hostedgames.swordoftheelements	Role Playing	  100 - 500  	2.75	60
+de.omsn.bhuio.talkHebrew	Travel & Local	  1,000 - 5,000  	4.053191661834717	94
+com.RoseLiveWallpaperHDHQ	Personalization	  500,000 - 1,000,000  	4.153782844543457	6093
+com.ideashower.readitlater.pro	News & Magazines	  5,000,000 - 10,000,000  	4.550313472747803	206118
+apptwoyou.FeelingGoodLW.village	Personalization	  1,000 - 5,000  	4.34661340713501	251
+com.mojang.scrolls	Card	  50,000 - 100,000  	3.908088207244873	2992
+net.dowalil.logika	Trivia	  5,000 - 10,000  	3.3090908527374268	55
+com.rodaroda.android.jogos.rodaaroda	Educational	  100,000 - 500,000  	3.9519360065460205	2247
+com.seatguru	Travel & Local	  100,000 - 500,000  	3.7160446643829346	2680
+com.redeprivada.aspirallivewallpaperhd	Personalization	  10 - 50  	5	3
+com.wb.headsup	Word	  5,000,000 - 10,000,000  	4.0470147132873535	120813
+com.ram.memory.booster.cpu.saver	Tools	  100,000 - 500,000  	4.496931552886963	5540
+nl.nl112.android.pro	News & Magazines	  1,000 - 5,000  	4.254950523376465	808
+com.sonyericsson.gs	Personalization	  500,000 - 1,000,000  	4.093844890594482	14492
+com.heartrate.monitor	Health & Fitness	  1,000,000 - 5,000,000  	3.473564624786377	11443
+com.tnb.topgame.PartyDressup	Role Playing	  1,000 - 5,000  	3.2857143878936768	28
+com.gtp.nextlauncher.theme.faiscatechno	Personalization	  5,000 - 10,000  	4.225473403930664	581
+com.appster.facejjang.plus1	Entertainment	  500,000 - 1,000,000  	4.01040506362915	7977
+ch.azmedien.az_app_baselland	News & Magazines	  1,000 - 5,000  	4.285714149475098	56
+com.jb.gokeyboard.plugin.facecombination.funny	Personalization	  1,000,000 - 5,000,000  	4.089468479156494	75602
+tsi.apro.alertpro4android	Travel & Local	  5,000 - 10,000  	3.870722532272339	263
+air.com.devgameapp.HolidayAirplaneCleaning	Casual	  100,000 - 500,000  	3.380671739578247	1697
+au.id.tedp.nertz	Card	  1,000 - 5,000  	2.7592592239379883	54
+com.melodis.midomiMusicIdentifier.freemium	Music & Audio	  50,000,000 - 100,000,000  	4.320746421813965	491725
+com.mobincube.android.sc_65XPC	Social	  500,000 - 1,000,000  	3.235365152359009	3314
+mobi.cloudconvert.csvproconverter	Shopping	  1 - 5  	0	0
+com.playstation.remoteplay	Entertainment	  100,000 - 500,000  	4.256505966186523	8838
+com.arlean.maps	Travel & Local	  1,000,000 - 5,000,000  	3.8120315074920654	5602
+tk.pankratz.anlautelernen	Education	  1,000 - 5,000  	4.199999809265137	15
+com.funs.guitarherox	Music	  10,000 - 50,000  	3.616279125213623	516
+cloudtv.hdwidgets	Personalization	  1,000,000 - 5,000,000  	4.375532627105713	52560
+com.kerpluncmedia.ferriesplus	Transportation	  500 - 1,000  	3.7058823108673096	17
+com.phantomefx.standalone.reelrichdevil	Card	  10,000 - 50,000  	4.152298927307129	348
+org.lukrop.dienstrad	Business	  1,000 - 5,000  	4.257575988769531	66
+com.freelancer.android.messenger	Business	  100,000 - 500,000  	4.110607624053955	4855
+com.handyapps.tasksntodos10	Productivity	  10,000 - 50,000  	4.515609264373779	1986
+com.tju.android.worldwebcams	Weather	  500,000 - 1,000,000  	3.8076388835906982	6470
+com.emm.animequizduell	Trivia	  10,000 - 50,000  	4.1887640953063965	1335
+com.cereproc.Kirsty	Libraries & Demo	  100 - 500  	4.411764621734619	17
+com.clippersync.android.plugin	Libraries & Demo	  10,000 - 50,000  	4.552192211151123	958
+off.guide.maps.bangkok	Travel & Local	  100,000 - 500,000  	3.9777069091796875	942
+aniki.example.particlesC	Libraries & Demo	  1,000 - 5,000  	4.441717624664307	163
+com.gameinsight.mmandroid	Adventure	  1,000,000 - 5,000,000  	4.3826398849487305	243809
+com.lechler.android.nzcalc	Business	  1,000 - 5,000  	4.148148059844971	27
+com.nulltree.roundbell	Health & Fitness	  100,000 - 500,000  	4.252844333648682	1582
+com.foolsdog.witches	Entertainment	  1,000 - 5,000  	4.8450703620910645	213
+com.shopgate.android.app10391	Shopping	  500 - 1,000  	3	6
+de.schaeferdryden.alarmbox.donate	Communication	  500 - 1,000  	4.803030490875244	66
+com.CyanMoon.TinyBirdJourney	Adventure	  100,000 - 500,000  	2.990399122238159	1979
+fr.specialdays	Social	  100 - 500  	3.2857143878936768	7
+com.douglas.upflix	Entertainment	  500,000 - 1,000,000  	3.92122483253479	11920
+com.bauermedia.autozeitungmobile	Transportation	  10,000 - 50,000  	2.9110169410705566	236
+com.Fraom.KiwiUI	Personalization	  500 - 1,000  	4.793478488922119	92
+com.robotics.wearable.trains	Travel & Local	  500 - 1,000  	4.18367338180542	49
+com.bakno.MotorbikeLite	Racing	  1,000,000 - 5,000,000  	3.878373861312866	8856
+com.smallk.Birthdaysong	Music & Audio	  50,000 - 100,000  	3.939866304397583	449
+com.avast.android.at_play	Tools	  10,000,000 - 50,000,000  	4.198092937469482	190658
+pl.infinzmedia.firefree	Personalization	  500,000 - 1,000,000  	4.0091776847839355	8499
+de.hht.customer.journey	Travel & Local	  50,000 - 100,000  	4.265469074249268	501
+com.imagineink.dungeonarenaandroid	Role Playing	  500 - 1,000  	3.9318182468414307	44
+com.sviluppo4mobile.IndovinaVipItalia	Trivia	  100,000 - 500,000  	3.955164670944214	7561
+dev.brappsltda.sustoscreentela	Comics	  10,000 - 50,000  	3.620155096054077	129
+com.kkkeyboard.emoji.keyboard.theme.NightGlass	Social		4.210526466369629	133
+com.twoxlgames.sxhd	Racing	  10,000 - 50,000  	3.924496650695801	1192
+com.everydaysapps.pyramots	Word	  1,000 - 5,000  	4.407407283782959	27
+rideas.videochat4whatsapp	Communication	  10 - 50  	0	0
+net.baduktv.class9	Media & Video	  100 - 500  	4.666666507720947	3
+com.appmobilehome.pspcheatcodesfree2015	Libraries & Demo	  5,000 - 10,000  	3.414285659790039	70
+air.com.lemonjuice.mahjong	Puzzle	  100,000 - 500,000  	4.325881481170654	10154
+hk.hu.budapestpublictransportpro	Transportation	  10 - 50  	5	2
+com.brausoft.kidsslidepuzzle	Puzzle	  1,000,000 - 5,000,000  	3.8903486728668213	23976
+com.mapfactor.spotme	Transportation	  5,000 - 10,000  	4.083333492279053	108
+com.codechron.n6doubletapunlock	Tools	  1,000 - 5,000  	4.396135330200195	207
+com.drooplabs.musiccharts	Music & Audio	  50,000 - 100,000  	3.5910019874572754	489
+sic.nzb.app.donate	Communication	  10,000 - 50,000  	4.286069869995117	402
+com.jake.robolike	Social	  10,000 - 50,000  	3.111842155456543	152
+drokid.androkey	Card	  500,000 - 1,000,000  	3.9236085414886475	5642
+com.xpgames.vampiresolitaire	Card	  100,000 - 500,000  	4.245800971984863	8812
+com.appilo.puppiespuzzle	Puzzle	  100,000 - 500,000  	3.930004835128784	2043
+com.DolphinHDLiveWallpaper	Personalization	  100,000 - 500,000  	4.022546291351318	1508
+es.aena.mobile	Transportation	  50,000 - 100,000  	4.075089454650879	839
+net.nickapps.wear.findmyphone	Tools	  100,000 - 500,000  	4.241062164306641	1958
+com.truecaller.phoneapp	Communication	  5,000,000 - 10,000,000  	4.266955852508545	146249
+mahjongexpress.br.com.jogarmais.apk	Board	  10,000 - 50,000  	3.7388060092926025	134
+com.thatssopanda.lettertrace	Educational	  100 - 500  	4.199999809265137	5
+com.meraki.sm	Business	  100,000 - 500,000  	3.8244576454162598	507
+com.videoeditor.android	Media & Video	  500,000 - 1,000,000  	3.5354952812194824	5705
+it.cognitio.carhound	Transportation	  50 - 100  	4.666666507720947	3
+com.orionsmason.knockknockjokesfree	Comics	  5,000 - 10,000  	3.7083332538604736	48
+net.mrpear.vcardmanager	Communication	  1,000 - 5,000  	4.224137783050537	58
+com.liwenwen20131497.feather	Libraries & Demo	  100,000 - 500,000  	4.241621017456055	1283
+com.wilmatasoft.laeuropaleague	Sports	  10,000 - 50,000  	3.8690476417541504	168
+com.RelaxingMusicSleepSounds	Music & Audio	  10,000 - 50,000  	4.086419582366943	162
+com.MyIndieApp.FreeCountryRadio	Music & Audio	  100,000 - 500,000  	4.3524394035339355	2111
+com.jb.gosms.pctheme.rainbowluxurylace	News & Magazines	  50 - 100  	4.800000190734863	5
+air.ru.fixiclub.vesy	Educational	  500 - 1,000  	4.666666507720947	12
+game.audiocopter.full	Music	  10 - 50  	5	2
+com.piviandco.agingbooth	Entertainment	  10,000,000 - 50,000,000  	3.9503464698791504	108373
+us.recordvideo.screencapture	Tools	  100,000 - 500,000  	2.057345151901245	2825
+com.jb.gokeyboard.theme.twchangecolorofkeypad	Personalization	  500,000 - 1,000,000  	3.7989532947540283	7834
+com.cmp.common	Medical	  1,000 - 5,000  	4.243243217468262	37
+com.JohnbrothersGames.JpingPong	Sports	  1,000 - 5,000  	4.159090995788574	44
+net.ddroid.aw.watchface.f03	Lifestyle	  1,000 - 5,000  	3.9892473220825195	93
+com.ppesoft.meteolivehd	Weather	  10,000 - 50,000  	3.8114285469055176	175
+com.coshoe98.speedtrainsimulator3d	Simulation	  100,000 - 500,000  	2.913635492324829	4701
+com.JoshOClock.BurnTheCity	Casual	  10,000 - 50,000  	4.285539150238037	816
+com.meeting.minutespro	Business	  1,000 - 5,000  	4.445693016052246	267
+com.sonyericsson.extras.liveware.extension.missedcall	Communication	  500,000 - 1,000,000  	4.018092632293701	5085
+com.orangeworksmobile.gamesringtones	Personalization	  100,000 - 500,000  	3.930623769760132	2854
+com.kguard.KViewQR	Libraries & Demo	  10,000 - 50,000  	4.09375	416
+com.sticksports.stickcricket	Sports	  5,000,000 - 10,000,000  	4.357994556427002	158360
+com.DefiantDev.SkiSafari	Arcade	  500,000 - 1,000,000  	4.675904273986816	60081
+com.actualsoftware.faxcover.pro	Business	  100 - 500  	4.75	4
+com.junerking.pinball	Simulation	  5,000,000 - 10,000,000  	3.8066372871398926	24137
+com.facturacm	Business	  100 - 500  	4.400000095367432	5
+com.gau.go.launcherex.theme.colors.free	Personalization	  100,000 - 500,000  	4.257257461547852	1998
+de.SWL.LG10	Social	  10,000 - 50,000  	3.8956520557403564	345
+com.phonegap.sportsapp850	Sports	  1,000 - 5,000  	4.302631378173828	76
+com.naildriven.disneyworldcountdowndeluxe	Travel & Local	  1,000 - 5,000  	3.6222221851348877	90
+de.heise.android.ct.magazin	News & Magazines	  50,000 - 100,000  	3.5490195751190186	1122
+co.uk.marstin.powerbasket	Sports	  5,000 - 10,000  	3.7870371341705322	108
+com.timuzsolutions.JurassicHunt3D	Action	  500,000 - 1,000,000  	3.626540422439575	7709
+app.pentandroid.taidou	Medical	  100 - 500  	4.5	2
+com.halfbrick.yeschef	Puzzle	  500,000 - 1,000,000  	3.689608335494995	19891
+com.npi.wearminilauncher	Tools	  100,000 - 500,000  	4.564960479736328	8128
+com.palmcrust.kingsolo.validator	Card	  50 - 100  	4.7272725105285645	11
+it.tolelab.fvdPro	Tools	  10,000 - 50,000  	4.417667865753174	1415
+ru.project1.speedometer	Transportation	  10,000 - 50,000  	3.9519999027252197	125
+anykode.rdcpro	Communication	  1,000 - 5,000  	4.440000057220459	50
+com.fredd.safeagent911	Social	  10 - 50  	0	0
+com.omgpop.dstfree	Word	  10,000,000 - 50,000,000  	4.165950298309326	910621
+de.doegel.trackingdog	Sports	  500 - 1,000  	3.1864407062530518	59
+apptwoyou.FeelingGoodLW.villagefull	Personalization	  500 - 1,000  	4.568181991577148	44
+com.magmamobile.game.fourinarow	Puzzle	  1,000,000 - 5,000,000  	4.287470817565918	43942
+com.zeichenkraftwerk.frsblueeagle	Role Playing	  100 - 500  	3.9375	16
+com.GlossyClockWeatherWidget	Weather	  1,000 - 5,000  	3.86956524848938	23
+com.ballante.scopa.android	Card	  10,000 - 50,000  	3.7659573554992676	188
+de.rooehler.bikecomputer.pro	Health & Fitness	  10,000 - 50,000  	4.678626537322998	1951
+com.job.advertising.prd	Business	  10,000 - 50,000  	4.0652174949646	138
+com.deadlyseriousmedia.BouncyBit	Arcade	  100,000 - 500,000  	3.9687769412994385	15085
+ch.wetterboecke	Weather	  50,000 - 100,000  	3.409482717514038	464
+de.mdr.smartphone.android.mdr	News & Magazines	  50,000 - 100,000  	3.5428571701049805	455
+com.digitalchocolate.androidpizza	Puzzle	  500,000 - 1,000,000  	3.5123109817504883	6742
+air.carPainting	Educational	  50,000 - 100,000  	3.615591287612915	744
+com.rhapsody.napster	Music & Audio	  1,000,000 - 5,000,000  	3.7241830825805664	15272
+ch.easydining.easydiningapp	Lifestyle	  50 - 100  	5	1
+com.byteexperts.walls.BeachRealLiveWallpaper	Personalization	  100,000 - 500,000  	4.494358539581299	4343
+com.bigcasinoteam.slotsinca	Casino	  10,000 - 50,000  	4.7844038009643555	1308
+de.topobyte.apps.offline.stadtplan.amsterdam	Travel & Local	  100,000 - 500,000  	4.08433723449707	581
+com.copyop.android.app	Finance	  10,000 - 50,000  	3.0310559272766113	161
+com.magneticcompass.magneticcompass	Transportation	  100,000 - 500,000  	3.752782106399536	2516
+com.aistudio.fastbikeracing	Racing	  500,000 - 1,000,000  	3.930389642715454	15989
+com.g5e.ghoststories.android	Adventure	  100,000 - 500,000  	4.020524024963379	8283
+com.fatburning	Health & Fitness	  500,000 - 1,000,000  	3.9011616706848145	4735
+appinventor.ai_whatsyouremail.Pro_ChartGraph	Business	  100 - 500  	3.75	8
+com.zentertain.photocollage	Photography	  10,000,000 - 50,000,000  	4.101041793823242	423637
+air.com.puffballsunited.stealingthediamond	Casual	  10,000 - 50,000  	4.066161155700684	1451
+aleso.cute	Personalization	  50,000 - 100,000  	3.9616401195526123	756
+com.sega.cityrush	Action	  5,000,000 - 10,000,000  	4.017992973327637	219255
+GetMe2Adelaide.source	Transportation	  50 - 100  	3.1666667461395264	6
+com.teamlava.vibercandy	Arcade	  500,000 - 1,000,000  	4.024740695953369	14753
+se.maksmayer.themes.dnk	Personalization	  500 - 1,000  	4.651376247406006	109
+com.Quick7.MirrorPhotoEditorAndCollage	Photography	  100,000 - 500,000  	3.752858877182007	3148
+com.xiaoyi.game.v1	Strategy	  50,000 - 100,000  	3.5700933933258057	1284
+com.rei.lolchatads	Social	  1,000,000 - 5,000,000  	4.057915687561035	15679
+air.com.cupcakedigital.ygg.christmas	Entertainment	  100 - 500  	3.6666667461395264	3
+by.iqsoftware.train.pro	Family	  500 - 1,000  	4.375	8
+de.sportscheck	Sports	  10,000 - 50,000  	3.961864471435547	236
+com.connected.watch	Lifestyle	  10,000 - 50,000  	3.050368547439575	814
+com.contextlogic.wish	Shopping	  10,000,000 - 50,000,000  	4.386453628540039	1044012
+air.net.dadasoft.games.CasinoStarReal	Casino	  100,000 - 500,000  	4.139955520629883	3151
+com.TeaM.AvatarMusik	Music	  100,000 - 500,000  	3.7522149085998535	6885
+com.mobtopus.magiceffectsfree	Photography	  5,000,000 - 10,000,000  	3.8439743518829346	66457
+com.simplemobilephotoresizer	Photography	  100,000 - 500,000  	3.9099161624908447	1432
+com.inspiredart.newswipe	Weather	  50,000 - 100,000  	3.909221887588501	694
+com.kapogames.deathrun3d	Arcade	  100,000 - 500,000  	4.020328998565674	4132
+com.mol.danetki	Board	  10,000 - 50,000  	4.208741664886475	1327
+com.joaomgcd.autolocation.unlock	Productivity	  5,000 - 10,000  	4.349999904632568	240
+com.espstudio.couperacer	Racing	  100,000 - 500,000  	3.688908576965332	3372
+com.DiamondHeartsLiveWallpaperHDHQ	Personalization	  500,000 - 1,000,000  	4.02830696105957	7560
+com.devexpert.weather	Weather	  10,000,000 - 50,000,000  	4.378445148468018	1489677
+com.appitnl.hockey	Sports	  100 - 500  	3.5999999046325684	5
+camviewer.mobi.for_dlink	Business	  50,000 - 100,000  	3.959627389907837	322
+com.media1908.lightningbug.plugins.meditationpack	Lifestyle	  10,000 - 50,000  	4.589958190917969	479
+air.com.tutotoons.app.sweetbabygirlcleanup2	Family	  100,000 - 500,000  	3.2670845985412598	1595
+com.forexonthego.android.forex.premium	Finance	  1 - 5  	0	0
+net.b92.android.brisbane	News & Magazines	  500,000 - 1,000,000  	4.290641784667969	7075
+com.intellijoy.android.reading	Educational	  50,000 - 100,000  	4.190678119659424	708
+com.firedroid.barrrfull	Casual	  10,000 - 50,000  	4.541935443878174	465
+de.wdr.ipv	Media & Video	  100,000 - 500,000  	3.868239402770996	1738
+com.playshoo.texaspoker.polska	Card	  50,000 - 100,000  	4.365353107452393	3071
+en.seventeentracker	Shopping	  10,000 - 50,000  	3.998171806335449	547
+com.masslight.nrmp	Medical	  5,000 - 10,000  	4.16417932510376	67
+who.viewed.my.profile_100	Social		3.9166667461395264	12
+com.CartoonImage.MagicCreator	Personalization	  100,000 - 500,000  	4.168649196624756	3783
+com.tatuas.android.grp.adfree	Media & Video	  50 - 100  	5	4
+info.robertfroud.andstat.orcalc	Tools	  10 - 50  	0	0
+motherday.jokespics	Comics	  1,000 - 5,000  	3.8620688915252686	29
+spunky.opengl.gps.paralleldriver	Libraries & Demo	  5,000 - 10,000  	3.3191490173339844	47
+rs.hotsport	Sports	  10,000 - 50,000  	4.422053337097168	263
+ru.softcore.techquiz	Trivia	  10,000 - 50,000  	3.88681960105896	698
+com.dualboot.apps.springzen	Personalization	  100,000 - 500,000  	4.630519866943359	3827
+air.ru.fixiclub.four	Educational	  100 - 500  	5	3
+com.androidantivirus.pro	Tools	  500 - 1,000  	4.486842155456543	76
+com.hipxel.audio.music.speed.changer	Music & Audio	  100,000 - 500,000  	4.023112773895264	3418
+com.brap.WrongPic	Trivia	  100,000 - 500,000  	3.1954128742218018	3270
+fi.polar.polarflow	Health & Fitness	  100,000 - 500,000  	3.0789427757263184	5789
+nithra.quiz	Education	  100,000 - 500,000  	4.5764899253845215	7282
+com.pixelstar.PixelSoccer	Sports	  50,000 - 100,000  	3.330188751220703	1060
+com.slinkyapps.golf	Sports	  100,000 - 500,000  	2.6644816398620605	1678
+br.com.serasaexperian.serasaandroid	Business	  100,000 - 500,000  	3.1434378623962402	1722
+de.sport1.liveduell	Trivia	  5,000 - 10,000  	3.384615421295166	143
+com.zage.bustimes.paid	Transportation	  100 - 500  	3.923076868057251	13
+com.BirthdaysGreetingCards	Social	  100,000 - 500,000  	3.6828644275665283	391
+com.joelevi.gundudespodcast	Media & Video	  100 - 500  	4.941176414489746	17
+com.CatShockEntertainment.PopularLiveWallpaper	Personalization	  500 - 1,000  	4.561643600463867	73
+com.tsf.pendants.weather	Weather	  500 - 1,000  	4.050000190734863	20
+com.gryn.LordMaster	Role Playing	  50,000 - 100,000  	3.9740259647369385	3003
+kingdom.strategy.alexander	Strategy	  100,000 - 500,000  	3.9236693382263184	5843
+com.wikicode.vibrator	Entertainment	  100,000 - 500,000  	3.1935882568359375	1622
+com.OxicGames.heart.beat.detector	Health & Fitness	  50,000 - 100,000  	3.2573673725128174	509
+livio.pack.lang.it_IT	Books & Reference	  1,000,000 - 5,000,000  	4.028043270111084	12445
+com.xiafy.paperflowers	Libraries & Demo	  10,000 - 50,000  	4.031976699829102	344
+air.londonrexandro001	Action	  10,000 - 50,000  	3.701533317565918	1826
+hu.combase.android.cbspeedometer	Transportation	  50,000 - 100,000  	3.8428571224212646	350
+com.elatemedia.skischool.beginners	Sports	  500 - 1,000  	4.099999904632568	10
+com.inspiredart.lovematchchecker	Entertainment	  1,000,000 - 5,000,000  	3.528956651687622	13573
+com.apgsolutionsllc.APGSOLUTIONSLLC0001BundleExpsenses	Business	  100 - 500  	1	1
+com.alawar.treasuresofmontezuma3full	Puzzle	  50,000 - 100,000  	4.62407922744751	5839
+com.estrongs.android.taskmanager	Business	  10,000,000 - 50,000,000  	4.360231399536133	136750
+com.appspot.swisscodemonkeys.yomomma	Comics	  1,000,000 - 5,000,000  	3.7504477500915527	3376
+sono.apps.saowidget	Personalization	  100,000 - 500,000  	4.285684585571289	9682
+air.mizumi	Comics	  100,000 - 500,000  	3.705592155456543	608
+com.gameloft.android.ANMP.GloftKIHM	Strategy	  1,000,000 - 5,000,000  	4.003535270690918	173103
+com.vapp.battlefieldshooting3d	Action	  50,000 - 100,000  	3.7310385704040527	1714
+com.subsoap.faeriesolitaire	Card	  1,000 - 5,000  	4.05494499206543	91
+io.ciccio.taboodroid.pro	Puzzle	  500 - 1,000  	4.327868938446045	61
+com.subatomicstudios.fieldrunners2	Casual	  100,000 - 500,000  	4.3250412940979	7879
+com.i6.AirplaneRCSimulator3d	Simulation	  1,000,000 - 5,000,000  	3.279752254486084	46820
+at.laola1.laola1tv	Sports	  500,000 - 1,000,000  	2.6875545978546143	3431
+com.vnlentertainment.mmoproject	Role Playing	  1,000,000 - 5,000,000  	4.175732135772705	143054
+fts.text2pdf.pro	Business	  50 - 100  	3	4
+com.rac7.DarkEcho	Puzzle	  10,000 - 50,000  	4.601029396057129	1554
+com.hyperdevbox.agarestwar	Role Playing	  10,000 - 50,000  	4.499227523803711	3237
+com.HorsePregnancyGames	Casual	  50,000 - 100,000  	3.1492538452148438	536
+com.libiitech.halloweensalon	Family	  1,000,000 - 5,000,000  	3.8335649967193604	32379
+com.kissta.piano	Educational	  100,000 - 500,000  	3.581939697265625	598
+com.thefoxsoftware.activesoccer	Sports	  5,000 - 10,000  	3.7283949851989746	243
+com.seacloud.dc	Lifestyle	  5,000 - 10,000  	4.577127456665039	376
+com.gocampingbc.gui	Travel & Local	  100 - 500  	2.090909004211426	11
+com.babelworks.cpiano	Music	  50,000 - 100,000  	3.5027124881744385	553
+com.xcs.piclock	Media & Video	  500,000 - 1,000,000  	4.2609477043151855	35122
+com.jk.openlink	Music & Audio	  100,000 - 500,000  	3.732635259628296	2865
+com.vaporware.mylegalform	Business	  1,000 - 5,000  	3.375	32
+ch.editionplus.alertebudget	Finance	  10,000 - 50,000  	3.819512128829956	205
+com.conduit.app_33cc64f1d3f240bd9c3a78b1f6e06c69.app	News & Magazines	  10,000 - 50,000  	4.323660850524902	448
+air.mwe.cookingstrawberryhazelnuttart	Casual	  1,000,000 - 5,000,000  	3.557758092880249	19322
+com.flufflydelusions.app.commoncalculation	Finance	  100 - 500  	4.800000190734863	5
+com.battletac	Sports	  1,000 - 5,000  	4.446808338165283	47
+de.sam.pokerdex_donate	Libraries & Demo	  500 - 1,000  	4.823529243469238	17
+com.shopgate.android.app12390	Shopping	  500 - 1,000  	4	10
+com.choiceofgames.robots	Role Playing	  5,000 - 10,000  	4.739884376525879	865
+air.remHangman	Music	  1 - 5  	0	0
+com.wTelenovelasVenezolanas	Trivia	  1,000 - 5,000  	4.333333492279053	6
+net.ozonedevelopment.KidsDishWash	Casual	  100,000 - 500,000  	3.729846715927124	3002
+com.Syncrom.Acertijos_Adivinazas_Juegos_Mentales_2	Trivia	  100,000 - 500,000  	3.6506311893463135	4199
+com.gdc.android.yubisashi.jpit	Travel & Local	  1,000 - 5,000  	3.4285714626312256	7
+com.lonelyfew.blendoku	Puzzle	  1,000,000 - 5,000,000  	4.346693515777588	169406
+com.AppAvenger.TruckStops	Travel & Local	  5,000 - 10,000  	4.572580814361572	620
+au.com.solidapps.dukenukemsoundboard	Entertainment	  100 - 500  	3.8333332538604736	6
+com.berniiiiiiii.braz	Word	  1,000,000 - 5,000,000  	4.172983646392822	20395
+com.DavidWilliamson.HackSlashLoot	Role Playing	  1,000 - 5,000  	4.165714263916016	175
+com.gdc.android.yubisashi.jpid	Travel & Local	  1,000 - 5,000  	3.799999952316284	15
+com.weed_vortexrev	Personalization	  1,000 - 5,000  	4.642857074737549	56
+jp.co.zoo.mahjong	Card	  10,000 - 50,000  	3.7277777194976807	180
+com.unnull.apps.carperformance	Transportation	  1,000 - 5,000  	3.9901959896087646	102
+com.lamera.braccialettirossinuovogioco	Word	  50,000 - 100,000  	4.116591930389404	1784
+com.jb.gokeyboard.langpack.fr	Tools	  1,000,000 - 5,000,000  	3.66347599029541	10030
+com.ags.angry.bull.run.simulator3d	Action	  10,000 - 50,000  	3.5896103382110596	385
+com.moobbles.shark.adventure	Adventure	  500,000 - 1,000,000  	2.6730809211730957	4729
+com.giggleup.GG1A	Educational	  100 - 500  	4.473684310913086	38
+com.tt2kgames.xcomew	Strategy	  10,000 - 50,000  	4.477878570556641	3526
+com.mymappa.maps.sicily	Travel & Local	  500 - 1,000  	3	9
+my.vodobox.webtv	Media & Video	  500,000 - 1,000,000  	3.8599371910095215	2863
+com.hi5.app	Social	  1,000,000 - 5,000,000  	3.9739277362823486	37396
+com.ics.creditcardmachine	Business	  10,000 - 50,000  	4.707921028137207	202
+vn.vnstore.game	Board	  10,000 - 50,000  	3.878676414489746	272
+mominis.Generic_Android.Ninja_Chicken_Ooga_Booga	Arcade	  5,000,000 - 10,000,000  	4.434675693511963	61481
+com.cimplus.buf3dp	Media & Video	  10 - 50  	3.75	4
+com.tvpadremotestreaming	Entertainment	  1,000 - 5,000  	4.346456527709961	127
+com.nitrome.platformpanic	Arcade	  50,000 - 100,000  	4.063713550567627	4583
+air.PlayHaus	Family	  50 - 100  	3.75	4
+com.eds.prismaticdreamsPRO	Personalization	  1,000 - 5,000  	4.323529243469238	68
+com.danielp.quiz.europe	Trivia	  5 - 10  	5	3
+ch.gearsoft.sleepwell.android	Lifestyle	  100 - 500  	4.599999904632568	5
+pack.LarDicoFR	Books & Reference	  10,000 - 50,000  	3.9468953609466553	1224
+dd.watchdesigner.bluemoon	Personalization	  100 - 500  	4.4285712242126465	14
+com.hiktek.wSpy.pro	Communication	  1,000 - 5,000  	2.725490093231201	51
+com.monashuniversity.fodmap	Medical	  10,000 - 50,000  	4.027950286865234	322
+com.mind.creative.babyread	Educational	  1 - 5  	5	1
+com.probcomp.filexplorerpro	Productivity	  500 - 1,000  	4.3913044929504395	46
+au.com.tinmangames.fightingfantasy.houseofhell	Role Playing	  5,000 - 10,000  	4.408192157745361	708
+com.studiojpic.cameracalculators	Photography	  10 - 50  	5	2
+appinventor.ai_Tobias_Lillig.Bussgeld	Transportation	  10,000 - 50,000  	4.012244701385498	245
+com.howtobuildnicehouse.planninginhousing	Social	  100,000 - 500,000  	2.418287992477417	1028
+de.dresden.magnussoft.californiagames.eng	Sports	  100 - 500  	3.75	12
+com.pepperm.cashbox.prof	Finance	  50 - 100  	5	6
+com.RioWorld.MorseVX250	Entertainment	  100 - 500  	4.363636493682861	11
+mobi.infolife.ezweather.iconset.googlenow	Weather	  50,000 - 100,000  	4.172674655914307	1720
+com.tommo.ff2g	Adventure	  100 - 500  	4.7272725105285645	11
+com.aleksirantonen.clayhunt	Sports	  10,000 - 50,000  	4.281653881072998	387
+away.message	Social	  5,000 - 10,000  	4.276595592498779	235
+dk.boggie.madplan.android.pro	Lifestyle	  5,000 - 10,000  	4.52769660949707	343
+com.apptornado.word	Word	  500,000 - 1,000,000  	3.855443239212036	8910
+appinventor.ai_souperdragon.money	Educational	  50 - 100  	5	1
+de.kerk.chess23	Puzzle	  100 - 500  	3.625	8
+com.apprope.newriddles	Puzzle	  50,000 - 100,000  	3.613914966583252	2774
+air.com.sgn.cookiejam.gp	Puzzle	  10,000,000 - 50,000,000  	4.261674404144287	444835
+air.com.mgirly.mileycirusscarydentist	Role Playing	  10,000 - 50,000  	3.1960785388946533	306
+com.benjamin.lochmann.geschenkeratgeber	Shopping	  50,000 - 100,000  	1.7569444179534912	144
+com.chinzilla.littlealchemist.google	Role Playing	  500,000 - 1,000,000  	4.150014400482178	52275
+com.devhd.feedly	News & Magazines	  1,000,000 - 5,000,000  	4.4994988441467285	229523
+com.hrs.b2c.android	Travel & Local	  1,000,000 - 5,000,000  	4.044774532318115	9157
+com.kidsfoodinc.android_make_icepopsicle	Family	  100,000 - 500,000  	3.4664931297302246	3074
+com.appmk.book.AOTRMGAZAVKFBEEM	Finance	  100 - 500  	0	0
+com.magicfluids.demo	Entertainment	  1,000,000 - 5,000,000  	4.23027229309082	14244
+au.com.weatherzone.android.weatherzoneplus	Weather	  50,000 - 100,000  	4.4858269691467285	10125
+org.lichess.mobileapp	Board	  5,000 - 10,000  	4.617234706878662	499
+cr.playerpro	Media & Video	  1,000 - 5,000  	4	34
+com.bigzur.slendermansaga.paid	Adventure	  1,000 - 5,000  	4.238202095031738	445
+tw.mobileapp.camcorder.silent	Media & Video	  50 - 100  	0	0
+com.appcom.isnowtrail	Sports	  50 - 100  	5	1
+air.mwe.cookingcuteheartcupcakes	Casual	  5,000,000 - 10,000,000  	3.5199084281921387	44554
+com.lebrecipes	Lifestyle	  500 - 1,000  	4.366666793823242	30
+com.intermaps.sfl	Travel & Local	  10,000 - 50,000  	4.195530891418457	179
+pt.itpeople.rewindcitieslisbon	Travel & Local	  1,000 - 5,000  	4.109090805053711	55
+com.seyyarsoft.pispirik	Card	  10,000 - 50,000  	3.753424644470215	219
+com.fifa.fifaapp.android	Sports	  10,000,000 - 50,000,000  	4.13203239440918	273804
+com.cjq20130603.star	Libraries & Demo	  10,000 - 50,000  	4.051485061645508	505
+com.wizardgamesinc.blockgun3d	Action	  1,000,000 - 5,000,000  	3.74525785446167	17661
+com.g6677.android.skin	Family	  5,000,000 - 10,000,000  	3.6692490577697754	65829
+com.tapsarena.celebrities	Word	  500,000 - 1,000,000  	4.059824466705322	30790
+com.lamera.miperrotieneunblogjuegos	Word	  10,000 - 50,000  	3.1883115768432617	154
+com.appdream.card	Business	  1,000 - 5,000  	3.555555582046509	28
+com.intermaps.davosklosters	Travel & Local	  1,000 - 5,000  	4.375	32
+com.alawar.WeirdPark2.Premium	Adventure	  10,000 - 50,000  	4.480783939361572	2602
+com.valeriologiudice.assistantcoachsoccer	Sports	  100 - 500  	4.052631378173828	19
+com.domobile.aut.bnightclub	Tools	  1,000,000 - 5,000,000  	4.04905891418457	92195
+com.dgn.allrecipes	Books & Reference	  100,000 - 500,000  	3.6239407062530518	1888
+com.eastoakteam.pipiepuzzle_gp	Board	  100,000 - 500,000  	4.07692289352417	10725
+com.lazil.animeMangaQuiz	Word	  5,000 - 10,000  	4.010000228881836	100
+com.asvcorp.aftershock	Social	  50 - 100  	4.461538314819336	13
+com.infsoft.android.fraapp	Travel & Local	  50,000 - 100,000  	4.11267614364624	497
+com.luminiasoft.puxapps	Lifestyle	  500 - 1,000  	3.7142856121063232	7
+comb.BBClient	Transportation	  100,000 - 500,000  	3.715299367904663	2255
+com.nightlabs.android.icssync.unlocker	Productivity	  5,000 - 10,000  	3.8426966667175293	89
+com.ngpixels.xrc	Racing	  50 - 100  	3.6666667461395264	3
+com.gau.go.launcherex.key	Personalization	  100,000 - 500,000  	4.524669647216797	25294
+com.icti	Medical	  1,000 - 5,000  	4.0679612159729	103
+ru.familion.razvivashka	Educational	  500,000 - 1,000,000  	3.700094699859619	4228
+com.google.zxing.client.androidtest	Libraries & Demo	  50,000 - 100,000  	4.017291069030762	352
+com.eightfloor.strikesolitaire	Card	  100 - 500  	3.576923131942749	26
+com.shuffledbits.divelog	Sports	  50,000 - 100,000  	4.099853038787842	685
+com.PixelXYZ.HeavyMetalDerby	Racing	  100 - 500  	3.3333332538604736	9
+com.playshoo.texaspoker.es	Card	  100,000 - 500,000  	4.108484268188477	5964
+com.aceft	Media & Video	  1,000 - 5,000  	4.556962013244629	79
+air.com.stardoll.downtown	Role Playing	  100,000 - 500,000  	3.8851211071014404	13388
+kr.mcpe.mods2.donate	Tools	  5,000 - 10,000  	3.7130801677703857	237
+com.karmaloop.activity	Shopping	  100,000 - 500,000  	4.5651068687438965	9062
+com.urbandictionary.android	Books & Reference	  1,000,000 - 5,000,000  	4.096147060394287	38982
+com.surinapp.bestglassphotoframes	Photography	  500,000 - 1,000,000  	3.991044759750366	5360
+com.abl.whatsappinvisiblepro	Communication	  100 - 500  	2.5	2
+com.sabugames.polizeiheli	Simulation	  10,000 - 50,000  	3.4255318641662598	376
+com.voornmultimedia.sheeplessnights	Board	  50 - 100  	4.375	8
+com.egazete	News & Magazines	  100,000 - 500,000  	3.4980807304382324	1042
+com.tabtale.monsterhair	Casual	  1,000,000 - 5,000,000  	3.3414907455444336	15160
+com.runtastic.android.pedometer.lite	Health & Fitness	  1,000,000 - 5,000,000  	4.151415824890137	71505
+com.runtastic.android.roadbike.lite	Health & Fitness	  1,000,000 - 5,000,000  	4.469346046447754	52179
+com.dumplingsandwich.pencilsketch	Photography	  10,000,000 - 50,000,000  	3.918992280960083	121544
+com.oodogrorgooups.phonexrayscanjoke	Lifestyle	  10,000 - 50,000  	2.407407522201538	135
+com.bramgiessen.wastedvideomaker	Entertainment	  1,000 - 5,000  	3.074626922607422	67
+com.wMedicalBillingandCoding	Medical	  100 - 500  	4	3
+com.mikrosonic.DroidVox	Music & Audio	  10,000 - 50,000  	4.165217399597168	230
+com.anifree.rain	Personalization	  10,000 - 50,000  	4.256338119506836	355
+com.CardInMobile	Entertainment	  1,000 - 5,000  	4.216948986053467	295
+com.monotype.android.font.theme.script1	Personalization	  1,000,000 - 5,000,000  	4.105429649353027	12340
+com.tripadvisor.android.apps.cityguide.marrakech	Travel & Local	  10,000 - 50,000  	4.0366973876953125	327
+com.txtvault.android.tidetimes	Weather	  500 - 1,000  	2.7272727489471436	11
+de.fabianbossler.thermometer	Weather	  10,000 - 50,000  	3.419753074645996	81
+ind.fem.black.xposed.mods	Personalization	  5,000 - 10,000  	4.439825057983398	457
+kr.go.nl	Libraries & Demo	  50,000 - 100,000  	3.8311688899993896	154
+it.froggy.tg5	News & Magazines	  500,000 - 1,000,000  	4.037529468536377	9326
+com.pzizz.android	Medical	  10,000 - 50,000  	4.403908729553223	307
+com.metrafonic.couchdroid	Media & Video	  50 - 100  	3	3
+com.bodyyouwant	Health & Fitness	  100,000 - 500,000  	4.063995838165283	1922
+com.allstays.app.camprv	Travel & Local	  10,000 - 50,000  	4.201773643493652	451
+com.icloudzone.DeathShooter2	Action	  5,000,000 - 10,000,000  	4.011032581329346	97891
+de.dnsproject.clock_widget_main	Lifestyle	  1,000,000 - 5,000,000  	4.168539524078369	8111
+com.informedpublishing.RNGuide	Medical	  5,000 - 10,000  	4.042253494262695	72
+mobi.infolife.ezweather.widget.thanksgivingday	Weather	  10,000 - 50,000  	4.114893436431885	470
+com.thetisgames.fsboeinghawaiifree	Simulation	  1,000,000 - 5,000,000  	3.3555748462677	20683
+com.disney.na.itsasmallworld	Personalization	  5,000 - 10,000  	2.993377447128296	151
+net.androbook.material130114001232_89de2909	Comics	  50 - 100  	0	0
+de.project.zuchtapp	Social	  10 - 50  	2	3
+com.mp.retroStunttwo	Simulation	  10,000 - 50,000  	3.3991031646728516	223
+frames.techtouch.hordingframe	Photography	  5,000,000 - 10,000,000  	3.9381935596466064	86593
+com.paul.icon	Media & Video	  100,000 - 500,000  	3.9900810718536377	5545
+com.km.inlovephotos	Photography	  50,000 - 100,000  	4.090038299560547	522
+ilpesce.web.agenda_2015_pro	Productivity	  5,000 - 10,000  	4.021186351776123	236
+com.inadaydevelopment.cashcalculator	Finance	  10,000 - 50,000  	4.615566253662109	424
+com.gday.jungle.fury	Action	  100,000 - 500,000  	3.5430173873901367	4812
+com.chmodsoft.perfectvocal	Music & Audio	  1,000,000 - 5,000,000  	3.854970693588257	14797
+ch.weltbild.android.ebookreader	Books & Reference	  10,000 - 50,000  	3.2808218002319336	146
+com.naturalmotion.clumsyninja	Family	  10,000,000 - 50,000,000  	4.324672222137451	635872
+com.ezjoynetwork.icecrush	Puzzle	  1,000,000 - 5,000,000  	4.28095817565918	73502
+de.blochmann.dtfussball	Sports	  10,000 - 50,000  	4.201094627380371	731
+com.momocorp.o2jamu	Music	  1,000,000 - 5,000,000  	4.475078105926514	79829
+com.frenchgames.frenchsworld	Action	  10,000,000 - 50,000,000  	3.717700958251953	120220
+org.geometerplus.fbreader.plugin.pdf	Books & Reference	  500,000 - 1,000,000  	4.202605247497559	9290
+com.nuttyapps.little.tailor	Family	  1,000,000 - 5,000,000  	3.406344413757324	37355
+com.mwls.jdhearts	Card	  5,000 - 10,000  	3.952755928039551	129
+com.zappysoft.minepix	Entertainment	  1,000 - 5,000  	3.3125	96
+com.ALM.SnakeLadder3D	Board	  100 - 500  	3.909090995788574	11
+com.kinkajoogames.taki	Card	  10 - 50  	3.6666667461395264	3
+com.airwatch.admin.samsung	Business	  100,000 - 500,000  	2.7954938411712646	577
+com.jsmedia.android.eradio.portugal	Music & Audio	  10,000 - 50,000  	4.152777671813965	360
+air.com.pocket.game.Tiny_Robber_Bob2	Role Playing	  100,000 - 500,000  	3.7001264095306396	3955
+com.clear.loud	Personalization	  1,000,000 - 5,000,000  	3.9612159729003906	10855
+jp.co.hokkoku.marugoto	Travel & Local	  100 - 500  	4.75	4
+com.easytime.panzer	Racing	  1,000 - 5,000  	3.2608695030212402	46
+com.game.JewelsStar3	Casual	  1,000,000 - 5,000,000  	4.1713547706604	55138
+com.game.JewelsStar2	Casual	  5,000,000 - 10,000,000  	4.068385601043701	79037
+com.bigbeardapp.svrec1	Lifestyle	  1,000 - 5,000  	3.5784313678741455	102
+com.domowiczcg.manhattanproject	Board	  500 - 1,000  	4.047999858856201	125
+gus.apps.pinsafe	Finance	  50 - 100  	5	3
+com.my_051	Word	  10 - 50  	5	7
+com.com2us.imhero.normal.freefull.google.global.android.common	Role Playing	  1,000,000 - 5,000,000  	4.357295989990234	137701
+com.truecaller	Communication	  50,000,000 - 100,000,000  	4.345093727111816	1426100
+com.arteson.audionoise	Medical	  100 - 500  	3.6666667461395264	3
+com.lava.music	Music & Audio	  1,000,000 - 5,000,000  	4.223641395568848	69446
+com.github.jamesgay.fitnotes	Health & Fitness	  100,000 - 500,000  	4.326097011566162	6495
+com.movingames.dinosaursafarifree	Simulation	  1,000,000 - 5,000,000  	3.7948708534240723	24487
+com.twoxlgames.mxmatchup	Racing	  100,000 - 500,000  	3.8886446952819824	4095
+com.iPluto.MobileNumberLocator	Lifestyle	  100,000 - 500,000  	3.5222654342651367	2313
+com.gobit.burgershop	Casual	  5,000,000 - 10,000,000  	4.106422424316406	146529
+com.CrazyRobot.BatteryBooster	Productivity	  1,000,000 - 5,000,000  	4.491218090057373	142562
+com.ashampoo.snap.screenshot.pro	Tools	  1,000 - 5,000  	4.529940128326416	334
+com.mp.policevsmobster	Racing	  100,000 - 500,000  	3.374049186706543	2235
+data4.booktobi.com	Libraries & Demo	  5,000 - 10,000  	3.614457845687866	83
+name.hex.wallpaper.fingerpaint1	Personalization	  1,000,000 - 5,000,000  	3.5924389362335205	16162
+dk.pdc.dictus.android.nonfree	Communication	  5,000 - 10,000  	4.088785171508789	214
+com.paneloe.cutcalculator	Business	  100 - 500  	4.266666889190674	15
+mobi.infolife.ezweather.widget.notification	Weather	  10,000 - 50,000  	4.079136848449707	417
+com.svox.langpack.installer	Libraries & Demo	  10,000,000 - 50,000,000  	4.114246845245361	357241
+org.internethic.nice	Transportation	  10,000 - 50,000  	3.065934181213379	182
+com.newhopeandroidapp.photo.PhotoFramesLovely	Photography	  1,000,000 - 5,000,000  	3.97544527053833	16453
+fr.carboatmedia.lacentrale	Lifestyle	  500,000 - 1,000,000  	4.100106239318848	7532
+com.beamdog.baldursgateIIenhancededition	Role Playing	  10,000 - 50,000  	4.659654140472412	2139
+com.splendapps.splendo	Productivity	  100,000 - 500,000  	4.480409145355225	11536
+com.pranic.android	Medical	  500 - 1,000  	4.8510637283325195	47
+com.android.StreamItAllRadio	Media & Video	  5,000 - 10,000  	3.4381625652313232	288
+com.ymcools.hppv	Media & Video	  500 - 1,000  	3.5	18
+com.ptgs.realwolfsimulator	Simulation	  100,000 - 500,000  	3.7092673778533936	4327
+ekawas.blogspot.com.lite	Communication	  1,000 - 5,000  	4.238372325897217	172
+mobi.bcam.mobile	Social	  5,000,000 - 10,000,000  	4.259497165679932	89157
+ch.uepaa.alpinesafety.android	Medical	  10,000 - 50,000  	4.363247871398926	234
+app48009.mallu420tv	News & Magazines	  1,000 - 5,000  	4.416666507720947	24
+nl.gamistry.Chameleon	Casual	  5,000 - 10,000  	4.4463276863098145	354
+com.workplacesuccess.solveproblems	Business	  500 - 1,000  	4.400000095367432	5
+com.igroslots	Casino	  50,000 - 100,000  	4.391932010650635	11849
+com.choiceofgames.orpheusruse	Role Playing	  1,000 - 5,000  	4.060344696044922	116
+com.slotgamesrj.guardiao	Casino	  50 - 100  	3.3333332538604736	3
+com.magmamobile.game.Bowling3D.XMas	Sports	  100,000 - 500,000  	3.7796218395233154	2169
+com.jna.wikipedia	Books & Reference	  10,000 - 50,000  	4.006700038909912	597
+com.gopro.android.training	Education	  50,000 - 100,000  	3.7452380657196045	1260
+co.smartwatchface.watch.face.ranger.military	Personalization	  10,000 - 50,000  	4.325242519378662	1236
+com.kidsplayhousemedia.android_mermaidsbaby	Family	  10,000 - 50,000  	3.2957746982574463	142
+au.com.recursive.android.instalocal	Social	  500 - 1,000  	3.8333332538604736	18
+air.com.Machiavelli.A16LCARS	Entertainment	  100 - 500  	4.454545497894287	22
+com.ammobile.anatomyquiz	Medical	  1,000 - 5,000  	2.9166667461395264	24
+de.androidsolutions.paintball	Sports	  1,000 - 5,000  	4.4285712242126465	21
+air.com.freshplanet.apps.HelloPop	Social	  50,000 - 100,000  	3.4987614154815674	1211
+com.Gamikro.NewRedBall	Arcade	  1,000,000 - 5,000,000  	3.566833734512329	35132
+com.pro.fot.mar.sanv2	Photography	  500,000 - 1,000,000  	4.117788791656494	11631
+com.piviandco.boothstache	Entertainment	  1,000,000 - 5,000,000  	3.7716705799102783	12517
+com.sbkgames.rallyracerdirt	Racing	  500,000 - 1,000,000  	4.059460639953613	16162
+com.smilerlee.jewels	Arcade	  10,000,000 - 50,000,000  	4.427765846252441	554475
+com.jb.good.night.android	Productivity	  500 - 1,000  	4.270270347595215	37
+com.aldroid.chatshqip	Communication	  5,000 - 10,000  	3.803030252456665	66
+com.enigmatv.application	Media & Video	  50,000 - 100,000  	3.338709592819214	248
+com.mck.busroads	Simulation	  500,000 - 1,000,000  	3.7299742698669434	9725
+com.mercurymobilesolutions.knightriderringtone	Music & Audio	  500 - 1,000  	3.117647171020508	17
+com.ionicframework.sportapp539902	Sports	  500 - 1,000  	4.7272725105285645	22
+com.binuapp.bcdrivingclass3	Transportation	  50 - 100  	0	0
+com.binuapp.bcdrivingclass2	Transportation	  10 - 50  	0	0
+com.mesaliments.simpleweighttrackerpaid	Health & Fitness	  10 - 50  	2	1
+com.omg.meteoprog	Weather	  100,000 - 500,000  	4.037296772003174	3137
+com.jrummy.root.browserfree	Productivity	  5,000,000 - 10,000,000  	4.034160137176514	85480
+net.weathernation.mobile.orvtrails	Transportation	  10,000 - 50,000  	3.5720930099487305	215
+com.yummly.android	Lifestyle	  500,000 - 1,000,000  	4.462057113647461	16617
+com.linkdesks.slotschristmas	Casino	  5,000 - 10,000  	4.612035751342773	781
+com.faapps.Abdulbasit	Music & Audio	  100,000 - 500,000  	4.4932050704956055	1766
+com.lethani.metro.tokyo	Transportation	  1,000 - 5,000  	3.875	16
+org.greyolltwit.backgammon	Board	  10 - 50  	0	0
+com.pudlus.offroad.derby.damage	Racing	  100,000 - 500,000  	3.5238280296325684	2560
+com.WhatWapp.BlackJack	Casino	  100,000 - 500,000  	4.139745712280273	2755
+com.bestgames2day.traingames	Strategy	  100,000 - 500,000  	3.202087879180908	1341
+it.nexusonline.amc	Lifestyle	  10 - 50  	2.5	2
+com.jellykitgames.followertracker	Social	  10,000 - 50,000  	4.681289196014404	1117
+com.catple.wallpapers	Personalization	  1,000,000 - 5,000,000  	4.202116966247559	48838
+biz.quetzal.ScienceQuizGamePro	Trivia	  100 - 500  	4.677419185638428	31
+com.NauticalAlmanac	Travel & Local	  100 - 500  	4.857142925262451	7
+com.homesoft.gallerycast.full	Media & Video	  1,000 - 5,000  	4.1855669021606445	97
+com.luckyperson.bears	Casino	  10,000 - 50,000  	4.0607733726501465	181
+air.com.FrozenIceElsaDoctor	Casual	  100,000 - 500,000  	3.274631977081299	3532
+com.teletrader.android	Finance	  10,000 - 50,000  	4.660696506500244	1005
+com.noodlecake.trainyard	Puzzle	  10,000 - 50,000  	4.790666580200195	2250
+com.bilad.elajaib	Comics	  1,000 - 5,000  	4.54054069519043	37
+com.hutchgames.smashcopsheat	Racing	  5,000,000 - 10,000,000  	4.211645603179932	197571
+com.baddaddy.time2hunt	Sports	  10,000 - 50,000  	4.542787075042725	409
+com.levelup.touiteur	Social	  1,000,000 - 5,000,000  	4.036811828613281	81390
+com.jimbl.babyshowerplanner	Lifestyle	  1,000 - 5,000  	4.166666507720947	18
+com.sviluppo4mobile.prontuario	Medical	  1,000 - 5,000  	3.542372941970825	59
+air.com.kigorosa.bachblueten.lite	Medical	  100 - 500  	4.25	4
+com.playway.cookitup.en.lite.update	Arcade	  1,000,000 - 5,000,000  	3.4540200233459473	11592
+com.treehouse.ldsgamespro	Trivia	  10 - 50  	3.6666667461395264	3
+lib.ject	Card	  5,000 - 10,000  	3.555555582046509	72
+com.euronews.euronewslive	News & Magazines	  100,000 - 500,000  	4.139923572540283	8376
+org.familysearch.mobile	Books & Reference	  100,000 - 500,000  	4.294149875640869	5470
+com.globalfun.adventuretime.free	Adventure	  5,000,000 - 10,000,000  	3.8323915004730225	101577
+com.GEOS.four_foto_it	Word	  1,000 - 5,000  	3.9473683834075928	38
+pl.surix.teeterpro	Arcade	  1,000,000 - 5,000,000  	3.9236204624176025	30846
+mygames.snake	Arcade	  100,000 - 500,000  	3.012268304824829	3831
+maddy.toddlerwords	Educational	  1,000 - 5,000  	4.386363506317139	44
+com.speedalertorpro.android	Transportation	  10 - 50  	5	1
+com.asmolgam.germany	Trivia	  10,000 - 50,000  	3.8715953826904297	771
+net.fishlabs.SportsCarChallenge	Racing	  1,000,000 - 5,000,000  	3.8823082447052	26391
+com.theIm.imDetectiveLite	Board	  5,000 - 10,000  	3.9620254039764404	237
+com.Bible.Quiz.Game	Trivia	  100,000 - 500,000  	4.469711780548096	10268
+otter.app.avatar	Comics	  1 - 5  	0	0
+uk.co.naijagames.LudoPlus3d	Board	  10,000 - 50,000  	3.4979424476623535	243
+si.milsistemika.ballistic.lite	Sports	  50,000 - 100,000  	3.9789788722991943	666
+air.CheckOffDiet	Health & Fitness	  1,000 - 5,000  	3.686274528503418	51
+com.REKH4.MightyWitchLord	Casino	  1 - 5  	0	0
+se.thegreen.themes.squared	Personalization	  1,000 - 5,000  	4.400000095367432	55
+com.appo2.podcast	News & Magazines	  10,000 - 50,000  	4.201954364776611	307
+com.technosoft.Knot_List	Sports	  5,000 - 10,000  	4.513513565063477	185
+com.Kingloft.PhotoInBottleGlassFrames	Photography	  100,000 - 500,000  	4.049774646759033	4440
+com.egert.melodeon	Music & Audio	  1,000,000 - 5,000,000  	4.176684379577637	18151
+com.wang.tofurun	Racing	  1,000 - 5,000  	4.360655784606934	122
+com.gartic.Gartic	Trivia	  500,000 - 1,000,000  	4.3766770362854	44351
+com.luandungames.worldcup2014	Sports	  500,000 - 1,000,000  	3.5999388694763184	13098
+com.forshared	Entertainment	  100,000,000 - 500,000,000  	4.291173458099365	2408965
+jp.co.net_fun.bikinipai2.lily.opt	Casino	  5,000 - 10,000  	3.373913049697876	115
+com.mtome.mfax	Business	  1,000 - 5,000  	3.107142925262451	28
+com.ou_net.ambulance_siren	Media & Video	  1,000 - 5,000  	4.5428571701049805	35
+com.txtvault.android.tidetimesqld	Weather	  1,000 - 5,000  	3.545454502105713	22
+si.quiz.nba	Trivia	  1,000 - 5,000  	4.5625	16
+com.triceratappspublishing.DwarvenChess	Board	  500 - 1,000  	3.2564103603363037	39
+com.rootuninstaller.pro	Tools	  10,000 - 50,000  	4.290836811065674	1255
+com.emoji.coolkeyboard	Productivity	  1,000,000 - 5,000,000  	4.326381206512451	79162
+com.dreamgame.fruitpongpong3	Casual	  10,000 - 50,000  	4.294848918914795	563
+mnc_comics.dharmaputra_winehsuka_full	Comics	  10 - 50  	2	1
+sts.ab	Strategy	  500,000 - 1,000,000  	3.931476593017578	24021
+com.mao.desert.bird.hunting.apps	Adventure	  50,000 - 100,000  	3.996960401535034	987
+co.kr.moa.webtoon	Comics	  5,000 - 10,000  	4	32
+com.g6677.android.azoo	Casual	  1,000,000 - 5,000,000  	3.8372507095336914	24123
+com.exovoid.weather.app	Weather	  1,000,000 - 5,000,000  	4.327206611633301	68935
+be.sebsob.thuglifemaker	Entertainment	  100,000 - 500,000  	3.5462512969970703	3081
+sts.al	Role Playing	  10,000,000 - 50,000,000  	4.36736536026001	284786
+com.tools.androidsystemcleaner	Productivity	  1,000,000 - 5,000,000  	4.046008110046387	10020
+com.life360.android.safetymapd	Lifestyle	  10,000,000 - 50,000,000  	4.370274543762207	258717
+com.majdus.CPI	Finance	  100 - 500  	3	6
+com.sagemilk.series3	Finance	  100 - 500  	3.5	4
+ru.blackfox.kidszoo	Educational	  100 - 500  	4.058823585510254	17
+com.pocketscientists.rescueme0	Adventure	  1,000,000 - 5,000,000  	3.4268534183502197	26276
+com.cellpointmobile.dsb.mobilbillet	Transportation	  100,000 - 500,000  	3.0411972999572754	3108
+com.sec.print.mobileprint	Productivity	  1,000,000 - 5,000,000  	4.06881856918335	23704
+com.jamworks.floatify.pro	Personalization	  10,000 - 50,000  	4.373641490936279	1472
+net.lrstudios.android.chess_problems	Puzzle	  100,000 - 500,000  	4.300761699676514	5250
+air.Trimaginator	Photography	  1,000 - 5,000  	4.330188751220703	106
+com.soloseal.temperaturealarmclock	Lifestyle	  100,000 - 500,000  	3.7268195152282715	1003
+com.academmedia.FarioVSWatario	Arcade	  1,000,000 - 5,000,000  	3.448065996170044	14451
+com.mobileamusements.SuperFruitSlots	Casino	  500 - 1,000  	4.1052632331848145	19
+hockeygoalhornsradio.activities	Sports	  1,000 - 5,000  	3.3035714626312256	56
+com.wilmaa.tv	Media & Video	  100,000 - 500,000  	3.824371099472046	2027
+com.partykidsmobile.android_pettruck	Educational	  5,000 - 10,000  	3.174999952316284	80
+espengineer.android.compass.paid	Tools	  100 - 500  	4.658536434173584	41
+at.laola1	Sports	  100,000 - 500,000  	4.170444965362549	5867
+com.aspiring.employeescheduleseven	Business	  100 - 500  	2.1666667461395264	6
+com.htc.zero	Social	  10,000,000 - 50,000,000  	3.683805227279663	19605
+com.cb.volumePlus	Music & Audio	  5,000,000 - 10,000,000  	4.0759100914001465	26954
+com.unilever.CoolCubes	Arcade	  500,000 - 1,000,000  	4.102629661560059	9773
+com.mabapps.animaux_quiz	Trivia	  1,000 - 5,000  	3.5	26
+com.usm.dda2	Adventure	  1,000 - 5,000  	4.3741936683654785	155
+com.magame.nebuu	Word	  10,000 - 50,000  	3.8556861877441406	1275
+com.slotgamesrj.orodomexico	Casino	  50 - 100  	4	9
+com.pinkpointer.wheelofluck	Educational	  100,000 - 500,000  	4.022019863128662	2634
+it.navionics.singleAppUsaCanada	Travel & Local	  10,000 - 50,000  	4.32846736907959	685
+com.sage.ljp	Education	  500,000 - 1,000,000  	4.218964576721191	10335
+com.bodhaguru.Comicker	Comics	  5,000 - 10,000  	3.7833333015441895	120
+com.qube.tinyminer	Adventure	  100,000 - 500,000  	3.412616491317749	6008
+com.whirlscape.minuumfree	Productivity	  100,000 - 500,000  	3.87925386428833	15545
+com.camonroad.app	Travel & Local	  100,000 - 500,000  	4.2278571128845215	9642
+com.handwriteforwhatsapp	Communication	  100,000 - 500,000  	3.7728521823883057	2549
+com.palugu.kuqFullHD	Casual	  100 - 500  	3.8333332538604736	6
+com.markos.app.AOTYWDRRYQPDRDZWNG	Books & Reference	  50,000 - 100,000  	4.212669849395752	884
+com.degoo.android.icecreammaker	Casual	  5,000,000 - 10,000,000  	3.6013946533203125	98373
+com.sydneyapps.firefly.lock.screen	Tools	  1,000,000 - 5,000,000  	4.253190517425537	34788
+com.runtastic.android.heartrate.lite	Health & Fitness	  1,000,000 - 5,000,000  	4.362905979156494	131563
+com.conduit.app_f19e36356dd14d84bde49718f0c18ffb.app	Business	  1,000 - 5,000  	3.5833332538604736	12
+com.bet365.news	Sports	  100,000 - 500,000  	3.66292142868042	534
+de.sunics.solaranalyzer	Tools	  1,000 - 5,000  	4.858333110809326	120
+com.musmon.carses	Travel & Local	  100 - 500  	4.285714149475098	21
+com.chadtowns.dax	Arcade	  50,000 - 100,000  	4.107177734375	5141
+com.msg.mobilinga.klettfairwaya2	Education	  100 - 500  	4.333333492279053	3
+net.mypapit.mobile.speedmeter	Transportation	  10,000 - 50,000  	3.648648738861084	74
+com.v5pixelmon.shooting.sniper	Strategy	  100,000 - 500,000  	3.435368776321411	2522
+com.thaijoop	Social	  10,000 - 50,000  	3.722379684448242	353
+org.qcontinuum.planets	Education	  100,000 - 500,000  	3.9928336143493652	3349
+pl.infinzmedia.talkingcatfree	Personalization	  1,000,000 - 5,000,000  	3.924396514892578	6878
+com.exitbrain.livewallpaper.startrek	Personalization	  10,000 - 50,000  	4.335968494415283	759
+it.Ettore.calcolielettriciPRO	Productivity	  10,000 - 50,000  	4.5558061599731445	887
+com.nifah.bettingtips	Sports	  10,000 - 50,000  	4.05684757232666	387
+cpapps.conjugator.spanish	Education	  50,000 - 100,000  	4.047910213470459	981
+com.imagine.free	Social	  10,000 - 50,000  	4.135300159454346	983
+ru.astro	Education	  100,000 - 500,000  	3.4732186794281006	2035
+com.tripadvisor.android.apps.cityguide.edinburgh	Travel & Local	  50,000 - 100,000  	4.489690780639648	582
+com.km.photos.cutcollage	Photography	  100,000 - 500,000  	3.763401985168457	3880
+com.emsy.ocrmedals	Productivity	  10,000 - 50,000  	4.277064323425293	545
+com.droidhen.game.poker	Casino	  10,000,000 - 50,000,000  	4.399584770202637	417304
+ru.appforge.durak	Board	  100,000 - 500,000  	4.0651445388793945	4774
+com.rhn.deep.forest.run	Adventure	  10,000 - 50,000  	3.6424999237060547	400
+com.gamejoy.arenahd	Role Playing	  500,000 - 1,000,000  	4.213475227355957	12868
+com.ea.monopolymillionaire_row	Board	  100,000 - 500,000  	3.48254132270813	11742
+com.publicishealthware.pm.glossario	Medical	  10,000 - 50,000  	3.9304347038269043	115
+air.br.com.bitlabs.FLVPlayer	Media & Video	  10,000,000 - 50,000,000  	4.1861653327941895	157130
+org.scoutant.coincharts	Finance	  1,000 - 5,000  	4.150000095367432	120
+donnaipe.tutepro	Card	  500 - 1,000  	4.139130592346191	115
+com.firstmecca.project1424.zamidusuyearunse2015	Lifestyle	  100 - 500  	5	2
+jp.org.example.geckour.glyph	Trivia	  5,000 - 10,000  	4	156
+air.com.mediawix.CultureQuizz	Trivia	  100,000 - 500,000  	4.033020973205566	10145
+com.gameresort.stupidzombies	Arcade	  10,000,000 - 50,000,000  	4.2011189460754395	157852
+com.max.SurvivalGuide	Books & Reference	  500,000 - 1,000,000  	4.018925666809082	3279
+com.Bouland.BallResurrection	Adventure	  100,000 - 500,000  	3.8690764904022217	9074
+com.bank.ecom	Shopping	  10,000 - 50,000  	4.0497236251831055	362
+com.gamerizon.chopchoprunnerhd	Arcade	  500 - 1,000  	4.363636493682861	66
+com.greatworldgames.cityofgold	Card	  5,000 - 10,000  	4.041666507720947	72
+mkisly.corners	Board	  500,000 - 1,000,000  	3.5144572257995605	6329
+com.slovoed.noreg.langenscheidt.standard.german_english	Books & Reference	  1,000 - 5,000  	3.7826087474823	23
+com.azibeel.spanishtrivia	Trivia	  100,000 - 500,000  	3.4152543544769287	354
+fr.snapp.fidme	Shopping	  1,000,000 - 5,000,000  	4.204909801483154	20779
+ru.screensaverdesign.VDVflag	Entertainment	  50 - 100  	4.300000190734863	20
+com.ojw.inclinpro	Transportation	  1,000 - 5,000  	3.885714292526245	70
+com.flirtmaps.android	Social	  100,000 - 500,000  	3.4555160999298096	2256
+com.audiobooks.androidapp	Books & Reference	  100,000 - 500,000  	3.801583766937256	4420
+com.real.smart.myflute	Entertainment	  500,000 - 1,000,000  	2.945387125015259	5127
+com.dg.puzzlebrothers.mahjong.countryliving	Board	  1,000 - 5,000  	4.427480697631836	131
+com.ncmedic.ncmedicapp	Medical	  100 - 500  	4.55555534362793	9
+com.raiseawareness.tinnitus	Health & Fitness	  10,000 - 50,000  	3.195122003555298	205
+com.gtp.nextlauncher.theme.future	Personalization	  1,000,000 - 5,000,000  	4.182854652404785	25966
+com.MegaBit.Subliminal	Productivity	  100 - 500  	4.07692289352417	13
+com.noodlecake.QWOP	Sports	  10,000 - 50,000  	4.1285295486450195	1027
+com.jaja.viselica	Word	  1,000,000 - 5,000,000  	4.207335472106934	5971
+com.ssaurel.pakistannews.pro	News & Magazines	  1 - 5  	0	0
+com.cherbibhejer.astucescuisine	Lifestyle	  100,000 - 500,000  	3.315631151199341	1996
+air.com.netfunmedia.speedcarwash	Educational	  10,000 - 50,000  	2.810126543045044	79
+com.usgames.tractor.hillclimb	Simulation	  500,000 - 1,000,000  	3.604029417037964	5460
+com.treeapps.twe	Lifestyle	  500 - 1,000  	3.8888888359069824	27
+app.greyshirts.firewall	Productivity	  500,000 - 1,000,000  	4.339941501617432	17100
+complex.earth	Personalization	  500 - 1,000  	3.403225898742676	62
+com.flyingfox.supercube_tiger	Personalization	  50 - 100  	4	7
+uk.co.readyweb.timecodecalc	Media & Video	  100 - 500  	5	2
+com.merigotech.fillwords	Word	  1,000,000 - 5,000,000  	4.601012706756592	52726
+com.appmk.com.AOUSMEBFWHIAIRPCZ	Libraries & Demo	  5,000 - 10,000  	4.604395389556885	91
+org.cohortor.gstrings	Tools	  10,000,000 - 50,000,000  	4.515149116516113	177199
+com.games.shootbubble	Puzzle	  1,000,000 - 5,000,000  	3.747209310531616	22485
+com.bigfishgames.enigmatisgooglefull	Casual	  10,000 - 50,000  	4.651986598968506	4405
+com.androidwasabi.livewallpaper.g3	Personalization	  5,000,000 - 10,000,000  	3.8167197704315186	90228
+com.lvlup.buddhify	Health & Fitness	  5,000 - 10,000  	4.236842155456543	304
+com.vg.CruiseShipParking	Simulation	  1,000,000 - 5,000,000  	3.459082841873169	21959
+com.thesimi.barattolomuccamuum	Music	  1,000 - 5,000  	4.014925479888916	67
+air.com.hallbergryman.harpan.paid	Card	  100 - 500  	3	4
+com.hackand.slash	Role Playing	  1,000 - 5,000  	3.9763779640197754	127
+com.scottgames.fnaf2demo	Strategy	  10,000,000 - 50,000,000  	4.176274299621582	541680
+anti.daipro	Transportation	  50 - 100  	4.599999904632568	10
+com.ebates	Shopping	  500,000 - 1,000,000  	4.455503940582275	10338
+com.Ping.Ping3DIslamThemeLockScreen	Libraries & Demo	  500 - 1,000  	3.25	8
+com.mobage.ww.a1705.SMWCORESNG_Android	Role Playing	  100,000 - 500,000  	4.274582862854004	18519
+com.tapinator.snow.jet.landing3d	Simulation	  100,000 - 500,000  	3.348325252532959	5225
+com.blisskissproductions.daleythompsonsdecathlon	Sports	  1,000 - 5,000  	3	26
+pl.malowanybrzuszek.tapsong	Music	  10,000 - 50,000  	3.4853556156158447	478
+com.bcsofts.colorLines	Board	  5,000 - 10,000  	4.199999809265137	70
+com.sabre.tripcase.android	Travel & Local	  500,000 - 1,000,000  	4.408944606781006	11497
+com.jetblacksoftware.fireworks	Personalization	  5,000 - 10,000  	4.524435997009277	532
+air.tarkos.book.sound.l	Educational	  100 - 500  	4.333333492279053	9
+com.waxrain.droidsender	Media & Video	  10,000 - 50,000  	3.672727346420288	275
+com.qtm.lexifone	Communication	  10,000 - 50,000  	3.6132075786590576	106
+co.itspace.emailproviders	Communication	  10,000 - 50,000  	4.110959053039551	730
+com.macsoftex.amazongallery.impressionismhd	Lifestyle	  100 - 500  	4.5789475440979	19
+flaotec.KFZ_Kennzeichen	Transportation	  100,000 - 500,000  	4.283879280090332	1560
+com.droidinfinity.healthplus	Health & Fitness	  10,000 - 50,000  	4.0784831047058105	1134
+com.joyfort.DeepSpaceFleet	Strategy	  100,000 - 500,000  	3.4390244483947754	3157
+com.iimmobile.pinkfluffyball	Personalization	  100,000 - 500,000  	3.8641281127929688	2311
+com.eps.agb	Action	  100,000 - 500,000  	4.326656818389893	16176
+com.slimcricket.ecole	Educational	  100 - 500  	4.5	8
+com.lescapadou.cursive	Education	  500 - 1,000  	4.636363506317139	11
+net.nurburgringlive	Sports	  100 - 500  	3.8888888359069824	9
+com.pansoft.rosespro	Personalization	  1,000 - 5,000  	4.4464287757873535	56
+com.beatmod.calculator.donate	Tools	  100 - 500  	4.818181991577148	11
+com.dataviz.docstogoapp	Business	  500,000 - 1,000,000  	4.199866771697998	18104
+com.mediaflow.samsunggear	Lifestyle	  100,000 - 500,000  	4.29438591003418	2191
+pt.android.favoritecontacts.widget.free	Social	  100,000 - 500,000  	3.6546928882598877	863
+com.xpgames.witchsolitaire	Trivia	  10,000 - 50,000  	4.231905460357666	677
+com.iphonedroid.vademecum.mobile2	Medical	  100,000 - 500,000  	4.006349086761475	2520
+com.sniper.activity	Adventure	  10,000,000 - 50,000,000  	3.882380723953247	112289
+com.dztall.CEL1.Paid	Music	  50 - 100  	4.666666507720947	9
+com.mustafademir.little_piano	Music	  10,000 - 50,000  	3.5877552032470703	245
+com.budgestudios.StrawberryShortcakeSweetShop	Family	  1,000,000 - 5,000,000  	3.583620071411133	75568
+com.thirtysixyougames.google.starGirlSingapore	Trivia	  1,000,000 - 5,000,000  	4.221487045288086	62136
+air.android.DoggyCaesarianBirth	Educational	  10,000 - 50,000  	3.601503849029541	133
+com.appmk.magazine.sportsgames	Sports	  100,000 - 500,000  	2.9233577251434326	548
+com.blutspender.activity	Health & Fitness	  1,000 - 5,000  	2.6470587253570557	51
+co.bantamstudio.streamie	Media & Video	  1,000 - 5,000  	3.1651785373687744	224
+com.baa.heathrow	Travel & Local	  100,000 - 500,000  	3.6789839267730713	1303
+com.tivola.sharky.letters	Education	  1,000 - 5,000  	4.759259223937988	54
+com.Darts_Pro_2015	Sports	  50,000 - 100,000  	3.8557376861572266	1220
+com.fsck.k9	Communication	  5,000,000 - 10,000,000  	4.275018215179443	149536
+browsermobile.internet.webexplorer	Social	  100,000 - 500,000  	4.033271789550781	1623
+com.bigfishgames.nightfallmysteriesbhgoogfull	Casual	  5,000 - 10,000  	3.9595959186553955	396
+com.anadreline.android.easybowling	Sports	  100,000 - 500,000  	3.8714613914489746	1307
+com.unitedtoy.android.PirateWordsFree	Word	  10,000 - 50,000  	4.0970587730407715	340
+com.piccing.mobile	Social	  50,000 - 100,000  	3.7302052974700928	341
+com.gabrielegi.nauticalcalculationpro	Travel & Local	  100 - 500  	4.2727274894714355	22
+com.mgs.Blackops.commando.sniper.shooter	Action	  100,000 - 500,000  	3.733944892883301	2180
+inteligeen.rocketdial.theme.themeid19	Communication	  5,000 - 10,000  	4.137930870056152	174
+com.Nessy.HairyPhonics3	Educational	  100 - 500  	4	1
+air.com.youdagames.gop2mobilefreemium	Casino	  500,000 - 1,000,000  	4.197454929351807	26406
+com.io.wallpaper.circuitry	Personalization	  10,000 - 50,000  	4.0767083168029785	1434
+com.digitalcosmos.mikudoll	Personalization	  1,000 - 5,000  	4.5714287757873535	77
+com.aleksus.flightsimulatorprivatejetandroid	Role Playing	  10 - 50  	0	0
+com.yii20square.two0486x6	Board	  10,000 - 50,000  	4.0625	560
+aphonkuk.ci	Comics	  500 - 1,000  	3.625	8
+com.snkplaymore.android007	Arcade	  50,000 - 100,000  	4.333819389343262	7546
+com.avalon.avalonrouter.app	Weather	  1,000 - 5,000  	4.388888835906982	18
+com.styleabelle.sab	Shopping	  10 - 50  	4.857142925262451	7
+com.teamlava.jewel6	Arcade	  500,000 - 1,000,000  	3.9163501262664795	12899
+com.psa.albumBirds	Educational	  100 - 500  	4.333333492279053	9
+com.afjcjsbx.pronosticionline1x2	Sports	  50,000 - 100,000  	4.209381580352783	1471
+inteligeen.rocketdial.theme.themeid12	Communication	  1,000 - 5,000  	4.333333492279053	21
+com.ama.lovetest.calculator	Casual	  1,000,000 - 5,000,000  	3.8739850521087646	27465
+org.fajoiodo.copamundialbrasil2014	Sports	  100,000 - 500,000  	3.4725568294525146	1495
+com.sscn.app	Sports	  100,000 - 500,000  	4.535079002380371	2979
+com.theappdoor.ifish.texas	Sports	  100 - 500  	4	4
+ch.officialch.urgencesch3	Health & Fitness	  100 - 500  	3.875	8
+com.nll.acr.license	Productivity	  50,000 - 100,000  	4.298182010650635	4400
+oiz.labs.ecopeage	Transportation	  500 - 1,000  	2.91304349899292	23
+com.infiapps.pirateslots	Casino	  50,000 - 100,000  	4.218424320220947	1726
+com.dauran.mconv	Finance	  100,000 - 500,000  	4.1147541999816895	1833
+sk.cultech.watch.callclient	Communication	  50 - 100  	3	2
+net.teamdtr.tears910ue	Casual	  500 - 1,000  	4.637499809265137	80
+com.openplay.sliderpg	Role Playing	  500 - 1,000  	3.8125	64
+com.Kids.bubblefurbybooms	Board	  5,000 - 10,000  	3.3035714626312256	56
+lequipe.fr	Sports	  1,000,000 - 5,000,000  	4.2436065673828125	83214
+com.tribab.tricount.android	Finance	  100,000 - 500,000  	4.293215274810791	1695
+com.joydo.copsnrobbersJB	Adventure	  10,000 - 50,000  	3.7113733291625977	932
+livio.pack.lang.es_ES	Books & Reference	  1,000,000 - 5,000,000  	4.166524887084961	32872
+com.gau.go.launcherex.gowidget.gopowermaster	Productivity	  10,000,000 - 50,000,000  	4.311427593231201	229482
+com.ndrive.androidtmndrive	Travel & Local	  500,000 - 1,000,000  	4.222341537475586	27967
+com.miniclip.eightballpool	Sports	  50,000,000 - 100,000,000  	4.39940881729126	2907042
+com.groggy.yomamma	Comics	  100,000 - 500,000  	3.649838924407959	932
+com.AnhaltewegIBK	Transportation	  10,000 - 50,000  	3.2903225421905518	62
+com.schoolzone.a9903	Educational	  50 - 100  	5	1
+apps.powdercode.sailboatgold	Sports	  100 - 500  	3.307692289352417	13
+com.mobileroadie.app_14337	Music & Audio	  1,000 - 5,000  	4.914285659790039	70
+airplay.android	Music & Audio	  10,000 - 50,000  	3.329268217086792	246
+com.telltalegames.fables100	Adventure	  1,000,000 - 5,000,000  	4.260929584503174	110777
+com.teama.milioner	Family	  100,000 - 500,000  	3.8946304321289062	5941
+com.auxbrain.zh2	Action	  1,000,000 - 5,000,000  	4.1986236572265625	69891
+kr.co.core.technology.wifi.hotspot	Communication	  10,000 - 50,000  	3.870558261871338	394
+com.kmcpesh.offlinemedicalwikipediadownloader	Medical	  100 - 500  	3.222222328186035	9
+com.app747.playnuinui	Casino	  1,000 - 5,000  	4.550079345703125	1258
+com.ctas	Medical	  100 - 500  	4.357142925262451	14
+com.goodroom.stickerslineemotion	Communication	  50,000 - 100,000  	4.013837814331055	1084
+com.sec.chaton	Communication	  100,000,000 - 500,000,000  	3.8743391036987305	421827
+com.aemobile.games.basketball	Sports	  500,000 - 1,000,000  	3.9792120456695557	5051
+se.swedlabs.fiffigafrun	Lifestyle	  1,000 - 5,000  	3.4000000953674316	40
+com.cereproc.Yuki	Libraries & Demo	  100 - 500  	4.357142925262451	14
+air.com.screenpapermedia.basic.mobile.launchday.disneyoriginals	News & Magazines	  10,000 - 50,000  	3.0824742317199707	291
+fi.Miksumortti.SpinTops	Arcade	  1,000,000 - 5,000,000  	4.087864398956299	59421
+com.sipl.eventapp	Sports	  10 - 50  	0	0
+com.manicapps.blackjacktrainer	Card	  10,000 - 50,000  	3.6571428775787354	350
+blackcarbon.wordpad	Productivity	  100,000 - 500,000  	3.7383055686950684	3057
+com.xsonus.planetus	Lifestyle	  1,000 - 5,000  	4.73913049697876	69
+com.gjj.farming3dliquidmanure	Simulation	  10,000 - 50,000  	3.485576868057251	208
+com.tocaboca.tocanature	Education	  1,000 - 5,000  	3.9932661056518555	297
+com.nook99.smalltattooideaapp	Lifestyle	  50,000 - 100,000  	3.710775136947632	529
+air.AngelKidEscape	Puzzle	  5,000 - 10,000  	4.146341323852539	123
+com.actionsmicro.ezcastrx	Media & Video	  100,000 - 500,000  	3.1542766094207764	1251
+cz.kablik.ed	Racing	  1,000,000 - 5,000,000  	4.122689723968506	54055
+marriagejokes.whatsapp	Comics	  1,000 - 5,000  	0	0
+com.minjung.fourlegsp	Casual	  50 - 100  	4.818181991577148	22
+com.eamobile.monopoly_row_wf	Board	  500,000 - 1,000,000  	3.81575083732605	31338
+com.itonline.anastasiadate	Social	  1,000,000 - 5,000,000  	3.9776272773742676	21544
+com.emojiworld.holyemojis	Social	  1,000 - 5,000  	4.159420490264893	69
+com.fluik.OfficeJerkFree	Casual	  5,000,000 - 10,000,000  	3.666916847229004	95886
+com.lucky.notewidget	Productivity	  500,000 - 1,000,000  	4.358480453491211	22799
+com.abto.glitternails	Simulation	  1,000,000 - 5,000,000  	3.867091417312622	10827
+com.androidsx.checkspelling	Books & Reference	  1,000,000 - 5,000,000  	3.8616650104522705	11866
+com.tapsarena.movies	Word	  100,000 - 500,000  	3.7647132873535156	8054
+energie.heizkessel2	Education	  50 - 100  	0	0
+com.ReelCoders.JewelsOfAtlantisSlotMachine	Card	  50 - 100  	0	0
+de.purpleape.gartenvoegel	Books & Reference	  1,000 - 5,000  	3.6451613903045654	31
+air.tzolkin	Entertainment	  1,000 - 5,000  	4.616438388824463	73
+kr.co.timj.p4u	Lifestyle	  100 - 500  	3	3
+com.tiffany.engagement	Shopping	  100,000 - 500,000  	4.018058776855469	1772
+cz.aponia.bor3.czsk	Travel & Local	  500,000 - 1,000,000  	4.121748447418213	7458
+com.surfcheck.wetterlive	Weather	  50,000 - 100,000  	4.086350917816162	359
+com.centralbytes.ftmmorpg	Role Playing	  100,000 - 500,000  	3.9774508476257324	4213
+com.spring.bird.opensudoku	Puzzle	  100,000 - 500,000  	3.777841806411743	3466
+com.LoveCalculatorScannerTest	Personalization	  1,000,000 - 5,000,000  	3.6057329177856445	16641
+com.lagardere.apublic	News & Magazines	  1,000,000 - 5,000,000  	3.853567600250244	19039
+com.sonymobile.themes.frozenolaf	Personalization	  10,000 - 50,000  	4.47389030456543	766
+com.livewirekiosk.lwk.labtestsonline	Medical	  1,000 - 5,000  	4.328358173370361	67
+cmm.cjq20130603.boat.sea2	Libraries & Demo	  100,000 - 500,000  	4.123287677764893	730
+com.cammaxapp.games.higuesstheplace	Trivia	  50,000 - 100,000  	4.0203046798706055	985
+com.redbull.airrace	Racing	  1,000,000 - 5,000,000  	3.977771759033203	156962
+net.lyoness.mobile	Shopping	  100,000 - 500,000  	4.320985317230225	5399
+au.com.aldi.android	Communication	  100,000 - 500,000  	3.2130258083343506	737
+net.thisisthe3nd.molly	Family	  500,000 - 1,000,000  	4.115280628204346	25182
+roman10.media.converter.v7neon	Media & Video	  5,000,000 - 10,000,000  	3.6258556842803955	42799
+com.zeptolab.ctrexperiments.ads	Puzzle	  10,000,000 - 50,000,000  	4.259917736053467	406875
+com.andromo.dev84788.app244374	Social	  10,000 - 50,000  	4.21481466293335	135
+cz.seznam.sbrowser	Communication	  1,000,000 - 5,000,000  	4.298309803009033	21005
+com.Stop4Sanity.LowriderCarGameDeluxe	Racing	  1,000 - 5,000  	4.465968608856201	191
+com.igg.android.clashofgangs_en	Strategy	  1,000,000 - 5,000,000  	4.367469310760498	208235
+br.com.detectordebichas	Comics	  500 - 1,000  	4.266666889190674	30
+com.andromo.dev230101.app331698	Personalization	  100,000 - 500,000  	4.126363754272461	3941
+air.air.EcritPermisCE	Transportation	  50 - 100  	5	1
+com.gamesforfriends.wheelforfriends	Word	  500,000 - 1,000,000  	4.231578350067139	16543
+com.jiinfeng3d.bfrdemo	Action	  10,000,000 - 50,000,000  	4.11317253112793	214504
+com.havos.codewordunlimitedplus	Word	  1,000 - 5,000  	4.494381904602051	178
+com.aor.droidedit.pro	Productivity	  10,000 - 50,000  	4.659045219421387	2974
+com.ambientdesign.artrage.playstore	Entertainment	  1,000 - 5,000  	4.527918815612793	197
+com.vg.crazydriverpolice	Racing	  5,000,000 - 10,000,000  	3.8106272220611572	92949
+jp.co.ryobi.android.romcamera	Medical	  500 - 1,000  	3.5	6
+com.aceviral.toptruckfree	Racing	  10,000,000 - 50,000,000  	4.257180690765381	63956
+com.schibsted.iberica.jofogas	Shopping	  100,000 - 500,000  	3.9991214275360107	12521
+air.com.loneapps.TakeWeddingPhotosOnYacht	Casual	  1,000,000 - 5,000,000  	3.5192668437957764	10640
+com.fesystemapps.bulariodigital	Medical	  500 - 1,000  	3.9000000953674316	20
+com.fairytalestudios.preschoolAquarium	Educational	  10 - 50  	3	2
+com.codewordsapp1	Word	  5,000 - 10,000  	4.177419185638428	62
+de.android.GolfStatsPro	Sports	  1,000 - 5,000  	4.4375	128
+com.s.launcher.prokey	Personalization	  5,000 - 10,000  	4.297082424163818	377
+com.kk.contacts	Communication	  50,000 - 100,000  	4.246760845184326	1698
+com.gameloft.android.ANMP.GloftPOHM	Casual	  10,000,000 - 50,000,000  	4.278493404388428	636702
+com.appitekjc.recallingpro	Communication	  100 - 500  	4.599999904632568	15
+com.tam.soccer.free.game	Sports	  1,000,000 - 5,000,000  	3.7893142700195312	30040
+jp.gkm.game.chokkan_fishing_1_0021	Sports	  100 - 500  	3.6666667461395264	9
+air.FlipminFree	Sports	  10,000 - 50,000  	3.109090805053711	110
+com.ronimusic.asd	Music & Audio	  5,000 - 10,000  	4.658653736114502	208
+com.postillon.prem	News & Magazines	  1,000 - 5,000  	4.774509906768799	204
+com.jackpotgames.flatpoker	Casino	  1,000 - 5,000  	2.4558823108673096	68
+com.deatth.kitchen	Trivia	  50,000 - 100,000  	3.1891891956329346	1147
+com.sgg.parts	Word	  100,000 - 500,000  	4.226609230041504	16032
+com.estrongs.android.pop.cupcake	Productivity	  5,000,000 - 10,000,000  	4.254517078399658	54083
+com.noobmakers.pharaohsgoldiideluxeslot	Casino	  10,000 - 50,000  	4.484722137451172	720
+it.dr.prontuariofarmaceutico	Medical	  10,000 - 50,000  	3.9617347717285156	392
+com.mymappa.maps.toronto	Travel & Local	  100 - 500  	3	2
+com.overseasolutions.waterapp.app	Health & Fitness	  100,000 - 500,000  	4.472853660583496	4752
+com.wBestG	Tools	  100 - 500  	3.615384578704834	13
+com.deviantart.mobile.view	Photography	  100,000 - 500,000  	3.8876070976257324	2687
+com.pepperm.cashbox	Finance	  100 - 500  	4.8125	16
+appinventor.ai_agiapplications.CountYourSteps	Health & Fitness	  50,000 - 100,000  	3.6514084339141846	284
+ru.cdcom.multconcert3	Music	  50 - 100  	2.5999999046325684	5
+com.PSVStudio.ChildTrain	Educational	  100,000 - 500,000  	3.716388702392578	1019
+com.gameloft.android.ANMP.Gloft5DHM	Action	  500,000 - 1,000,000  	4.057488918304443	83529
+com.contapps.android.widget	Communication	  100,000 - 500,000  	4.025664329528809	10949
+com.gdc.android.yubisashi.jpth	Travel & Local	  5,000 - 10,000  	3.5	54
+com.blocshop.blindfoldchess	Board	  10 - 50  	4.400000095367432	5
+com.ezone.SnowPro	Sports	  10,000 - 50,000  	4.2845072746276855	710
+com.budgestudios.ChuggingtonReadyToBuild	Family	  500,000 - 1,000,000  	3.479146957397461	12756
+com.piksoft.turboscan.hd	Business	  500 - 1,000  	4.5806450843811035	31
+com.midasapps.roomcreator	Lifestyle	  100,000 - 500,000  	3.3813889026641846	3600
+com.androidwasabi.livewallpaper.heart	Personalization	  500,000 - 1,000,000  	4.039722442626953	6193
+com.cooldataapps	Books & Reference	  5,000 - 10,000  	4.7718119621276855	447
+de.wdr.maus	Entertainment	  100,000 - 500,000  	4.221840858459473	1749
+info.appdama.alternativetofacetime	Communication	  10,000 - 50,000  	3.131474018096924	251
+com.RockingPocketGames.iFishingLite	Sports	  10,000,000 - 50,000,000  	4.103466987609863	94092
+net.nalbam.laundrydash	Casual	  10,000 - 50,000  	3.8046646118164062	343
+com.appcaptain.nbalineupoptimizerforfanduel	Sports	  10 - 50  	5	1
+com.x3m.tx3	Racing	  10,000,000 - 50,000,000  	4.239732265472412	622901
+com.easyx.coolermaster	Tools	  500,000 - 1,000,000  	4.456757068634033	40608
+com.thaphlash.watch.navi	Personalization	  1,000 - 5,000  	4.3297295570373535	185
+radioenergy.app	Music & Audio	  1,000,000 - 5,000,000  	4.073909282684326	6102
+com.kidsfoodinc.android_make_streetfoodthreekf	Family	  10,000 - 50,000  	3.431297779083252	262
+com.pereira.booknboard.paid	Board	  1,000 - 5,000  	4.703703880310059	189
+com.woogle.kitkatmoreno	Personalization	  10 - 50  	5	1
+it.suedtirol.fahrplan	Transportation	  10,000 - 50,000  	4.103519439697266	483
+com.g5e.abyss.android	Adventure	  1,000,000 - 5,000,000  	4.526565074920654	44308
+ch.alpsoft.RomandieSante.ui	Health & Fitness	  500 - 1,000  	4.857142925262451	7
+com.zabamobile.sportstimerfree	Tools	  1,000,000 - 5,000,000  	3.8787243366241455	12418
+com.lego.mindstorms.robotcommander	Tools	  100,000 - 500,000  	3.8542182445526123	6448
+com.turbochilli.hoppyfrog	Family	  1,000,000 - 5,000,000  	4.158890724182129	57593
+com.headhippo.kidprobaseball	Sports	  50 - 100  	4	2
+com.mtm.wheresmycar.paid	Transportation	  10 - 50  	5	1
+com.wetter.radar	Weather	  100,000 - 500,000  	3.7419848442077637	655
+com.cloudacl	Communication	  500,000 - 1,000,000  	3.537660598754883	2881
+com.thomsonreuters.eikon	Finance	  50,000 - 100,000  	4.354166507720947	624
+apps.ignisamerica.bluelight	Health & Fitness	  100,000 - 500,000  	4.04136323928833	3433
+com.pixel.gun3d	Action	  10,000,000 - 50,000,000  	4.274618625640869	852665
+com.LEDDigiClockWeatherWidget	Weather	  1,000 - 5,000  	3.433333396911621	30
+ej.wizard.android	Card	  1,000 - 5,000  	3.8620688915252686	29
+com.vega.merp.gui	Finance	  10 - 50  	4	1
+com.gameloft.android.ANMP.GloftGZHM	Strategy	  1,000,000 - 5,000,000  	4.274716854095459	72107
+com.mh.fingerdancer	Music	  5,000 - 10,000  	3.632911443710327	158
+com.amazon.windowshop	Shopping	  10,000,000 - 50,000,000  	3.9316797256469727	72775
+com.ecg.pratico	Medical	  500 - 1,000  	4.432432651519775	37
+fs.pokemon.effect	Casual	  500 - 1,000  	4.146341323852539	41
+tr.com.mnk.nurettin.darbukadoumbek	Music	  10,000 - 50,000  	3.637096881866455	124
+com.conduit.app_a3258d6c5ff044d382719fca129a3015.app	Libraries & Demo	  10,000 - 50,000  	4.154321193695068	162
+com.redfrog3.gwr2014	Books & Reference	  100,000 - 500,000  	3.8148579597473145	5142
+com.adoos.adoosapp	Shopping	  10,000 - 50,000  	3.9020979404449463	143
+com.michako.horrorspot	Comics	  1,000 - 5,000  	4.333333492279053	87
+com.creativemobile.tanks	Strategy	  1,000,000 - 5,000,000  	3.793977737426758	64927
+com.shareitagain.mymoodsmiley	Social	  500,000 - 1,000,000  	4.018716335296631	12556
+com.poncle.Brave_Doge	Role Playing	  1,000 - 5,000  	4.073529243469238	136
+com.thetisgames.ts2014.free	Simulation	  1,000,000 - 5,000,000  	3.5795114040374756	56559
+com.datasport.huntcast2015webview	Weather	  1 - 5  	0	0
+com.motomex.motofire	Racing	  1,000,000 - 5,000,000  	3.6191723346710205	10682
+com.tinyspider.guitar.android	Music	  100,000 - 500,000  	3.876999616622925	4626
+com.haefeker.android.VDRBqueen	Business	  100 - 500  	5	2
+air.android.MermaidBabyBirth	Educational	  10,000 - 50,000  	3.005988121032715	167
+com.dex.kursnaLista	Finance	  100,000 - 500,000  	4.563683986663818	1531
+com.volleysim.volleysim	Sports	  50 - 100  	0	0
+com.rowlhouse.picasimdonate	Simulation	  5,000 - 10,000  	4.770167350769043	657
+com.topgame.epsolg	Card	  100 - 500  	3	4
+com.icampus.sg.mrt	Transportation	  500,000 - 1,000,000  	3.9195191860198975	2746
+com.mymappa.maps.crete	Travel & Local	  1,000 - 5,000  	3.8222222328186035	45
+jp.nas.ShodoDen2	Role Playing	  100 - 500  	4	31
+com.ludusstudio.jagga	Sports	  500,000 - 1,000,000  	3.7158000469207764	8867
+air.com.oranginalplan.weaphonesvol2free	Simulation	  1,000,000 - 5,000,000  	4.123501777648926	106112
+com.borninteractive.rudaw	News & Magazines	  100,000 - 500,000  	4.461463928222656	3088
+com.electricblacksheep.pacinderella	Adventure	  10,000 - 50,000  	3.3738317489624023	321
+appinventor.ai_rafaelandrademd.MiniMentalOtimizado	Medical	  100 - 500  	4.4285712242126465	7
+com.phantomefx.standalone.reelsodublin	Card	  10,000 - 50,000  	3.6117467880249023	1311
+com.rotowire.baseballdraftkit2015	Sports	  500 - 1,000  	2.595238208770752	42
+de.sb.haushaltsbuch	Finance	  50,000 - 100,000  	4.044117450714111	340
+com.google.android.apps.currents	News & Magazines	  10,000,000 - 50,000,000  	3.93198299407959	84671
+com.manuelnaranjo.btle.installer2	Libraries & Demo	  1,000 - 5,000  	4.382978916168213	47
+com.jdpapps.textt1	Communication	  500,000 - 1,000,000  	3.9963808059692383	12434
+com.katecca.screenofflock	Tools	  10,000,000 - 50,000,000  	4.104508399963379	103035
+com.bigfishgames.hproggoogfull	Casual	  500 - 1,000  	3.8983051776885986	59
+com.arashi	Casual	  1,000 - 5,000  	4.576208114624023	269
+com.truong531developer.app.hdplayer	Media & Video	  1,000 - 5,000  	2.9836065769195557	61
+de.robertgering.themagicshell	Entertainment	  500,000 - 1,000,000  	3.6108484268188477	12057
+com.gamesumodev.huntinggames	Sports	  100,000 - 500,000  	3.32814621925354	1478
+com.monotype.android.font.free.fifty.romance	Personalization	  1,000,000 - 5,000,000  	4.281027317047119	21030
+psv.apps.carsmanadsfree	Transportation	  1,000 - 5,000  	4.400000095367432	70
+net.smileandlearn.kolitas	Educational	  100 - 500  	4.833333492279053	6
+com.jb.gokeyboard.theme.perfectblue	Personalization	  100,000 - 500,000  	3.7680327892303467	2440
+com.wsquare.gameplayrj	Entertainment	  10,000 - 50,000  	4.946988582611084	13714
+air.Math4Kids	Educational	  100,000 - 500,000  	3.5844457149505615	1723
+com.miniclip.hambo	Action	  5,000,000 - 10,000,000  	4.381478309631348	104463
+com.vg.cartransportertruckdrive3d	Racing	  100,000 - 500,000  	3.469869613647461	1228
+com.sotruga.tipsfortango	Entertainment	  100,000 - 500,000  	3.9408552646636963	2198
+fts.xps2pdf.demo	Business	  50,000 - 100,000  	3.1647331714630127	431
+de.mlh.vtrainer.plugins.waiter	Books & Reference	  50 - 100  	0	0
+com.rauch.millgamef	Board	  10,000 - 50,000  	2.985365867614746	205
+com.sonymobile.smartconnect.smartwatch2	Communication	  500,000 - 1,000,000  	4.035430908203125	13745
+com.webcbg.glossarisk	Business	  10 - 50  	5	1
+mudgal.lovecutestickers	Social	  10,000 - 50,000  	4.276106357574463	565
+com.wizz.crosswords	Word	  500,000 - 1,000,000  	3.319754123687744	3903
+com.movie.quiz	Music	  1,000 - 5,000  	4.653846263885498	26
+com.caowen.doodlestyle	Comics	  100,000 - 500,000  	4.235869884490967	10421
+com.brocelia.cgp	Entertainment	  100,000 - 500,000  	3.8361783027648926	3925
+de.motorpresse.formel1	News & Magazines	  5,000 - 10,000  	4.307692527770996	117
+com.HRGincSoftware.Credit_Card_Validation	Finance	  100 - 500  	4.625	8
+com.NM72.CandyLegend.DeerHunter	Casual	  100,000 - 500,000  	3.8673043251037598	3346
+de.paschke.mein.einkauf	Shopping	  100 - 500  	4.4666666984558105	15
+com.mixvibes.crossdjfree	Music & Audio	  1,000,000 - 5,000,000  	4.074772357940674	35548
+air.com.pozirk.allinonemahjong	Puzzle	  100,000 - 500,000  	4.157468795776367	6052
+com.deep.deepweblinks	Entertainment	  50 - 100  	1.6666666269302368	3
+com.v1_4.B328D0498199646E72E3F5A7.com	Transportation	  1,000 - 5,000  	4.166666507720947	6
+com.robtopx.geometryjumplite	Arcade	  10,000,000 - 50,000,000  	4.438238143920898	2297155
+com.galecode.alarmedsclock	Medical	  100 - 500  	4	10
+com.mobile81.openofficetutorial.free	Books & Reference	  10,000 - 50,000  	2.451127767562866	133
+com.vbulletin.build_584	Social	  100 - 500  	4.25	4
+com.AntichessLite	Board	  1,000 - 5,000  	3.8529412746429443	34
+chuc.moeyes.boardgames	Board	  10,000 - 50,000  	3.0784313678741455	102
+com.symphonyapps.buffalo	Casino	  10,000 - 50,000  	4.266129016876221	372
+livio.pack.lang.de_DE	Books & Reference	  100,000 - 500,000  	4.155493259429932	2148
+com.tipytapy.princesshair.designer	Role Playing	  10,000 - 50,000  	3.5360825061798096	194
+com.donutgames.microbattles3	Family	  10,000 - 50,000  	4	703
+com.donutgames.microbattles2	Family	  50,000 - 100,000  	3.9780073165893555	3001
+com.espana.tv.premium	Media & Video	  10 - 50  	2.5	2
+dk.logisoft.aircontrolfull	Casual	  100,000 - 500,000  	4.550182342529297	15926
+com.cadev.ahoracaigo	Word	  5,000 - 10,000  	3.431034564971924	58
+com.mobileamusements.CrockOGoldSlots2PREMIUM	Casino	  100 - 500  	4.5333333015441895	15
+gorand.hud.pro	Transportation	  100 - 500  	3.125	8
+com.timleg.egoTimerPlus	Productivity	  10,000 - 50,000  	4.2268171310424805	798
+com.kabam.fortress	Strategy	  10,000,000 - 50,000,000  	4.019800186157227	202929
+com.berkbox.racehorsehd	Racing	  10,000 - 50,000  	3.7885303497314453	279
+com.mp.snowmobilerescue	Simulation	  500,000 - 1,000,000  	3.4083120822906494	5486
+com.runtastic.android.timer	Health & Fitness	  100,000 - 500,000  	4.43429708480835	17366
+com.ffg.pharaohslifeslotspro2	Casino	  50 - 100  	1	1
+air.SplillsAndThrillsGames	Family	  5,000 - 10,000  	3.6700000762939453	100
+com.crunchyroll.crmanga	Comics	  500,000 - 1,000,000  	3.506213665008545	8771
+se.feomedia.quizkampen.jp.premium	Trivia	  10 - 50  	0	0
+com.huuuge.zeus	Casino	  1,000,000 - 5,000,000  	4.417234420776367	15562
+info.goro3goro.igojoseki	Board	  50,000 - 100,000  	3.3624534606933594	538
+com.Figuromo.FiguromoSM	Casual	  10 - 50  	5	1
+com.bytewhisperer.android.actioncameradirector.remotepro	Media & Video	  1,000 - 5,000  	4.184210300445557	38
+com.dbs	Finance	  500,000 - 1,000,000  	3.6171557903289795	4431
+com.raccoonfink.deluge_mobile	Tools	  100 - 500  	1.2222222089767456	9
+com.glu.stardomng	Adventure	  1,000,000 - 5,000,000  	4.228041172027588	159129
+com.afrigis.gautrain	Transportation	  100,000 - 500,000  	3.5914812088012695	1033
+com.rotaryheart.bios.download	Entertainment	  500,000 - 1,000,000  	3.607471227645874	5220
+com.codingbuffalo.dailyfeed.adremover	News & Magazines	  50 - 100  	4.5	6
+pl.speedtest.android	Tools	  1,000,000 - 5,000,000  	4.197184085845947	75503
+com.TRUEORFALSEHORSES	Trivia	  1,000 - 5,000  	3	43
+com.strongwariorsfight.hvdd	Family	  50,000 - 100,000  	3.895618438720703	776
+com.saldo.banco	Finance	  10,000 - 50,000  	4.392307758331299	520
+com.youzeek.AndroidApp	Music & Audio	  500,000 - 1,000,000  	3.696256160736084	4247
+rubberbigpepper.lgCamera	Photography	  1,000,000 - 5,000,000  	3.8257088661193848	14501
+com.mp.snowmobileparking	Racing	  500,000 - 1,000,000  	3.4208900928497314	4854
+my.geulga	Comics	  100,000 - 500,000  	4.570078372955322	5501
+br.mediathek	Media & Video	  100,000 - 500,000  	3.7687861919403076	692
+com.app_heizoel.layout	Business	  1,000 - 5,000  	3	2
+com.funeasylearn.norwegian	Education	  10,000 - 50,000  	4.599318027496338	1173
+it.navionics.singleAppOceania	Travel & Local	  10,000 - 50,000  	4.219814300537109	646
+appinventor.ai_lol_gmbh_HH.i_AM_RICH	Finance		0	0
+org.cddev.breathe	Health & Fitness	  100,000 - 500,000  	4.368673801422119	3537
+com.fiec.ahorro	Finance	  10,000 - 50,000  	4.273710250854492	1202
+com.unidev.GuessTheBirds	Trivia	  1,000 - 5,000  	4.159999847412109	25
+com.bittorrent.client	Media & Video	  10,000,000 - 50,000,000  	4.428252220153809	255270
+com.everydaysapps.wortsuche	Word	  50 - 100  	5	1
+com.tobeamaster.mypillbox	Medical	  100,000 - 500,000  	4.214666843414307	3750
+com.chudanqing.hdesign	Lifestyle	  100,000 - 500,000  	3.771303176879883	1596
+com.machinga.zombiewaves1_1	Action	  5,000,000 - 10,000,000  	3.856801748275757	70350
+com.emflag.mahjongsolitaire	Board	  500,000 - 1,000,000  	4.1911163330078125	8330
+com.HRGincSoftware.Room_Lighting_Design	Business	  100 - 500  	3	1
+car_remote.apps	Entertainment	  500 - 1,000  	1	3
+com.zzangcartoon8	Comics	  100,000 - 500,000  	4.495110988616943	1125
+com.zzangcartoon9	Comics	  100,000 - 500,000  	4.50220251083374	1589
+com.blogspot.imapp.imcertsafeformarket	Finance	  1,000 - 5,000  	3.6086957454681396	26
+com.zzangcartoon2	Comics	  100,000 - 500,000  	4.483130931854248	1482
+com.zzangcartoon3	Comics	  100,000 - 500,000  	4.46815299987793	1256
+com.lookout.addetector	Tools	  1,000,000 - 5,000,000  	4.042042255401611	9205
+com.zzangcartoon6	Comics	  100,000 - 500,000  	4.3829569816589355	974
+com.highhappygame.floppysmashup	Action	  500,000 - 1,000,000  	3.5571837425231934	14331
+com.zzangcartoon4	Comics	  100,000 - 500,000  	4.4017014503479	1058
+com.zzangcartoon5	Comics	  100,000 - 500,000  	4.405887603759766	1121
+org.koxx.pure_calendar	Productivity	  100,000 - 500,000  	4.603897571563721	8996
+com.starmakerinteractive.thevoice	Music & Audio	  5,000,000 - 10,000,000  	3.8845436573028564	141889
+com.ray.fresh.cm12	Personalization	  50 - 100  	4.666666507720947	6
+com.almalence.opencam_plus	Photography	  10,000 - 50,000  	4.210087299346924	2637
+com.knipsoft.klaverjassen	Card	  1,000 - 5,000  	4.410256385803223	351
+com.planetinpocket.phraseboxmini.th	Travel & Local	  1,000 - 5,000  	4.2580647468566895	62
+com.galaticdroids.iceHockeyPro	Sports	  10 - 50  	0	0
+air.com.nar.flashcard	Education	  100,000 - 500,000  	4.022838592529297	1226
+com.BitOfGame.dinoparking	Role Playing	  10,000 - 50,000  	3.1408934593200684	291
+de.meinfk	Social	  1,000 - 5,000  	2.971428632736206	35
+com.outfit7.talkingnews	Entertainment	  100,000 - 500,000  	4.368776798248291	1627
+com.kostal.piko.app	Libraries & Demo	  1,000 - 5,000  	3.761904716491699	84
+com.modoohut.dialer.theme.mi	Communication	  500 - 1,000  	4.5	22
+com.jaywalk.kltransport	Transportation	  100,000 - 500,000  	3.7989487648010254	761
+com.sukros.timelapse	Photography	  100,000 - 500,000  	4.123263835906982	10368
+com.solution314.hools	Strategy	  10,000 - 50,000  	3.853881359100342	657
+ccp.paquet_pagat	Finance	  100 - 500  	4.5409836769104	61
+appinventor.ai_astedondy.Frases_WhatsApp_Brasil_PRO	Social	  1 - 5  	0	0
+cat.ereza.properbusbcn	Transportation	  100,000 - 500,000  	4.335090160369873	2656
+com.emocause.pro	Business	  50 - 100  	5	3
+air.com.mgamey.twinprincessmakeover	Casual	  1,000,000 - 5,000,000  	3.6253654956817627	14705
+com.intelligolf.android	Sports	  500 - 1,000  	4.032258033752441	31
+ch.wog.woggameshop	Shopping	  10,000 - 50,000  	4.47857141494751	560
+com.wDPKICKS	Shopping	  10,000 - 50,000  	3.669811248779297	106
+com.twoultradevelopers.AskLike	Social	  100 - 500  	3.055555582046509	18
+com.appgame7.sweetcrush	Arcade	  500,000 - 1,000,000  	3.6941936016082764	6200
+de.postbank.finanzassistent	Finance	  100,000 - 500,000  	3.533202886581421	8177
+appsgeek.ghoulrun	Adventure	  5,000 - 10,000  	4.200647354125977	309
+com.gameloft.android.ANMP.GloftPTHM	Puzzle	  1,000,000 - 5,000,000  	3.902979612350464	22923
+com.nuovaeureka.dieta	Health & Fitness	  5,000 - 10,000  	3.8787879943847656	66
+com.perdeas.droidscp	Communication	  50,000 - 100,000  	3.0428850650787354	514
+com.dooub.shake.bbshake	Music	  500,000 - 1,000,000  	4.285285472869873	5328
+com.adobe.cc	Productivity	  50,000 - 100,000  	4.028022289276123	1249
+com.pseidl.watten	Card	  500 - 1,000  	4.5625	32
+com.tinsolo.ken3	Books & Reference	  10,000 - 50,000  	2.5566341876983643	309
+com.kellytechnology.NOAA_Now	Weather	  100,000 - 500,000  	4.154326438903809	1121
+air.EgyptLegendSolitaire	Card	  500 - 1,000  	4.75	8
+com.developerblog.anavigator.pro.praga	Travel & Local	  500 - 1,000  	4.1621623039245605	37
+com.stugyhooxapk.xraycamprank	Medical	  100,000 - 500,000  	3.4225680828094482	1285
+com.navitime.journeypro.adfree	Transportation	  1,000 - 5,000  	4.275862216949463	58
+com.gameresort.penguingame	Adventure	  1,000,000 - 5,000,000  	3.9886362552642822	67496
+br.ltsolucoes.smsgratis	Communication	  100,000 - 500,000  	4.214949607849121	12910
+ch.pboos.fireplaces	Travel & Local	  1,000 - 5,000  	3.3636362552642822	11
+com.androidlord.cacheclear	Productivity	  1,000,000 - 5,000,000  	4.172454833984375	27039
+com.wolispace.softdpixeldungeon	Role Playing	  1,000 - 5,000  	4.297029495239258	202
+com.zeesoftware.screencapturetext	Communication	  10,000 - 50,000  	3.759036064147949	83
+au.com.mixedup.skydivingaltimeter	Sports	  100 - 500  	4.538461685180664	13
+air.BlueStarships.BridgeDiary	Card	  50 - 100  	5	4
+com.anttek.explorer	Productivity	  1,000,000 - 5,000,000  	4.44071626663208	9775
+com.boxeelab.healthlete.bpwatch	Health & Fitness	  1,000,000 - 5,000,000  	4.340777397155762	12448
+net.cleverbit.LearnAnimals	Educational	  100,000 - 500,000  	4.48522424697876	6531
+com.kaya.text.on.pics.write.on.photos	Photography	  100,000 - 500,000  	3.4867796897888184	1475
+klay.rocha.controlepro	Transportation	  500 - 1,000  	3.5517241954803467	29
+de.gu.schlank	Lifestyle	  100 - 500  	3.3333332538604736	3
+com.actiongames.commandowar	Action	  1,000,000 - 5,000,000  	3.7847049236297607	13233
+com.playmous.ttfdoodle1	Arcade	  5,000,000 - 10,000,000  	4.360653877258301	80440
+com.thanarada.app6	Books & Reference	  100,000 - 500,000  	2.844468832015991	2739
+com.thanarada.app7	Books & Reference	  50,000 - 100,000  	2.725511312484741	929
+msf.guidance	Medical	  1,000 - 5,000  	4.472727298736572	55
+igordcard.wrkout	Health & Fitness	  1,000 - 5,000  	4.511627674102783	86
+com.dcmp.crafting.guiforminecraft	Libraries & Demo	  5,000 - 10,000  	3.3709676265716553	62
+ch.iomedia.arcinfo	News & Magazines	  5,000 - 10,000  	3.01111102104187	90
+de.bbg.EinsteinHD	Puzzle	  10,000 - 50,000  	4.279562473297119	1463
+ca.romi	Card	  1,000 - 5,000  	4.324561595916748	114
+com.leaseplan.ch	Business	  100 - 500  	4	1
+com.zhoobt.deathfighter	Role Playing	  1,000 - 5,000  	3.7333333492279053	45
+net.ddroid.aw.watchface.mf03	Lifestyle	  1,000 - 5,000  	4.0923075675964355	65
+com.vistechprojects.millimeterpro	Productivity	  500 - 1,000  	4.517241477966309	29
+air.net.endemolgames.flyingteddy	Casual	  500,000 - 1,000,000  	3.5242738723754883	9434
+com.blastersmasher.fruitfarmturboswipe	Word	  1,000 - 5,000  	4.5333333015441895	15
+com.smurfinc.tesetturgiyim	Shopping	  50,000 - 100,000  	3.9481866359710693	772
+by.squareroot.balda	Word	  1,000,000 - 5,000,000  	4.5364556312561035	57138
+hk.eu.frankfurtpublictransport	Transportation	  5,000 - 10,000  	4.17391300201416	46
+com.parkbenchdevelopments.junglequest	Arcade	  500,000 - 1,000,000  	3.4983060359954834	6789
+com.gamijo.retrouvervoiture	Transportation	  1,000 - 5,000  	4	49
+com.abitofgames.callbingo	Casino	  100,000 - 500,000  	4.320274829864502	4365
+com.ggdiam.batterysaver	Tools	  5,000 - 10,000  	4.467948913574219	468
+it.mm.android.relaxwater	Lifestyle	  100,000 - 500,000  	4.352569103240967	2686
+com.mymobilegear.magicwedge	Business	  100 - 500  	5	2
+com.degausspress.CPR	Lifestyle	  10,000 - 50,000  	4.5	438
+com.jqrapps.slowmotionvideo20	Tools	  1,000,000 - 5,000,000  	3.002779006958008	13314
+air.com.groupebayard.petitoursbrun.grandimagier	Educational	  500 - 1,000  	4.230769157409668	13
+com.fatcatgamingstudiosinc.cubecraft	Casual	  100 - 500  	2.3333332538604736	3
+com.touchgamesproduction.highwaytraffic	Racing	  1,000,000 - 5,000,000  	3.8989439010620117	65993
+air.byss.mobi.instaplace	Photography	  10,000 - 50,000  	4.268495082855225	3974
+com.choiceofgames.choiceofromance	Role Playing	  100,000 - 500,000  	4.3928022384643555	5836
+com.laurencedawson.reddit_sync.pro	News & Magazines	  50,000 - 100,000  	4.795807361602783	19271
+de.darkbloodstudios.electrodrumpads	Music & Audio	  1,000,000 - 5,000,000  	4.456921100616455	26904
+com.BCB.Funofcasinos	Casino	  1 - 5  	0	0
+air.Jeuxeducatifs3	Educational	  1,000 - 5,000  	3.625	24
+com.just4fun.spiderinphone	Entertainment	  500,000 - 1,000,000  	3.9071455001831055	8411
+de.johanneslauber.android.hue	Lifestyle	  10,000 - 50,000  	3.8126888275146484	331
+de.dmaicher.berlinmap	Transportation	  50,000 - 100,000  	4.20895528793335	402
+cc.pacer.androidapp	Health & Fitness	  500,000 - 1,000,000  	4.044064998626709	13934
+primos2.stl	Sports	  5,000 - 10,000  	3.8539326190948486	89
+appinventor.ai_ipwnsro6.BOVsoundboard_more	Entertainment	  500 - 1,000  	3.5714285373687744	7
+com.Speed.City.Moto.goodgame.U3D	Racing	  5,000,000 - 10,000,000  	3.84335994720459	59941
+com.my.nscreen	Tools	  100,000 - 500,000  	3.7067153453826904	2189
+com.vinividivici.makeupto.photoshopfree	Photography	  500,000 - 1,000,000  	3.26127290725708	6143
+com.mola.playspace.android.domino	Board	  100,000 - 500,000  	4.1412882804870605	5372
+com.spyfox.android.app.pronoSynthesis	Sports	  100 - 500  	3.1666667461395264	6
+com.acar.cashturf	Sports	  500 - 1,000  	3.474576234817505	59
+com.capacitywebsolutionspvtltd.magentoadmin	Shopping	  50 - 100  	2.25	8
+com.appmk.book.AOUSWCQAPWKVEHMB	Libraries & Demo	  50,000 - 100,000  	4.569329738616943	1089
+com.bigfishgames.season2googfull	Casual	  1,000 - 5,000  	4.354085445404053	257
+com.hustmobile.goodplayer	Media & Video	  100,000 - 500,000  	3.9123435020446777	1118
+matrix.neo	Shopping	  10 - 50  	5	2
+fr.pap	Lifestyle	  50,000 - 100,000  	3.2094762325286865	401
+fema.time	Weather	  50,000 - 100,000  	3.6075551509857178	953
+thaonguyen.atmui.indohello	Libraries & Demo	  10,000 - 50,000  	4.181603908538818	848
+com.minegames.pet	Puzzle	  50,000 - 100,000  	2.629310369491577	1276
+ch.zoobasel.zoobaselapp	Education	  1,000 - 5,000  	3.545454502105713	33
+com.RAJ.CasinoSlotGamblinglord	Casino	  100 - 500  	3.25	4
+com.kasaba.gosexyandroid	Photography	  1,000 - 5,000  	3.7155964374542236	436
+com.gab.jit	Books & Reference	  100,000 - 500,000  	3.769514799118042	4061
+com.girlsdevgms.babycare	Role Playing	  10,000 - 50,000  	3.5059523582458496	336
+com.sng.kingfree	Card	  50,000 - 100,000  	3.622041940689087	1479
+com.amalgamapps.solitarie	Card	  50,000 - 100,000  	3.892430305480957	1004
+com.androidwasabi.livewallpaper.xperiaz	Personalization	  5,000,000 - 10,000,000  	4.205924987792969	59072
+com.scottgames.mafiaslots	Card	  10 - 50  	4	1
+com.codefluegel.maexchen_free	Card	  10,000 - 50,000  	3.616666555404663	120
+com.waxrain.airplaydmr2	Media & Video	  1,000 - 5,000  	4.175438404083252	57
+com.rally.extreme.race	Racing	  100,000 - 500,000  	2.6721861362457275	4167
+com.markmccauley.copsnrobbers	Casino	  100 - 500  	5	2
+com.hipipal.qpy3	Education	  100,000 - 500,000  	4.388820648193359	3256
+com.sygic.incar	Travel & Local	  1,000 - 5,000  	4.116666793823242	120
+com.craftgames.worldcrft	Arcade	  5,000,000 - 10,000,000  	3.9948298931121826	202513
+org.onejob.android.activities2	Business	  5,000 - 10,000  	3.3333332538604736	69
+ch.migros.podclub	Education	  5,000 - 10,000  	4.203703880310059	54
+com.powerdreamapps.realfutbol2015	Sports	  100,000 - 500,000  	3.434121608734131	1776
+de.adfc.sternerouten	Sports	  1,000 - 5,000  	2.857142925262451	14
+com.kauf.princessgamesalonangela3d	Casual	  1,000,000 - 5,000,000  	3.2981975078582764	17864
+com.crittermap.backcountrynavigator.license	Travel & Local	  100,000 - 500,000  	4.544134140014648	4410
+com.genius.electricpiano	Music	  50,000 - 100,000  	3.4009323120117188	429
+mobi.infolife.ezweather.widget.cuteandroid	Weather	  10,000 - 50,000  	3.9528796672821045	191
+uk.org.invisibility.recordablefree	Tools	  1,000,000 - 5,000,000  	3.298692226409912	31889
+com.ulmon.android.playlondon	Travel & Local	  50,000 - 100,000  	4.2866668701171875	750
+com.digischool.orthographe	Education	  50,000 - 100,000  	4.009059906005859	883
+com.wmayavi	Comics	  5,000 - 10,000  	4.119565010070801	92
+com.oldify.your.face	Entertainment	  1,000,000 - 5,000,000  	3.4542226791381836	10136
+com.accuweather.android	Weather	  10,000,000 - 50,000,000  	4.335114479064941	1184560
+com.virtualinfocom.game.boxing	Sports	  1,000,000 - 5,000,000  	3.4287588596343994	12963
+com.campmobile.android.linedeco	Personalization	  10,000,000 - 50,000,000  	4.2327728271484375	269490
+com.bakno.BackgammonHD	Board	  10 - 50  	3	1
+air.com.g5e.doomsdayprepperspg	Strategy	  100,000 - 500,000  	4.264578342437744	23751
+com.Signals4Trading.push.android	Finance	  10,000 - 50,000  	3.779411792755127	340
+de.emomedia.megaspruechefree	Lifestyle	  10,000 - 50,000  	3.9919614791870117	622
+com.fgrim.parchis4a	Board	  500,000 - 1,000,000  	4.022439479827881	3476
+com.ammobile.acupressure	Medical	  10,000 - 50,000  	4.180685520172119	321
+com.darty.android.tablette	Shopping	  10,000 - 50,000  	3.794520616531372	146
+com.whichman.calculators.medicalc	Medical	  500 - 1,000  	4.07692289352417	13
+com.kmagic.solitaire	Card	  10,000,000 - 50,000,000  	4.264377117156982	224085
