@@ -1,44 +1,28 @@
 package com.epfl.appspy;
 
-import android.app.ActivityManager;
-import android.app.AlarmManager;
-import android.app.Application;
-import android.app.FragmentManager;
-import android.app.PendingIntent;
 import android.app.usage.UsageStats;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.net.TrafficStats;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
 
 
@@ -248,7 +232,10 @@ public class RightsActivity extends ActionBarActivity {
 
 
     public void computeStatNow(View v){
-        PeriodicTaskReceiver.computeDirection(getApplicationContext());
+        Intent installedAppReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
+        installedAppReceiver.setAction(Intent.ACTION_SEND);
+        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.INSTALLED_APP);
+        sendBroadcast(installedAppReceiver);
     }
 
 
@@ -259,7 +246,7 @@ public class RightsActivity extends ActionBarActivity {
         *
         * DEBUG CODE ONLY
          */
-            PeriodicTaskReceiver.createAlarms(getApplicationContext());
+            AppActivityPeriodicTaskReceiver.createAlarms(getApplicationContext());
 
 
         /*

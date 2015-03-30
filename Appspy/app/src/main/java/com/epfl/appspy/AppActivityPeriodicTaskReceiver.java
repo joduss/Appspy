@@ -3,29 +3,20 @@ package com.epfl.appspy;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.TrafficStats;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
-import com.epfl.appspy.com.epfl.appspy.database.PermissionRecord;
-import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
@@ -33,10 +24,10 @@ import java.util.Set;
 /**
  * Check
  */
-public class PeriodicTaskReceiver extends BroadcastReceiver {
-    private static final String TAG = "PeriodicTaskReceiver";
+public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
+    private static final String TAG = "AppActivityPeriodicTaskReceiver";
 
-    private static final String EXTRA = "extra";
+    private static final String EXTRA = GlobalConstant.EXTRA_TAG;
     private static Context context;
     ;
     private static ApplicationsInformation appInformation;
@@ -54,51 +45,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
 
 
-
-
-    ////FOR DEBUG ONLY
-    public static void computeDirection(Context context){
-        Log.d("Appspy", "Alarm is set");
-
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        final int CODE_ONE = 12323;
-        final int CODE_TWO = 12324;
-
-        Intent backgroundChecker;
-        PendingIntent pendingIntent;
-
-
-        //Ten second periodicity
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
-
-
-        long nextAlarmInMillis = System.currentTimeMillis()+3000;
-
-        //millisToStart = System.currentTimeMillis() + 10000;
-
-
-
-        Log.d("Appspy-test","Ask for direct stat computation");
-            manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
-
-        //Halft hour periodicity
-        backgroundChecker = null;
-        pendingIntent = null;
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
-        pendingIntent = PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker,
-                                                   PendingIntent.FLAG_CANCEL_CURRENT);
-
-        manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
-        ////END FOR DEBUG ONLY
-
-    }
 
 
     public static void createAlarms(Context context) {
@@ -122,9 +68,9 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
 
         //Ten second periodicity
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
+        backgroundChecker = new Intent(context, AppActivityPeriodicTaskReceiver.class);
         backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.TEN_SECONDS);
+        backgroundChecker.putExtra(EXTRA, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
         pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -145,8 +91,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
         long nextAlarmInMillis = cal.getTimeInMillis();
 
-        //millisToStart = System.currentTimeMillis() + 10000;
-
 
         Log.d("Appspy-test", "Next alarm at:" + cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + ":" +
                              cal.get(Calendar.SECOND));
@@ -159,24 +103,26 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
             manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
         }
 
-        //Halft hour periodicity
-        backgroundChecker = null;
-        pendingIntent = null;
-        backgroundChecker = new Intent(context, PeriodicTaskReceiver.class);
-        backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
-        pendingIntent =
-                PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker, PendingIntent.FLAG_CANCEL_CURRENT);
-
-
-        if (Build.VERSION.SDK_INT < 19) {
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, interval, pendingIntent);
-        }
-        else {
-            manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
-        }
-
+//        //Halft hour periodicity
+//        backgroundChecker = null;
+//        pendingIntent = null;
+//        backgroundChecker = new Intent(context, AppActivityPeriodicTaskReceiver.class);
+//        backgroundChecker.setAction(Intent.ACTION_SEND);
+//        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
+//        pendingIntent =
+//                PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker, PendingIntent.FLAG_CANCEL_CURRENT);
+//
+//
+//        if (Build.VERSION.SDK_INT < 19) {
+//            manager.setRepeating(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, interval, pendingIntent);
+//        }
+//        else {
+//            manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
+//        }
     }
+
+
+
 
 
     @Override
@@ -194,47 +140,37 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
         //Process the broadcast message
         if (intent.getAction() != null) {
 
-            //Log.d("Appspy", "HEY: " + intent.getExtras().containsKey(EXTRA));
-
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)
                                          || intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
-                // Register your reporting alarms here.
 
-                //periodicCheckSometimes();
-                //periodicCheckTenSeconds();
                 Database db = new Database(context);
                 db.deviceStarted();
-                periodicCheckOften();
-                periodicCheckSometimes();
+                analyseAppActivity();
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
-                     (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
-                     EXTRA_ACTION_PERIODICITY.TEN_SECONDS) {
+                     intent.getSerializableExtra(EXTRA) ==
+                     GlobalConstant.EXTRA_ACTION.APP_ACTIVITY) {
 
-                periodicCheckOften();
+                analyseAppActivity();
 
             }
-            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
-                     (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
-                     EXTRA_ACTION_PERIODICITY.HALF_HOUR) {
-                periodicCheckSometimes();
-            }
-        }
-
-        if(intent.getAction().equals(Intent.ACTION_SHUTDOWN)){
-            Log.d("Appspy","########################## SHUTDOWN");
+//            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
+//                     (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
+//                     EXTRA_ACTION_PERIODICITY.HALF_HOUR) {
+//                //periodicCheckSometimes();
+//            }
         }
 
         //show message on screen to show that it is working
-        Toast.makeText(context, "Broadcast received", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
     }
 
 
     /**
      * Handle of the tasks that should be done often
      */
-    private void periodicCheckOften() {
+    private void analyseAppActivity() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK often");
 
 
@@ -325,59 +261,6 @@ public class PeriodicTaskReceiver extends BroadcastReceiver {
 
         db.close();
 
-    }
-
-
-    /**
-     * Handles the task that should be done not too often
-     */
-    private void periodicCheckSometimes() {
-        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK sometimes");
-
-        List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
-        Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
-
-
-        LogA.d("Appspy-loginfo", "-------------------------------");
-        LogA.d("Appspy-loginfo", "Installed apps + Permissions");
-        LogA.d("Appspy-loginfo", "-------------------------------");
-
-        Database db = new Database(this.context);
-
-        //For each app, insert or update a record about the time of the installations/uninstallation, permissions, etc
-        for (PackageInfo app : permissionsForAllApps.keySet()) {
-            List<String> permissions = permissionsForAllApps.get(app);
-
-            LogA.d("Appspy-loginfo", appInformation.getAppName(app));
-            //Log.d("Appspy-loginfo","some permissions...");
-//            for (String p : permissions) {
-//                Log.d("Appspy-loginfo", p);
-//            }
-            //Log.d("Appspy-loginfo", "===============================");
-
-            long installationDate = app.firstInstallTime;
-            boolean isSystem = appInformation.isSystem(app);
-
-            String appName = appInformation.getAppName(app);
-            String pkgName = app.packageName;
-            boolean appSystem = appInformation.isSystem(app);
-
-            //Format the permission before putting it in the DB
-            PermissionsJSON jsonPermissions = new PermissionsJSON(permissions);
-
-            //Add or update the record in the database
-            ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
-                                                                                     0, appSystem);
-            db.addOrUpdateApplicationInstallationRecord(record);
-
-            //Update the permissions records for the app
-            HashMap<String, PermissionRecord> permissionRecords = new HashMap<>();
-            for(String permissionName : permissions){
-                PermissionRecord permRecord = new PermissionRecord(pkgName, permissionName, System.currentTimeMillis());
-                permissionRecords.put(permissionName, permRecord);
-            }
-            db.updatePermissionRecordsForApp(app.packageName, permissionRecords);
-        }
     }
 
 

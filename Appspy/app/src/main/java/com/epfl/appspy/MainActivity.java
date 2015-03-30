@@ -4,8 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
     private PendingIntent pendingIntent = null;
     private AlarmManager manager = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-//        Intent backgroundChecker = new Intent(this, PeriodicTaskReceiver.class);
+//        Intent backgroundChecker = new Intent(this, AppActivityPeriodicTaskReceiver.class);
 //        pendingIntent = PendingIntent.getBroadcast(this, 0,backgroundChecker, 0);
 //
 //
@@ -38,6 +41,23 @@ public class MainActivity extends ActionBarActivity {
 
 
         this.showRightsActivity(null);
+
+
+        //check if is first time the app is launched
+        SharedPreferences settings = getSharedPreferences(GlobalConstant.PREFERENCES, 0);
+        boolean alreadyUsed = settings.getBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
+
+        if(alreadyUsed == false){
+            Log.i("Appspy", "First time launching Appspy");
+            settings.edit().putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, true);
+            settings.edit().commit();
+
+            //call the InstalledAppsReceiver to check all installed apps
+            Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
+            installedAppReceiver.setAction(Intent.ACTION_SEND);
+            installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.INSTALLED_APP);
+            sendBroadcast(installedAppReceiver);
+        }
 
 
     }

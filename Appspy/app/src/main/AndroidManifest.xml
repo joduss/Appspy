@@ -31,13 +31,23 @@
         </activity>
 
 
-        <receiver android:name=".PeriodicTaskReceiver">
+        <receiver android:name=".AppActivityPeriodicTaskReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
                 <action android:name="android.intent.action.BATTERY_LOW" />
                 <action android:name="android.intent.action.BATTERY_OKAY" />
                 <action android:name="com.example.app.PERIODIC_TASK_HEART_BEAT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".InstalledAppsReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
 
