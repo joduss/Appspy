@@ -36,6 +36,7 @@ public class InstalledAppsReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
+Log.d("Appspy","on receive InstalledAppsReceiver");
 
         //Init class members
         if (this.context == null || this.appInformation == null) {

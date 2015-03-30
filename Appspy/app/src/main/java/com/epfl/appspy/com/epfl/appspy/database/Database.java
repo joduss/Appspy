@@ -193,6 +193,7 @@ public class Database extends SQLiteOpenHelper {
     //##################################################################################################################
 
     /**
+     * Return true if an app exist on the phone and hasn't been uninstalled
      * @param packageName
      * @return
      */
@@ -201,7 +202,7 @@ public class Database extends SQLiteOpenHelper {
 
         String query =
                 "SELECT " + COL_APP_PKG_NAME + " FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_PKG_NAME + " =\"" +
-                packageName + "\"";
+                packageName + "\""  + " AND " + COL_UNINSTALLATION_DATE + "=0" ;;
 
         Cursor cursor = db.rawQuery(query, null);
 
