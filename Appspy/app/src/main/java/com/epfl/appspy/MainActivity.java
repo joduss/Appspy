@@ -60,6 +60,22 @@ public class MainActivity extends ActionBarActivity {
         }
 
 
+        //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
+        //the service is started with the boot.
+        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
+        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.GPS);
+        sendBroadcast(gpsTaskReceiver);
+
+
+        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
+        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
+        sendBroadcast(activityTaskReceiver);
+
+
+
+
     }
 
 
