@@ -1,4 +1,4 @@
-package com.epfl.appspy;
+package com.epfl.appspy.com.epfl.appspy.monitoring;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,16 +9,26 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.epfl.appspy.ApplicationsInformation;
+import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.LogA;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 
 /**
@@ -136,9 +146,43 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             appInformation = new ApplicationsInformation(context);
         }
 
+        try {
+
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+            File f = new File(path + "/tmp");
+            if(f.exists() == false){
+                f.mkdir();
+            }
+            Log.d("Appspy", "before command");
+
+            //process cpu.txt
+            processCPU();
+
+            Runtime.getRuntime().exec("cp /sdcard/tmp/cpu.txt /sdcard/tmp/cpu2.txt"); //not working. Need other way
+            Runtime.getRuntime().exec("rm /sdcard/tmp/cpu.txt");
+            Runtime.getRuntime().exec("top -m 20 -d 1 -n 59 > " + "/sdcard/tmp/cpu.txt"); //not working. Need other way
+            Log.d("Appspy","after command");
+        }
+        catch(IOException e){
+            Log.d("Appspy","FUCK");
+        }
+
+
+
+
+
 
         //Process the broadcast message
         if (intent.getAction() != null) {
+
+
+            if(intent.getAction().equals(Intent.ACTION_SHUTDOWN)){
+                try {
+                    Runtime.getRuntime().exec("rm /sdcard/tmp/cpu.txt");
+                }
+                catch(IOException e){
+                    Log.d("Appspy","FUCK");
+                }            }
 
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)
@@ -171,7 +215,7 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
      * Handle of the tasks that should be done often
      */
     private void analyseAppActivity() {
-        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK often");
+        Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK Analyse apps activity");
 
 
         LogA.d("Appspy-loginfo", "-------------------------------");
@@ -194,27 +238,6 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                 PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
                 foregroundPackageName.add(pi.packageName);
 
-                //BEGIN DEBUG
-//                long downloadedData = TrafficStats.getUidRxBytes(pi.applicationInfo.uid);
-//                long uploadedData = TrafficStats.getUidTxBytes(pi.applicationInfo.uid);
-//
-//                SimpleDateFormat f2 = new SimpleDateFormat("m:s");
-//                SimpleDateFormat f = new SimpleDateFormat("k:m:s");
-//
-//                Date d1 = new Date(stat.getLastTimeUsed());
-//                //Date d2 = new Date(stat.getFirstTimeStamp());
-//                //Date d3 = new Date(stat.getLastTimeStamp());
-//
-//                long snd = appInformation.getUploadedDataAmountFromFile(pi.applicationInfo.uid);
-//                long rcv = appInformation.getDownloadedDataAmountFromFile(pi.applicationInfo.uid);
-//
-//                Log.d("Appspy", "snd egal?" + (snd == uploadedData) + "   \t" + snd + "|\t" + uploadedData);
-//                Log.d("Appspy", "rcv egal?" + (rcv == downloadedData) + "   \t" + rcv + "|\t" + downloadedData);
-//
-//
-//                Log.d("Appspy", "Hello " + appInformation.getAppName(pi) + " - foreground is " +
-//                                f2.format(stat.getTotalTimeInForeground()) + " - last used is " + f.format(d1));
-                //END DEBUG
 
                 final int uid = pi.applicationInfo.uid;
 
@@ -230,18 +253,23 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
         }
 
         //now also get the info about background processes
+
+        //all apps actives
         List<PackageInfo> runningApps = appInformation.getActiveApps();
 
-        //need to exclude already processed apps
 
         //if the app is not in the stat, then the foreground time for that day is 0
-        //that means the app may have background task running even if not open by the user
+        //but the app may have background task running even if not open by the user
         for (PackageInfo pi : runningApps) {
+
+            //check if was not already processed as foreground app
             if (foregroundPackageName.contains(pi.packageName) == false) {
                 final int uid = pi.applicationInfo.uid;
 
                 long lastForegroundTime = 0;
                 long lastLastUsedTime = 0;
+
+                //if was in foreground before, but still running in background: get the last known foreground time
                 ApplicationActivityRecord lastRecord = db.getLastApplicationActivityRecord(pi.packageName);
                 if(lastRecord != null){
                     lastForegroundTime = lastRecord.getForegroundTime();
@@ -264,11 +292,32 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
     }
 
 
-    /**
-     * Enum for the periodicity of the tasks
-     */
-    protected enum EXTRA_ACTION_PERIODICITY {
-        NONE, HALF_HOUR, MINUTE, TEN_SECONDS
+
+    public void processCPU(){
+//        try {
+//
+//            File f = new File("/Users/Jo/Desktop/cpu2.txt");
+//            BufferedReader br = new BufferedReader(new FileReader(f));
+//
+//            String line = null;
+//            while ((line = br.readLine()) != null) {
+//                StringTokenizer st = new StringTokenizer(line);
+//                if (st.countTokens() >= 3) {
+//                    String firstToken = st.nextToken();
+//                    if (new Scanner(firstToken).hasNextInt()) {
+//                        int pid = Integer.parseInt(firstToken);
+//                        st.nextToken(); //don't care
+//                        String cpuPercentage = st.nextToken();
+//                        String cpu = cpuPercentage.split("%")[0];
+//                        int cpuUsage = Integer.parseInt(cpu);
+//                    }
+//                }
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     }
 
 

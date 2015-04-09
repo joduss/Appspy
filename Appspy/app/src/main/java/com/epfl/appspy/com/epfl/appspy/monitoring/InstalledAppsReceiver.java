@@ -1,4 +1,4 @@
-package com.epfl.appspy;
+package com.epfl.appspy.com.epfl.appspy.monitoring;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,6 +10,9 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.epfl.appspy.ApplicationsInformation;
+import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.LogA;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 import com.epfl.appspy.com.epfl.appspy.database.PermissionRecord;
@@ -20,7 +23,13 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
+ * This class is responsible to monitor app installation update, or  uninstallation.
+ * Each time one of these action is done, the permissions are monitored at the same time and a record is stored
+ * in the database
+ *
+ *
  * Created by Jonathan Duss on 30.03.15.
+ *
  */
 public class InstalledAppsReceiver extends BroadcastReceiver
 {
