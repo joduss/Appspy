@@ -1,34 +1,29 @@
 package com.epfl.appspy;
 
-import android.app.usage.UsageStats;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.TrafficStats;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityPeriodicTaskReceiver;
+import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTaskReceiver;
+import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsReceiver;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 
 public class RightsActivity extends ActionBarActivity {
 
-    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,69 +113,69 @@ public class RightsActivity extends ActionBarActivity {
 
 
         //Test to access files, without ROOT permissions
-
-
-        File f = new File(path);
-
-        Log.d("Appspy","===============================================");
-        Log.d("Appspy","Content of the folder " + f.getAbsolutePath() + " | exists? " + f.exists());
-        File files[] = f.listFiles();
-        if(files != null){
-            for (File file : files) {
-                Log.d("Appspy", file.toString());
-            }
-        }
-        else {
-            Log.d("Appspy","NO FILES - NO FILES");
-        }
+//
+//
+//        File f = new File(path);
+//
+//        Log.d("Appspy","===============================================");
+//        Log.d("Appspy","Content of the folder " + f.getAbsolutePath() + " | exists? " + f.exists());
+//        File files[] = f.listFiles();
+//        if(files != null){
+//            for (File file : files) {
+//                Log.d("Appspy", file.toString());
+//            }
+//        }
+//        else {
+//            Log.d("Appspy","NO FILES - NO FILES");
+//        }
 
 
 
         //DEBUG
-        ApplicationsInformation appInformation = new ApplicationsInformation(getApplicationContext());
-        List<UsageStats> statistics = appInformation.getUsedForegroundApp(60000);
-        PackageManager pkgManager = getApplicationContext().getPackageManager();
+//        ApplicationsInformation appInformation = new ApplicationsInformation(getApplicationContext());
+//        List<UsageStats> statistics = appInformation.getUsedForegroundApp(60000);
+//        PackageManager pkgManager = getApplicationContext().getPackageManager();
+//
+//        SimpleDateFormat f2 = new SimpleDateFormat("m:s");
+//        SimpleDateFormat f3 = new SimpleDateFormat("k:m:s");
 
-        SimpleDateFormat f2 = new SimpleDateFormat("m:s");
-        SimpleDateFormat f3 = new SimpleDateFormat("k:m:s");
-
-        TextView textView = (TextView) findViewById(R.id.textview);
-
-        String t = "";
-        textView.setText("");
-        for (UsageStats stat : statistics){
-            long lastUsed = stat.getLastTimeUsed();
-            Date d1 = new Date(stat.getLastTimeUsed());
-
-            try {
-                PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
-
-                long downloadedData = TrafficStats.getUidRxBytes(pi.applicationInfo.uid);
-                long uploadedData = TrafficStats.getUidTxBytes(pi.applicationInfo.uid);
-                long snd = appInformation.getUploadedDataAmount(pi.applicationInfo.uid);
-                long rcv = appInformation.getDownloadedDataAmount(pi.applicationInfo.uid);
-
-                Log.d("Appspy", "uploaded TS:?" + uploadedData + "| file: " + snd);
-                Log.d("Appspy", "downloaded TS:?" + downloadedData + "| file: " + rcv);
-
-                double coefDiv =  Math.pow(1024,2);
-
-                DecimalFormat df = new DecimalFormat("#.###");
-
-
-                t = t + "================================= \n";
-                t = t + pi.packageName + "data in MB" + "\n";
-                t = t + "uploaded TS: " + df.format(uploadedData/coefDiv) + "| file: " + df.format(snd/coefDiv) + "\n";
-                t= t + "downloaded TS: " + df.format(downloadedData/coefDiv) + "| file: " + df.format(rcv/coefDiv) + "\n";
-
-            }
-            catch(PackageManager.NameNotFoundException e){
-                System.err.println("##############\n This error should not happen. If it happens, try to see why!!");
-                e.printStackTrace();
-                System.exit(1);
-            }
-        }
-        textView.setText(t);
+//        TextView textView = (TextView) findViewById(R.id.textview);
+//
+//        String t = "";
+//        textView.setText("");
+//        for (UsageStats stat : statistics){
+//            long lastUsed = stat.getLastTimeUsed();
+//            Date d1 = new Date(stat.getLastTimeUsed());
+//
+//            try {
+//                PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
+//
+//                long downloadedData = TrafficStats.getUidRxBytes(pi.applicationInfo.uid);
+//                long uploadedData = TrafficStats.getUidTxBytes(pi.applicationInfo.uid);
+//                long snd = appInformation.getUploadedDataAmount(pi.applicationInfo.uid);
+//                long rcv = appInformation.getDownloadedDataAmount(pi.applicationInfo.uid);
+//
+//                Log.d("Appspy", "uploaded TS:?" + uploadedData + "| file: " + snd);
+//                Log.d("Appspy", "downloaded TS:?" + downloadedData + "| file: " + rcv);
+//
+//                double coefDiv =  Math.pow(1024,2);
+//
+//                DecimalFormat df = new DecimalFormat("#.###");
+//
+//
+//                t = t + "================================= \n";
+//                t = t + pi.packageName + "data in MB" + "\n";
+//                t = t + "uploaded TS: " + df.format(uploadedData/coefDiv) + "| file: " + df.format(snd/coefDiv) + "\n";
+//                t= t + "downloaded TS: " + df.format(downloadedData/coefDiv) + "| file: " + df.format(rcv/coefDiv) + "\n";
+//
+//            }
+//            catch(PackageManager.NameNotFoundException e){
+//                System.err.println("##############\n This error should not happen. If it happens, try to see why!!");
+//                e.printStackTrace();
+//                System.exit(1);
+//            }
+//        }
+//        textView.setText(t);
 //        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 //        clipboard.setText(t);
 
@@ -198,30 +193,31 @@ public class RightsActivity extends ActionBarActivity {
         try {
 
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File f = new File(path + "/tmp");
-            if(f.exists() == false){
+            File f = new File(path + "/tmp");
+            if (f.exists() == false) {
                 f.mkdir();
             }
 
 
-
-        Process root2 = Runtime.getRuntime().exec("cp /data/data/com.epfl.appspy/databases/Appspy_database " + path + "/tmp/data2.zip");
+            Process root2 = Runtime.getRuntime().exec(
+                    "cp /data/data/com.epfl.appspy/databases/Appspy_database " + path + "/tmp/data2.zip");
 
             String fileDB = path + "/tmp/data2.zip";
 
             File f2 = new File(fileDB);
-            Log.d("Appspy","exits: " + f2.exists() );
-            Log.d("Appspy","exits2: " + new File(path).exists() );
+            Log.d("Appspy", "exits: " + f2.exists());
+            Log.d("Appspy", "exits2: " + new File(path).exists());
 
 
             Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
-        intent.setType("file/*");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
-        intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
-        //intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:/" + fileDB));
-        intent.setData(Uri.parse("mailto:zatixjo@gmail.com")); // or just "mailto:" for blank
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
-        startActivity(intent);
+            intent.setType("file/*");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
+            intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
+            //intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:/" + fileDB));
+            intent.setData(Uri.parse("mailto:zatixjo@gmail.com")); // or just "mailto:" for blank
+            intent.addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+            startActivity(intent);
 
             //Process root3 = Runtime.getRuntime().exec("rm /sdcard/tmp/database.db");
         } catch (IOException e) {
@@ -232,10 +228,27 @@ public class RightsActivity extends ActionBarActivity {
 
 
     public void computeStatNow(View v){
-        Intent installedAppReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
+
+
+        //call the InstalledAppsReceiver to check all installed apps
+        Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
         installedAppReceiver.setAction(Intent.ACTION_SEND);
         installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.INSTALLED_APP);
         sendBroadcast(installedAppReceiver);
+
+
+        //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
+        //the service is started with the boot.
+        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
+        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.GPS);
+        sendBroadcast(gpsTaskReceiver);
+
+
+        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
+        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
+        sendBroadcast(activityTaskReceiver);
     }
 
 
