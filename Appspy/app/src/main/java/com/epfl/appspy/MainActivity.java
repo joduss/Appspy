@@ -2,7 +2,6 @@ package com.epfl.appspy;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -11,8 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+
+import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityPeriodicTaskReceiver;
+import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTaskReceiver;
+import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsReceiver;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -43,39 +44,41 @@ public class MainActivity extends ActionBarActivity {
         this.showRightsActivity(null);
 
 
-        //check if is first time the app is launched
+        //check if is first time the app is launched (manually)
         SharedPreferences settings = getSharedPreferences(GlobalConstant.PREFERENCES, 0);
         boolean alreadyUsed = settings.getBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
 
+        Log.d("Appspy", "contains: " + settings.contains(GlobalConstant.PREF_FIRST_LAUNCH));
+
+
+        //In which case, the monitoring tasks are directly started
+        //If this is not the case, then appspy will be started automatically once the device is booted.
         if(alreadyUsed == false){
             Log.i("Appspy", "First time launching Appspy");
-            settings.edit().putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, true);
-            settings.edit().commit();
+            SharedPreferences.Editor settingsEditor = settings.edit();
+            settingsEditor.putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, true);
+            settingsEditor.commit();
 
             //call the InstalledAppsReceiver to check all installed apps
             Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
             installedAppReceiver.setAction(Intent.ACTION_SEND);
             installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.INSTALLED_APP);
             sendBroadcast(installedAppReceiver);
+
+
+            //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
+            //the service is started with the boot.
+            Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
+            gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+            gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.GPS);
+            sendBroadcast(gpsTaskReceiver);
+
+
+            Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
+            gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+            gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
+            sendBroadcast(activityTaskReceiver);
         }
-
-
-        //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
-        //the service is started with the boot.
-        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
-        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.GPS);
-        sendBroadcast(gpsTaskReceiver);
-
-
-        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
-        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
-        sendBroadcast(activityTaskReceiver);
-
-
-
-
     }
 
 
