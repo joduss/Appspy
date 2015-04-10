@@ -1,0 +1,17 @@
+from multiprocessing import Pool, Lock
+
+
+def sq(ab):
+	print(ab)
+
+def parse(packageNames):
+
+
+	p = Pool(4)
+
+	p.map(sq, list(range(1,10000000)))
+
+
+
+
+parse("sds")
