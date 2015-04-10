@@ -15,24 +15,22 @@ public class GPSRecord {
     private boolean gpsActivated;
 
 
-    public GPSRecord(long id, String packageName, long recordTime, boolean gpsActivated, double longitude, double latitude, double altitude,
+    public GPSRecord(long id, long recordTime, boolean gpsActivated, double longitude, double latitude, double altitude,
                      float accuracy) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.recordTime = recordTime;
-        this.packageName = packageName;
         this.accuracy = accuracy;
         this.id = id;
         this.gpsActivated = gpsActivated;
         this.altitude = altitude;
     }
 
-    public GPSRecord(String packageName, long recordTime, boolean gpsActivated, double longitude, double latitude,
+    public GPSRecord(long recordTime, boolean gpsActivated, double longitude, double latitude,
                      double altitude, float accuracy) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.recordTime = recordTime;
-        this.packageName = packageName;
         this.accuracy = accuracy;
         this.gpsActivated = gpsActivated;
         this.altitude = altitude;

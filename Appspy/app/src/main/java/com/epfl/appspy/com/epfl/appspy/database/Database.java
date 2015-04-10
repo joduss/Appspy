@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import com.epfl.appspy.LogA;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,7 +26,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 121;
+    private static final int DB_VERSION = 132;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -33,6 +34,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
     private static final String TABLE_PERMISSIONS = "Table_permissions";
     private static final String TABLE_APPS_INTERNET_USE_LAST_TIME = "Table_internet_use_last_time";
+    private static final String TABLE_GPS_LOCATION = "Table_GPS_location";
 
     //SHARED columns names
     private static final String COL_RECORD_ID = "record_id"; //id in any table, except in installed apps
@@ -59,6 +61,17 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_DOWNLOADED_DATA = "downloaded_data";
     private static final String COL_RECORD_TIME = "record_time";
     private static final String COL_WAS_FOREGROUND = "was_foreground";
+
+
+    //Table GPS_LOCATION columns names
+    private static final String COL_LATITUDE = "latitude";
+    private static final String COL_LONGITUDE = "longitude";
+    private static final String COL_ALTITUDE = "altitude";
+    private static final String COL_ACCURACY = "accuracy";
+    private static final String COL_GPS_ENABLED = "gps_enable";
+
+
+
 
 
 
@@ -101,6 +114,20 @@ public class Database extends SQLiteOpenHelper {
             COL_UPLOADED_DATA + " INTEGER " +
             ")";
 
+    private static final String CREATE_TABLE_GPS_LOCATION =
+            "CREATE TABLE " + TABLE_GPS_LOCATION + "(" +
+            COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COL_RECORD_TIME + " INTEGER, " +
+            COL_GPS_ENABLED + " INTEGER, " +
+            COL_LATITUDE + " REAL, " +
+            COL_LONGITUDE + " REAL, " +
+            COL_ALTITUDE + " REAL, " +
+            COL_ACCURACY + " REAL" +
+            ")";
+
+
+
+
 
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -113,6 +140,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
+        db.execSQL(CREATE_TABLE_GPS_LOCATION);
     }
 
 
@@ -122,12 +150,14 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
         db.execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
+        db.execSQL("DROP TABLE " + TABLE_GPS_LOCATION);
 
 
         db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
+        db.execSQL(CREATE_TABLE_GPS_LOCATION);
 
     }
 
@@ -352,8 +382,6 @@ public class Database extends SQLiteOpenHelper {
 
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-
-        Log.d("Appspy","time: " + c.getTimeInMillis());
 
         if(record == null || record.getRecordTime() < c.getTimeInMillis()){
             return true;
@@ -720,6 +748,15 @@ public class Database extends SQLiteOpenHelper {
         ACTIVE_FOREGROUND,
         ACTIVE //active not depending if the app is in background or in foreground
     }
+
+
+
+
+    //##################################################################################################################
+    //##################################################################################################################
+    // TABLE GPS
+    //##################################################################################################################
+    //##################################################################################################################
 
 
 }

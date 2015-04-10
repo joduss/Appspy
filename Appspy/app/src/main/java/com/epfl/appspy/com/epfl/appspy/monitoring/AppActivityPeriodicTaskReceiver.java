@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.epfl.appspy.ApplicationsInformation;
 import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
+import com.epfl.appspy.ToastDebug;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 
@@ -51,7 +52,7 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
     private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
 
-    private static int interval;
+    private static int interval = GlobalConstant.APP_ACTIVITY_PERDIOCITY; // in milliseconds
 
 
 
@@ -64,23 +65,19 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        final int repeating = 60; //this one is used now (seconds)
-        interval = repeating * 1000;
+        final int repeating = GlobalConstant.APP_ACTIVITY_PERDIOCITY / 1000; //this one is used now (seconds)
 
-        //final int tenSeconds = 60000*5; // TODO PUT BACK 10000
-        //final int halfHour = 60000*5; //TODO 60000 * 30; //For now: 30 seconds
+
 
         final int CODE_ONE = 12323;
-        final int CODE_TWO = 12324;
 
         Intent backgroundChecker;
         PendingIntent pendingIntent;
 
 
-        //Ten second periodicity
         backgroundChecker = new Intent(context, AppActivityPeriodicTaskReceiver.class);
         backgroundChecker.setAction(Intent.ACTION_SEND);
-        backgroundChecker.putExtra(EXTRA, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
+        backgroundChecker.putExtra(EXTRA, GlobalConstant.EXTRA_ACTION.AUTOMATIC);
         pendingIntent = PendingIntent.getBroadcast(context, CODE_ONE, backgroundChecker,
                                                    PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -94,7 +91,6 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
         int seconds = cal.get(Calendar.SECOND);
 
         cal.set(year,month,day,hour,minutes,1);
-
         cal.add(Calendar.SECOND, repeating);
 
 
@@ -113,31 +109,13 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
         }
 
-//        //Halft hour periodicity
-//        backgroundChecker = null;
-//        pendingIntent = null;
-//        backgroundChecker = new Intent(context, AppActivityPeriodicTaskReceiver.class);
-//        backgroundChecker.setAction(Intent.ACTION_SEND);
-//        backgroundChecker.putExtra(EXTRA, EXTRA_ACTION_PERIODICITY.HALF_HOUR);
-//        pendingIntent =
-//                PendingIntent.getBroadcast(context, CODE_TWO, backgroundChecker, PendingIntent.FLAG_CANCEL_CURRENT);
-//
-//
-//        if (Build.VERSION.SDK_INT < 19) {
-//            manager.setRepeating(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, interval, pendingIntent);
-//        }
-//        else {
-//            manager.setExact(AlarmManager.RTC_WAKEUP, nextAlarmInMillis, pendingIntent);
-//        }
+
     }
-
-
-
-
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        //Create the "alarm", to be sure this will be called again in the future
         createAlarms(context);
 
         //Init class members
@@ -168,46 +146,44 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
         }
 
 
-
-
-
-
         //Process the broadcast message
         if (intent.getAction() != null) {
 
 
-            if(intent.getAction().equals(Intent.ACTION_SHUTDOWN)){
-                try {
-                    Runtime.getRuntime().exec("rm /sdcard/tmp/cpu.txt");
-                }
-                catch(IOException e){
-                    Log.d("Appspy","FUCK");
-                }            }
+//            if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
+//                try {
+//                    Runtime.getRuntime().exec("rm /sdcard/tmp/cpu.txt");
+//                } catch (IOException e) {
+//                    Log.d("Appspy", "FUCK");
+//                }
+//            }
 
             //Executes the correct task according to the notified action in the broadcast
-            if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)
-                                         || intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
-
+            if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
                 Database db = new Database(context);
                 db.deviceStarted();
                 analyseAppActivity();
             }
-            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
-                     intent.getSerializableExtra(EXTRA) ==
-                     GlobalConstant.EXTRA_ACTION.APP_ACTIVITY) {
-
+            else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
                 analyseAppActivity();
-
             }
-//            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
-//                     (EXTRA_ACTION_PERIODICITY) intent.getSerializableExtra(EXTRA) ==
-//                     EXTRA_ACTION_PERIODICITY.HALF_HOUR) {
-//                //periodicCheckSometimes();
-//            }
+            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
+                     intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.AUTOMATIC) {
+                analyseAppActivity();
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
+                     intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH) {
+                analyseAppActivity();
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SEND) &&
+                     intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.MANUAL) {
+                //DO NOTHING
+                //just setup the alarm
+            }
         }
 
         //show message on screen to show that it is working
-        Toast.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
+        ToastDebug.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
     }
 
 
@@ -292,33 +268,33 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
     }
 
 
+    public void processCPU() {
+        try {
 
-    public void processCPU(){
-//        try {
-//
-//            File f = new File("/Users/Jo/Desktop/cpu2.txt");
-//            BufferedReader br = new BufferedReader(new FileReader(f));
-//
-//            String line = null;
-//            while ((line = br.readLine()) != null) {
-//                StringTokenizer st = new StringTokenizer(line);
-//                if (st.countTokens() >= 3) {
-//                    String firstToken = st.nextToken();
-//                    if (new Scanner(firstToken).hasNextInt()) {
-//                        int pid = Integer.parseInt(firstToken);
-//                        st.nextToken(); //don't care
-//                        String cpuPercentage = st.nextToken();
-//                        String cpu = cpuPercentage.split("%")[0];
-//                        int cpuUsage = Integer.parseInt(cpu);
-//                    }
-//                }
-//
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+            File f = new File("/sdcard/cpu.txt");
+            BufferedReader br = new BufferedReader(new FileReader(f));
+
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(line);
+                if (st.countTokens() >= 3) {
+                    String firstToken = st.nextToken();
+                    if (new Scanner(firstToken).hasNextInt()) {
+                        int pid = Integer.parseInt(firstToken);
+                        st.nextToken(); //don't care
+                        String cpuPercentage = st.nextToken();
+                        String cpu = cpuPercentage.split("%")[0];
+                        int cpuUsage = Integer.parseInt(cpu);
+
+                        Log.d("Appspy", "PID " + pid + " used " + cpuUsage);
+                    }
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
+
+

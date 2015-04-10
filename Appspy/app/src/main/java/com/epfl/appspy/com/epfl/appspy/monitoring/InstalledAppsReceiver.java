@@ -1,22 +1,19 @@
 package com.epfl.appspy.com.epfl.appspy.monitoring;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.epfl.appspy.ApplicationsInformation;
 import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
+import com.epfl.appspy.ToastDebug;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 import com.epfl.appspy.com.epfl.appspy.database.PermissionRecord;
-import com.epfl.appspy.com.epfl.appspy.database.PermissionsJSON;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -45,7 +42,7 @@ public class InstalledAppsReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-Log.d("Appspy","on receive InstalledAppsReceiver");
+    Log.d("Appspy","on receive InstalledAppsReceiver");
 
         //Init class members
         if (this.context == null || this.appInformation == null) {
@@ -53,36 +50,38 @@ Log.d("Appspy","on receive InstalledAppsReceiver");
             appInformation = new ApplicationsInformation(context);
         }
 
+
+
         if(intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED)){
             LogA.i("Appspy", "A package was added");
-            retrieveInstalledApps();
         }
         else if(intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED)) {
             LogA.i("Appspy", "A package was updated");
-            retrieveInstalledApps();
         }
         else if(intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)){
             LogA.i("Appspy", "A package was removed");
-            retrieveInstalledApps();
         }
-        else if(intent.getAction().equals(Intent.ACTION_PACKAGE_FIRST_LAUNCH)){
-            LogA.i("Appspy", "Appspy first launch");
-            retrieveInstalledApps();
+        else if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            Log.i("Appspy", "Permission and apps installed triggered by boot");
         }
-        else if (intent.getAction().equals(Intent.ACTION_SEND) &&
-                 intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
-                 GlobalConstant.EXTRA_ACTION.INSTALLED_APP
-                || intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Log.i("Appspy","First time checking installed app and permissions" );
-            firstTimeUse = true;
-            retrieveInstalledApps();
+        else if(intent.getAction().equals(Intent.ACTION_SEND) &&
+                intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
+                GlobalConstant.EXTRA_ACTION.MANUAL){
+            Log.i("Appspy", "Permission and apps installed triggered manually");
         }
+        else if(intent.getAction().equals(Intent.ACTION_SEND) &&
+                intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
+                GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH){
+                firstTimeUse = true;
+        }
+        retrieveInstalledApps();
+        firstTimeUse = false;
     }
 
 
     private void retrieveInstalledApps() {
         Log.d("Appspy", "%%%%%%%%%%%% RETRIEVE INSTALLED APP TASK");
-        Toast.makeText(context, "Broadcast for install app received", Toast.LENGTH_LONG).show();
+        ToastDebug.makeText(context, "Broadcast for install app received", Toast.LENGTH_LONG).show();
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
@@ -124,14 +123,18 @@ Log.d("Appspy","on receive InstalledAppsReceiver");
             //Update the permissions records for the app
             HashMap<String, PermissionRecord> permissionRecords = new HashMap<>();
             for(String permissionName : permissions){
+                PermissionRecord permRecord;
                 if(firstTimeUse == true){
                     //if appspy is used for the first time, we consider that the already installed app are using the
                     //given permission since their installation date.
-                    PermissionRecord permRecord = new PermissionRecord(pkgName, permissionName, installationDate);
+                    permRecord = new PermissionRecord(pkgName, permissionName, installationDate);
+                }else {
+                    //otherwise, use currentTime for permission first use
+                    permRecord = new PermissionRecord(pkgName, permissionName, currentTime);
                 }
-                PermissionRecord permRecord = new PermissionRecord(pkgName, permissionName, System.currentTimeMillis());
                 permissionRecords.put(permissionName, permRecord);
             }
+            
             db.updatePermissionRecordsForApp(app.packageName, permissionRecords);
 
             previousInstalledApps.remove(app.packageName);

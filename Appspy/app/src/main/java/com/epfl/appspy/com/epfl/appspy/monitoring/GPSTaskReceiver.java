@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.ToastDebug;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -37,8 +38,10 @@ public class GPSTaskReceiver extends BroadcastReceiver implements LocationListen
         }
 
         if (intent.getAction().equals(Intent.ACTION_SEND) &&
-            intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
-            GlobalConstant.EXTRA_ACTION.GPS
+            ( intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
+            GlobalConstant.EXTRA_ACTION.MANUAL
+            || intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
+               GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH )
             || intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Log.i("Appspy", "Setup GPS tracking");
 
@@ -48,7 +51,7 @@ public class GPSTaskReceiver extends BroadcastReceiver implements LocationListen
                     .addApi(LocationServices.API)
                     .build();
 
-            //Conect. When connected successfully, onConnected() will be called
+            //Connect. When connected successfully, onConnected() will be called
             googleApiClient.connect();
 
         }
@@ -59,11 +62,13 @@ public class GPSTaskReceiver extends BroadcastReceiver implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("Appspy-GPS","onLocationChanged");
+        Log.d("Appspy-GPS","onLocationChanged " +location.getLatitude() + "  -  " + location.getLongitude() +
+                           "  acc:" + location.getAccuracy() + "  altitude:" + location.getAltitude());
 
-        Toast.makeText(this.context, "loca changed to: " + location.getLatitude() + "  -  " + location.getLongitude(), Toast.LENGTH_LONG).show();
-
-        //location.
+        ToastDebug.makeText(this.context,
+                            "loca changed to: " + location.getLatitude() + "  -  " + location.getLongitude(),
+                            Toast.LENGTH_LONG).show();
+        //location.acc
     }
 
 

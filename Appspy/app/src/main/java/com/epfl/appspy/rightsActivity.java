@@ -229,11 +229,12 @@ public class RightsActivity extends ActionBarActivity {
 
     public void computeStatNow(View v){
 
+        Log.d("Appspy","Requece compute stat now");
 
         //call the InstalledAppsReceiver to check all installed apps
         Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
         installedAppReceiver.setAction(Intent.ACTION_SEND);
-        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.INSTALLED_APP);
+        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
         sendBroadcast(installedAppReceiver);
 
 
@@ -241,13 +242,13 @@ public class RightsActivity extends ActionBarActivity {
         //the service is started with the boot.
         Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.GPS);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
         sendBroadcast(gpsTaskReceiver);
 
 
         Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.APP_ACTIVITY);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
         sendBroadcast(activityTaskReceiver);
     }
 
