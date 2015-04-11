@@ -45,7 +45,7 @@ public class InstalledAppsReceiver extends BroadcastReceiver
     Log.d("Appspy","on receive InstalledAppsReceiver");
 
         //Init class members
-        if (this.context == null || this.appInformation == null) {
+        if (this.context == null || appInformation == null) {
             this.context = context;
             appInformation = new ApplicationsInformation(context);
         }
@@ -91,7 +91,7 @@ public class InstalledAppsReceiver extends BroadcastReceiver
         LogA.d("Appspy-loginfo", "Installed apps + Permissions");
         LogA.d("Appspy-loginfo", "-------------------------------");
 
-        Database db = new Database(this.context);
+        Database db = new Database(context);
         long currentTime = System.currentTimeMillis();
 
 
@@ -128,7 +128,7 @@ public class InstalledAppsReceiver extends BroadcastReceiver
                     //if appspy is used for the first time, we consider that the already installed app are using the
                     //given permission since their installation date.
                     permRecord = new PermissionRecord(pkgName, permissionName, installationDate);
-                }else {
+                } else {
                     //otherwise, use currentTime for permission first use
                     permRecord = new PermissionRecord(pkgName, permissionName, currentTime);
                 }

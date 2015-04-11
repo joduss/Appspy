@@ -1,5 +1,6 @@
 package com.epfl.appspy.com.epfl.appspy.monitoring;
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.usage.UsageStats;
@@ -8,8 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.Environment;
+import android.os.*;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,8 +23,12 @@ import com.epfl.appspy.com.epfl.appspy.database.Database;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.Process;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -36,16 +40,15 @@ import java.util.StringTokenizer;
  * Check
  */
 public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
-    private static final String TAG = "AppActivityPeriodicTaskReceiver";
+
+
 
     private static final String EXTRA = GlobalConstant.EXTRA_TAG;
     private static Context context;
     ;
     private static ApplicationsInformation appInformation;
-    private final int NO_EXTRA = -1;
 
 
-    private static boolean alarmSet = false;
 
 
 
@@ -55,13 +58,12 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
     private static int interval = GlobalConstant.APP_ACTIVITY_PERDIOCITY; // in milliseconds
 
 
+    private final static String PATH_CPU_WRITING = "/tmp/cpu.txt";
+    private final static String PATH_CPU_READING = "/tmp/cpu-reading.txt";
 
 
 
     public static void createAlarms(Context context) {
-
-
-        Log.d("Appspy", "Alarm is set");
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -98,7 +100,7 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
         long nextAlarmInMillis = cal.getTimeInMillis();
 
 
-        Log.d("Appspy-test", "Next alarm at:" + cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + ":" +
+        LogA.i("Appspy", "Next alarm at:" + cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + ":" +
                              cal.get(Calendar.SECOND));
 
 
@@ -117,6 +119,7 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
         //Create the "alarm", to be sure this will be called again in the future
         createAlarms(context);
+        Log.d("Appspy", "%%%%%%%%%%%% APP ACTIVITY onReceive");
 
         //Init class members
         if (this.context == null || this.appInformation == null) {
@@ -124,68 +127,116 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             appInformation = new ApplicationsInformation(context);
         }
 
-        try {
 
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-            File f = new File(path + "/tmp");
-            if(f.exists() == false){
-                f.mkdir();
-            }
-            Log.d("Appspy", "before command");
-
-            //process cpu.txt
-            processCPU();
-
-            Runtime.getRuntime().exec("cp /sdcard/tmp/cpu.txt /sdcard/tmp/cpu2.txt"); //not working. Need other way
-            Runtime.getRuntime().exec("rm /sdcard/tmp/cpu.txt");
-            Runtime.getRuntime().exec("top -m 20 -d 1 -n 59 > " + "/sdcard/tmp/cpu.txt"); //not working. Need other way
-            Log.d("Appspy","after command");
-        }
-        catch(IOException e){
-            Log.d("Appspy","FUCK");
-        }
 
 
         //Process the broadcast message
         if (intent.getAction() != null) {
 
 
-//            if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
-//                try {
-//                    Runtime.getRuntime().exec("rm /sdcard/tmp/cpu.txt");
-//                } catch (IOException e) {
-//                    Log.d("Appspy", "FUCK");
-//                }
-//            }
-
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+//                setupCPUMonitoring(); //only do that over shorter period. Not over 1 minutes !! Other wise conflict over file and period...
                 Database db = new Database(context);
                 db.deviceStarted();
                 analyseAppActivity();
             }
             else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
+                setupCPUMonitoring();
                 analyseAppActivity();
+
+                //won't be able to monitor cpu
+
+                //remove cpu file.
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                new File(path + PATH_CPU_WRITING).delete();
+                new File(path + PATH_CPU_READING).delete();
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.AUTOMATIC) {
+                setupCPUMonitoring();
                 analyseAppActivity();
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH) {
+                setupCPUMonitoring();
                 analyseAppActivity();
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.MANUAL) {
                 //DO NOTHING
-                //just setup the alarm
+                //just setup the alarm (for consistency, no manually thing should be done here)
             }
         }
 
         //show message on screen to show that it is working
-        ToastDebug.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
     }
 
+
+    /**
+     * If stat about CPU usage were just collected, we move the file so the result can be read
+     * Then it will start collecting stat.
+     */
+    private void setupCPUMonitoring(){
+
+        ToastDebug.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        try {
+            new File(path + PATH_CPU_READING).delete();
+            Process p = Runtime.getRuntime().exec("mv " + path + PATH_CPU_WRITING + " " + path + PATH_CPU_READING);
+            p.waitFor();
+            processCPU();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    File f = new File(path + PATH_CPU_WRITING);
+                    f.delete(); //to be sure the file does not exists anymore
+                    f.createNewFile();
+
+                    for(int i = 1; i <= 6; i++) {
+
+                        Process p = Runtime.getRuntime().exec("top -m 15 -d 1 -n 10");
+                        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                        p.waitFor();
+
+                        while ((line = in.readLine()) != null) {
+                            result.append(line);
+                            result.append('\n');
+                        }
+                        in.close();
+                    }
+
+                    FileWriter fw = new FileWriter(f);
+                    fw.write("" + System.currentTimeMillis());
+                    fw.write(result.toString());
+                    fw.close();
+
+                    //Log.d("Appspy","result: \n" + result);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
 
     /**
      * Handle of the tasks that should be done often
@@ -193,17 +244,14 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
     private void analyseAppActivity() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK Analyse apps activity");
 
-
         LogA.d("Appspy-loginfo", "-------------------------------");
         LogA.d("Appspy-loginfo", "Active apps");
         LogA.d("Appspy-loginfo", "-------------------------------");
 
 
-
         List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
         PackageManager pkgManager = context.getPackageManager();
 
-        Log.d("Appspy", "number of US: " + statistics.size());
 
         long now = System.currentTimeMillis();
         Database db = new Database(context);
@@ -259,22 +307,27 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                                                       appInformation.getUploadedDataAmount(uid),
                                                       appInformation.getDownloadedDataAmount(uid), false);
                 db.addApplicationActivityRecordIntelligent(record);
-                Log.d("Appspy-DB", "Running process " + pi.packageName);
+                LogA.d("Appspy-DB", "Running process " + pi.packageName);
             }
+
         }
 
         db.close();
-
     }
 
 
     public void processCPU() {
-        try {
 
-            File f = new File("/sdcard/cpu.txt");
+        HashMap<Integer, CPUInfo> cpuInfos = new HashMap<>();
+
+        //Log.d("Appspy","will process CPU");
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+            File f = new File(path + PATH_CPU_READING);
             BufferedReader br = new BufferedReader(new FileReader(f));
 
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line);
                 if (st.countTokens() >= 3) {
@@ -286,11 +339,33 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                         String cpu = cpuPercentage.split("%")[0];
                         int cpuUsage = Integer.parseInt(cpu);
 
-                        Log.d("Appspy", "PID " + pid + " used " + cpuUsage);
+                        if(cpuInfos.containsKey(pid) == false){
+                            cpuInfos.put(pid, new CPUInfo(pid));
+                        }
+                        CPUInfo info = cpuInfos.get(pid);
+                        double avgUsage = info.averageCpuUsage;
+                        info.averageCpuUsage += cpuUsage / 60d;
+
+                        if(info.maxCpuUsage < cpuUsage){
+                            info.maxCpuUsage = cpuUsage;
+                        }
+                        //Log.d("Appspy", "PID " + pid + " used " + cpuUsage);
                     }
                 }
 
             }
+
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
+
+            for(ActivityManager.RunningAppProcessInfo p : tasks){
+                if(cpuInfos.containsKey(p.pid)) {
+                    CPUInfo info = cpuInfos.get(p.pid);
+                    Log.d("Appspy",
+                          "USAGE: " + p.pid + " is " + p.processName + " and used " + info.averageCpuUsage + " and max is:" + info.maxCpuUsage);
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
