@@ -12,7 +12,6 @@ import com.epfl.appspy.LogA;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -164,8 +163,6 @@ public class Database extends SQLiteOpenHelper {
     public void deviceStarted(){
         this.getWritableDatabase().execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         this.getWritableDatabase().execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
-
-
     }
 
 
@@ -199,8 +196,8 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Returns the id (called appID) associated with that packageName in the table of installed apps
-     * @param packageName
-     * @return
+     * @param packageName the package name for which the appId is requested
+     * @return appId
      */
     public int getAppId(String packageName) {
         SQLiteDatabase db = getReadableDatabase();
@@ -224,8 +221,8 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Return true if an app exist on the phone and hasn't been uninstalled
-     * @param packageName
-     * @return
+     * @param packageName name of the package of app
+     * @return if there is a record for that app
      */
     public boolean installationRecordExists(String packageName) {
         SQLiteDatabase db = getReadableDatabase();
@@ -312,6 +309,11 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
+
+    /**
+     * Returns a list of packageName of all apps that were currently installed on the device
+     * @return List of packagesName installed in the last record
+     */
     public List<String> getInstalledAppsPackageNameInLastRecord(){
         SQLiteDatabase db = getReadableDatabase();
 
@@ -327,6 +329,8 @@ public class Database extends SQLiteOpenHelper {
                 packages.add(packageName);
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
         return packages;
     }
 
@@ -351,17 +355,19 @@ public class Database extends SQLiteOpenHelper {
         //if 0, moveToFirst returns false
         if (cursor.moveToFirst()) {
             int appId = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
-            String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
+            //String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
             String appName = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
             long installationDate = cursor.getLong(cursor.getColumnIndex(COL_INSTALLATION_DATE));
             long uninstallationDate = cursor.getLong(cursor.getColumnIndex(COL_UNINSTALLATION_DATE));
             boolean appIsSystem = cursor.getInt(cursor.getColumnIndex(COL_IS_SYSTEM)) == 1;
 
+            cursor.close();
             return new ApplicationInstallationRecord(appId, appName, packageName, installationDate, uninstallationDate,
                                                      appIsSystem);
         } else {
             //As packageName is unique, there is anyway at maximum one. The other case is
             //therefore when no record is found. In such case, we return null
+            cursor.close();
             return null;
         }
     }
@@ -375,10 +381,14 @@ public class Database extends SQLiteOpenHelper {
     //##################################################################################################################
     //##################################################################################################################
 
+
+    /**
+     * Check the there is already a previous record of activity for that package name today
+     * @param packageName PackageName for which it has to be checked
+     * @return if such a record exists
+     */
     boolean checkIfFirstRecordOfDay(String packageName){
         ApplicationActivityRecord record = getLastApplicationActivityRecord(packageName);
-
-        Date d = new Date();
 
         Calendar c = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
@@ -387,8 +397,6 @@ public class Database extends SQLiteOpenHelper {
             return true;
         }
         return false;
-
-
     }
 
         /**
@@ -417,20 +425,22 @@ public class Database extends SQLiteOpenHelper {
 
         //Check if apps was active on foreground
         if(lastRecord == null){
-            //mean the app was open, thus active
+            //mean the app was newly opened, thus active
             wasForeground = true;
             wasActiveInBackground = false;
 
-            Log.d("Appspy-DB","NULL");
+            Log.d("Appspy-DB","last records of appactivity: NULL");
         }
         else if(lastRecord.getForegroundTime() != newRecord.getForegroundTime()){
+            //foreground time changed, thus app was active on foreground
             wasForeground = true;
             wasActiveInBackground = false;
             Log.d("Appspy-DB","else if + " + lastRecord.getForegroundTime() + "   " + newRecord.getForegroundTime());
         }
         else {
-            wasForeground = false;
             //then the app was in background. Need to check if it was active (did down/upload data)
+            wasForeground = false;
+
             //check if app was active in background (did downloaded/upload some data
             if(uploadedData > 0 ||
                downloadedData > 0) {
@@ -440,17 +450,12 @@ public class Database extends SQLiteOpenHelper {
                 wasActiveInBackground = false;
             }
 
-            Log.d("Appspy-DB","active back: " + wasActiveInBackground);
-
         }
 
         //If is was active in a way, we add the record to the DB
         if(wasForeground || wasActiveInBackground){
 
-            long totalDownloadedData = newRecord.getDownloadedData();
-            long totalUploadedData = newRecord.getUploadedData();
             addLastInternetUse(newRecord.getPackageName(), newRecord.getUploadedData(), newRecord.getDownloadedData());
-
 
             //if the app was used a long time and no stat were fired for a moment, some records may say the app was in
             //background. So need to update correctly these
@@ -523,6 +528,7 @@ public class Database extends SQLiteOpenHelper {
                 long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
                 boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
 
+                result.close();
                 return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
                                                      uploaded, downloaded, wasForeground);
 
@@ -563,10 +569,11 @@ public class Database extends SQLiteOpenHelper {
 
 
     /**
-     * Add or update the previous stats about total data uploaded/downloaded since boot for that app
-     * @param packageName
-     * @param totalUploadedData
-     * @param totalDownloadedData
+     * Add (if none) or update the previous stats about total data uploaded/downloaded since boot for that app
+     * (used to compare and compute how much data have been down/up since last time there was a record
+     * @param packageName packageName about which stats are wanted
+     * @param totalUploadedData totalUploadedData now
+     * @param totalDownloadedData totalDownloadedData now
      */
     private void addLastInternetUse(String packageName, long totalUploadedData, long totalDownloadedData) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -592,13 +599,15 @@ public class Database extends SQLiteOpenHelper {
 
             db.insert(TABLE_APPS_INTERNET_USE_LAST_TIME, null, values);
         }
+
+        result.close();
     }
 
 
     /**
      * Return the total data downloaded by the app for the last record
-     * @param packageName
-     * @return
+     * @param packageName packageName for which the total downloadedData is requested
+     * @return total downloaded data in byte for that packageName
      */
     private long getLastTotalDataDownloaded(String packageName){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -610,14 +619,15 @@ public class Database extends SQLiteOpenHelper {
         if (result.moveToFirst()) {
             downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
         }
-        //db.close();
+
+        result.close();
         return downloaded;
     }
 
     /**
      * Return the total data uploaded by the app for the last record
-     * @param packageName
-     * @return
+     * @param packageName packageName for which the total uploadedData is requested
+     * @return total uploaded data in byte for that packageName
      */
     private long getLastTotalDataUploaded(String packageName){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -629,7 +639,7 @@ public class Database extends SQLiteOpenHelper {
         if (result.moveToFirst()) {
             uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
         }
-        //db.close();
+        result.close();
         return uploaded;
     }
 
@@ -678,6 +688,8 @@ public class Database extends SQLiteOpenHelper {
                                                      uploaded, downloaded, wasForeground));
             } while(result.moveToNext());
         }
+
+        result.close();
         return records;
     }
 
@@ -743,11 +755,11 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public enum ACTIVE_STATE {
-        ACTIVE_BACKGROUND,
-        ACTIVE_FOREGROUND,
-        ACTIVE //active not depending if the app is in background or in foreground
-    }
+//    public enum ACTIVE_STATE {
+//        ACTIVE_BACKGROUND,
+//        ACTIVE_FOREGROUND,
+//        ACTIVE //active not depending if the app is in background or in foreground
+//    }
 
 
 
