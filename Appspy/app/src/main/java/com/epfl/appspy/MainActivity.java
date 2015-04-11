@@ -19,26 +19,10 @@ import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsReceiver;
 public class MainActivity extends ActionBarActivity {
 
 
-    private PendingIntent pendingIntent = null;
-    private AlarmManager manager = null;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-//        Intent backgroundChecker = new Intent(this, AppActivityPeriodicTaskReceiver.class);
-//        pendingIntent = PendingIntent.getBroadcast(this, 0,backgroundChecker, 0);
-//
-//
-//        manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//        int interval = 10000;
-//
-//        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-
 
 
         this.showRightsActivity(null);
@@ -47,8 +31,6 @@ public class MainActivity extends ActionBarActivity {
         //check if is first time the app is launched (manually)
         SharedPreferences settings = getSharedPreferences(GlobalConstant.PREFERENCES, 0);
         boolean alreadyUsed = settings.getBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
-
-        Log.d("Appspy", "contains: " + settings.contains(GlobalConstant.PREF_FIRST_LAUNCH));
 
 
         //In which case, the monitoring tasks are directly started

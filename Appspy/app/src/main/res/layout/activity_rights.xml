@@ -7,27 +7,11 @@
     tools:context="com.epfl.appspy.RightsActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/TVpermissions"
-        android:layout_below="@+id/text"/>
-
-
-    <Button
-        android:text="Set alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/TVpermissions"
-        android:onClick="nextPackage"
-        android:id="@+id/button_next_package"/>
 
     <Button
         android:text="Send DB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/button_next_package"
-        android:layout_below="@+id/TVpermissions"
         android:onClick="sendDB"
         android:id="@+id/button_send_db"/>
 
@@ -35,7 +19,7 @@
         android:text="Test Path / test command / show data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_next_package"
+        android:layout_below="@+id/button_send_db"
         android:onClick="testAccess"
         android:id="@+id/button_test_path"/>
 
@@ -53,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/button_send_db"
-        android:layout_below="@+id/TVpermissions"
         android:onClick="computeStatNow"
         android:id="@+id/button_compute_now"/>
 

@@ -13,13 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityPeriodicTaskReceiver;
 import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTaskReceiver;
 import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsReceiver;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class RightsActivity extends ActionBarActivity {
@@ -69,7 +72,6 @@ public class RightsActivity extends ActionBarActivity {
         //Get path from user input
         EditText tv = (EditText) findViewById(R.id.tvPath);
         String path = tv.getText().toString();
-
 
 
         //TEST TO ACCESS PRIVATE DATA
@@ -229,7 +231,7 @@ public class RightsActivity extends ActionBarActivity {
 
     public void computeStatNow(View v){
 
-        Log.d("Appspy","Requece compute stat now");
+        Log.d("Appspy","Request to compute stats now");
 
         //call the InstalledAppsReceiver to check all installed apps
         Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
@@ -252,28 +254,4 @@ public class RightsActivity extends ActionBarActivity {
         sendBroadcast(activityTaskReceiver);
     }
 
-
-
-        public void nextPackage(View v){
-
-        /*
-        *
-        * DEBUG CODE ONLY
-         */
-            AppActivityPeriodicTaskReceiver.createAlarms(getApplicationContext());
-
-
-        /*
-        *
-        * END DEBUG CODE ONLY
-         */
-
-//        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-//
-//        List<ActivityManager.RunningAppProcessInfo> info = activityManager.getRunningAppProcesses();
-//        for(ActivityManager.RunningAppProcessInfo i : info){
-//            Log.d("Appspy-2", i.processName);
-//        }
-
-    }
 }
