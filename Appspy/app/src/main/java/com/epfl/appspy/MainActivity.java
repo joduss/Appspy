@@ -30,15 +30,15 @@ public class MainActivity extends ActionBarActivity {
 
         //check if is first time the app is launched (manually)
         SharedPreferences settings = getSharedPreferences(GlobalConstant.PREFERENCES, 0);
-        boolean alreadyUsed = settings.getBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
+        boolean firstLaunch = settings.getBoolean(GlobalConstant.PREF_FIRST_LAUNCH, true);
 
 
         //In which case, the monitoring tasks are directly started
         //If this is not the case, then appspy will be started automatically once the device is booted.
-        if(alreadyUsed == false){
+        if(firstLaunch){
             Log.i("Appspy", "First time launching Appspy");
             SharedPreferences.Editor settingsEditor = settings.edit();
-            settingsEditor.putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, true);
+            settingsEditor.putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
             settingsEditor.commit();
 
             //call the InstalledAppsReceiver to check all installed apps
@@ -57,8 +57,8 @@ public class MainActivity extends ActionBarActivity {
 
 
             Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
-            gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-            gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            activityTaskReceiver.setAction(Intent.ACTION_SEND);
+            activityTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
             sendBroadcast(activityTaskReceiver);
         }
     }
