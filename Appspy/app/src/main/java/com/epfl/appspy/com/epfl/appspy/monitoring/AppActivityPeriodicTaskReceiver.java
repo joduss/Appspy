@@ -42,6 +42,7 @@ import java.util.StringTokenizer;
 public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
 
+    private static boolean boot = false;
 
     private static final String EXTRA = GlobalConstant.EXTRA_TAG;
     private static Context context;
@@ -75,7 +76,6 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
         Intent backgroundChecker;
         PendingIntent pendingIntent;
-
 
         backgroundChecker = new Intent(context, AppActivityPeriodicTaskReceiver.class);
         backgroundChecker.setAction(Intent.ACTION_SEND);
@@ -136,13 +136,24 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-//                setupCPUMonitoring(); //only do that over shorter period. Not over 1 minutes !! Other wise conflict over file and period...
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                new File(path + PATH_CPU_WRITING).delete();
+                new File(path + PATH_CPU_READING).delete();
+
+                boot = true;
+                setupCPUMonitoringOnBoot(); //slightly different setup just for boot
+
                 Database db = new Database(context);
                 db.deviceStarted();
                 analyseAppActivity();
+                boot = false;
+
+                //cpu monitoring should not start yet.
+                //setupCPUMonitoring();
+
             }
             else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
-                setupCPUMonitoring();
+                //setupCPUMonitoring(); not possible to do it, as the recording is not over yet
                 analyseAppActivity();
 
                 //won't be able to monitor cpu
@@ -159,8 +170,10 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH) {
+                boot = true;
                 setupCPUMonitoring();
                 analyseAppActivity();
+                boot = false;
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.MANUAL) {
@@ -186,13 +199,125 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             new File(path + PATH_CPU_READING).delete();
             Process p = Runtime.getRuntime().exec("mv " + path + PATH_CPU_WRITING + " " + path + PATH_CPU_READING);
             p.waitFor();
-            processCPU();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                long startTime = System.currentTimeMillis();
+
+
+                Calendar c2 = Calendar.getInstance();
+                c2.setTimeInMillis(System.currentTimeMillis());
+
+                int minutes2 = c2.get(Calendar.MINUTE);
+                int seconds2 = c2.get(Calendar.SECOND);
+
+                Log.d("Appspy","CPU monitoring starts at " + minutes2 + ":" + seconds2  + "\n");
+
+                try {
+
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    File f = new File(path + PATH_CPU_WRITING);
+                    f.delete(); //to be sure the file does not exists anymore
+                    f.createNewFile();
+
+                    //for(int i = 1; i <= 6; i++) {
+
+                        Calendar c = Calendar.getInstance();
+                        c.setTimeInMillis(System.currentTimeMillis());
+                     //   Log.d("Appspy","round i:" +i +  " - " + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND)  + "\n");
+
+                        Process p = Runtime.getRuntime().exec("top -m 15 -d 1 -n 60");
+
+
+                        //p.waitFor();
+                        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+
+                        c.setTimeInMillis(System.currentTimeMillis());
+                        Log.d("Appspy","après waitFor round i:" +  " - " + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND)  + "\n");
+
+                        while ((line = in.readLine()) != null) {
+                            result.append(line);
+                            result.append('\n');
+                        }
+                        c.setTimeInMillis(System.currentTimeMillis());
+                        Log.d("Appspy","after reaading " +  " - " + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND)  + "\n");
+
+                        in.close();
+                    //}
+                    //Calendar c = Calendar.getInstance();
+
+                    c.setTimeInMillis(System.currentTimeMillis());
+                    Log.d("Appspy","before writing " +  " - " + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND)  + "\n");
+
+                    FileWriter fw = new FileWriter(f);
+                    fw.write("" + System.currentTimeMillis());
+                    fw.write(result.toString());
+                    fw.close();
+
+
+                    c.setTimeInMillis(System.currentTimeMillis());
+                    Log.d("Appspy","CPU monitoring stops at " + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND)  + "\n");
+
+
+                    long stopTime = System.currentTimeMillis();
+
+                    if(stopTime - startTime < (double)(GlobalConstant.APP_ACTIVITY_PERDIOCITY) * 0.9){
+                        //update. Otherwise, nothing, took too long
+
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+
+    /**
+     * Slightly different as the regular wait to setup the cpu monitoring.
+     * Instead of launching top during 10 seconds 6 time, it will be launched for 1 second
+     * until the next check of app activity. This is needed, because the boot may happen at any time and check happens
+     * every hh:mm:01
+     */
+    private void setupCPUMonitoringOnBoot(){
+
+        final int repeating = GlobalConstant.APP_ACTIVITY_PERDIOCITY / 1000;
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minutes = cal.get(Calendar.MINUTE);
+        int seconds = cal.get(Calendar.SECOND);
+
+        cal.set(year,month,day,hour,minutes,1);
+        cal.add(Calendar.SECOND, repeating);
+
+
+        long dif = cal.getTimeInMillis() - System.currentTimeMillis();
+        cal.setTimeInMillis(dif);
+
+        final long waitSeconds = dif / 1000 - 1;
+
+        //this correspond exactly to the number of time to run "top".
+        //remove 1, to be sure it is will over when the stats will be computed. (in case there is a delay between
+        // computing and launching the command
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -207,9 +332,9 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                     f.delete(); //to be sure the file does not exists anymore
                     f.createNewFile();
 
-                    for(int i = 1; i <= 6; i++) {
+                    for(int i = 1; i <= waitSeconds; i++) {
 
-                        Process p = Runtime.getRuntime().exec("top -m 15 -d 1 -n 10");
+                        Process p = Runtime.getRuntime().exec("top -m 15 -d 1 -n 1");
                         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
                         p.waitFor();
@@ -226,7 +351,13 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                     fw.write(result.toString());
                     fw.close();
 
-                    //Log.d("Appspy","result: \n" + result);
+                    Calendar c = Calendar.getInstance();
+                    c.setTimeInMillis(System.currentTimeMillis());
+
+                    int minutes = c.get(Calendar.MINUTE);
+                    int seconds = c.get(Calendar.SECOND);
+
+                    Log.d("Appspy","(boot) CPU monitoring stops at " + minutes + ":" + seconds  + "\n");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -236,6 +367,8 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             }
         });
         thread.start();
+
+
     }
 
     /**
@@ -252,10 +385,13 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
         List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
         PackageManager pkgManager = context.getPackageManager();
 
+        HashMap<String, CPUInfo> cpuInfos = processCPU();
+
 
         long now = System.currentTimeMillis();
         Database db = new Database(context);
         Set<String> foregroundPackageName = new HashSet<>();
+
 
         for (UsageStats stat : statistics) {
             try {
@@ -265,10 +401,24 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
                 final int uid = pi.applicationInfo.uid;
 
+                //get cpu info
+                CPUInfo cpuInfoForPackage = cpuInfos.get(pi.packageName);
+                if(cpuInfoForPackage == null){
+                    //can be null in 2 scenarios: error while monitoring CPU (very unlikely)
+                    //or no record of it, because it didn't use enough CPU (most likely)
+                    cpuInfoForPackage = new CPUInfo(0); //generate a fake info, with 0 as pid and 0 as usage
+                }
+
+                //does not set if was in foreground or not, because we don't know yet
                 ApplicationActivityRecord record =
-                        new ApplicationActivityRecord(stat.getPackageName(), now, stat.getTotalTimeInForeground(),
-                                                      stat.getLastTimeUsed(), appInformation.getUploadedDataAmount(uid),
-                                                      appInformation.getDownloadedDataAmount(uid));
+                        new ApplicationActivityRecord(stat.getPackageName(),
+                                                      now,
+                                                      stat.getTotalTimeInForeground(),
+                                                      stat.getLastTimeUsed(),
+                                                      appInformation.getUploadedDataAmount(uid),
+                                                      appInformation.getDownloadedDataAmount(uid),
+                                                      cpuInfoForPackage.averageCpuUsage,
+                                                      cpuInfoForPackage.maxCpuUsage, boot);
                 db.addApplicationActivityRecordIntelligent(record);
 
             } catch (PackageManager.NameNotFoundException e) {
@@ -280,6 +430,8 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
 
         //all apps actives
         List<PackageInfo> runningApps = appInformation.getActiveApps();
+
+
 
 
         //if the app is not in the stat, then the foreground time for that day is 0
@@ -300,12 +452,22 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                     lastLastUsedTime = lastRecord.getLastTimeUsed();
                 }
 
+                //get cpu info
+                CPUInfo cpuInfoForPackage = cpuInfos.get(pi.packageName);
+                if(cpuInfoForPackage == null){
+                    //can be null in 2 scenarios: error while monitoring CPU (very unlikely)
+                    //or no record of it, because it didn't use enough CPU (most likely)
+                    cpuInfoForPackage = new CPUInfo(0); //generate a fake info, with 0 as pid and 0 as usage
+                }
 
                 ApplicationActivityRecord record =
                         new ApplicationActivityRecord(pi.packageName, now, lastForegroundTime,
                                                       lastLastUsedTime,
                                                       appInformation.getUploadedDataAmount(uid),
-                                                      appInformation.getDownloadedDataAmount(uid), false);
+                                                      appInformation.getDownloadedDataAmount(uid),
+                                                      cpuInfoForPackage.averageCpuUsage,
+                                                      cpuInfoForPackage.maxCpuUsage,
+                                                      false, boot);
                 db.addApplicationActivityRecordIntelligent(record);
                 LogA.d("Appspy-DB", "Running process " + pi.packageName);
             }
@@ -316,9 +478,19 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
     }
 
 
-    public void processCPU() {
+    public HashMap<String, CPUInfo> processCPU() {
 
-        HashMap<Integer, CPUInfo> cpuInfos = new HashMap<>();
+        Calendar c2 = Calendar.getInstance();
+        c2.setTimeInMillis(System.currentTimeMillis());
+
+        int minutes2 = c2.get(Calendar.MINUTE);
+        int seconds2 = c2.get(Calendar.SECOND);
+
+        Log.d("Appspy","CPU stats processing starts at" + minutes2 + ":" + seconds2 + "\n");
+
+        HashMap<Integer, CPUInfo> cpuInfosByPid = new HashMap<>();
+        HashMap<String, CPUInfo> cpuInfosByPackageName = new HashMap<>();
+
 
         //Log.d("Appspy","will process CPU");
         try {
@@ -339,11 +511,10 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
                         String cpu = cpuPercentage.split("%")[0];
                         int cpuUsage = Integer.parseInt(cpu);
 
-                        if(cpuInfos.containsKey(pid) == false){
-                            cpuInfos.put(pid, new CPUInfo(pid));
+                        if(cpuInfosByPid.containsKey(pid) == false){
+                            cpuInfosByPid.put(pid, new CPUInfo(pid));
                         }
-                        CPUInfo info = cpuInfos.get(pid);
-                        double avgUsage = info.averageCpuUsage;
+                        CPUInfo info = cpuInfosByPid.get(pid);
                         info.averageCpuUsage += cpuUsage / 60d;
 
                         if(info.maxCpuUsage < cpuUsage){
@@ -359,17 +530,23 @@ public class AppActivityPeriodicTaskReceiver extends BroadcastReceiver {
             List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
 
             for(ActivityManager.RunningAppProcessInfo p : tasks){
-                if(cpuInfos.containsKey(p.pid)) {
-                    CPUInfo info = cpuInfos.get(p.pid);
+                if(cpuInfosByPid.containsKey(p.pid)) {
+                    CPUInfo info = cpuInfosByPid.get(p.pid);
+                    cpuInfosByPackageName.put(p.processName, info);
                     Log.d("Appspy",
                           "USAGE: " + p.pid + " is " + p.processName + " and used " + info.averageCpuUsage + " and max is:" + info.maxCpuUsage);
                 }
             }
 
+            return cpuInfosByPackageName;
+
         } catch (IOException e) {
             e.printStackTrace();
+            return new HashMap<>();
         }
     }
+
+
 }
 
 

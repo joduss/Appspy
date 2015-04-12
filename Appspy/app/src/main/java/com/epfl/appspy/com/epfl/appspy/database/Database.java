@@ -25,11 +25,11 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 132;
+    private static final int DB_VERSION = 135;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
-    private static final String TABLE_APPS_FOREGROUND_ACTIVITY = "Table_applications_activity";
+    private static final String TABLE_APPS_ACTIVITY = "Table_applications_activity";
     private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
     private static final String TABLE_PERMISSIONS = "Table_permissions";
     private static final String TABLE_APPS_INTERNET_USE_LAST_TIME = "Table_internet_use_last_time";
@@ -60,6 +60,10 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_DOWNLOADED_DATA = "downloaded_data";
     private static final String COL_RECORD_TIME = "record_time";
     private static final String COL_WAS_FOREGROUND = "was_foreground";
+    private static final String COL_AVG_CPU_USAGE = "avg_cpu_usage";
+    private static final String COL_MAX_CPU_USAGE = "max_cpu_usage";
+    private static final String COL_BOOT = "boot";
+
 
 
     //Table GPS_LOCATION columns names
@@ -85,8 +89,8 @@ public class Database extends SQLiteOpenHelper {
             COL_UNINSTALLATION_DATE + " INTEGER, " +
             COL_IS_SYSTEM + " INTEGER" + ")";
 
-    private static final String CREATE_TABLE_APPS_FOREGROUND_ACTIVITY =
-            "CREATE TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY + "("
+    private static final String CREATE_TABLE_APPS_ACTIVITY =
+            "CREATE TABLE " + TABLE_APPS_ACTIVITY + "("
             + COL_RECORD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
             COL_APP_PKG_NAME + " TEXT, " +
             COL_RECORD_TIME + " INTEGER, " +
@@ -94,7 +98,10 @@ public class Database extends SQLiteOpenHelper {
             COL_LAST_TIME_USE + " INTEGER," +
             COL_DOWNLOADED_DATA + " INTEGER, " +
             COL_UPLOADED_DATA + " INTEGER, " +
-            COL_WAS_FOREGROUND + " INTEGER"
+            COL_AVG_CPU_USAGE + " REAL, " +
+            COL_MAX_CPU_USAGE + " INTEGER, " +
+            COL_WAS_FOREGROUND + " INTEGER, " +
+            COL_BOOT + " INTEGER"
             + ")";
 
     private static final String CREATE_TABLE_PERMISSIONS =
@@ -135,7 +142,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
+        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
@@ -146,13 +153,13 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //TODO
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
-        db.execSQL("DROP TABLE " + TABLE_APPS_FOREGROUND_ACTIVITY);
+        db.execSQL("DROP TABLE " + TABLE_APPS_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
         db.execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         db.execSQL("DROP TABLE " + TABLE_GPS_LOCATION);
 
 
-        db.execSQL(CREATE_TABLE_APPS_FOREGROUND_ACTIVITY);
+        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
@@ -422,6 +429,7 @@ public class Database extends SQLiteOpenHelper {
 
         long downloadedData = newRecord.getDownloadedData() - getLastTotalDataDownloaded(newRecord.getPackageName());
         long uploadedData = newRecord.getUploadedData() - getLastTotalDataUploaded(newRecord.getPackageName());
+        int maxCpuUsage = newRecord.getMaxCpuUsage();
 
         //Check if apps was active on foreground
         if(lastRecord == null){
@@ -438,12 +446,12 @@ public class Database extends SQLiteOpenHelper {
             Log.d("Appspy-DB","else if + " + lastRecord.getForegroundTime() + "   " + newRecord.getForegroundTime());
         }
         else {
-            //then the app was in background. Need to check if it was active (did down/upload data)
+            //then the app was in background. Need to check if it was active (did down/upload data or used cpu)
             wasForeground = false;
 
-            //check if app was active in background (did downloaded/upload some data
+            //check if app was active in background (did downloaded/upload some data, or used cpu)
             if(uploadedData > 0 ||
-               downloadedData > 0) {
+               downloadedData > 0 || maxCpuUsage > 0) {
                 wasActiveInBackground = true;
             }
             else {
@@ -491,9 +499,12 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_LAST_TIME_USE, newRecord.getLastTimeUsed());
             values.put(COL_DOWNLOADED_DATA, downloadedData);
             values.put(COL_UPLOADED_DATA, uploadedData);
+            values.put(COL_AVG_CPU_USAGE, newRecord.getAvgCpuUsage());
+            values.put(COL_MAX_CPU_USAGE, newRecord.getMaxCpuUsage());
             values.put(COL_WAS_FOREGROUND, wasForeground);
+            values.put(COL_BOOT, newRecord.isBoot());
 
-            db.insert(TABLE_APPS_FOREGROUND_ACTIVITY, null, values);
+            db.insert(TABLE_APPS_ACTIVITY, null, values);
             LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
         }
     }
@@ -507,9 +518,9 @@ public class Database extends SQLiteOpenHelper {
      */
     public ApplicationActivityRecord getLastApplicationActivityRecord(String packageName){
 
-        String query = "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " + COL_RECORD_TIME + "=" +
+        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + "=" +
                 "(" +
-                "SELECT MAX(" + COL_RECORD_TIME + ") FROM " + TABLE_APPS_FOREGROUND_ACTIVITY +
+                "SELECT MAX(" + COL_RECORD_TIME + ") FROM " + TABLE_APPS_ACTIVITY +
                 " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName + "\"" +
                 ")" +
                 " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\"";
@@ -526,11 +537,14 @@ public class Database extends SQLiteOpenHelper {
                 long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
                 long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
                 long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+                double avgCpuUsage = result.getDouble(result.getColumnIndex(COL_AVG_CPU_USAGE));
+                int maxCpuUsage = result.getInt(result.getColumnIndex(COL_MAX_CPU_USAGE));
                 boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
+                boolean boot = result.getInt(result.getColumnIndex(COL_BOOT)) == 1;
 
                 result.close();
                 return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploaded, downloaded, wasForeground);
+                                                     uploaded, downloaded, avgCpuUsage, maxCpuUsage,wasForeground, boot);
 
             } while (result.moveToNext());
         }
@@ -657,9 +671,12 @@ public class Database extends SQLiteOpenHelper {
         values.put(COL_LAST_TIME_USE, record.getLastTimeUsed());
         values.put(COL_DOWNLOADED_DATA, record.getDownloadedData());
         values.put(COL_UPLOADED_DATA, record.getUploadedData());
+        values.put(COL_AVG_CPU_USAGE, record.getAvgCpuUsage());
+        values.put(COL_MAX_CPU_USAGE, record.getMaxCpuUsage());
         values.put(COL_WAS_FOREGROUND, record.isWasForeground());
+        values.put(COL_BOOT, record.isBoot());
 
-        db.update(TABLE_APPS_FOREGROUND_ACTIVITY, values, COL_RECORD_ID + "=" + record.getRecordId(), null);
+        db.update(TABLE_APPS_ACTIVITY, values, COL_RECORD_ID + "=" + record.getRecordId(), null);
     }
 
     public List<ApplicationActivityRecord> getRecordIntImeRange(long begining, long end, String packageName){
@@ -667,7 +684,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query =
-                "SELECT * FROM " + TABLE_APPS_FOREGROUND_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
+                "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
                 " AND " + COL_RECORD_TIME + "<=" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\"";
 
         Cursor result = db.rawQuery(query, null);
@@ -682,10 +699,14 @@ public class Database extends SQLiteOpenHelper {
                 long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
                 long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
                 long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+                double avgCpuUsage = result.getDouble(result.getColumnIndex(COL_AVG_CPU_USAGE));
+                int maxCpuUsage = result.getInt(result.getColumnIndex(COL_MAX_CPU_USAGE));
                 boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
+                boolean boot = result.getInt(result.getColumnIndex(COL_BOOT)) == 1;
+
 
                 records.add(new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploaded, downloaded, wasForeground));
+                                                     uploaded, downloaded, avgCpuUsage, maxCpuUsage, wasForeground, boot));
             } while(result.moveToNext());
         }
 
@@ -735,7 +756,6 @@ public class Database extends SQLiteOpenHelper {
                     values.put(COL_PERMISSION_LOST_ACCESS, System.currentTimeMillis());
                     db.update(TABLE_PERMISSIONS, values,
                               COL_RECORD_ID + "=" + cursor.getLong(cursor.getColumnIndex(COL_RECORD_ID)), null);
-
                 }
             } while (cursor.moveToNext());
         }
