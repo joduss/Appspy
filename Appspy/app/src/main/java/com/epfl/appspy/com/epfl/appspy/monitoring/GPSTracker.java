@@ -20,7 +20,7 @@ import com.google.android.gms.location.LocationServices;
  * Created by Jonathan Duss on 30.03.15.
  */
 
-public class GPSTaskReceiver extends BroadcastReceiver implements LocationListener,
+public class GPSTracker extends BroadcastReceiver implements LocationListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private Context context;
@@ -56,8 +56,6 @@ public class GPSTaskReceiver extends BroadcastReceiver implements LocationListen
 
         }
     }
-
-
 
 
     @Override

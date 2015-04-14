@@ -1,7 +1,5 @@
 package com.epfl.appspy;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -11,9 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityPeriodicTaskReceiver;
-import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTaskReceiver;
-import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsReceiver;
+import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityTracker;
+import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTracker;
+import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsTracker;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -41,25 +39,25 @@ public class MainActivity extends ActionBarActivity {
             settingsEditor.putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
             settingsEditor.commit();
 
-            //call the InstalledAppsReceiver to check all installed apps
-            Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
-            installedAppReceiver.setAction(Intent.ACTION_SEND);
-            installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
-            sendBroadcast(installedAppReceiver);
+            //call the InstalledAppsTracker to check all installed apps
+            Intent installedAppTracker = new Intent(getApplicationContext(), InstalledAppsTracker.class);
+            installedAppTracker.setAction(Intent.ACTION_SEND);
+            installedAppTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            sendBroadcast(installedAppTracker);
 
 
             //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
             //the service is started with the boot.
-            Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
-            gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-            gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
-            sendBroadcast(gpsTaskReceiver);
+            Intent gpsTracker = new Intent(getApplicationContext(), GPSTracker.class);
+            gpsTracker.setAction(Intent.ACTION_SEND);
+            gpsTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            sendBroadcast(gpsTracker);
 
 
-            Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
-            activityTaskReceiver.setAction(Intent.ACTION_SEND);
-            activityTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
-            sendBroadcast(activityTaskReceiver);
+            Intent appActivityTracker = new Intent(getApplicationContext(), AppActivityTracker.class);
+            appActivityTracker.setAction(Intent.ACTION_SEND);
+            appActivityTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            sendBroadcast(appActivityTracker);
         }
     }
 
@@ -68,10 +66,6 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
-
-
 
         return true;
     }

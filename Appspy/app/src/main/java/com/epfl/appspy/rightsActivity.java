@@ -2,7 +2,6 @@ package com.epfl.appspy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,16 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityPeriodicTaskReceiver;
-import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTaskReceiver;
-import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsReceiver;
+import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityTracker;
+import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTracker;
+import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsTracker;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 
 public class RightsActivity extends ActionBarActivity {
@@ -233,8 +229,8 @@ public class RightsActivity extends ActionBarActivity {
 
         Log.d("Appspy","Request to compute stats now");
 
-        //call the InstalledAppsReceiver to check all installed apps
-        Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsReceiver.class);
+        //call the InstalledAppsTracker to check all installed apps
+        Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsTracker.class);
         installedAppReceiver.setAction(Intent.ACTION_SEND);
         installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
         sendBroadcast(installedAppReceiver);
@@ -242,13 +238,13 @@ public class RightsActivity extends ActionBarActivity {
 
         //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
         //the service is started with the boot.
-        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTaskReceiver.class);
+        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTracker.class);
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
         gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
         sendBroadcast(gpsTaskReceiver);
 
 
-        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityPeriodicTaskReceiver.class);
+        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityTracker.class);
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
         gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
         sendBroadcast(activityTaskReceiver);

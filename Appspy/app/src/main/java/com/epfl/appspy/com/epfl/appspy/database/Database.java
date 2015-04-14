@@ -25,7 +25,7 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
 
     //Database version
-    private static final int DB_VERSION = 135;
+    private static final int DB_VERSION = 140;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -429,7 +429,6 @@ public class Database extends SQLiteOpenHelper {
 
         long downloadedData = newRecord.getDownloadedData() - getLastTotalDataDownloaded(newRecord.getPackageName());
         long uploadedData = newRecord.getUploadedData() - getLastTotalDataUploaded(newRecord.getPackageName());
-        int maxCpuUsage = newRecord.getMaxCpuUsage();
 
         //Check if apps was active on foreground
         if(lastRecord == null){
@@ -449,19 +448,19 @@ public class Database extends SQLiteOpenHelper {
             //then the app was in background. Need to check if it was active (did down/upload data or used cpu)
             wasForeground = false;
 
-            //check if app was active in background (did downloaded/upload some data, or used cpu)
-            if(uploadedData > 0 ||
-               downloadedData > 0 || maxCpuUsage > 0) {
-                wasActiveInBackground = true;
-            }
-            else {
-                wasActiveInBackground = false;
-            }
+//            //check if app was active in background (did downloaded/upload some data, or used cpu)
+//            if(uploadedData > 0 ||
+//               downloadedData > 0 ) {
+//                wasActiveInBackground = true;
+//            }
+//            else {
+//                wasActiveInBackground = false;
+//            }
 
         }
 
         //If is was active in a way, we add the record to the DB
-        if(wasForeground || wasActiveInBackground){
+//        if(wasForeground || wasActiveInBackground){
 
             addLastInternetUse(newRecord.getPackageName(), newRecord.getUploadedData(), newRecord.getDownloadedData());
 
@@ -504,9 +503,10 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_WAS_FOREGROUND, wasForeground);
             values.put(COL_BOOT, newRecord.isBoot());
 
-            db.insert(TABLE_APPS_ACTIVITY, null, values);
+            long id = db.insert(TABLE_APPS_ACTIVITY, null, values);
+            newRecord.setRecordId(id);
             LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
-        }
+//        }
     }
 
 
@@ -544,7 +544,7 @@ public class Database extends SQLiteOpenHelper {
 
                 result.close();
                 return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploaded, downloaded, avgCpuUsage, maxCpuUsage,wasForeground, boot);
+                                                     uploaded, downloaded, wasForeground, boot);
 
             } while (result.moveToNext());
         }
@@ -706,7 +706,7 @@ public class Database extends SQLiteOpenHelper {
 
 
                 records.add(new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploaded, downloaded, avgCpuUsage, maxCpuUsage, wasForeground, boot));
+                                                     uploaded, downloaded, wasForeground, boot));
             } while(result.moveToNext());
         }
 

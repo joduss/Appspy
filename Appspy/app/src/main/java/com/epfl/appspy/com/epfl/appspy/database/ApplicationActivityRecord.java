@@ -25,15 +25,15 @@ public class ApplicationActivityRecord {
 
 
     /**
-     *
-     * @param recordId
+     *  @param recordId
      * @param packageName
      * @param foregroundTime
      * @param lastTimeUsed
      * @param uploadedData
      * @param downloadedData
      */
-    protected ApplicationActivityRecord(long recordId, String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData, double avgCpuUsage, int maxCpuUsage, boolean wasForeground, boolean boot) {
+    protected ApplicationActivityRecord(long recordId, String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData,
+                                        boolean wasForeground, boolean boot) {
         this.recordId = recordId;
         this.packageName = packageName;
         this.foregroundTime = foregroundTime;
@@ -41,10 +41,11 @@ public class ApplicationActivityRecord {
         this.uploadedData = uploadedData;
         this.downloadedData = downloadedData;
         this.recordTime = recordTime;
-        this.avgCpuUsage = avgCpuUsage;
-        this.maxCpuUsage = maxCpuUsage;
+
         this.wasForeground = wasForeground;
         this.boot = boot;
+        avgCpuUsage = -1;
+        maxCpuUsage = -1;
     }
 
 
@@ -57,30 +58,34 @@ public class ApplicationActivityRecord {
      * @param downloadedData
      * @param wasForeground
      */
-    public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData, double avgCpuUsage, int maxCpuUsage, boolean wasForeground, boolean boot) {
+    public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData,
+                                     boolean wasForeground, boolean boot) {
         this.packageName = packageName;
         this.foregroundTime = foregroundTime;
         this.lastTimeUsed = lastTimeUsed;
         this.uploadedData = uploadedData;
         this.downloadedData = downloadedData;
         this.recordTime = recordTime;
-        this.avgCpuUsage = avgCpuUsage;
-        this.maxCpuUsage = maxCpuUsage;
+
         this.wasForeground = wasForeground;
         this.boot = boot;
+        avgCpuUsage = -1;
+        maxCpuUsage = -1;
     }
 
 
-    public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData, double avgCpuUsage, int maxCpuUsage, boolean boot) {
+    public ApplicationActivityRecord(String packageName, long recordTime, long foregroundTime, long lastTimeUsed, long uploadedData, long downloadedData,
+                                     boolean boot) {
         this.packageName = packageName;
         this.foregroundTime = foregroundTime;
         this.lastTimeUsed = lastTimeUsed;
         this.uploadedData = uploadedData;
         this.downloadedData = downloadedData;
         this.recordTime = recordTime;
-        this.avgCpuUsage = avgCpuUsage;
-        this.maxCpuUsage = maxCpuUsage;
+
         this.boot = boot;
+        avgCpuUsage = -1;
+        maxCpuUsage = -1;
     }
 
 

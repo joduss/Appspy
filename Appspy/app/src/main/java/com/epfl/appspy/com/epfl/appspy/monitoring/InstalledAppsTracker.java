@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Jonathan Duss on 30.03.15.
  *
  */
-public class InstalledAppsReceiver extends BroadcastReceiver
+public class InstalledAppsTracker extends BroadcastReceiver
 {
 
 
@@ -42,7 +42,7 @@ public class InstalledAppsReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-    Log.d("Appspy","on receive InstalledAppsReceiver");
+    Log.d("Appspy","on receive InstalledAppsTracker");
 
         //Init class members
         if (this.context == null || appInformation == null) {

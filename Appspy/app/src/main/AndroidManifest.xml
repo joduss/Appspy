@@ -36,7 +36,7 @@
         </activity>
 
 
-        <receiver android:name=".com.epfl.appspy.monitoring.AppActivityPeriodicTaskReceiver">
+        <receiver android:name=".com.epfl.appspy.monitoring.AppActivityTracker">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
@@ -45,7 +45,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".com.epfl.appspy.monitoring.InstalledAppsReceiver">
+        <receiver android:name=".com.epfl.appspy.monitoring.InstalledAppsTracker">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
@@ -55,7 +55,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".com.epfl.appspy.monitoring.GPSTaskReceiver">
+        <receiver android:name=".com.epfl.appspy.monitoring.GPSTracker">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>

@@ -17,7 +17,7 @@ public class GlobalConstant {
     public static final String EXTRA_TAG = "task_extra";
 
     //public static final int GPS_PERIODICITY = 15 * 60 * 1000;
-    public static final int APP_ACTIVITY_PERDIOCITY = 60*1000;
+    public static final int APP_ACTIVITY_PERIODICITY_MILLIS = 60*1000;
 
 
     public static final String PREFERENCES = "prefs app spy";
