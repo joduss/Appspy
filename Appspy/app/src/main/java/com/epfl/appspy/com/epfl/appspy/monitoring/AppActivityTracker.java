@@ -456,8 +456,8 @@ public class AppActivityTracker extends BroadcastReceiver {
         LogA.d("Appspy-log", "Show notification to user to grant access to Usage Stats");
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context).setContentTitle("My notification").setContentText(
-                        "Hello World!").setSmallIcon(R.drawable.ic_stat_name).setPriority(
+                new NotificationCompat.Builder(context).setContentTitle("Appspy").setContentText(
+                        "Appspy need your help to work properly").setSmallIcon(R.drawable.ic_stat_name).setPriority(
                         NotificationCompat.PRIORITY_MAX);
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(context, MainActivity.class);
