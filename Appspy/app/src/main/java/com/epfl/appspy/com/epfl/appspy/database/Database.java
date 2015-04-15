@@ -845,4 +845,23 @@ public class Database extends SQLiteOpenHelper {
     //##################################################################################################################
 
 
+    /**
+     * Insert a new record for gps location in the Database
+     * @param record The record to insert
+     */
+    public void insertGPSRecord(GPSRecord record){
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues toInsert = new ContentValues();
+        toInsert.put(COL_APP_PKG_NAME, record.getPackageName());
+        toInsert.put(COL_RECORD_TIME, record.getRecordTime());
+        toInsert.put(COL_LONGITUDE, record.getLongitude());
+        toInsert.put(COL_LATITUDE, record.getLatitude());
+        toInsert.put(COL_ALTITUDE, record.getAltitude());
+        toInsert.put(COL_ACCURACY, record.getAccuracy());
+        toInsert.put(COL_GPS_ENABLED, record.isGpsActivated());
+        db.insert(TABLE_GPS_LOCATION, null, toInsert);
+    }
+
+
 }
