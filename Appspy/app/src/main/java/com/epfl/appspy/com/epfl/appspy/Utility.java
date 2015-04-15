@@ -47,11 +47,18 @@ public class Utility {
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        cal.set(year,month,day-1);
+        long start = cal.getTimeInMillis();
+        cal.set(year,month,day);
+
+        long stop = cal.getTimeInMillis();
 
         List<UsageStats> statistics =
-                manager.queryUsageStats(UsageStatsManager.INTERVAL_YEARLY, 2000,
-                                        year);
-
+                manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start,
+                                        stop);
 
         return statistics != null && statistics.size() > 0;
     }
