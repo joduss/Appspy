@@ -853,7 +853,6 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues toInsert = new ContentValues();
-        toInsert.put(COL_APP_PKG_NAME, record.getPackageName());
         toInsert.put(COL_RECORD_TIME, record.getRecordTime());
         toInsert.put(COL_LONGITUDE, record.getLongitude());
         toInsert.put(COL_LATITUDE, record.getLatitude());
