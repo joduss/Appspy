@@ -1,37 +1,34 @@
 package com.epfl.appspy.com.epfl.appspy.monitoring;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.app.usage.UsageStats;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.*;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.epfl.appspy.ApplicationsInformation;
 import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
-import com.epfl.appspy.ToastDebug;
+import com.epfl.appspy.MainActivity;
+import com.epfl.appspy.R;
+import com.epfl.appspy.com.epfl.appspy.Utility;
 import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.com.epfl.appspy.database.Database;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.Process;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 
 /**
@@ -44,8 +41,9 @@ public class AppActivityTracker extends BroadcastReceiver {
 
     private static final String EXTRA = GlobalConstant.EXTRA_TAG;
     private static Context context;
-    ;
     private static ApplicationsInformation appInformation;
+
+    private final static int NOTIFICATION_ID = 382383;
 
     //private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
@@ -53,8 +51,8 @@ public class AppActivityTracker extends BroadcastReceiver {
     private static int interval = GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS; // in milliseconds
 
 
-    private final static String PATH_CPU_WRITING = "/tmp/cpu.txt";
-    private final static String PATH_CPU_READING = "/tmp/cpu-reading.txt";
+    //private final static String PATH_CPU_WRITING = "/tmp/cpu.txt";
+    //private final static String PATH_CPU_READING = "/tmp/cpu-reading.txt";
 
 
     HashMap<String, ApplicationActivityRecord> lastAddedRecordCpuToBeAdded = new HashMap<>();
@@ -128,9 +126,9 @@ public class AppActivityTracker extends BroadcastReceiver {
 
                 boot = true;
                 analyseAppActivity();
-                setupCPUMonitoring();
+                //setupCPUMonitoring();
 
-                Database db = new Database(context);
+                Database db = Database.getDatabaseInstance(context);
                 db.deviceStarted();
                 boot = false;
             }
@@ -142,7 +140,7 @@ public class AppActivityTracker extends BroadcastReceiver {
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.AUTOMATIC) {
-                setupCPUMonitoring();
+                //setupCPUMonitoring();
                 analyseAppActivity();
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
@@ -150,7 +148,7 @@ public class AppActivityTracker extends BroadcastReceiver {
                 boot = true;
                 Log.d("Appspy", "AppActivity PEriodic FIRST LAUNCH");
                 analyseAppActivity();
-                setupCPUMonitoring();
+                //setupCPUMonitoring();
                 boot = false;
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
@@ -159,113 +157,6 @@ public class AppActivityTracker extends BroadcastReceiver {
                 //just setup the alarm (for consistency, no manually thing should be done here)
             }
         }
-    }
-
-
-    /**
-     * If stat about CPU usage were just collected, we move the file so the result can be read
-     * Then it will start collecting stat.
-     */
-    private void setupCPUMonitoring(){
-
-
-        final long startTime = System.currentTimeMillis();
-
-
-        ToastDebug.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-        try {
-            new File(path + PATH_CPU_READING).delete();
-            Process p = Runtime.getRuntime().exec("mv " + path + PATH_CPU_WRITING + " " + path + PATH_CPU_READING);
-            p.waitFor();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        final int secondsToRun;
-        if(boot){
-            final int repeating = GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS / 1000;
-
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH);
-            int day = cal.get(Calendar.DAY_OF_MONTH);
-            int hour = cal.get(Calendar.HOUR_OF_DAY);
-            int minutes = cal.get(Calendar.MINUTE);
-            int seconds = cal.get(Calendar.SECOND);
-
-            cal.set(year,month,day,hour,minutes,1);
-            cal.add(Calendar.SECOND, repeating);
-
-
-            long dif = cal.getTimeInMillis() - System.currentTimeMillis();
-            cal.setTimeInMillis(dif);
-
-            secondsToRun = (int) (dif / 1000 - 1);
-        }
-        else{
-            secondsToRun = GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS / 1000 ;
-        }
-
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-                Calendar c2 = Calendar.getInstance();
-                c2.setTimeInMillis(System.currentTimeMillis());
-
-                int minutes2 = c2.get(Calendar.MINUTE);
-                int seconds2 = c2.get(Calendar.SECOND);
-                Log.d("Appspy","CPU monitoring starts at " + minutes2 + ":" + seconds2  + " and will last " + secondsToRun + "\n");
-
-                try {
-
-                    StringBuilder result = new StringBuilder();
-                    String line;
-
-
-                    Process p = Runtime.getRuntime().exec("top -m 15 -d 1 -n " + secondsToRun);
-
-                    //p.waitFor();
-                    BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-                    while ((line = in.readLine()) != null) {
-                        result.append(line);
-                        result.append('\n');
-                    }
-                    in.close();
-
-
-                    long stopTime = System.currentTimeMillis();
-
-                    //Since the start, it will take min 60 seconds. Then it still has 60 seconds to finish the computation
-                    //and update the records in temp.
-                    if(stopTime - startTime < (double)(GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS) * 1.75){
-                        //update.
-                        processCPU(result.toString(), secondsToRun);
-
-                    }
-                    else {
-                        //Otherwise, nothing, took too long
-                        //the records stored temporarily have been already replaced
-                        for(int i = 0; i < 50; i ++) {
-                            //to be sure I see it if it happens
-                            Log.i("Appspy", "%%%%%%%%%%%%%%%%%\n" + "ERROR, CPU stat processing took too long");
-                            Log.e("Appspy", "ERROR, CPU stat processing took too long");
-                        }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
     }
 
 
@@ -280,6 +171,15 @@ public class AppActivityTracker extends BroadcastReceiver {
         LogA.d("Appspy-loginfo", "-------------------------------");
         LogA.d("Appspy-loginfo", "Active apps");
         LogA.d("Appspy-loginfo", "-------------------------------");
+        
+        LogA.i("Appspy-log", "Start analysing apps activity");
+
+        if(Utility.usageStatsPermissionGranted(context) == false){
+            showNotificationForUsageStatsPermission();
+        }
+
+
+
 
 
         List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
@@ -289,7 +189,7 @@ public class AppActivityTracker extends BroadcastReceiver {
         lastAddedRecordCpuToBeAdded.clear();
 
         long now = System.currentTimeMillis();
-        Database db = new Database(context);
+        Database db = Database.getDatabaseInstance(context);
         Set<String> foregroundPackageName = new HashSet<>();
 
 
@@ -317,6 +217,8 @@ public class AppActivityTracker extends BroadcastReceiver {
                 e.printStackTrace();
             }
         }
+
+
 
         //now also get the info about background processes
 
@@ -355,90 +257,231 @@ public class AppActivityTracker extends BroadcastReceiver {
         }
 
         db.close();
+
+        LogA.i("Appspy-log", "Finished analysing apps activity");
+
     }
 
 
-    public void processCPU(String data, int runningTimeInSec) {
+    /**
+     //     * If stat about CPU usage were just collected, we move the file so the result can be read
+     //     * Then it will start collecting stat.
+     //     */
+//    private void setupCPUMonitoring(){
+//
+//
+//        final long startTime = System.currentTimeMillis();
+//
+//
+//        ToastDebug.makeText(context, "Broadcast for app activity received", Toast.LENGTH_LONG).show();
+//
+//
+//        final int secondsToRun;
+//        if(boot){
+//            final int repeating = GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS / 1000;
+//
+//            Calendar cal = Calendar.getInstance();
+//            int year = cal.get(Calendar.YEAR);
+//            int month = cal.get(Calendar.MONTH);
+//            int day = cal.get(Calendar.DAY_OF_MONTH);
+//            int hour = cal.get(Calendar.HOUR_OF_DAY);
+//            int minutes = cal.get(Calendar.MINUTE);
+//            int seconds = cal.get(Calendar.SECOND);
+//
+//            cal.set(year,month,day,hour,minutes,1);
+//            cal.add(Calendar.SECOND, repeating);
+//
+//
+//            long dif = cal.getTimeInMillis() - System.currentTimeMillis();
+//            cal.setTimeInMillis(dif);
+//
+//            secondsToRun = (int) (dif / 1000 - 1);
+//        }
+//        else{
+//            secondsToRun = GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS / 1000 ;
+//        }
+//
+//
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//
+//                Calendar c2 = Calendar.getInstance();
+//                c2.setTimeInMillis(System.currentTimeMillis());
+//
+//                int minutes2 = c2.get(Calendar.MINUTE);
+//                int seconds2 = c2.get(Calendar.SECOND);
+//                Log.d("Appspy","CPU monitoring starts at " + minutes2 + ":" + seconds2  + " and will last " + secondsToRun + "\n");
+//
+//                try {
+//
+//                    StringBuilder result = new StringBuilder();
+//                    String line;
+//
+//
+//                    //Process p = Runtime.getRuntime().exec("top -m 15 -d 1 -n " + secondsToRun);
+//                    Process p = Runtime.getRuntime().exec("echo salut");
+//
+//                    //p.waitFor();
+//                    BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//
+//                    while ((line = in.readLine()) != null) {
+//                        result.append(line);
+//                        result.append('\n');
+//                    }
+//                    in.close();
+//
+//
+//                    long stopTime = System.currentTimeMillis();
+//
+//                    //Since the start, it will take min 60 seconds. Then it still has 60 seconds to finish the computation
+//                    //and update the records in temp.
+//                    if(stopTime - startTime < (double)(GlobalConstant.APP_ACTIVITY_PERIODICITY_MILLIS) * 1.75){
+//                        //update.
+//                        Handler mainHandler = new Handler(context.getMainLooper());
+//                        final String data = result.toString();
+//
+//                        Runnable doOnMainThread = new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            processCPU(data, secondsToRun);
+//                          }
+//                        };
+//                        mainHandler.post(doOnMainThread); //execute db stuff on main thread
+//
+//
+//                    }
+//                    else {
+//                        //Otherwise, nothing, took too long
+//                        //the records stored temporarily have been already replaced
+//                        for(int i = 0; i < 50; i ++) {
+//                            //to be sure I see it if it happens
+//                            Log.i("Appspy", "%%%%%%%%%%%%%%%%%\n" + "ERROR, CPU stat processing took too long");
+//                            Log.e("Appspy", "ERROR, CPU stat processing took too long");
+//                        }
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        thread.start();
+//    }
 
-        Calendar c2 = Calendar.getInstance();
-        c2.setTimeInMillis(System.currentTimeMillis());
 
-        int minutes2 = c2.get(Calendar.MINUTE);
-        int seconds2 = c2.get(Calendar.SECOND);
+//    public void processCPU(String data, int runningTimeInSec) {
+//
+//        Calendar c2 = Calendar.getInstance();
+//        c2.setTimeInMillis(System.currentTimeMillis());
+//        Log.d("Appspy", "CPU stats_processing starts at " + c2.get(Calendar.MINUTE) + ":" + c2.get(Calendar.SECOND) + "\n");
+//
+//        HashMap<Integer, CPUInfo> cpuInfosByPid = new HashMap<>();
+//        HashMap<String, CPUInfo> cpuInfosByPackageName = new HashMap<>();
+//
+//
+//        StringTokenizer lineTokenizer = new StringTokenizer(data);
+//
+//
+//        while (lineTokenizer.hasMoreTokens()) {
+//            StringTokenizer st = new StringTokenizer(lineTokenizer.nextToken());
+//            if (st.countTokens() >= 3) {
+//                String firstToken = st.nextToken();
+//                if (new Scanner(firstToken).hasNextInt()) {
+//                    int pid = Integer.parseInt(firstToken);
+//                    st.nextToken(); //don't care
+//                    String cpuPercentage = st.nextToken();
+//                    String cpu = cpuPercentage.split("%")[0];
+//                    int cpuUsage = Integer.parseInt(cpu);
+//
+//                    if (cpuInfosByPid.containsKey(pid) == false) {
+//                        cpuInfosByPid.put(pid, new CPUInfo(pid));
+//                    }
+//                    CPUInfo info = cpuInfosByPid.get(pid);
+//                    info.averageCpuUsage += cpuUsage / runningTimeInSec;
+//
+//                    if (info.maxCpuUsage < cpuUsage) {
+//                        info.maxCpuUsage = cpuUsage;
+//                    }
+//                    Log.d("Appspy", "PID " + pid + " used " + cpuUsage);
+//                }
+//            }
+//
+//        }
+//
+//        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+//        List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
+//
+//        Database db = new Database(context);
+//
+//        //update in db
+//        for (ActivityManager.RunningAppProcessInfo p : tasks) {
+//            if (cpuInfosByPid.containsKey(p.pid)) {
+//                CPUInfo info = cpuInfosByPid.get(p.pid);
+//                cpuInfosByPackageName.put(p.processName, info);
+//                Log.d("Appspy", "USAGE: " + p.pid + " is " + p.processName + " and used " + info.averageCpuUsage +
+//                                " and max is:" + info.maxCpuUsage);
+//
+//                ApplicationActivityRecord recordToUpdate = lastAddedRecordCpuToBeAdded.get(p.processName);
+//                lastAddedRecordCpuToBeAdded.remove(p.processName);
+//                if (recordToUpdate != null) {
+//                    recordToUpdate.setAvgCpuUsage(info.averageCpuUsage);
+//                    recordToUpdate.setMaxCpuUsage(info.maxCpuUsage);
+//                    db.updateApplicationActivityRecord(recordToUpdate);
+//                }
+//                else {
+//                    Log.d("Appspy","fucking null");
+//                }
+//
+//            }
+//        }
+//
+//        //All the other, set cpu data to 0, as not active (or not enough as cpu usage < 1, thus displayed as 0)
+//        for (ApplicationActivityRecord record : lastAddedRecordCpuToBeAdded.values()) {
+//            record.setAvgCpuUsage(0);
+//            record.setMaxCpuUsage(0);
+//            db.updateApplicationActivityRecord(record);
+//        }
+//
+//        db.close();
+//        lastAddedRecordCpuToBeAdded.clear();
+//
+//        Calendar c3 = Calendar.getInstance();
+//        c3.setTimeInMillis(System.currentTimeMillis());
+//        Log.d("Appspy", "CPU stats_processing ends at " + c3.get(Calendar.MINUTE) + ":" + c3.get(Calendar.SECOND) + "\n");
+//    }
+    private void showNotificationForUsageStatsPermission() {
 
-        Log.d("Appspy", "CPU stats_processing starts at " + minutes2 + ":" + seconds2 + "\n");
+        LogA.d("Appspy-log", "Show notification to user to grant access to Usage Stats");
 
-        HashMap<Integer, CPUInfo> cpuInfosByPid = new HashMap<>();
-        HashMap<String, CPUInfo> cpuInfosByPackageName = new HashMap<>();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context).setContentTitle("My notification").setContentText(
+                        "Hello World!").setSmallIcon(R.drawable.ic_stat_name).setPriority(
+                        NotificationCompat.PRIORITY_MAX);
+        // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(context, MainActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
 
 
-        StringTokenizer lineTokenizer = new StringTokenizer(data);
+        Notification n = mBuilder.build();
+        n.defaults = Notification.DEFAULT_ALL;
 
-
-        while (lineTokenizer.hasMoreTokens()) {
-            StringTokenizer st = new StringTokenizer(lineTokenizer.nextToken());
-            if (st.countTokens() >= 3) {
-                String firstToken = st.nextToken();
-                if (new Scanner(firstToken).hasNextInt()) {
-                    int pid = Integer.parseInt(firstToken);
-                    st.nextToken(); //don't care
-                    String cpuPercentage = st.nextToken();
-                    String cpu = cpuPercentage.split("%")[0];
-                    int cpuUsage = Integer.parseInt(cpu);
-
-                    if (cpuInfosByPid.containsKey(pid) == false) {
-                        cpuInfosByPid.put(pid, new CPUInfo(pid));
-                    }
-                    CPUInfo info = cpuInfosByPid.get(pid);
-                    info.averageCpuUsage += cpuUsage / runningTimeInSec;
-
-                    if (info.maxCpuUsage < cpuUsage) {
-                        info.maxCpuUsage = cpuUsage;
-                    }
-                    //Log.d("Appspy", "PID " + pid + " used " + cpuUsage);
-                }
-            }
-
-        }
-
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> tasks = activityManager.getRunningAppProcesses();
-
-        Database db = new Database(context);
-
-        //update in db
-        for (ActivityManager.RunningAppProcessInfo p : tasks) {
-            if (cpuInfosByPid.containsKey(p.pid)) {
-                CPUInfo info = cpuInfosByPid.get(p.pid);
-                cpuInfosByPackageName.put(p.processName, info);
-                Log.d("Appspy", "USAGE: " + p.pid + " is " + p.processName + " and used " + info.averageCpuUsage +
-                                " and max is:" + info.maxCpuUsage);
-
-                ApplicationActivityRecord recordToUpdate = lastAddedRecordCpuToBeAdded.get(p.processName);
-                lastAddedRecordCpuToBeAdded.remove(p.processName);
-                if (recordToUpdate != null) {
-                    recordToUpdate.setAvgCpuUsage(info.averageCpuUsage);
-                    recordToUpdate.setMaxCpuUsage(info.maxCpuUsage);
-                    db.updateApplicationActivityRecord(recordToUpdate);
-                }
-                else {
-                    Log.d("Appspy","fucking null");
-                }
-
-            }
-        }
-
-        //All the other, set cpu data to 0, as not active (or not enough as cpu usage < 1, thus displayed as 0)
-        for (ApplicationActivityRecord record : lastAddedRecordCpuToBeAdded.values()) {
-            record.setAvgCpuUsage(0);
-            record.setMaxCpuUsage(0);
-            db.updateApplicationActivityRecord(record);
-        }
-
-        db.close();
-        lastAddedRecordCpuToBeAdded.clear();
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(8383, n);
     }
-
 
 }
 

@@ -17,7 +17,9 @@ public class LogA {
     }
 
     public static void d(String tag, String message){
-        //Log.d(tag, message);
+        if(tag.equals("Appspy-log")) {
+            Log.d(tag, message);
+        }
     }
 }
 

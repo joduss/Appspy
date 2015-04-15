@@ -89,6 +89,23 @@ public class ApplicationActivityRecord {
     }
 
 
+    public ApplicationActivityRecord(long recordId, String packageName, long recordTime, long foregroundTime,
+                                     long lastTimeUsed, long uploadedData, long downloadedData, double avgCpuUsage,
+                                     int maxCpuUsage, boolean wasForeground, boolean boot) {
+        this.recordId = recordId;
+        this.packageName = packageName;
+        this.foregroundTime = foregroundTime;
+        this.lastTimeUsed = lastTimeUsed;
+        this.uploadedData = uploadedData;
+        this.downloadedData = downloadedData;
+        this.recordTime = recordTime;
+        this.avgCpuUsage = avgCpuUsage;
+        this.maxCpuUsage = maxCpuUsage;
+        this.wasForeground = wasForeground;
+        this.boot = boot;
+    }
+
+
     public long getRecordId() {
         return recordId;
     }

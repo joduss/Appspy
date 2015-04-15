@@ -1,7 +1,18 @@
 package com.epfl.appspy;
 
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Path;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +20,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.epfl.appspy.com.epfl.appspy.Utility;
 import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityTracker;
 import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsTracker;
 
+import java.net.URI;
+
 
 public class MainActivity extends ActionBarActivity {
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //ASK FOR PERMISSION USAGE ACCESS
+        checkUsageStatAccessPermission();
+    }
 
 
     @Override
@@ -22,8 +45,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        this.showRightsActivity(null);
 
 
         //check if is first time the app is launched (manually)
@@ -34,6 +55,8 @@ public class MainActivity extends ActionBarActivity {
         //In which case, the monitoring tasks are directly started
         //If this is not the case, then appspy will be started automatically once the device is booted.
         if(firstLaunch){
+
+
             Log.i("Appspy", "First time launching Appspy");
             SharedPreferences.Editor settingsEditor = settings.edit();
             settingsEditor.putBoolean(GlobalConstant.PREF_FIRST_LAUNCH, false);
@@ -59,6 +82,9 @@ public class MainActivity extends ActionBarActivity {
             appActivityTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
             sendBroadcast(appActivityTracker);
         }
+
+        //this.showRightsActivity(null);
+
     }
 
 
@@ -94,6 +120,34 @@ public class MainActivity extends ActionBarActivity {
         startActivity(rightsActivity);
 
     }
+
+
+    public void checkUsageStatAccessPermission(){
+
+
+
+        if(Utility.usageStatsPermissionGranted(getApplicationContext()) == false){
+            LogA.d("Appspy-log","Ask user to go in settings to grant permission to Usage Stats");
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("We need you to grant Usage access");
+
+            alert.setPositiveButton(R.string.show_usage_permission_settings, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    LogA.d("Appspy-log","User went to settings. Hope he granted the access to Usage Stats");
+                    Intent newIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                    newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(newIntent);
+                }
+            });
+            alert.create().show();
+        }
+
+    }
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by Jonathan Duss on 30.03.15.
  *
  */
-public class InstalledAppsTracker extends BroadcastReceiver
+public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
 {
 
 
@@ -42,7 +43,9 @@ public class InstalledAppsTracker extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-    Log.d("Appspy","on receive InstalledAppsTracker");
+        ToastDebug.makeText(context, "Broadcast for install app received -- processing", Toast.LENGTH_LONG).show();
+
+        Log.d("Appspy","on receive InstalledAppsTracker");
 
         //Init class members
         if (this.context == null || appInformation == null) {
@@ -74,14 +77,20 @@ public class InstalledAppsTracker extends BroadcastReceiver
                 GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH){
                 firstTimeUse = true;
         }
-        retrieveInstalledApps();
+        new Thread(this).start();
+
         firstTimeUse = false;
+    }
+
+
+    @Override
+    public void run() {
+        retrieveInstalledApps();
     }
 
 
     private void retrieveInstalledApps() {
         Log.d("Appspy", "%%%%%%%%%%%% RETRIEVE INSTALLED APP TASK");
-        ToastDebug.makeText(context, "Broadcast for install app received", Toast.LENGTH_LONG).show();
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
@@ -91,15 +100,17 @@ public class InstalledAppsTracker extends BroadcastReceiver
         LogA.d("Appspy-loginfo", "Installed apps + Permissions");
         LogA.d("Appspy-loginfo", "-------------------------------");
 
-        Database db = new Database(context);
         long currentTime = System.currentTimeMillis();
 
+        Handler mainHandler = new Handler(context.getMainLooper());
 
         //For each app, insert or update a record about the time of the installations/uninstallation, permissions, etc
+        final Database db1 = Database.getDatabaseInstance(context);
+        List<String> previousInstalledApps = db1.getInstalledAppsPackageNameInLastRecord();
+        db1.close();
 
-        List<String> previousInstalledApps = db.getInstalledAppsPackageNameInLastRecord();
 
-        for (PackageInfo app : permissionsForAllApps.keySet()) {
+        for (final PackageInfo app : permissionsForAllApps.keySet()) {
             List<String> permissions = permissionsForAllApps.get(app);
 
             LogA.d("Appspy-loginfo", appInformation.getAppName(app));
@@ -111,17 +122,19 @@ public class InstalledAppsTracker extends BroadcastReceiver
 
             long installationDate = app.firstInstallTime;
 
-            String appName = appInformation.getAppName(app);
-            String pkgName = app.packageName;
+            final String appName = appInformation.getAppName(app);
+            final String pkgName = app.packageName;
             boolean appSystem = appInformation.isSystem(app);
 
             //Add or update the record in the database
-            ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
+            final ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
                                                                                      0, appSystem);
-            db.addOrUpdateApplicationInstallationRecord(record);
+            //is adde in DB in ~20 lines below
+
+
 
             //Update the permissions records for the app
-            HashMap<String, PermissionRecord> permissionRecords = new HashMap<>();
+            final HashMap<String, PermissionRecord> permissionRecords = new HashMap<>();
             for(String permissionName : permissions){
                 PermissionRecord permRecord;
                 if(firstTimeUse == true){
@@ -132,19 +145,46 @@ public class InstalledAppsTracker extends BroadcastReceiver
                     //otherwise, use currentTime for permission first use
                     permRecord = new PermissionRecord(pkgName, permissionName, currentTime);
                 }
+
                 permissionRecords.put(permissionName, permRecord);
             }
-            
-            db.updatePermissionRecordsForApp(app.packageName, permissionRecords);
+
+            //Execute databa
+            Runnable doOnMainThread = new Runnable() {
+                @Override
+                public void run() {
+                    final Database db2 = Database.getDatabaseInstance(context);
+                    db2.addOrUpdateApplicationInstallationRecord(record);
+                    db2.updatePermissionRecordsForApp(app.packageName, permissionRecords);
+                    db2.close();
+                }
+            };
+            mainHandler.post(doOnMainThread); //execute db stuff on main thread
 
             previousInstalledApps.remove(app.packageName);
         }
 
         //Here are the uninstalled apps
         for(String packageName : previousInstalledApps){
-            ApplicationInstallationRecord record = db.getApplicationInstallationRecord(packageName);
+            final Database db3 = Database.getDatabaseInstance(context);
+            final ApplicationInstallationRecord record = db3.getApplicationInstallationRecord(packageName);
             record.setUninstallationDate(currentTime);
-            db.addOrUpdateApplicationInstallationRecord(record);
+
+            Runnable doOnMainThread = new Runnable() {
+                @Override
+                public void run() {
+                    db3.addOrUpdateApplicationInstallationRecord(record);
+                    db3.close();
+                }
+            };
+            mainHandler.post(doOnMainThread); //execute db stuff on main thread
         }
+        //Debug.stopMethodTracing();
     }
+
+
+
+
+
+
 }

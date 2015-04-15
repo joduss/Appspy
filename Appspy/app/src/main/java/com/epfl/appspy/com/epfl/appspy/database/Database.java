@@ -131,11 +131,16 @@ public class Database extends SQLiteOpenHelper {
             COL_ACCURACY + " REAL" +
             ")";
 
+    private static Database databaseInstance;
 
+    public static synchronized Database getDatabaseInstance(Context context){
+        if(databaseInstance == null){
+            databaseInstance = new Database(context);
+        }
+        return databaseInstance;
+    }
 
-
-
-    public Database(Context context) {
+    private Database(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -228,6 +233,7 @@ public class Database extends SQLiteOpenHelper {
 
     /**
      * Return true if an app exist on the phone and hasn't been uninstalled
+     * Return false
      * @param packageName name of the package of app
      * @return if there is a record for that app
      */
@@ -268,7 +274,8 @@ public class Database extends SQLiteOpenHelper {
             db.insert(TABLE_INSTALLED_APPS, null, values);
 
         }
-        else {
+        //if record exists and was uninstalled (uninstallationDate > 0), update the uninstallationDate
+        else if(newRecord.getUninstallationDate() == 0){
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
             // Thus we update the columns uninstallation_date, the current_permissions and the max_permissions
             LogA.i("Appspy-DB", "one applicationInstallationRecord has been updated");
@@ -290,12 +297,10 @@ public class Database extends SQLiteOpenHelper {
 
 
             //SQL query. Update the row for the current packageName
-            String[] args = {newRecord.getPackageName()};
-            db.update(TABLE_INSTALLED_APPS, values, COL_APP_PKG_NAME + " = ?", args);
+            db.update(TABLE_INSTALLED_APPS, values, COL_APP_ID + "=" + oldRecord.getAppId(), null);
         }
+        //else if exists, but was not uninstalled ( uninstallationDate = 0), do nothing, no need to update
 
-        //close db
-        db.close();
     }
 
 
@@ -448,19 +453,19 @@ public class Database extends SQLiteOpenHelper {
             //then the app was in background. Need to check if it was active (did down/upload data or used cpu)
             wasForeground = false;
 
-//            //check if app was active in background (did downloaded/upload some data, or used cpu)
-//            if(uploadedData > 0 ||
-//               downloadedData > 0 ) {
-//                wasActiveInBackground = true;
-//            }
-//            else {
-//                wasActiveInBackground = false;
-//            }
+            //check if app was active in background (did downloaded/upload some data, or used cpu)
+            if(uploadedData > 0 ||
+               downloadedData > 0 || newRecord.getAvgCpuUsage() > 0 ) {
+                wasActiveInBackground = true;
+            }
+            else {
+                wasActiveInBackground = false;
+            }
 
         }
 
         //If is was active in a way, we add the record to the DB
-//        if(wasForeground || wasActiveInBackground){
+        if(wasForeground || wasActiveInBackground){
 
             addLastInternetUse(newRecord.getPackageName(), newRecord.getUploadedData(), newRecord.getDownloadedData());
 
@@ -486,6 +491,8 @@ public class Database extends SQLiteOpenHelper {
             }
 
             //fix border effect when booting
+            //at boot, every apps are in background if active
+            //TODO verify that
             if(checkIfFirstRecordOfDay(newRecord.getPackageName())) {
                 wasForeground = false;
             }
@@ -506,7 +513,7 @@ public class Database extends SQLiteOpenHelper {
             long id = db.insert(TABLE_APPS_ACTIVITY, null, values);
             newRecord.setRecordId(id);
             LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
-//        }
+        }
     }
 
 
@@ -543,8 +550,53 @@ public class Database extends SQLiteOpenHelper {
                 boolean boot = result.getInt(result.getColumnIndex(COL_BOOT)) == 1;
 
                 result.close();
-                return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploaded, downloaded, wasForeground, boot);
+                return new ApplicationActivityRecord(recordID,packageName,recordTime, foregroundTime, lastUsed,
+                                                     uploaded, downloaded, avgCpuUsage, maxCpuUsage, wasForeground, boot);
+
+
+            } while (result.moveToNext());
+        }
+        return null;
+    }
+
+
+    /**
+     * Return the most recent record older than the one given in parameter
+     * @param record the record to compare with
+     * @return
+     */
+    public ApplicationActivityRecord getPreviousApplicationActivityRecord(ApplicationActivityRecord record){
+
+        final String packageName = record.getPackageName();
+
+        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + "=" +
+                       "(" +
+                       "SELECT MAX(" + COL_RECORD_TIME + ") FROM " + TABLE_APPS_ACTIVITY +
+                       " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName + "\"" +
+                       " AND " + COL_RECORD_TIME + "<" + record.getRecordTime() +
+                       ")" +
+                       " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\"";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor result = db.rawQuery(query, null);
+
+        if (result.moveToFirst()) {
+            do {
+                long recordID = result.getLong(result.getColumnIndex(COL_RECORD_ID));
+                long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
+                long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
+                long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
+                long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
+                long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+                double avgCpuUsage = result.getDouble(result.getColumnIndex(COL_AVG_CPU_USAGE));
+                int maxCpuUsage = result.getInt(result.getColumnIndex(COL_MAX_CPU_USAGE));
+                boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
+                boolean boot = result.getInt(result.getColumnIndex(COL_BOOT)) == 1;
+
+                result.close();
+                return new ApplicationActivityRecord(recordID,packageName,recordTime, foregroundTime, lastUsed,
+                                                     uploaded, downloaded, avgCpuUsage, maxCpuUsage, wasForeground, boot);
 
             } while (result.moveToNext());
         }
@@ -661,7 +713,6 @@ public class Database extends SQLiteOpenHelper {
     public void updateApplicationActivityRecord(ApplicationActivityRecord record){
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         //id will be created, none exist for the new record
         values.put(COL_RECORD_ID, record.getRecordId());
@@ -678,6 +729,10 @@ public class Database extends SQLiteOpenHelper {
 
         db.update(TABLE_APPS_ACTIVITY, values, COL_RECORD_ID + "=" + record.getRecordId(), null);
     }
+
+
+
+
 
     public List<ApplicationActivityRecord> getRecordIntImeRange(long begining, long end, String packageName){
 
@@ -771,8 +826,7 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_PERMISSION_LOST_ACCESS, 0); //start using permission now. no lastuse so set = 0
             db.insert(TABLE_PERMISSIONS, null, values);
         }
-        //closing the db
-        db.close();
+
     }
 
 //    public enum ACTIVE_STATE {

@@ -9,5 +9,7 @@
 
     <!-- Main Activity -->
     <string name="show_rights">Show the rights</string>
+    <string name="show_usage_permission_settings">Grant permission</string>
+    <string name="Cancel">Cancel</string>
 
 </resources>
