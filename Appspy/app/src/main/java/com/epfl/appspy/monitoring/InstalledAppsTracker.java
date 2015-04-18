@@ -1,4 +1,4 @@
-package com.epfl.appspy.com.epfl.appspy.monitoring;
+package com.epfl.appspy.monitoring;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,9 +12,9 @@ import com.epfl.appspy.ApplicationsInformation;
 import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
 import com.epfl.appspy.ToastDebug;
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationInstallationRecord;
-import com.epfl.appspy.com.epfl.appspy.database.Database;
-import com.epfl.appspy.com.epfl.appspy.database.PermissionRecord;
+import com.epfl.appspy.database.ApplicationInstallationRecord;
+import com.epfl.appspy.database.Database;
+import com.epfl.appspy.database.PermissionRecord;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -45,7 +45,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
     public void onReceive(Context context, Intent intent) {
         ToastDebug.makeText(context, "Broadcast for install app received -- processing", Toast.LENGTH_LONG).show();
 
-        Log.d("Appspy","on receive InstalledAppsTracker");
+        LogA.i("Appspy-AppTracker","App tracker start working");
 
         //Init class members
         if (this.context == null || appInformation == null) {
@@ -56,26 +56,27 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
 
 
         if(intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED)){
-            LogA.i("Appspy", "A package was added");
+            LogA.i("Appspy-AppTracker", "A package was added");
         }
         else if(intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED)) {
-            LogA.i("Appspy", "A package was updated");
+            LogA.i("Appspy-AppTracker", "A package was updated");
         }
         else if(intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)){
-            LogA.i("Appspy", "A package was removed");
+            LogA.i("Appspy-AppTracker", "A package was removed");
         }
         else if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Log.i("Appspy", "Permission and apps installed triggered by boot");
+            Log.i("Appspy-AppTracker", "Permission and apps installed triggered by boot");
         }
         else if(intent.getAction().equals(Intent.ACTION_SEND) &&
                 intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
                 GlobalConstant.EXTRA_ACTION.MANUAL){
-            Log.i("Appspy", "Permission and apps installed triggered manually");
+            Log.i("Appspy-AppTracker", "Permission and apps installed triggered manually");
         }
         else if(intent.getAction().equals(Intent.ACTION_SEND) &&
                 intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
                 GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH){
                 firstTimeUse = true;
+            Log.i("Appspy-AppTracker", "AppTracker first launch on this device");
         }
         new Thread(this).start();
 
@@ -90,7 +91,6 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
 
 
     private void retrieveInstalledApps() {
-        Log.d("Appspy", "%%%%%%%%%%%% RETRIEVE INSTALLED APP TASK");
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
@@ -113,7 +113,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         for (final PackageInfo app : permissionsForAllApps.keySet()) {
             List<String> permissions = permissionsForAllApps.get(app);
 
-            LogA.d("Appspy-loginfo", appInformation.getAppName(app));
+            LogA.d("Appspy-loginfo", "app name:" + appInformation.getAppName(app));
             //Log.d("Appspy-loginfo","some permissions...");
 //            for (String p : permissions) {
 //                Log.d("Appspy-loginfo", p);
@@ -156,7 +156,6 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
                     final Database db2 = Database.getDatabaseInstance(context);
                     db2.addOrUpdateApplicationInstallationRecord(record);
                     db2.updatePermissionRecordsForApp(app.packageName, permissionRecords);
-                    db2.close();
                 }
             };
             mainHandler.post(doOnMainThread); //execute db stuff on main thread
@@ -180,6 +179,9 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
             mainHandler.post(doOnMainThread); //execute db stuff on main thread
         }
         //Debug.stopMethodTracing();
+        
+        LogA.d("Appspy-AppTracker", "AppTracker work is finished");
+        
     }
 
 

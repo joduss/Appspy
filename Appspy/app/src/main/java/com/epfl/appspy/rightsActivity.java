@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityTracker;
-import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTracker;
-import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsTracker;
+import com.epfl.appspy.monitoring.AppActivityTracker;
+import com.epfl.appspy.monitoring.GPSTracker;
+import com.epfl.appspy.monitoring.InstalledAppsTracker;
 
 import java.io.File;
 import java.io.IOException;

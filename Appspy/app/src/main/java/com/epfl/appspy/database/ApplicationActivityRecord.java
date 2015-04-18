@@ -1,4 +1,4 @@
-package com.epfl.appspy.com.epfl.appspy.database;
+package com.epfl.appspy.database;
 
 /**
  * Created by Jo on 22.02.15.

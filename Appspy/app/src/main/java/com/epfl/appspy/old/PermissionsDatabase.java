@@ -1,4 +1,4 @@
-//package com.epfl.appspy.com.epfl.appspy.database;
+//package com.epfl.appspy.database;
 //
 //import android.content.Context;
 //import android.content.pm.PackageInfo;

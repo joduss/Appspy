@@ -1,4 +1,4 @@
-package com.epfl.appspy.com.epfl.appspy;
+package com.epfl.appspy;
 
 import android.app.Activity;
 import android.app.AlertDialog;

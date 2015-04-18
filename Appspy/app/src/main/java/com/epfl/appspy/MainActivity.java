@@ -1,18 +1,11 @@
 package com.epfl.appspy;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Path;
-import android.net.Uri;
+import android.os.Environment;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.epfl.appspy.com.epfl.appspy.Utility;
-import com.epfl.appspy.com.epfl.appspy.monitoring.AppActivityTracker;
-import com.epfl.appspy.com.epfl.appspy.monitoring.GPSTracker;
-import com.epfl.appspy.com.epfl.appspy.monitoring.InstalledAppsTracker;
+import com.epfl.appspy.monitoring.AppActivityTracker;
+import com.epfl.appspy.monitoring.GPSTracker;
+import com.epfl.appspy.monitoring.InstalledAppsTracker;
 
-import java.net.URI;
+import java.io.File;
+import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -45,6 +38,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        File path = Environment.getExternalStorageDirectory();
+
+        try {
+            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + "/tmp/appspy.log");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         //check if is first time the app is launched (manually)

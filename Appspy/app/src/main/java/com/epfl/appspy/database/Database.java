@@ -1,4 +1,4 @@
-package com.epfl.appspy.com.epfl.appspy.database;
+package com.epfl.appspy.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -447,7 +447,7 @@ public class Database extends SQLiteOpenHelper {
             //foreground time changed, thus app was active on foreground
             wasForeground = true;
             wasActiveInBackground = false;
-            Log.d("Appspy-DB","else if + " + lastRecord.getForegroundTime() + "   " + newRecord.getForegroundTime());
+            LogA.d("Appspy-DB","else if + " + lastRecord.getForegroundTime() + "   " + newRecord.getForegroundTime());
         }
         else {
             //then the app was in background. Need to check if it was active (did down/upload data or used cpu)
@@ -482,10 +482,10 @@ public class Database extends SQLiteOpenHelper {
                     //these were on foreground. Need to update them
                     record.setWasForeground(true);
                     updateApplicationActivityRecord(record);
-                    Log.d("Appspy-DB", "one update");
+                    LogA.d("Appspy-DB", "one update");
                 }
 
-                Log.d("Appspy-DB", "UPDATE foreground " + newRecord.getPackageName());
+                LogA.d("Appspy-DB", "UPDATE foreground " + newRecord.getPackageName());
 
                 //all these records have been active on foreground
             }
@@ -818,7 +818,7 @@ public class Database extends SQLiteOpenHelper {
         //At this point, the hashmap only contains permissions that should be inserted in the DB
         //New ones, or "old ones" that were not used anymore, but that are used again, thus it is a new record
         for (PermissionRecord record : records.values()) {
-            LogA.i("Appspy-DB", "new permission record");
+            //LogA.d("Appspy-DB-all", "new permission record");
             ContentValues values = new ContentValues();
             values.put(COL_APP_PKG_NAME, record.getPackageName());
             values.put(COL_PERMISSION_NAME, record.getPermissionName());
@@ -850,6 +850,7 @@ public class Database extends SQLiteOpenHelper {
      * @param record The record to insert
      */
     public void insertGPSRecord(GPSRecord record){
+
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues toInsert = new ContentValues();
@@ -860,6 +861,9 @@ public class Database extends SQLiteOpenHelper {
         toInsert.put(COL_ACCURACY, record.getAccuracy());
         toInsert.put(COL_GPS_ENABLED, record.isGpsActivated());
         db.insert(TABLE_GPS_LOCATION, null, toInsert);
+        
+        LogA.i("Appspy-DB", "new GPS record inserted");
+        
     }
 
 

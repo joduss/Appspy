@@ -1,4 +1,4 @@
-package com.epfl.appspy.com.epfl.appspy.monitoring;
+package com.epfl.appspy.monitoring;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -20,9 +20,9 @@ import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
 import com.epfl.appspy.MainActivity;
 import com.epfl.appspy.R;
-import com.epfl.appspy.com.epfl.appspy.Utility;
-import com.epfl.appspy.com.epfl.appspy.database.ApplicationActivityRecord;
-import com.epfl.appspy.com.epfl.appspy.database.Database;
+import com.epfl.appspy.Utility;
+import com.epfl.appspy.database.ApplicationActivityRecord;
+import com.epfl.appspy.database.Database;
 
 import java.util.Calendar;
 import java.util.HashMap;
