@@ -12,13 +12,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.epfl.appspy.monitoring.AppActivityTracker;
 import com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.monitoring.InstalledAppsTracker;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
 
 public class RightsActivity extends ActionBarActivity {
@@ -190,40 +197,72 @@ public class RightsActivity extends ActionBarActivity {
     public void sendDB(View v){
         try {
 
+            String filename = "db.zip";
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+            //String dbPath = "/data/data/com.epfl.appspy/databases/Appspy_database";
+            String dbPath = path + "/tmp/appspy.log";
+
+
+            //if folver /tmp does not exists, create it
             File f = new File(path + "/tmp");
             if (f.exists() == false) {
                 f.mkdir();
             }
+            Toast.makeText(this, "Path: "+ f.getAbsolutePath(), Toast.LENGTH_LONG).show();
+
+            File fileToSend = new File(path + "/tmp/" + filename);
+
+            copyFile(new File(dbPath), fileToSend);
 
 
-            Process root2 = Runtime.getRuntime().exec(
-                    "cp /data/data/com.epfl.appspy/databases/Appspy_database " + path + "/tmp/data2.zip");
-
-            String fileDB = path + "/tmp/data2.zip";
-
-            File f2 = new File(fileDB);
-            Log.d("Appspy", "exits: " + f2.exists());
-            Log.d("Appspy", "exits2: " + new File(path).exists());
+            Uri uriFileToSend = Uri.parse("file://" + fileToSend.getAbsolutePath());
 
 
             Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
-            intent.setType("file/*");
+            intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
             intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
-            //intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:/" + fileDB));
-            intent.setData(Uri.parse("mailto:zatixjo@gmail.com")); // or just "mailto:" for blank
-            intent.addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+            intent.setData(Uri.parse("mailto:")); // or just "mailto:" for blank
+            intent.putExtra(Intent.EXTRA_STREAM, uriFileToSend);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+
+            LogA.d("Appspy", "before");
             startActivity(intent);
 
-            //Process root3 = Runtime.getRuntime().exec("rm /sdcard/tmp/database.db");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+
+    //Solution provided on Stackoverflow
+    // http://stackoverflow.com/questions/9292954/how-to-make-a-copy-of-a-file-in-android
+    public static void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!destFile.getParentFile().exists())
+            destFile.getParentFile().mkdirs();
+
+        if (!destFile.exists()) {
+            destFile.createNewFile();
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+
+        try {
+            source = new FileInputStream(sourceFile).getChannel();
+            destination = new FileOutputStream(destFile).getChannel();
+            destination.transferFrom(source, 0, source.size());
+        } finally {
+            if (source != null) {
+                source.close();
+            }
+            if (destination != null) {
+                destination.close();
+            }
+        }
+    }
 
     public void computeStatNow(View v){
 
