@@ -59,7 +59,7 @@
         <receiver android:name=".monitoring.GPSTracker">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.PROVIDER_CHANGED"/>
+                <action android:name="android.location.MODE_CHANGED"/>
             </intent-filter>
         </receiver>
 
