@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class Database extends SQLiteOpenHelper {
 
+
+
     //Database version
     private static final int DB_VERSION = 140;
     private static final String DB_NAME = "Appspy_database";
@@ -859,7 +861,7 @@ public class Database extends SQLiteOpenHelper {
         toInsert.put(COL_LATITUDE, record.getLatitude());
         toInsert.put(COL_ALTITUDE, record.getAltitude());
         toInsert.put(COL_ACCURACY, record.getAccuracy());
-        toInsert.put(COL_GPS_ENABLED, record.isGpsActivated());
+        toInsert.put(COL_GPS_ENABLED, record.getLocationType().getValue());
         db.insert(TABLE_GPS_LOCATION, null, toInsert);
         
         LogA.i("Appspy-DB", "new GPS record inserted");
