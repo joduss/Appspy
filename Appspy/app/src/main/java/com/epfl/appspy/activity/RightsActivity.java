@@ -1,4 +1,4 @@
-package com.epfl.appspy;
+package com.epfl.appspy.activity;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.LogA;
+import com.epfl.appspy.R;
 import com.epfl.appspy.monitoring.AppActivityTracker;
 import com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.monitoring.InstalledAppsTracker;
@@ -74,7 +77,7 @@ public class RightsActivity extends ActionBarActivity {
 
     public void sendDB(View v){
 
-        LogA.d("Appspy","click on sendDB");
+        LogA.d("Appspy", "click on sendDB");
         try {
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();
             String zipName = "appspy.zip";

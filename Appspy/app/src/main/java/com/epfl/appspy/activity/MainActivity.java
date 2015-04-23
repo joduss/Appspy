@@ -1,10 +1,9 @@
-package com.epfl.appspy;
+package com.epfl.appspy.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,12 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.LogA;
+import com.epfl.appspy.R;
+import com.epfl.appspy.Utility;
 import com.epfl.appspy.monitoring.AppActivityTracker;
 import com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.monitoring.InstalledAppsTracker;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -98,6 +98,8 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settingsActivity = new Intent(this,SettingsActivity.class);
+            startActivity(settingsActivity);
             return true;
         }
 
@@ -120,7 +122,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         if(Utility.usageStatsPermissionGranted(getApplicationContext()) == false){
-            LogA.d("Appspy-log","Ask user to go in settings to grant permission to Usage Stats");
+            LogA.d("Appspy-log", "Ask user to go in settings to grant permission to Usage Stats");
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("We need you to grant Usage access");
 
