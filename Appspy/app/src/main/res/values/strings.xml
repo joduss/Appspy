@@ -11,5 +11,32 @@
     <string name="show_rights">Show the rights</string>
     <string name="show_usage_permission_settings">Grant permission</string>
     <string name="Cancel">Cancel</string>
+    <string name="title_activity_settings">Settings</string>
+
+
+
+
+
+    <string name="setting_gps_frequency">GPS refresh frequency [minutes]</string>
+    
+    
+    
+    <string name="background_services">Background Services</string>
+    <string name="pref_background_services_summ"></string>
+<string name="pref_gps_freq_title"></string>
+<string name="pref_gps_freq_dia_title"></string>
+
+    <string-array name="pref_gps_freq_entries">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="pref_gps_freq_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string name="pref_gps_freq_default">2</string>
+
+
 
 </resources>

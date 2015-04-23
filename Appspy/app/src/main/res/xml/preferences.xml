@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <PreferenceCategory
+            android:title="TEST">
+
+            <CheckBoxPreference
+                android:key="pref_background_services"
+                android:title="@string/background_services"
+                android:summary="@string/pref_background_services_summ"
+                android:defaultValue="true" />
+            <ListPreference
+                android:key="pref_gps_freq"
+                android:title="@string/pref_gps_freq_title"
+                android:dialogTitle="@string/pref_gps_freq_dia_title"
+                android:entries="@array/pref_gps_freq_entries"
+                android:entryValues="@array/pref_gps_freq_values"
+                android:defaultValue="@string/pref_gps_freq_default" />
+
+        </PreferenceCategory>
+
+
+    </PreferenceScreen>
