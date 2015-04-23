@@ -96,26 +96,26 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
 
         if(intent.getAction().equals(Intent.ACTION_SEND) &&
              intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) == GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH){
-            LogA.d("Appspy-GPS", "GPS Tracker called for first launch"); //manually calling won't be possible. only debug
+            LogA.i("Appspy-GPS", "GPS Tracker called for first launch"); //manually calling won't be possible. only debug
             //nothing to do. Will be done in the init phase
             addRecordIfNoLocation();
         }
         else if( intent.getAction().equals(Intent.ACTION_SEND) &&
                 intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) == GlobalConstant.EXTRA_ACTION.AUTOMATIC) {
-            LogA.d("Appspy-GPS", "GPS Tracker called automatically. Periodic task because location services are disabled");
+            LogA.i("Appspy-GPS", "GPS Tracker called automatically. Periodic task because location services are disabled");
             addRecordIfNoLocation();
         }
         else if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)){
-            LogA.d("Appspy-GPS", "Starting GPS Tracker after boot");
+            LogA.i("Appspy-GPS", "Starting GPS Tracker after boot");
             addRecordIfNoLocation();
         }
         else if(intent.getAction().equals(LocationManager.MODE_CHANGED_ACTION)){
             if(getLocationType() == LocationType.NONE){
-                LogA.d("Appspy-GPS", "Location services have been disabled");
+                LogA.i("Appspy-GPS", "Location services have been disabled");
                 addRecordIfNoLocation();
             }
             else {
-                LogA.d("Appspy-GPS", "Location services have been enabled");
+                LogA.i("Appspy-GPS", "Location services have been enabled");
                 //Was disabled. So the client was disconnected. We reconnect it.
                 //onConnected will be called once it will be connected
                 googleApiClient.connect();
@@ -189,7 +189,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
     }
 
     private void setPeriodicCheck(){
-        LogA.d("Appspy-GPS","Set up periodic check");
+        LogA.i("Appspy-GPS","Set up periodic check");
         int interval = Settings.getSettings(context).getGPSIntervalMillis();
 
         Intent gpsTracker = new Intent(context, GPSTracker.class);

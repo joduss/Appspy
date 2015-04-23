@@ -38,13 +38,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        File path = Environment.getExternalStorageDirectory();
-
-        try {
-            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + "/tmp/appspy.log");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
         //check if is first time the app is launched (manually)

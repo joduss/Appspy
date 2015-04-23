@@ -10,7 +10,7 @@ public class Settings {
 
     private static final String GPS_INTERVAL_SETTINGS_KEY = "gps interval";
 
-    private static final int DEFAULT_GPS_INTERVAL = 2*60000;
+    private static final int DEFAULT_GPS_INTERVAL = 30000;
     private static Context context;
 
     private static Settings settingsInstance;

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -24,6 +25,8 @@ import com.epfl.appspy.Utility;
 import com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.database.Database;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -93,7 +96,7 @@ public class AppActivityTracker extends BroadcastReceiver {
 
         long nextAlarmInMillis = cal.getTimeInMillis();
 
-        LogA.i("Appspy", "Next alarm at:" + cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + ":" +
+        LogA.i("AppActivityTracker", "Next alarm at:" + cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + ":" +
                              cal.get(Calendar.SECOND));
 
         if(Build.VERSION.SDK_INT < 19) {
@@ -123,7 +126,7 @@ public class AppActivityTracker extends BroadcastReceiver {
 
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-
+                startLogging();
                 boot = true;
                 analyseAppActivity();
                 //setupCPUMonitoring();
@@ -131,6 +134,7 @@ public class AppActivityTracker extends BroadcastReceiver {
                 Database db = Database.getDatabaseInstance(context);
                 db.deviceStarted();
                 boot = false;
+
             }
             else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
                 //setupCPUMonitoring(); not possible to do it, as the recording is not over yet
@@ -145,21 +149,32 @@ public class AppActivityTracker extends BroadcastReceiver {
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH) {
+                boot = false;
                 boot = true;
-                Log.d("Appspy", "AppActivity PEriodic FIRST LAUNCH");
+                LogA.i("AppActivityTracker", "AppActivityTracker FIRST LAUNCH");
                 analyseAppActivity();
                 //setupCPUMonitoring();
-                boot = false;
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == GlobalConstant.EXTRA_ACTION.MANUAL) {
+                startLogging();
                 //DO NOTHING
                 //just setup the alarm (for consistency, no manually thing should be done here)
             }
         }
     }
 
+private void startLogging(){
+    try {
+        File path = Environment.getExternalStorageDirectory();
+        Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME);
+        LogA.i("Appspy-AppActivityTracker","Start logging in file " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME );
+    } catch (IOException e) {
+        e.printStackTrace();
+        LogA.i("Appspy-AppActivityTracker","Failed to start logging" );
 
+    }
+}
 
 
     /**
@@ -172,93 +187,88 @@ public class AppActivityTracker extends BroadcastReceiver {
         LogA.d("Appspy-loginfo", "Active apps");
         LogA.d("Appspy-loginfo", "-------------------------------");
         
-        LogA.i("Appspy-log", "Start analysing apps activity");
+        LogA.i("Appspy-AppActivityTracker", "Start analysing apps activity");
 
         if(Utility.usageStatsPermissionGranted(context) == false){
             showNotificationForUsageStatsPermission();
+            LogA.d("Appspy-AppActivityTracker","Does not has permission for stats" );
+            
         }
+        else {
 
 
+            List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
+            PackageManager pkgManager = context.getPackageManager();
 
 
+            lastAddedRecordCpuToBeAdded.clear();
 
-        List<UsageStats> statistics = appInformation.getUsedForegroundApp(interval);
-        PackageManager pkgManager = context.getPackageManager();
-
-
-        lastAddedRecordCpuToBeAdded.clear();
-
-        long now = System.currentTimeMillis();
-        Database db = Database.getDatabaseInstance(context);
-        Set<String> foregroundPackageName = new HashSet<>();
+            long now = System.currentTimeMillis();
+            Database db = Database.getDatabaseInstance(context);
+            Set<String> foregroundPackageName = new HashSet<>();
 
 
-        for (UsageStats stat : statistics) {
-            try {
-                PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
-                foregroundPackageName.add(pi.packageName);
+            for (UsageStats stat : statistics) {
+                try {
+                    PackageInfo pi = pkgManager.getPackageInfo(stat.getPackageName(), PackageManager.GET_META_DATA);
+                    foregroundPackageName.add(pi.packageName);
 
-                final int uid = pi.applicationInfo.uid;
-
-
-                //does not set if was in foreground or not, because we don't know yet
-                ApplicationActivityRecord record =
-                        new ApplicationActivityRecord(stat.getPackageName(),
-                                                      now,
-                                                      stat.getTotalTimeInForeground(),
-                                                      stat.getLastTimeUsed(),
-                                                      appInformation.getUploadedDataAmount(uid),
-                                                      appInformation.getDownloadedDataAmount(uid), boot);
-                db.addApplicationActivityRecordIntelligent(record);
-
-                lastAddedRecordCpuToBeAdded.put(stat.getPackageName(), record);
-
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+                    final int uid = pi.applicationInfo.uid;
 
 
+                    //does not set if was in foreground or not, because we don't know yet
+                    ApplicationActivityRecord record = new ApplicationActivityRecord(stat.getPackageName(), now, stat.getTotalTimeInForeground(),
+                                                                                     stat.getLastTimeUsed(),
+                                                                                     appInformation.getUploadedDataAmount(uid),
+                                                                                     appInformation.getDownloadedDataAmount(uid), boot);
+                    db.addApplicationActivityRecordIntelligent(record);
 
-        //now also get the info about background processes
+                    lastAddedRecordCpuToBeAdded.put(stat.getPackageName(), record);
 
-        //all apps actives
-        List<PackageInfo> runningApps = appInformation.getActiveApps();
-
-
-        //if the app is not in the stat, then the foreground time for that day is 0
-        //but the app may have background task running even if not open by the user
-        for (PackageInfo pi : runningApps) {
-
-            //check if was not already processed as foreground app
-            if (foregroundPackageName.contains(pi.packageName) == false) {
-                final int uid = pi.applicationInfo.uid;
-
-                long lastForegroundTime = 0;
-                long lastLastUsedTime = 0;
-
-                //if was in foreground before, but still running in background: get the last known foreground time
-                ApplicationActivityRecord lastRecord = db.getLastApplicationActivityRecord(pi.packageName);
-                if(lastRecord != null){
-                    lastForegroundTime = lastRecord.getForegroundTime();
-                    lastLastUsedTime = lastRecord.getLastTimeUsed();
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
                 }
-
-
-                ApplicationActivityRecord record =
-                        new ApplicationActivityRecord(pi.packageName, now, lastForegroundTime,
-                                                      lastLastUsedTime,
-                                                      appInformation.getUploadedDataAmount(uid),
-                                                      appInformation.getDownloadedDataAmount(uid), false, boot);
-                db.addApplicationActivityRecordIntelligent(record);
-                lastAddedRecordCpuToBeAdded.put(pi.packageName, record);
-                LogA.d("Appspy-DB", "Running process " + pi.packageName);
             }
+
+
+            //now also get the info about background processes
+
+            //all apps actives
+            List<PackageInfo> runningApps = appInformation.getActiveApps();
+
+
+            //if the app is not in the stat, then the foreground time for that day is 0
+            //but the app may have background task running even if not open by the user
+            for (PackageInfo pi : runningApps) {
+
+                //check if was not already processed as foreground app
+                if (foregroundPackageName.contains(pi.packageName) == false) {
+                    final int uid = pi.applicationInfo.uid;
+
+                    long lastForegroundTime = 0;
+                    long lastLastUsedTime = 0;
+
+                    //if was in foreground before, but still running in background: get the last known foreground time
+                    ApplicationActivityRecord lastRecord = db.getLastApplicationActivityRecord(pi.packageName);
+                    if (lastRecord != null) {
+                        lastForegroundTime = lastRecord.getForegroundTime();
+                        lastLastUsedTime = lastRecord.getLastTimeUsed();
+                    }
+
+
+                    ApplicationActivityRecord record =
+                            new ApplicationActivityRecord(pi.packageName, now, lastForegroundTime, lastLastUsedTime,
+                                                          appInformation.getUploadedDataAmount(uid), appInformation.getDownloadedDataAmount(uid), false, boot);
+                    db.addApplicationActivityRecordIntelligent(record);
+                    lastAddedRecordCpuToBeAdded.put(pi.packageName, record);
+                    LogA.d("Appspy-DB", "Running process " + pi.packageName);
+                }
+            }
+
+            db.close();
         }
 
-        db.close();
-
-        LogA.i("Appspy-log", "Finished analysing apps activity");
+        LogA.i("Appspy-AppActivityTracker", "Finished analysing apps activity");
 
     }
 
@@ -453,7 +463,7 @@ public class AppActivityTracker extends BroadcastReceiver {
 //    }
     private void showNotificationForUsageStatsPermission() {
 
-        LogA.d("Appspy-log", "Show notification to user to grant access to Usage Stats");
+        LogA.d("Appspy-AppActivityTracker", "Show notification to user to grant access to Usage Stats");
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context).setContentTitle("Appspy").setContentText(

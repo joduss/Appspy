@@ -23,6 +23,10 @@ public class GlobalConstant {
     public static final String PREFERENCES = "prefs app spy";
     public static final String PREF_FIRST_LAUNCH = "pref first launch";
     public static final String PREF_GPS_PERIODICITY = "pref gps periodicity";
+
+
+    public static final String APPSPY_TMP_DIR = "/tmp/appspy";
+    public static final String LOG_FILENAME = "appspy.log";
 }
 
 

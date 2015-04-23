@@ -1,5 +1,7 @@
 package com.epfl.appspy;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.epfl.appspy.monitoring.AppActivityTracker;
@@ -26,6 +29,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 
 public class RightsActivity extends ActionBarActivity {
@@ -64,6 +69,193 @@ public class RightsActivity extends ActionBarActivity {
     }
 
 
+
+
+
+    public void sendDB(View v){
+
+        LogA.d("Appspy","click on sendDB");
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+            String zipName = "appspy.zip";
+
+            File zippedFolder = new File(path + "/tmp/" + zipName);
+
+            //String dbPath = "/data/data/com.epfl.appspy/databases/Appspy_database";
+
+            File originalDB = new File("data/data/com.epfl.appspy/databases/Appspy_database");
+            File copiedDB = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR + "/db.db");
+
+            //erase if exists
+            copiedDB.delete();
+            zippedFolder.delete();
+
+
+            //if folver /tmp does not exists, create it
+            File folderToZip = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR);
+            if (folderToZip.exists() == false) {
+                folderToZip.mkdir();
+            }
+
+            copyFile(originalDB, copiedDB);
+
+
+            zipFolder(folderToZip.getAbsolutePath(), zippedFolder.getAbsolutePath());
+
+
+            Uri uriFileToSend = Uri.parse("file://" + zippedFolder.getAbsolutePath());
+
+            TextView tv = (TextView) findViewById(R.id.pathTextView);
+            String text = "";
+            text += "PATH is:" + path + "\n";
+            text += "PATH exits:" + new File(path).exists() + "\n";
+
+            text += "folder to zip is:"+ folderToZip + "\n";
+            text += "zip should exits does it: " + zippedFolder.exists() + "\n";
+            text += "zip path is: " + zippedFolder.getAbsolutePath() + "\n";
+
+
+
+
+            tv.setText(text);
+
+            text += "File in the tmp folder";
+            for(File ff: new File(path + "/tmp").listFiles()){
+                text += "\t" + ff.getName() + "/n";
+            }
+
+
+            text += "\n\n file to send:"+ zippedFolder.getAbsolutePath() + "   exists:" + zippedFolder.exists();
+
+
+            try {
+                Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+                intent.setType("application/zip");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
+                //intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+                LogA.d("Appspy", text);
+
+
+                intent.setData(Uri.parse("mailto:zatixjo@gmail.com")); // or just "mailto:" for blank
+                intent.putExtra(Intent.EXTRA_STREAM, uriFileToSend);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.*/
+
+                LogA.d("Appspy", "before");
+                startActivity(intent);
+            } catch (ActivityNotFoundException e){
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("Error");
+                alert.setMessage("You need an email client that support attachments");
+                alert.setPositiveButton("Ok", null);
+                alert.show();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    //Solution provided on Stackoverflow
+    // http://stackoverflow.com/questions/9292954/how-to-make-a-copy-of-a-file-in-android
+    public static void copyFile(File sourceFile, File destFile) throws IOException {
+        if (!destFile.getParentFile().exists())
+            destFile.getParentFile().mkdirs();
+
+        if (!destFile.exists()) {
+            destFile.createNewFile();
+        }
+
+        FileChannel source = null;
+        FileChannel destination = null;
+
+        try {
+            source = new FileInputStream(sourceFile).getChannel();
+            destination = new FileOutputStream(destFile).getChannel();
+            destination.transferFrom(source, 0, source.size());
+        } finally {
+            if (source != null) {
+                source.close();
+            }
+            if (destination != null) {
+                destination.close();
+            }
+        }
+    }
+
+    //http://stackoverflow.com/questions/6683600/zip-compress-a-folder-full-of-files-on-android
+
+
+    /**
+     * Zip the content of a folder
+     * @param inputFolderPath the folder whose content has to be zipped
+     * @param outZipPath the zip file to create
+     */
+    private static void zipFolder(String inputFolderPath, String outZipPath) {
+        try {
+            FileOutputStream fos = new FileOutputStream(outZipPath);
+            ZipOutputStream zos = new ZipOutputStream(fos);
+            File srcFile = new File(inputFolderPath);
+            File[] files = srcFile.listFiles();
+            Log.d("", "Zip directory: " + srcFile.getName());
+            for (int i = 0; i < files.length; i++) {
+                Log.d("", "Adding file: " + files[i].getName());
+                byte[] buffer = new byte[1024];
+                FileInputStream fis = new FileInputStream(files[i]);
+                zos.putNextEntry(new ZipEntry(files[i].getName()));
+                int length;
+                while ((length = fis.read(buffer)) > 0) {
+                    zos.write(buffer, 0, length);
+                }
+                zos.closeEntry();
+                fis.close();
+            }
+            zos.close();
+        } catch (IOException ioe) {
+            Log.e("", ioe.getMessage());
+        }
+    }
+
+    public void computeStatNow(View v){
+
+        try {
+            File path = Environment.getExternalStorageDirectory();
+            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME);
+            LogA.i("Appspy-AppActivityTracker","Start logging in file " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME );
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogA.i("Appspy-AppActivityTracker","Failed to start logging" );
+
+        }
+
+        Log.d("Appspy","Request to compute stats now");
+
+        //call the InstalledAppsTracker to check all installed apps
+        Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsTracker.class);
+        installedAppReceiver.setAction(Intent.ACTION_SEND);
+        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
+        sendBroadcast(installedAppReceiver);
+
+
+        //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
+        //the service is started with the boot.
+        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTracker.class);
+        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
+        sendBroadcast(gpsTaskReceiver);
+
+
+        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityTracker.class);
+        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
+        sendBroadcast(activityTaskReceiver);
+    }
+
+
+
     /*
      * Test access to some folder, and show its content.
      * => Try with shell command
@@ -73,8 +265,8 @@ public class RightsActivity extends ActionBarActivity {
     public void testAccess(View v){
 
         //Get path from user input
-        EditText tv = (EditText) findViewById(R.id.tvPath);
-        String path = tv.getText().toString();
+        //EditText tv = (EditText) findViewById(R.id.tvPath);
+        //String path = tv.getText().toString();
 
 
         //TEST TO ACCESS PRIVATE DATA
@@ -191,102 +383,6 @@ public class RightsActivity extends ActionBarActivity {
         }
 
 
-    }
-
-
-    public void sendDB(View v){
-        try {
-
-            String filename = "db.zip";
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-            //String dbPath = "/data/data/com.epfl.appspy/databases/Appspy_database";
-            String dbPath = path + "/tmp/appspy.log";
-
-
-            //if folver /tmp does not exists, create it
-            File f = new File(path + "/tmp");
-            if (f.exists() == false) {
-                f.mkdir();
-            }
-            Toast.makeText(this, "Path: "+ f.getAbsolutePath(), Toast.LENGTH_LONG).show();
-
-            File fileToSend = new File(path + "/tmp/" + filename);
-
-            copyFile(new File(dbPath), fileToSend);
-
-
-            Uri uriFileToSend = Uri.parse("file://" + fileToSend.getAbsolutePath());
-
-
-            Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
-            intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
-            intent.setData(Uri.parse("mailto:")); // or just "mailto:" for blank
-            intent.putExtra(Intent.EXTRA_STREAM, uriFileToSend);
-
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
-
-            LogA.d("Appspy", "before");
-            startActivity(intent);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    //Solution provided on Stackoverflow
-    // http://stackoverflow.com/questions/9292954/how-to-make-a-copy-of-a-file-in-android
-    public static void copyFile(File sourceFile, File destFile) throws IOException {
-        if (!destFile.getParentFile().exists())
-            destFile.getParentFile().mkdirs();
-
-        if (!destFile.exists()) {
-            destFile.createNewFile();
-        }
-
-        FileChannel source = null;
-        FileChannel destination = null;
-
-        try {
-            source = new FileInputStream(sourceFile).getChannel();
-            destination = new FileOutputStream(destFile).getChannel();
-            destination.transferFrom(source, 0, source.size());
-        } finally {
-            if (source != null) {
-                source.close();
-            }
-            if (destination != null) {
-                destination.close();
-            }
-        }
-    }
-
-    public void computeStatNow(View v){
-
-        Log.d("Appspy","Request to compute stats now");
-
-        //call the InstalledAppsTracker to check all installed apps
-        Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsTracker.class);
-        installedAppReceiver.setAction(Intent.ACTION_SEND);
-        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
-        sendBroadcast(installedAppReceiver);
-
-
-        //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
-        //the service is started with the boot.
-        Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTracker.class);
-        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
-        sendBroadcast(gpsTaskReceiver);
-
-
-        Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityTracker.class);
-        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
-        sendBroadcast(activityTaskReceiver);
     }
 
 }

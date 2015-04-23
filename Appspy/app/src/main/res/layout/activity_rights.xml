@@ -24,14 +24,6 @@
         android:id="@+id/button_test_path"/>
 
 
-
-    <EditText
-        android:hint="Enter path or shell command"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvPath"
-        android:layout_below="@+id/button_test_path"/>
-
     <Button
         android:text="Compute stat now"
         android:layout_width="wrap_content"
@@ -44,13 +36,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_compute_now"
-        >
+        android:id="@+id/scrollView">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textIsSelectable="true"
         android:id="@+id/textview"/>
     </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click on sendDB"
+        android:id="@+id/pathTextView"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/button_test_path"
+        android:layout_alignParentEnd="true"/>
 
 
 </RelativeLayout>
