@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
     private static double intervalPrecision = 0.1;
     private static LocationRequest locationRequest;
 
-
+    private static SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     //Location disabled -> GoogleApiClient = disconnected
     //location: lost -> suspended
@@ -64,6 +65,10 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
 
             //When connected successfully, onConnected() will be called
             googleApiClient.connect();
+
+            listener = this;
+            PreferenceManager.getDefaultSharedPreferences(context)
+                                 .registerOnSharedPreferenceChangeListener(listener);
         }
         //END INIT phase
 
@@ -221,6 +226,9 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         String prefToListen = context.getResources().getString(R.string.pref_key_gps_freq);
+        
+        LogA.i("Appspy", "HELlLLOO ");
+        
 
         if (key.equals(prefToListen)) {
             long newInterval = Settings.getSettings(context).getGPSIntervalMillis();

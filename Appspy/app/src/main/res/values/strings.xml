@@ -40,7 +40,7 @@
         <item>30 minutes</item>
 
     </string-array>
-    <string-array name="pref_gps_freq_values">
+    <integer-array name="pref_gps_freq_values">
         <item>30</item>
         <item>60</item>
         <item>120</item>
@@ -49,7 +49,7 @@
         <item>900</item>
         <item>1200</item>
         <item>1800</item>
-    </string-array>
+    </integer-array>
 
     <string name="pref_gps_freq_default">30</string>
     <string name="settings_group_title">General settings</string>

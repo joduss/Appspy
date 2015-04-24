@@ -73,7 +73,7 @@ public class Utility {
     public static void startLogging(){
         try {
             File path = Environment.getExternalStorageDirectory();
-            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME);
+            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME + " *:I");
             LogA.i("Appspy-AppActivityTracker","Start logging in file " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME );
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,6 +141,30 @@ public class Utility {
         }
     }
 
+
+    /**
+     * Remove a folder
+     * @param folder the folder to remove
+     */
+    public static void deleteFolder(File folder){
+        if(folder.isDirectory()){
+            //firts remove all the files that are in the folder
+            for(File f : folder.listFiles()){
+                if(f.isDirectory()){
+                    deleteFolder(f);
+                }
+                else {
+                    f.delete();
+                }
+            }
+
+            //finally, delete it
+            folder.delete();
+        }
+        else {
+            folder.delete();
+        }
+    }
 
 }
 

@@ -32,9 +32,6 @@ public class DatabaseActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
-
-
-
     }
 
 
@@ -89,8 +86,8 @@ public class DatabaseActivity extends ActionBarActivity {
                 folderToZip.mkdir();
             }
 
-            Utility.copyFile(originalDB, copiedDB);
 
+            Utility.copyFile(originalDB, copiedDB);
 
             Utility.zipFolder(folderToZip.getAbsolutePath(), zippedFolder.getAbsolutePath());
 
@@ -105,8 +102,6 @@ public class DatabaseActivity extends ActionBarActivity {
             text += "folder to zip is:"+ folderToZip + "\n";
             text += "zip should exits does it: " + zippedFolder.exists() + "\n";
             text += "zip path is: " + zippedFolder.getAbsolutePath() + "\n";
-
-
 
 
             tv.setText(text);
@@ -181,11 +176,20 @@ public class DatabaseActivity extends ActionBarActivity {
     }
 
 
-    public void removeTmpFiles(){
+    public void removeTmpFiles(View v){
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR).delete();
+        String zipName = "appspy.zip";
+
+        File zippedFolder = new File(path + "/tmp/" + zipName);
+        zippedFolder.delete();
+
+
+        File folderToDelete = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR);
+        Utility.deleteFolder(folderToDelete);
 
     }
+
+
 
 
 

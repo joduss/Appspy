@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -21,7 +22,8 @@ import com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.monitoring.InstalledAppsTracker;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity  {
+
 
 
     @Override
@@ -37,7 +39,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
 
