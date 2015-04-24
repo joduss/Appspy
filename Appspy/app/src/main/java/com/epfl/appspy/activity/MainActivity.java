@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
+
         //check if is first time the app is launched (manually)
         SharedPreferences settings = getSharedPreferences(GlobalConstant.PREFERENCES, 0);
         boolean firstLaunch = settings.getBoolean(GlobalConstant.PREF_FIRST_LAUNCH, true);
@@ -109,10 +110,10 @@ public class MainActivity extends ActionBarActivity {
 
 
     /**Show the activity showing the rights */
-    public void showRightsActivity(View view){
+    public void goDBActivity(View view){
 
-        Intent rightsActivity = new Intent(this,RightsActivity.class);
-        startActivity(rightsActivity);
+        Intent nextActivity = new Intent(this,DatabaseActivity.class);
+        startActivity(nextActivity);
 
     }
 

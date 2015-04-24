@@ -1,9 +1,15 @@
 package com.epfl.appspy;
 
+import java.io.Serializable;
+
 /**
  * Created by Jonathan Duss on 30.03.15.
  */
-public class GlobalConstant {
+
+
+
+
+public class GlobalConstant implements Serializable {
 
     public static final boolean DEBUG = true;
 

@@ -1,14 +1,11 @@
 package com.epfl.appspy.activity;
 
 import android.app.Activity;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.preference.PreferenceFragment;
 
 import com.epfl.appspy.R;
+
 
 
 

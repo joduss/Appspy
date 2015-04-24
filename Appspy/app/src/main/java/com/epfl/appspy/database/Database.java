@@ -27,7 +27,7 @@ public class Database extends SQLiteOpenHelper {
 
 
     //Database version
-    private static final int DB_VERSION = 140;
+    private static final int DB_VERSION = 141;
     private static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -73,7 +73,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String COL_LONGITUDE = "longitude";
     private static final String COL_ALTITUDE = "altitude";
     private static final String COL_ACCURACY = "accuracy";
-    private static final String COL_GPS_ENABLED = "gps_enable";
+    private static final String COL_GPS_ENABLED = "location_provider";
 
 
 
@@ -561,6 +561,9 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
+    public void setLastActivity(String packageName, long uploadedData, long downloadedData){
+        addLastInternetUse(packageName, uploadedData, downloadedData);
+    }
 
     /**
      * Return the most recent record older than the one given in parameter

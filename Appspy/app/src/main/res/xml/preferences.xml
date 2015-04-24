@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
     <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
         <PreferenceCategory
-            android:title="TEST">
+            android:title="@string/settings_group_title">
 
             <CheckBoxPreference
-                android:key="pref_background_services"
+                android:key="@string/pref_key_background_services"
                 android:title="@string/background_services"
                 android:summary="@string/pref_background_services_summ"
                 android:defaultValue="true" />
             <ListPreference
-                android:key="pref_gps_freq"
+                android:key="@string/pref_key_gps_freq"
                 android:title="@string/pref_gps_freq_title"
+                android:summary="@string/pref_gps_freq_summ"
                 android:dialogTitle="@string/pref_gps_freq_dia_title"
                 android:entries="@array/pref_gps_freq_entries"
                 android:entryValues="@array/pref_gps_freq_values"
