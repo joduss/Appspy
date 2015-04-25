@@ -19,6 +19,7 @@ import com.epfl.appspy.database.PermissionRecord;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 
 /**
  * This class is responsible to monitor app installation update, or  uninstallation.
@@ -69,12 +70,12 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         }
         else if(intent.getAction().equals(Intent.ACTION_SEND) &&
                 intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
-                GlobalConstant.EXTRA_ACTION.MANUAL){
+                EXTRA_ACTION.MANUAL){
             Log.i("Appspy-AppTracker", "Permission and apps installed triggered manually");
         }
         else if(intent.getAction().equals(Intent.ACTION_SEND) &&
                 intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) ==
-                GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH){
+                EXTRA_ACTION.FIRST_LAUNCH){
                 firstTimeUse = true;
             Log.i("Appspy-AppTracker", "AppTracker first launch on this device");
         }

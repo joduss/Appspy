@@ -19,15 +19,18 @@
     <string name="removeTempFile">Remove temp files</string>
 
 
+
+
     <!-- Settings Activity -->
-    
-    
+
+
     <string name="background_services">Background Services</string>
     <string name="pref_background_services_summ">The background services are the services that monitor what is happening
         on the device.</string>
-<string name="pref_gps_freq_title">GPS Frequency</string>
+
+    <string name="pref_gps_freq_title">GPS Frequency</string>
     <string name="pref_gps_freq_summ">This is how often Appspy will record your position. The lower is the interval, the more the battery will be drained</string>
-<string name="pref_gps_freq_dia_title">GPS update frequency</string>
+    <string name="pref_gps_freq_dia_title">GPS update frequency</string>
 
     <string-array name="pref_gps_freq_entries">
         <item>30 seconds</item>
@@ -38,9 +41,8 @@
         <item>15 minutes</item>
         <item>20 minutes</item>
         <item>30 minutes</item>
-
     </string-array>
-    <integer-array name="pref_gps_freq_values">
+    <string-array name="pref_gps_freq_values">
         <item>30</item>
         <item>60</item>
         <item>120</item>
@@ -49,7 +51,7 @@
         <item>900</item>
         <item>1200</item>
         <item>1800</item>
-    </integer-array>
+    </string-array>
 
     <string name="pref_gps_freq_default">30</string>
     <string name="settings_group_title">General settings</string>

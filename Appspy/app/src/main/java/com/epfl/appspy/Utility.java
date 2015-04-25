@@ -73,7 +73,7 @@ public class Utility {
     public static void startLogging(){
         try {
             File path = Environment.getExternalStorageDirectory();
-            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME + " *:I");
+            Runtime.getRuntime().exec("logcat -v time -f " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME + " *:I" + "SQLiteLog:S");
             LogA.i("Appspy-AppActivityTracker","Start logging in file " + path.toString() + GlobalConstant.APPSPY_TMP_DIR + "/" + GlobalConstant.LOG_FILENAME );
         } catch (IOException e) {
             e.printStackTrace();

@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 
 import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
@@ -58,12 +58,16 @@ public class DatabaseActivity extends ActionBarActivity {
     }
 
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogA.i("Appspy-MainActivity", "Show database activity");
+    }
 
 
     public void sendDB(View v){
 
-        LogA.d("Appspy", "click on sendDB");
+        LogA.i("Appspy", "click on sendDB");
         try {
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();
             String zipName = "appspy.zip";
@@ -94,7 +98,6 @@ public class DatabaseActivity extends ActionBarActivity {
 
             Uri uriFileToSend = Uri.parse("file://" + zippedFolder.getAbsolutePath());
 
-            TextView tv = (TextView) findViewById(R.id.pathTextView);
             String text = "";
             text += "PATH is:" + path + "\n";
             text += "PATH exits:" + new File(path).exists() + "\n";
@@ -104,7 +107,6 @@ public class DatabaseActivity extends ActionBarActivity {
             text += "zip path is: " + zippedFolder.getAbsolutePath() + "\n";
 
 
-            tv.setText(text);
 
             text += "File in the tmp folder";
             for(File ff: new File(path + "/tmp").listFiles()){
@@ -157,7 +159,7 @@ public class DatabaseActivity extends ActionBarActivity {
         //call the InstalledAppsTracker to check all installed apps
         Intent installedAppReceiver = new Intent(getApplicationContext(), InstalledAppsTracker.class);
         installedAppReceiver.setAction(Intent.ACTION_SEND);
-        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
+        installedAppReceiver.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.MANUAL);
         sendBroadcast(installedAppReceiver);
 
 
@@ -165,13 +167,13 @@ public class DatabaseActivity extends ActionBarActivity {
         //the service is started with the boot.
         Intent gpsTaskReceiver = new Intent(getApplicationContext(), GPSTracker.class);
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.MANUAL);
         sendBroadcast(gpsTaskReceiver);
 
 
         Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityTracker.class);
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.MANUAL);
+        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.MANUAL);
         sendBroadcast(activityTaskReceiver);
     }
 
@@ -186,6 +188,9 @@ public class DatabaseActivity extends ActionBarActivity {
 
         File folderToDelete = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR);
         Utility.deleteFolder(folderToDelete);
+
+        //restart logging as it stopped when removing the file
+        Utility.startLogging();
 
     }
 

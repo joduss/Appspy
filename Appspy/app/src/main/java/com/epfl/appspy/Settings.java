@@ -29,12 +29,12 @@ public class Settings {
     }
 
     public static long getGPSIntervalMillis(){
-        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 
     //settings is in second
-        //long value = Long.parseLong(settings.getString(context.getResources().getString(R.string.pref_key_gps_freq), "30"));
+        long value = Long.parseLong(settings.getString(context.getResources().getString(R.string.pref_key_gps_freq), "30"));
 
-        return 1000 ;//* value;
+        return 1000 * value;
     }
 
 //    public synchronized void setGPSIntervalMillis(int value){

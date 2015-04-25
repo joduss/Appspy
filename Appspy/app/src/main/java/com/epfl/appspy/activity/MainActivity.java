@@ -20,15 +20,20 @@ import com.epfl.appspy.Utility;
 import com.epfl.appspy.monitoring.AppActivityTracker;
 import com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.monitoring.InstalledAppsTracker;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 
 
-public class MainActivity extends ActionBarActivity  {
+public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
 
 
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        LogA.i("Appspy-MainActivity", "Show main activity");
+        
 
         //ASK FOR PERMISSION USAGE ACCESS
         checkUsageStatAccessPermission();
@@ -40,6 +45,7 @@ public class MainActivity extends ActionBarActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).registerOnSharedPreferenceChangeListener(this);
 
 
         //check if is first time the app is launched (manually)
@@ -60,7 +66,7 @@ public class MainActivity extends ActionBarActivity  {
             //call the InstalledAppsTracker to check all installed apps
             Intent installedAppTracker = new Intent(getApplicationContext(), InstalledAppsTracker.class);
             installedAppTracker.setAction(Intent.ACTION_SEND);
-            installedAppTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            installedAppTracker.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.FIRST_LAUNCH);
             sendBroadcast(installedAppTracker);
 
 
@@ -68,13 +74,13 @@ public class MainActivity extends ActionBarActivity  {
             //the service is started with the boot.
             Intent gpsTracker = new Intent(getApplicationContext(), GPSTracker.class);
             gpsTracker.setAction(Intent.ACTION_SEND);
-            gpsTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            gpsTracker.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.FIRST_LAUNCH);
             sendBroadcast(gpsTracker);
 
 
             Intent appActivityTracker = new Intent(getApplicationContext(), AppActivityTracker.class);
             appActivityTracker.setAction(Intent.ACTION_SEND);
-            appActivityTracker.putExtra(GlobalConstant.EXTRA_TAG, GlobalConstant.EXTRA_ACTION.FIRST_LAUNCH);
+            appActivityTracker.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.FIRST_LAUNCH);
             sendBroadcast(appActivityTracker);
         }
 
@@ -143,9 +149,23 @@ public class MainActivity extends ActionBarActivity  {
     }
 
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        //Launch GPS (useful when app is installed and launched for the first time. After that, not useful
+        //the service is started with the boot.
 
+        if (key.equals(getResources().getString(R.string.pref_key_gps_freq))) {
 
+            Intent gpsTracker = new Intent(getApplicationContext(), GPSTracker.class);
+            gpsTracker.setAction(Intent.ACTION_SEND);
+            gpsTracker.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.UPDATE);
+            sendBroadcast(gpsTracker);
 
+            long newInterval = com.epfl.appspy.Settings.getSettings(getApplicationContext()).getGPSIntervalMillis();
+            LogA.i("Appspy-MainActivity", "Settings for GPS interval changed to " + newInterval / 1000 + " seconds");
+        }
+
+    }
 
 
 }
