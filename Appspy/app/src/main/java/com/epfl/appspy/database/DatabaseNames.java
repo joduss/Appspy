@@ -112,30 +112,30 @@ public class DatabaseNames {
                                                       "datetime(" + COL_RECORD_TIME +
                                                       " / 1000, 'unixepoch', 'localtime') AS " + COL_RECORD_TIME +  "," +
                                                       "time(" + COL_FOREGROUND_TIME_USAGE +
-                                                      " / 1000, 'unixepoch') AS " + COL_FOREGROUND_TIME_USAGE +  "," +
+                                                      " / 1000, 'unixepoch', 'localtime') AS " + COL_FOREGROUND_TIME_USAGE +  "," +
                                                       "datetime(" + COL_LAST_TIME_USE +
                                                       "/1000, 'unixepoch', 'localtime') AS " + COL_LAST_TIME_USE +  "," +
-                                                      COL_DOWNLOADED_DATA + "," +
-                                                      COL_UPLOADED_DATA + "," +
+                                                      COL_DOWNLOADED_DATA + "*1.0/1024" + " as "+ COL_DOWNLOADED_DATA + "_kb," +
+                                                      COL_UPLOADED_DATA + "*1.0/1024" + " as "+ COL_UPLOADED_DATA + "_kb," +
                                                       COL_WAS_FOREGROUND +
                                                       "  FROM " + TABLE_APPS_ACTIVITY;
 
     protected static final String VIEW_GPS = "view_gps";
-    protected static final String CREATE_VIEW_GPS = "CREATE VIEW " + VIEW_GPS + " AS SELECT " + COL_RECORD_ID + ", " + "datetime(" + COL_RECORD_TIME + ", 'unixepoch') as " + COL_RECORD_TIME
+    protected static final String CREATE_VIEW_GPS = "CREATE VIEW " + VIEW_GPS + " AS SELECT " + COL_RECORD_ID + ", " + "datetime(" + COL_RECORD_TIME + ", 'unixepoch', 'localtime') as " + COL_RECORD_TIME
             +"," + COL_GPS_ENABLED +"," +  COL_LATITUDE +"," + COL_LONGITUDE +"," + COL_ALTITUDE +"," + COL_ACCURACY + " FROM " + TABLE_GPS_LOCATION;
 
     protected static final String VIEW_INSTALLED_APPS = "view_installed_apps";
     protected static final String CREATE_VIEW_INSTALLED_APPS =
             "CREATE VIEW " + VIEW_INSTALLED_APPS + " AS  SELECT " + COL_APP_ID + "," + COL_APP_PKG_NAME + "," +
-            COL_APP_NAME + "," + "datetime(" + COL_INSTALLATION_DATE + "/1000, 'unixepoch') as " +
-            COL_INSTALLATION_DATE + ", datetime(" + COL_UNINSTALLATION_DATE + "/1000, 'unixepoch') as " +
+            COL_APP_NAME + "," + "datetime(" + COL_INSTALLATION_DATE + "/1000, 'unixepoch', 'localtime') as " +
+            COL_INSTALLATION_DATE + ", datetime(" + COL_UNINSTALLATION_DATE + "/1000, 'unixepoch', 'localtime') as " +
             COL_UNINSTALLATION_DATE + ", " + COL_IS_SYSTEM + " FROM " + TABLE_INSTALLED_APPS;
 
     protected static final String VIEW_PERMISSIONS = "view_permissions";
     protected static final String CREATE_VIEW_PERMISSIONS =
             "CREATE VIEW " + VIEW_PERMISSIONS + " AS SELECT " + COL_RECORD_ID + "," + COL_APP_PKG_NAME + "," +
-            COL_PERMISSION_NAME + ", datetime(" + COL_PERMISSION_GAIN_ACCESS + "/1000, 'unixepoch') as " +
-            COL_PERMISSION_GAIN_ACCESS + ", datetime(" + COL_PERMISSION_LOST_ACCESS + "/1000, 'unixepoch') as" +
+            COL_PERMISSION_NAME + ", datetime(" + COL_PERMISSION_GAIN_ACCESS + "/1000, 'unixepoch', 'localtime') as " +
+            COL_PERMISSION_GAIN_ACCESS + ", datetime(" + COL_PERMISSION_LOST_ACCESS + "/1000, 'unixepoch', 'localtime') as" +
             COL_PERMISSION_LOST_ACCESS + " from " + TABLE_PERMISSIONS;
 
 

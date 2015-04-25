@@ -173,9 +173,8 @@ public class Database extends SQLiteOpenHelper {
 
         }
         //if record exists and was uninstalled (uninstallationDate > 0), update the uninstallationDate
-        else if(newRecord.getUninstallationDate() == 0){
+        else if(newRecord.getUninstallationDate() > 0){
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
-            // Thus we update the columns uninstallation_date, the current_permissions and the max_permissions
             LogA.i("Appspy-DB", "one applicationInstallationRecord has been updated");
 
 
@@ -694,7 +693,7 @@ public class Database extends SQLiteOpenHelper {
 
             //For all the currently used permissions in the DB for that app, we check if they are
             //in the permissions just checked. If they are, it means that they are still in used
-            //thus, nothing need to be done. We remove them from the hashmap.
+            //thus, nothing need to be done. Sp We jst remove them from the hashmap.
             do {
                 String permissionName = cursor.getString(cursor.getColumnIndex(COL_PERMISSION_NAME));
                 if (records.containsKey(permissionName)) {
@@ -728,6 +727,10 @@ public class Database extends SQLiteOpenHelper {
             db.insert(TABLE_PERMISSIONS, null, values);
         }
 
+    }
+
+    public void updatePermissionsForUninstalledApp(String packageName){
+        updatePermissionRecordsForApp(packageName, new HashMap<String, PermissionRecord>());
     }
 
 //    public enum ACTIVE_STATE {

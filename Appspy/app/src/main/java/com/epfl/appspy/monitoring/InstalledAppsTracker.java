@@ -165,7 +165,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         }
 
         //Here are the uninstalled apps
-        for(String packageName : previousInstalledApps){
+        for(final String packageName : previousInstalledApps){
             final Database db3 = Database.getDatabaseInstance(context);
             final ApplicationInstallationRecord record = db3.getApplicationInstallationRecord(packageName);
             record.setUninstallationDate(currentTime);
@@ -173,8 +173,9 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
             Runnable doOnMainThread = new Runnable() {
                 @Override
                 public void run() {
+                    LogA.d("Appspy","in job " + record.getApplicationName());
                     db3.addOrUpdateApplicationInstallationRecord(record);
-                    db3.close();
+                    db3.updatePermissionsForUninstalledApp(packageName);
                 }
             };
             mainHandler.post(doOnMainThread); //execute db stuff on main thread
