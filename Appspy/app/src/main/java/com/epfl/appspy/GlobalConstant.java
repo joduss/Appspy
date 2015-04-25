@@ -17,7 +17,7 @@ public class GlobalConstant implements Serializable {
      * Enum for the periodicity of the tasks
      */
     public enum EXTRA_ACTION {
-        MANUAL, FIRST_LAUNCH, AUTOMATIC
+        MANUAL, FIRST_LAUNCH, AUTOMATIC, UPDATE
     }
 
     public static final String EXTRA_TAG = "task_extra";

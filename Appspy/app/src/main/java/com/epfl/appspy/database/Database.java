@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.epfl.appspy.database.DatabaseNames.*;
+
 /**
  * Manage the database of the app
  * <p/>
@@ -24,114 +26,6 @@ import java.util.List;
  */
 public class Database extends SQLiteOpenHelper {
 
-
-
-    //Database version
-    private static final int DB_VERSION = 141;
-    private static final String DB_NAME = "Appspy_database";
-
-    //Tables names
-    private static final String TABLE_APPS_ACTIVITY = "Table_applications_activity";
-    private static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
-    private static final String TABLE_PERMISSIONS = "Table_permissions";
-    private static final String TABLE_APPS_INTERNET_USE_LAST_TIME = "Table_internet_use_last_time";
-    private static final String TABLE_GPS_LOCATION = "Table_GPS_location";
-
-    //SHARED columns names
-    private static final String COL_RECORD_ID = "record_id"; //id in any table, except in installed apps
-    private static final String COL_APP_NAME = "app_name";
-    private static final String COL_APP_PKG_NAME = "package_name";
-
-
-
-    //INSTALLED APP TABLE columns names
-    private static final String COL_APP_ID = "app_id"; //id in installed app
-    private static final String COL_IS_SYSTEM = "is_system";
-    private static final String COL_INSTALLATION_DATE = "installation_date";
-    private static final String COL_UNINSTALLATION_DATE = "uninstallation_date";
-
-    //PERMISSIONS TABLE columns names
-    private static final String COL_PERMISSION_NAME = "permission_name";
-    private static final String COL_PERMISSION_GAIN_ACCESS = "gain_access";
-    private static final String COL_PERMISSION_LOST_ACCESS = "lost_access";
-
-    //TABLE_APPS_ACTIVITY columns names
-    private static final String COL_FOREGROUND_TIME_USAGE = "foreground_time_usage";
-    private static final String COL_LAST_TIME_USE = "last_time_use";
-    private static final String COL_UPLOADED_DATA = "uploaded_data";
-    private static final String COL_DOWNLOADED_DATA = "downloaded_data";
-    private static final String COL_RECORD_TIME = "record_time";
-    private static final String COL_WAS_FOREGROUND = "was_foreground";
-    private static final String COL_AVG_CPU_USAGE = "avg_cpu_usage";
-    private static final String COL_MAX_CPU_USAGE = "max_cpu_usage";
-    private static final String COL_BOOT = "boot";
-
-
-
-    //Table GPS_LOCATION columns names
-    private static final String COL_LATITUDE = "latitude";
-    private static final String COL_LONGITUDE = "longitude";
-    private static final String COL_ALTITUDE = "altitude";
-    private static final String COL_ACCURACY = "accuracy";
-    private static final String COL_GPS_ENABLED = "location_provider";
-
-
-
-
-
-
-
-    //Table creation SQL statement
-    private static final String CREATE_TABLE_INSTALLED_APPS =
-            "CREATE TABLE " + TABLE_INSTALLED_APPS + "(" +
-            COL_APP_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            COL_APP_PKG_NAME + " TEXT SECONDARY KEY, " +
-            COL_APP_NAME + " TEXT, " +
-            COL_INSTALLATION_DATE + " INTEGER, " +
-            COL_UNINSTALLATION_DATE + " INTEGER, " +
-            COL_IS_SYSTEM + " INTEGER" + ")";
-
-    private static final String CREATE_TABLE_APPS_ACTIVITY =
-            "CREATE TABLE " + TABLE_APPS_ACTIVITY + "("
-            + COL_RECORD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            COL_APP_PKG_NAME + " TEXT, " +
-            COL_RECORD_TIME + " INTEGER, " +
-            COL_FOREGROUND_TIME_USAGE + " INTEGER SECONDARY KEY, " +
-            COL_LAST_TIME_USE + " INTEGER," +
-            COL_DOWNLOADED_DATA + " INTEGER, " +
-            COL_UPLOADED_DATA + " INTEGER, " +
-            COL_AVG_CPU_USAGE + " REAL, " +
-            COL_MAX_CPU_USAGE + " INTEGER, " +
-            COL_WAS_FOREGROUND + " INTEGER, " +
-            COL_BOOT + " INTEGER"
-            + ")";
-
-    private static final String CREATE_TABLE_PERMISSIONS =
-            "CREATE TABLE " + TABLE_PERMISSIONS + "(" +
-            COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            COL_APP_PKG_NAME + " TEXT SECONDARY KEY, " +
-            COL_PERMISSION_NAME + " TEXT, " + COL_PERMISSION_GAIN_ACCESS +" INTEGER, " +
-            COL_PERMISSION_LOST_ACCESS + " INTEGER" + ")";
-
-    private static final String CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME =
-            "CREATE TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME + "("
-            + COL_RECORD_ID +" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            COL_APP_PKG_NAME + " TEXT, " +
-            COL_RECORD_TIME + " INTEGER, " +
-            COL_DOWNLOADED_DATA + " INTEGER, " +
-            COL_UPLOADED_DATA + " INTEGER " +
-            ")";
-
-    private static final String CREATE_TABLE_GPS_LOCATION =
-            "CREATE TABLE " + TABLE_GPS_LOCATION + "(" +
-            COL_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-            COL_RECORD_TIME + " INTEGER, " +
-            COL_GPS_ENABLED + " INTEGER, " +
-            COL_LATITUDE + " REAL, " +
-            COL_LONGITUDE + " REAL, " +
-            COL_ALTITUDE + " REAL, " +
-            COL_ACCURACY + " REAL" +
-            ")";
 
     private static Database databaseInstance;
 
@@ -149,29 +43,31 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
-        db.execSQL(CREATE_TABLE_INSTALLED_APPS);
-        db.execSQL(CREATE_TABLE_PERMISSIONS);
-        db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
-        db.execSQL(CREATE_TABLE_GPS_LOCATION);
+        createDB(db);
     }
 
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO
         db.execSQL("DROP TABLE " + TABLE_INSTALLED_APPS);
         db.execSQL("DROP TABLE " + TABLE_APPS_ACTIVITY);
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
         db.execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         db.execSQL("DROP TABLE " + TABLE_GPS_LOCATION);
 
+        createDB(db);
+    }
 
+    private void createDB(SQLiteDatabase db){
         db.execSQL(CREATE_TABLE_APPS_ACTIVITY);
         db.execSQL(CREATE_TABLE_INSTALLED_APPS);
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
         db.execSQL(CREATE_TABLE_GPS_LOCATION);
 
+        db.execSQL(CREATE_VIEW_APP_ACTIVITY);
+        db.execSQL(CREATE_VIEW_GPS);
+        db.execSQL(CREATE_VIEW_INSTALLED_APPS);
+        db.execSQL(CREATE_VIEW_PERMISSIONS);
     }
 
     public void deviceStarted(){
@@ -866,7 +762,7 @@ public class Database extends SQLiteOpenHelper {
         toInsert.put(COL_ACCURACY, record.getAccuracy());
         toInsert.put(COL_GPS_ENABLED, record.getLocationType().getValue());
         db.insert(TABLE_GPS_LOCATION, null, toInsert);
-        
+
         LogA.i("Appspy-DB", "new GPS record inserted");
         
     }
