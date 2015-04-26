@@ -16,10 +16,10 @@ public class GPSRecord {
     private double altitude;
     private float accuracy;
     private long id;
-    private LocationType locationType;
+    private String locationType;
 
 
-    public GPSRecord(long id, long recordTime, LocationType locationType, double longitude, double latitude, double altitude,
+    public GPSRecord(long id, long recordTime, String locationType, double longitude, double latitude, double altitude,
                      float accuracy) {
         this.longitude = longitude;
         this.latitude = latitude;
@@ -29,11 +29,10 @@ public class GPSRecord {
         this.locationType = locationType;
         this.altitude = altitude;
 
-        LocationType t = locationType;
 
     }
 
-    public GPSRecord(long recordTime, LocationType locationType, double longitude, double latitude,
+    public GPSRecord(long recordTime, String locationType, double longitude, double latitude,
                      double altitude, float accuracy) {
         this.longitude = longitude;
         this.latitude = latitude;
@@ -114,12 +113,12 @@ public class GPSRecord {
     }
 
 
-    public LocationType getLocationType() {
+    public String getLocationType() {
         return locationType;
     }
 
 
-    public void setLocationType(LocationType locationType) {
+    public void setLocationType(String locationType) {
         this.locationType = locationType;
     }
 }

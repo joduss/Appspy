@@ -7,12 +7,11 @@ import android.util.Log;
  */
 public class LogA {
 
-    private static final boolean DEBUG = true;
     private static final boolean showDBLog = false;
 
     public static void i(String tag, String message){
         //if(DEBUG && tag.equals("Appspy-log") == false) {
-        if(DEBUG) {
+        if(GlobalConstant.DEBUG) {
             if (tag.equals("Appspy-DB") == false || showDBLog) {
                 Log.i(tag, message);
             }
@@ -25,9 +24,11 @@ public class LogA {
     }
 
     public static void d(String tag, String message){
-        if(DEBUG) {
+        if(GlobalConstant.DEBUG) {
             //if (tag.equals("Appspy-log")) {
+            if (tag.equals("Appspy-DB") == false || showDBLog) {
                 Log.d(tag, message);
+            }
             //}
         }
     }

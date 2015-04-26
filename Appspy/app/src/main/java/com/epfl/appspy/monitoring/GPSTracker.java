@@ -88,7 +88,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
             //addRecordIfNoLocation();
         }
         else if(intent.getAction().equals(LocationManager.MODE_CHANGED_ACTION)){
-            if(getLocationType() == LocationType.NONE){
+            if(getLocationType().equals(LocationType.NO_PROVIDER)){
                 LogA.i("Appspy-GPS", "Location services have been disabled");
                 addRecordIfNoLocation();
                 setPeriodicCheck();
@@ -111,7 +111,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
             
             //GPS frequency has changed
             cancelPeriodicCheck();
-            if(getLocationType() == LocationType.NONE){
+            if(getLocationType().equals(LocationType.NO_PROVIDER)){
                 //reset the periodicCheck if no location enabled
                 setPeriodicCheck();
             }
@@ -124,8 +124,8 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
     }
 
     private void addRecordIfNoLocation(){
-        if(getLocationType() == LocationType.NONE){
-            GPSRecord record = new GPSRecord(System.currentTimeMillis(), LocationType.NONE, LocationType.NO_VALUE,
+        if(getLocationType().equals(LocationType.NO_PROVIDER)){
+            GPSRecord record = new GPSRecord(System.currentTimeMillis(), LocationType.NO_PROVIDER, LocationType.NO_VALUE,
                                              LocationType.NO_VALUE, LocationType.NO_VALUE, (float) LocationType.NO_VALUE);
             Database.getDatabaseInstance(context).insertGPSRecord(record);
         }
@@ -144,7 +144,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
         //location.acc
 
 
-        LocationType locationType= getLocationType();
+        String locationType= getLocationType();
 
 
         GPSRecord record = new GPSRecord(System.currentTimeMillis(), locationType,location.getLongitude(),
@@ -166,7 +166,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
         locationRequest = new LocationRequest();
         locationRequest.setInterval(interval);
         locationRequest.setFastestInterval((long) (interval*(1-intervalPrecision)));
-        locationRequest.setExpirationDuration((long) (interval*(1+intervalPrecision)));
+        //locationRequest.setExpirationDuration((long) (interval*(1+intervalPrecision)));
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
@@ -174,7 +174,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
 
         //Check if Location is available. If disabled, setup checking every X minutes
         //setup periodic check
-        if(getLocationType() == LocationType.NONE) {
+        if(getLocationType().equals(LocationType.NO_PROVIDER)) {
             LogA.i("Appspy-GPS", "Google API Client is now onConnected, but Location is disabled" );
             setPeriodicCheck();
         } else {
@@ -185,7 +185,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
 
     private void setPeriodicCheck(){
         long interval = Settings.getSettings(context).getGPSIntervalMillis();
-        if(getLocationType() == LocationType.NONE) {
+        if(getLocationType().equals(LocationType.NO_PROVIDER)) {
             LogA.i("Appspy-GPS", "Set up periodic check every " + interval / 1000 + " seconds");
 
             cancelPeriodicCheck(); //first cancel
@@ -200,7 +200,7 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
         else
         {
             //there was an error. cancel and continue with location
-            LogA.d("Appspy-GPS","bidoum");
+            LogA.d("Appspy-GPS","didn't set periodic check: no need");
             cancelPeriodicCheck();
             googleApiClient.reconnect();
         }
@@ -233,20 +233,31 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
      * Give what type of location provider is in use.
      * @return used location provider
      */
-    private LocationType getLocationType(){
+    private String getLocationType(){
+
+
         if(context != null) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
             if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-                return LocationType.GPS;
+                LogA.d("Appspy","GPS provider");
+                return LocationManager.GPS_PROVIDER;
             }
             else if(lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-                return LocationType.NETWORK;
+                LogA.d("Appspy-GPS","network provider");
+                return LocationManager.NETWORK_PROVIDER;
+            }
+            else if(lm.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)){
+                LogA.d("Appspy-GPS","passive provider (considered as none)");
+                return LocationType.NO_PROVIDER;
+                //return LocationManager.PASSIVE_PROVIDER;
             }
             else{
-                return LocationType.NONE;
+                LogA.d("Appspy-GPS","no provider");
+                return LocationType.NO_PROVIDER;
             }
         }
+        LogA.d("Appspy-GPS","null provider");
         return null;
     }
 
