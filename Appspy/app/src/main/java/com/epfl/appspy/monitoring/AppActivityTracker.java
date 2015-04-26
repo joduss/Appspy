@@ -269,7 +269,7 @@ public class AppActivityTracker extends BroadcastReceiver {
                 }
             }
 
-            db.close();
+            //db.close();
         }
 
         LogA.i("Appspy-AppActivityTracker", "Finished analysing apps activity");

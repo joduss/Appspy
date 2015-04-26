@@ -1,0 +1,39 @@
+TEST PROCEDURE FOR APPS ACTIVITY + PERMISSION + INSTALLED
+0. remove any data created by appspy in tmp
+1. Remove appspy if installed
+2. install the app
+3. grant the permissions
+4. then go back to the homescreen
+5. wait ~2 minutes and at hh:mm:20 open an app
+6. wait 3 minutes and at hh:mm:20 close the app
+7. wait until next hh:mm:10 and open play store and download any app
+8. wait 1 minute
+9. uninstall the app
+
+
+TEST PROCEDURE FOR GPS (with fake GPS apps activated to simulate fake location with movement)
+0. remove any data created by appspy in tmp
+0. setup Fake GPS app
+1. remove appspy if installed
+2. enable gps
+2b. install appspy
+3. wait 2 minutes
+4. go in appspy, select 1 minutes interval
+5. wait 3 minutes
+6. disable gps
+7. wait 3 minutes
+8. change interval to 30 seconds
+9. wait 2 minutes
+
+10a. remove any data created by appspy in tmp
+10b. remove appspy
+11. disable gps
+12. install appspy
+13. wait 2 minutes
+14. set 1 minutes interval
+15. wait 3 minutes
+16. enable gps
+17. wait 3 minutes
+18. change interval to 30 seconds
+19. wait 2 minutes
+

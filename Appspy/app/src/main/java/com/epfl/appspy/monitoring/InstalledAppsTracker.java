@@ -107,7 +107,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         //For each app, insert or update a record about the time of the installations/uninstallation, permissions, etc
         final Database db1 = Database.getDatabaseInstance(context);
         List<String> previousInstalledApps = db1.getInstalledAppsPackageNameInLastRecord();
-        db1.close();
+        //db1.close();
 
 
         for (final PackageInfo app : permissionsForAllApps.keySet()) {

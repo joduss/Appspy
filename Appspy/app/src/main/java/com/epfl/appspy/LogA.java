@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class LogA {
 
-    private static final boolean showDBLog = false;
+    private static final boolean showDBLog = true;
 
     public static void i(String tag, String message){
         //if(DEBUG && tag.equals("Appspy-log") == false) {
