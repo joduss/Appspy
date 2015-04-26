@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class GlobalConstant implements Serializable {
 
     public static final boolean DEBUG = true;
+    public static final boolean DEBUG_TOAST = false;
+
 
     /**
      * Enum for the periodicity of the tasks

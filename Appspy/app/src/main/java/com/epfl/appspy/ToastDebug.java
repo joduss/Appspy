@@ -19,7 +19,7 @@ public class ToastDebug {
     }
 
     public void show(){
-        if(GlobalConstant.DEBUG) {
+        if(GlobalConstant.DEBUG_TOAST) {
             t.show();
         }
     }

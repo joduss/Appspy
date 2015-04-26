@@ -128,7 +128,7 @@ public class AppActivityTracker extends BroadcastReceiver {
 
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-                startLogging();
+                Utility.startLogging();
                 boot = true;
                 analyseAppActivity();
                 //setupCPUMonitoring();
@@ -151,6 +151,7 @@ public class AppActivityTracker extends BroadcastReceiver {
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == EXTRA_ACTION.FIRST_LAUNCH) {
+                Utility.startLogging();
                 boot = true;
                 LogA.i("AppActivityTracker", "AppActivityTracker FIRST LAUNCH");
 
@@ -173,16 +174,11 @@ public class AppActivityTracker extends BroadcastReceiver {
             }
             else if (intent.getAction().equals(Intent.ACTION_SEND) &&
                      intent.getSerializableExtra(EXTRA) == EXTRA_ACTION.MANUAL) {
-                startLogging();
                 //DO NOTHING
                 //just setup the alarm (for consistency, no manually thing should be done here)
             }
         }
     }
-
-private void startLogging(){
-    Utility.startLogging();
-}
 
 
     /**
