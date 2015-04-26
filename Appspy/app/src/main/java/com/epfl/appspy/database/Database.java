@@ -54,6 +54,11 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         db.execSQL("DROP TABLE " + TABLE_GPS_LOCATION);
 
+        db.execSQL("DROP VIEW " + VIEW_GPS);
+        db.execSQL("DROP VIEW " + VIEW_PERMISSIONS);
+        db.execSQL("DROP VIEW " + VIEW_INSTALLED_APPS);
+        db.execSQL("DROP VIEW " + VIEW_APP_ACTIVITY);
+
         createDB(db);
     }
 
@@ -763,7 +768,7 @@ public class Database extends SQLiteOpenHelper {
         toInsert.put(COL_LATITUDE, record.getLatitude());
         toInsert.put(COL_ALTITUDE, record.getAltitude());
         toInsert.put(COL_ACCURACY, record.getAccuracy());
-        toInsert.put(COL_GPS_ENABLED, record.getLocationType().getValue());
+        toInsert.put(COL_GPS_TYPE, record.getLocationType());
         db.insert(TABLE_GPS_LOCATION, null, toInsert);
 
         LogA.i("Appspy-DB", "new GPS record inserted");
