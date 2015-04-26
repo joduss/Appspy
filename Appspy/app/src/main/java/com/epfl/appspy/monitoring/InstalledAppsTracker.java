@@ -81,7 +81,6 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         }
         new Thread(this).start();
 
-        firstTimeUse = false;
     }
 
 
@@ -130,7 +129,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
             //Add or update the record in the database
             final ApplicationInstallationRecord record = new ApplicationInstallationRecord(appName, pkgName, installationDate,
                                                                                      0, appSystem);
-            //is adde in DB in ~20 lines below
+            //is added in DB in ~20 lines below
 
 
 
@@ -165,7 +164,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         }
 
         //Here are the uninstalled apps
-        for(final String packageName : previousInstalledApps){
+        for (final String packageName : previousInstalledApps) {
             final Database db3 = Database.getDatabaseInstance(context);
             final ApplicationInstallationRecord record = db3.getApplicationInstallationRecord(packageName);
             record.setUninstallationDate(currentTime);
@@ -173,22 +172,17 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
             Runnable doOnMainThread = new Runnable() {
                 @Override
                 public void run() {
-                    LogA.d("Appspy","in job " + record.getApplicationName());
+                    LogA.d("Appspy", "in job " + record.getApplicationName());
                     db3.addOrUpdateApplicationInstallationRecord(record);
                     db3.updatePermissionsForUninstalledApp(packageName);
                 }
             };
             mainHandler.post(doOnMainThread); //execute db stuff on main thread
         }
-        //Debug.stopMethodTracing();
-        
+
+        firstTimeUse = false; //set it to false. So then it won't never be true
         LogA.d("Appspy-AppTracker", "AppTracker work is finished");
-        
+
     }
-
-
-
-
-
 
 }

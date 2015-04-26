@@ -55,7 +55,6 @@ public class DatabaseActivity extends ActionBarActivity {
             startActivity(settingsActivity);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -100,34 +99,13 @@ public class DatabaseActivity extends ActionBarActivity {
 
             Uri uriFileToSend = Uri.parse("file://" + zippedFolder.getAbsolutePath());
 
-            String text = "Here are the database and the logs";
-//            text += "PATH is:" + path + "\n";
-//            text += "PATH exits:" + new File(path).exists() + "\n";
-//
-//            text += "folder to zip is:"+ folderToZip + "\n";
-//            text += "zip should exits does it: " + zippedFolder.exists() + "\n";
-//            text += "zip path is: " + zippedFolder.getAbsolutePath() + "\n";
-
-
-
-            text += "File in the tmp folder";
-            for(File ff: new File(path + "/tmp").listFiles()){
-                text += "\t" + ff.getName() + "/n";
-            }
-
-
-            text += "\n\n file to send:"+ zippedFolder.getAbsolutePath() + "   exists:" + zippedFolder.exists();
 
 
             try {
                 Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
                 intent.setType("application/zip");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Database");
-                //intent.putExtra(Intent.EXTRA_TEXT, "Hello, here is the DB!");
-                intent.putExtra(Intent.EXTRA_TEXT, text);
-                LogA.d("Appspy", text);
-
-
+                intent.putExtra(Intent.EXTRA_TEXT, "Here are the database and the logs");
                 intent.setData(Uri.parse("mailto:zatixjo@gmail.com")); // or just "mailto:" for blank
                 intent.putExtra(Intent.EXTRA_STREAM, uriFileToSend);
 

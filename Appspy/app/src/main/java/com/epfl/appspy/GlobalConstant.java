@@ -12,7 +12,10 @@ import java.io.Serializable;
 public class GlobalConstant implements Serializable {
 
     public static final boolean DEBUG = true;
-    public static final boolean DEBUG_TOAST = false;
+    public static final boolean DEBUG_TOAST = true;
+    public static final boolean LOG = true;
+
+
 
 
     /**
@@ -30,7 +33,7 @@ public class GlobalConstant implements Serializable {
 
     public static final String PREFERENCES = "prefs app spy";
     public static final String PREF_FIRST_LAUNCH = "pref first launch";
-    public static final String PREF_GPS_PERIODICITY = "pref gps periodicity";
+    //public static final String PREF_GPS_PERIODICITY = "pref gps periodicity";
 
 
     public static final String APPSPY_TMP_DIR = "/tmp/appspy";

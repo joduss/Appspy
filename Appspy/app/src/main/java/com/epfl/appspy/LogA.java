@@ -11,25 +11,18 @@ public class LogA {
 
     public static void i(String tag, String message){
         //if(DEBUG && tag.equals("Appspy-log") == false) {
-        if(GlobalConstant.DEBUG) {
+        if(GlobalConstant.LOG) {
             if (tag.equals("Appspy-DB") == false || showDBLog) {
                 Log.i(tag, message);
             }
         }
-
-        //}
-        //if(tag.equals("Appspy-log")){
-        //   Log.i(tag, message);
-        //}
     }
 
     public static void d(String tag, String message){
         if(GlobalConstant.DEBUG) {
-            //if (tag.equals("Appspy-log")) {
             if (tag.equals("Appspy-DB") == false || showDBLog) {
                 Log.d(tag, message);
             }
-            //}
         }
     }
 }
