@@ -130,20 +130,60 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 
         if(Utility.usageStatsPermissionGranted(getApplicationContext()) == false){
-            LogA.d("Appspy-log", "Ask user to go in settings to grant permission to Usage Stats");
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("We need you to grant Usage access");
 
-            alert.setPositiveButton(R.string.show_usage_permission_settings, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    LogA.d("Appspy-log","User went to settings. Hope he granted the access to Usage Stats");
-                    Intent newIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                    newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(newIntent);
+
+            LogA.d("Appspy-log","User went to settings. Hope he granted the access to Usage Stats");
+            final Intent newIntent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            boolean activityExists = newIntent.resolveActivityInfo(getPackageManager(), 0) != null;
+
+
+            if(activityExists) {
+                LogA.i("Appspy-log", "Ask user to go in settings to grant permission to Usage Stats");
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("We need you to grant Usage access");
+
+                alert.setPositiveButton(R.string.show_usage_permission_settings, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(newIntent);
+                    }
+                });
+                alert.create().show();
+
+            }
+            else
+            {
+                final Intent securityIntent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
+                securityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                boolean activitySecurityExists = securityIntent.resolveActivityInfo(getPackageManager(), 0) != null;
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle("We need you to grant Usage access.");
+                alert.setMessage("Go to \"Settings\" -> \"Security\" -> \"Apps with usage access\" and authorize Appspy");
+
+                if(activitySecurityExists) {
+
+
+                    alert.setPositiveButton(R.string.show_usage_permission_settings, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    startActivity(securityIntent);
+                                                }
+                                            });
+                    alert.create().show();
                 }
-            });
-            alert.create().show();
+                else {
+                    alert.setPositiveButton(R.string.show_usage_permission_settings, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //nothing just close the notif. Hope the user will follow the instruction
+                        }
+                    });
+                    alert.create().show();
+                }
+            }
         }
 
     }
