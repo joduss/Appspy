@@ -7,7 +7,7 @@ public class DatabaseNames {
 
 
     //Database version
-    protected static final int DB_VERSION = 155;
+    protected static final int DB_VERSION = 162;
     protected static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -51,7 +51,7 @@ public class DatabaseNames {
     protected static final String COL_LONGITUDE = "longitude";
     protected static final String COL_ALTITUDE = "altitude";
     protected static final String COL_ACCURACY = "accuracy";
-    protected static final String COL_GPS_ENABLED = "location_provider";
+    protected static final String COL_GPS_TYPE = "location_provider";
 
 
     //Table creation SQL statement
@@ -99,7 +99,7 @@ public class DatabaseNames {
                                                               COL_RECORD_ID +
                                                               " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                                                               COL_RECORD_TIME + " INTEGER, " +
-                                                              COL_GPS_ENABLED + " INTEGER, " +
+                                                              COL_GPS_TYPE + " TEXT, " +
                                                               COL_LATITUDE + " REAL, " +
                                                               COL_LONGITUDE + " REAL, " +
                                                               COL_ALTITUDE + " REAL, " +
@@ -112,7 +112,7 @@ public class DatabaseNames {
                                                       "datetime(" + COL_RECORD_TIME +
                                                       " / 1000, 'unixepoch', 'localtime') AS " + COL_RECORD_TIME +  "," +
                                                       "time(" + COL_FOREGROUND_TIME_USAGE +
-                                                      " / 1000, 'unixepoch', 'localtime') AS " + COL_FOREGROUND_TIME_USAGE +  "," +
+                                                      " / 1000, 'unixepoch') AS " + COL_FOREGROUND_TIME_USAGE +  "," +
                                                       "datetime(" + COL_LAST_TIME_USE +
                                                       "/1000, 'unixepoch', 'localtime') AS " + COL_LAST_TIME_USE +  "," +
                                                       COL_DOWNLOADED_DATA + "*1.0/1024" + " as "+ COL_DOWNLOADED_DATA + "_kb," +
@@ -121,8 +121,8 @@ public class DatabaseNames {
                                                       "  FROM " + TABLE_APPS_ACTIVITY;
 
     protected static final String VIEW_GPS = "view_gps";
-    protected static final String CREATE_VIEW_GPS = "CREATE VIEW " + VIEW_GPS + " AS SELECT " + COL_RECORD_ID + ", " + "datetime(" + COL_RECORD_TIME + ", 'unixepoch', 'localtime') as " + COL_RECORD_TIME
-            +"," + COL_GPS_ENABLED +"," +  COL_LATITUDE +"," + COL_LONGITUDE +"," + COL_ALTITUDE +"," + COL_ACCURACY + " FROM " + TABLE_GPS_LOCATION;
+    protected static final String CREATE_VIEW_GPS = "CREATE VIEW " + VIEW_GPS + " AS SELECT " + COL_RECORD_ID + ", " + "datetime(" + COL_RECORD_TIME + "/1000, 'unixepoch', 'localtime') as " + COL_RECORD_TIME
+            +"," + COL_GPS_TYPE +"," +  COL_LATITUDE +"," + COL_LONGITUDE +"," + COL_ALTITUDE +"," + COL_ACCURACY + " FROM " + TABLE_GPS_LOCATION;
 
     protected static final String VIEW_INSTALLED_APPS = "view_installed_apps";
     protected static final String CREATE_VIEW_INSTALLED_APPS =

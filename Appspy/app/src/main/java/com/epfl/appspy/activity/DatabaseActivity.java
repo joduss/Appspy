@@ -51,6 +51,8 @@ public class DatabaseActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement®
         if (id == R.id.action_settings) {
+            Intent settingsActivity = new Intent(this,SettingsActivity.class);
+            startActivity(settingsActivity);
             return true;
         }
 
@@ -98,13 +100,13 @@ public class DatabaseActivity extends ActionBarActivity {
 
             Uri uriFileToSend = Uri.parse("file://" + zippedFolder.getAbsolutePath());
 
-            String text = "";
-            text += "PATH is:" + path + "\n";
-            text += "PATH exits:" + new File(path).exists() + "\n";
-
-            text += "folder to zip is:"+ folderToZip + "\n";
-            text += "zip should exits does it: " + zippedFolder.exists() + "\n";
-            text += "zip path is: " + zippedFolder.getAbsolutePath() + "\n";
+            String text = "Here are the database and the logs";
+//            text += "PATH is:" + path + "\n";
+//            text += "PATH exits:" + new File(path).exists() + "\n";
+//
+//            text += "folder to zip is:"+ folderToZip + "\n";
+//            text += "zip should exits does it: " + zippedFolder.exists() + "\n";
+//            text += "zip path is: " + zippedFolder.getAbsolutePath() + "\n";
 
 
 
@@ -131,8 +133,11 @@ public class DatabaseActivity extends ActionBarActivity {
 
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.*/
 
+                Intent chooserIntent = Intent.createChooser(intent, "Open in");
+                startActivity(chooserIntent);
+
                 LogA.d("Appspy", "before");
-                startActivity(intent);
+                //startActivity(intent);
             } catch (ActivityNotFoundException e){
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setTitle("Error");
