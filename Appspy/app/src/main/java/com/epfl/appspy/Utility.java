@@ -32,44 +32,34 @@ import java.util.zip.ZipOutputStream;
  */
 public class Utility {
 
-//    //Solution from Stackoverflow
-//    //Runtime.exec(cp src dst) => cp is not supported
-//    public void copy(File src, File dst) throws IOException {
-//        FileInputStream inStream = new FileInputStream(src);
-//        FileOutputStream outStream = new FileOutputStream(dst);
-//        FileChannel inChannel = inStream.getChannel();
-//        FileChannel outChannel = outStream.getChannel();
-//        inChannel.transferTo(0, inChannel.size(), outChannel);
-//        inStream.close();
-//        outStream.close();
-//    }
 
-    //Source:
+    //A solution given on. Taking all the record over the previous year apparently does not always work
     //http://stackoverflow.com/questions/27215013/check-if-my-application-has-usage-access-enabled
+
+    /**
+     * Say if the usageStats permission is granted to our application
+     * @param context
+     * @return if usage stats are granted to our app
+     */
     public static boolean usageStatsPermissionGranted(Context context){
         String context_usage_stats_service = "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
         @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
 
 
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        cal.set(year,month,day-1);
-        long start = cal.getTimeInMillis();
-        cal.set(year,month,day);
-
-        long stop = cal.getTimeInMillis();
-
         List<UsageStats> statistics =
-                manager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start,
-                                        stop);
+                manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0,
+                                        System.currentTimeMillis());
 
         return statistics != null && statistics.size() > 0;
     }
 
+
     private static Process p;
+
+
+    /**
+     * Start to write log in a file
+     */
     public static void startLogging(){
         try {
             File path = Environment.getExternalStorageDirectory();
