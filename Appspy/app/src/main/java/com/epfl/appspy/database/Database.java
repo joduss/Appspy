@@ -167,7 +167,7 @@ public class Database extends SQLiteOpenHelper {
 
         //If the package_name does not exist, we add a new record
         if (installationRecordExists(newRecord.getPackageName()) == false) {
-            LogA.i("Appspy-DB", "A new ApplicationInstallationRecord has been added");
+            LogA.i("Appspy-DB", "A new ApplicationInstallationRecord has been added: " + newRecord.getApplicationName());
             values.put(COL_APP_NAME, newRecord.getApplicationName());
             values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
             values.put(COL_INSTALLATION_DATE, newRecord.getInstallationDate());
@@ -180,7 +180,7 @@ public class Database extends SQLiteOpenHelper {
         //if record exists and was uninstalled (uninstallationDate > 0), update the uninstallationDate
         else if(newRecord.getUninstallationDate() > 0){
             //If it exists, as package_name is a unique identifier of an app, it means, there is already a record about it.
-            LogA.i("Appspy-DB", "one applicationInstallationRecord has been updated");
+            LogA.i("Appspy-DB", "one applicationInstallationRecord has been updated for uninstall: " + newRecord.getApplicationName());
 
 
             //newRecord contains the updated values
@@ -414,7 +414,7 @@ public class Database extends SQLiteOpenHelper {
 
             long id = db.insert(TABLE_APPS_ACTIVITY, null, values);
             newRecord.setRecordId(id);
-            LogA.i("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
+            LogA.d("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
         }
     }
 
@@ -685,7 +685,7 @@ public class Database extends SQLiteOpenHelper {
      * @param packageName the package name of the app to which the permissions have to be updated
      * @param records Update of the permissions
      */
-    public void updatePermissionRecordsForApp(String packageName, HashMap<String, PermissionRecord> records) {
+    public synchronized void updatePermissionRecordsForApp(String packageName, HashMap<String, PermissionRecord> records) {
         SQLiteDatabase db = getWritableDatabase();
 
         //Query first to get all the permission for an app, which are currently in use (=last time used = 0)

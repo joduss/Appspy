@@ -90,7 +90,7 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
     }
 
 
-    private void retrieveInstalledApps() {
+    private synchronized void retrieveInstalledApps() {
 
         List<PackageInfo> installedApps = appInformation.getInstalledApps(INCLUDE_SYSTEM);
         Hashtable<PackageInfo, List<String>> permissionsForAllApps = appInformation.getAppsPermissions(installedApps);
@@ -105,15 +105,15 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
         Handler mainHandler = new Handler(context.getMainLooper());
 
         //For each app, insert or update a record about the time of the installations/uninstallation, permissions, etc
-        final Database db1 = Database.getDatabaseInstance(context);
-        List<String> previousInstalledApps = db1.getInstalledAppsPackageNameInLastRecord();
+        final Database db = Database.getDatabaseInstance(context);
+        List<String> previousInstalledApps = db.getInstalledAppsPackageNameInLastRecord();
         //db1.close();
 
 
         for (final PackageInfo app : permissionsForAllApps.keySet()) {
             List<String> permissions = permissionsForAllApps.get(app);
 
-            LogA.d("Appspy-loginfo", "app name:" + appInformation.getAppName(app));
+            LogA.d("Appspy-AppTracker", "processing installed app:" + appInformation.getAppName(app));
             //Log.d("Appspy-loginfo","some permissions...");
 //            for (String p : permissions) {
 //                Log.d("Appspy-loginfo", p);
@@ -150,15 +150,14 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
             }
 
             //Execute databa
-            Runnable doOnMainThread = new Runnable() {
-                @Override
-                public void run() {
-                    final Database db2 = Database.getDatabaseInstance(context);
-                    db2.addOrUpdateApplicationInstallationRecord(record);
-                    db2.updatePermissionRecordsForApp(app.packageName, permissionRecords);
-                }
-            };
-            mainHandler.post(doOnMainThread); //execute db stuff on main thread
+//            Runnable doOnMainThread = () -> {
+//                @Override
+//                public void run() {
+                    db.addOrUpdateApplicationInstallationRecord(record);
+                    db.updatePermissionRecordsForApp(app.packageName, permissionRecords);
+//                }
+//            };
+//            mainHandler.post(doOnMainThread); //execute db stuff on main thread
 
             previousInstalledApps.remove(app.packageName);
         }
@@ -169,20 +168,21 @@ public class InstalledAppsTracker extends BroadcastReceiver implements Runnable
             final ApplicationInstallationRecord record = db3.getApplicationInstallationRecord(packageName);
             record.setUninstallationDate(currentTime);
 
-            Runnable doOnMainThread = new Runnable() {
-                @Override
-                public void run() {
-                    LogA.d("Appspy", "in job " + record.getApplicationName());
-                    db3.addOrUpdateApplicationInstallationRecord(record);
-                    db3.updatePermissionsForUninstalledApp(packageName);
-                }
-            };
-            mainHandler.post(doOnMainThread); //execute db stuff on main thread
+//            Runnable doOnMainThread = new Runnable() {
+//                @Override
+//                public void run() {
+                    LogA.i("Appspy-AppTracker", "Processing uninstalled app:" + record.getApplicationName());
+
+                    //update record for the uninstallation
+                    db.addOrUpdateApplicationInstallationRecord(record);
+                    db.updatePermissionsForUninstalledApp(packageName);
+//                }
+//            };
+//            mainHandler.post(doOnMainThread); //execute db stuff on main thread
         }
 
         firstTimeUse = false; //set it to false. So then it won't never be true
         LogA.d("Appspy-AppTracker", "AppTracker work is finished");
-
     }
 
 }
