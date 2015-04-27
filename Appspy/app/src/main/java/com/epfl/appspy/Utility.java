@@ -69,7 +69,7 @@ public class Utility {
         return statistics != null && statistics.size() > 0;
     }
 
-
+    private static Process p;
     public static void startLogging(){
         try {
             File path = Environment.getExternalStorageDirectory();
@@ -77,9 +77,13 @@ public class Utility {
             File appspyTmpFolder = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR);
             appspyTmpFolder.mkdirs();
 
+            if(p != null){
+                p.destroy();
+            }
+            p = Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:I " + " SQLiteLog:S");
 
-            Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:I" + " SQLiteLog:S");
             LogA.i("Appspy-AppActivityTracker","Start logging in file " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME );
+
         } catch (IOException e) {
             e.printStackTrace();
             LogA.i("Appspy-AppActivityTracker","Failed to start logging" );
@@ -155,18 +159,22 @@ public class Utility {
         if(folder.isDirectory()){
             //firts remove all the files that are in the folder
             for(File f : folder.listFiles()){
+                LogA.d("Appspy","delete");
                 if(f.isDirectory()){
                     deleteFolder(f);
                 }
                 else {
+                    LogA.d("Appspy","delete the file");
                     f.delete();
                 }
             }
 
             //finally, delete it
+            LogA.d("Appspy","final deletion");
             folder.delete();
         }
         else {
+            LogA.d("Appspy","is file");
             folder.delete();
         }
     }
