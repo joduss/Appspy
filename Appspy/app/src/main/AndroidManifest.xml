@@ -34,7 +34,9 @@
         </activity>
         <activity
             android:name=".activity.DatabaseActivity"
-            android:label="@string/title_activity_rights" >
+            android:label="@string/title_activity_rights"
+            android:parentActivityName=".activity.MainActivity" >
+
         </activity>
 
         <receiver android:name=".monitoring.AppActivityTracker" >
