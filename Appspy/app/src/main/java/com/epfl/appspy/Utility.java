@@ -42,17 +42,15 @@ public class Utility {
      * @return if usage stats are granted to our app
      */
     public static boolean usageStatsPermissionGranted(Context context){
-        String context_usage_stats_service = "usagestats"; // = Context.USAGE_STATS_SERVICE, but this is not recognize for an unknown reason
-        @SuppressWarnings("ResourceType") UsageStatsManager manager = (UsageStatsManager) context.getSystemService(context_usage_stats_service);
+        @SuppressWarnings("ResourceType")
+
+        AppOpsManager appOps = (AppOpsManager) context
+                .getSystemService(Context.APP_OPS_SERVICE);
+        boolean granted = appOps.checkOpNoThrow("android:get_usage_stats",
+                                                android.os.Process.myUid(), context.getPackageName()) == AppOpsManager.MODE_ALLOWED;
 
 
-        List<UsageStats> statistics =
-                manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0,
-                                        System.currentTimeMillis());
-
-        LogA.d("Appspy", "usageStats granted? " + (statistics != null && statistics.size() > 0));
-        
-        return statistics != null && statistics.size() > 0;
+        return granted;
     }
 
 
@@ -169,6 +167,19 @@ public class Utility {
             LogA.d("Appspy","is file");
             folder.delete();
         }
+    }
+
+
+
+    public static String beautifulDate(long millis){
+        Calendar d = Calendar.getInstance();
+        d.setTimeInMillis(millis);
+
+        String hour = "" + d.get(Calendar.HOUR_OF_DAY);
+        String min = "" + d.get(Calendar.MINUTE);
+        String sec = "" + d.get(Calendar.SECOND);
+
+        return hour + ":" + min + ":" + sec;
     }
 
 }
