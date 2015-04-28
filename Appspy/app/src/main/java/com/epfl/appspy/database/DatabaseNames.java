@@ -117,7 +117,8 @@ public class DatabaseNames {
                                                       "/1000, 'unixepoch', 'localtime') AS " + COL_LAST_TIME_USE +  "," +
                                                       COL_DOWNLOADED_DATA + "*1.0/1024" + " as "+ COL_DOWNLOADED_DATA + "_kb," +
                                                       COL_UPLOADED_DATA + "*1.0/1024" + " as "+ COL_UPLOADED_DATA + "_kb," +
-                                                      COL_WAS_FOREGROUND +
+                                                      COL_WAS_FOREGROUND + "," +
+                                                      COL_BOOT +
                                                       "  FROM " + TABLE_APPS_ACTIVITY;
 
     protected static final String VIEW_GPS = "view_gps";
