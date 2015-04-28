@@ -50,6 +50,8 @@ public class Utility {
                 manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0,
                                         System.currentTimeMillis());
 
+        LogA.d("Appspy", "usageStats granted? " + (statistics != null && statistics.size() > 0));
+        
         return statistics != null && statistics.size() > 0;
     }
 

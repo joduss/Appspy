@@ -128,7 +128,6 @@ public class AppActivityTracker extends BroadcastReceiver {
 
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-                Utility.startLogging();
                 boot = true;
                 analyseAppActivity();
                 //setupCPUMonitoring();
@@ -192,6 +191,8 @@ public class AppActivityTracker extends BroadcastReceiver {
         LogA.d("Appspy-loginfo", "-------------------------------");
         
         LogA.i("Appspy-AppActivityTracker", "Start analysing apps activity");
+        Utility.startLogging(); //do it every minute: because it stops suddenly without reason sometimes
+
 
         if(Utility.usageStatsPermissionGranted(context) == false){
             showNotificationForUsageStatsPermission();
