@@ -396,7 +396,7 @@ public class Database extends SQLiteOpenHelper {
                 LogA.d("Appspy","sampling: " + GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS + "   |   " + Utility.beautifulDate(GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS));
 
 
-                final long beginActivity = newRecord.getLastTimeUsed() - activeTime - GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS;
+                final long beginActivity = newRecord.getLastTimeUsed() - activeTime - GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS/2;
 
                 //get all record between opening of app and current recognized on FG record.
                 //they need to be fixed, because they were recognized wrongly as on BG (background)
