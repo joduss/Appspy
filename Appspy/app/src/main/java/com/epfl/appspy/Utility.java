@@ -70,9 +70,11 @@ public class Utility {
             if(p != null){
                 p.destroy();
             }
-            p = Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:I " + " SQLiteLog:S");
+            //p = Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:I " + " SQLiteLog:S");
+            p = Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:d " + " SQLiteLog:S");
 
-            LogA.i("Appspy-AppActivityTracker","Start logging in file " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME );
+
+            //LogA.i("Appspy-AppActivityTracker","Start logging in file " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME );
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,6 +182,14 @@ public class Utility {
         String sec = "" + d.get(Calendar.SECOND);
 
         return hour + ":" + min + ":" + sec;
+    }
+
+
+    public static int getDay(long millis){
+        Calendar d = Calendar.getInstance();
+        d.setTimeInMillis(millis);
+
+        return d.get(Calendar.DAY_OF_YEAR);
     }
 
 }

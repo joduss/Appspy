@@ -59,6 +59,8 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE " + TABLE_PERMISSIONS);
         db.execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         db.execSQL("DROP TABLE " + TABLE_GPS_LOCATION);
+        db.execSQL("DROP TABLE " + TABLE_APPS_ACTIVITY_LAST_TIME);
+
 
         db.execSQL("DROP VIEW " + VIEW_GPS);
         db.execSQL("DROP VIEW " + VIEW_PERMISSIONS);
@@ -74,6 +76,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_PERMISSIONS);
         db.execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
         db.execSQL(CREATE_TABLE_GPS_LOCATION);
+        db.execSQL(CREATE_TABLE_APPS_ACTIVITY_LAST_TIME);
 
         db.execSQL(CREATE_VIEW_APP_ACTIVITY);
         db.execSQL(CREATE_VIEW_GPS);
@@ -335,7 +338,7 @@ public class Database extends SQLiteOpenHelper {
 
         //of the last_use_time
 
-        ApplicationActivityRecord lastRecord = getLastApplicationActivityRecord(newRecord.getPackageName());
+        ApplicationActivityRecord lastRecord = getLastAppActivityRecord(newRecord.getPackageName());//getLastApplicationActivityRecord(newRecord.getPackageName());
         boolean wasForeground;
         boolean wasActiveInBackground;
 
@@ -384,13 +387,24 @@ public class Database extends SQLiteOpenHelper {
             * background. So need to update correctly these
              */
 
-            long activeTime = newRecord.getForegroundTime();
             if (lastRecord != null && wasForeground){
-                activeTime = activeTime - lastRecord.getForegroundTime();
-                long beginActivity = newRecord.getLastTimeUsed() - activeTime - (GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS - 1000);
+
+                final long activeTime = newRecord.getForegroundTime() - lastRecord.getForegroundTime();
+
+                LogA.d("Appspy","Active time: " + activeTime + "   |   " + Utility.beautifulDate(activeTime));
+                LogA.d("Appspy","last time used: " + newRecord.getLastTimeUsed() + "   |   " + Utility.beautifulDate(newRecord.getLastTimeUsed()));
+                LogA.d("Appspy","sampling: " + GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS + "   |   " + Utility.beautifulDate(GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS));
+
+
+                final long beginActivity = newRecord.getLastTimeUsed() - activeTime - GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS;
 
                 //get all record between opening of app and current recognized on FG record.
                 //they need to be fixed, because they were recognized wrongly as on BG (background)
+
+
+                LogA.d("Appspy","between: " + beginActivity + " and " + newRecord.getLastTimeUsed());
+                LogA.d("Appspy","between: " + Utility.beautifulDate( beginActivity) + " and " + Utility.beautifulDate( newRecord.getLastTimeUsed()) );
+
                 List<ApplicationActivityRecord> records = getRecordIntImeRange(beginActivity, newRecord.getRecordTime(), newRecord.getPackageName());
 
 
@@ -416,15 +430,15 @@ public class Database extends SQLiteOpenHelper {
                     //last record is the last record where app was active (interaction recognized by stat or data usage)
                     //last record FG is the last FG known by stats. But maybe not up-to-date
 
-                    //first compute in the current interval, how long the app was open, because the all was certainly closed
+                    //first compute in the current interval, how long the app was open, because the app was certainly closed
                     long activeTimeInCurrentInterval = newRecord.getLastTimeUsed() - (newRecord.getRecordTime() - 60000);
 
                     //compute how much time the app was used continuously since last record with usage stat
                     long totalContinuousActivityTimeBeforeCurrent = newRecord.getForegroundTime() - lastRecord.getForegroundTime() - activeTimeInCurrentInterval;
                     LogA.d("Appspy","newRecord:" + newRecord.getPackageName());
-                    LogA.d("Appspy","newRecord ft" + newRecord.getForegroundTime());
-                    LogA.d("Appspy","last ft:" + lastRecord.getForegroundTime());
-                    LogA.d("Appspy","active " + activeTimeInCurrentInterval);
+                    LogA.d("Appspy","newRecord ft" + newRecord.getForegroundTime() + "   |  "  +Utility.beautifulDate(newRecord.getForegroundTime() ));
+                    LogA.d("Appspy","last ft:" + lastRecord.getForegroundTime() + "   |   " + Utility.beautifulDate(lastRecord.getForegroundTime()));
+                    LogA.d("Appspy","active " + activeTimeInCurrentInterval + "   |    "  + Utility.beautifulDate(activeTimeInCurrentInterval));
                     LogA.d("Appspy","total:" + totalContinuousActivityTimeBeforeCurrent);
 
 
@@ -459,14 +473,21 @@ public class Database extends SQLiteOpenHelper {
                             LogA.d("Appspy-DB","missing added");
                             lastRecordProcessed = toAdd;
                             timeBetweenRecords = lastRecordProcessed.getRecordTime() - record.getRecordTime();
-                            LogA.d("Appspy","new between: " + timeBetweenRecords);
+                            LogA.d("Appspy","new between: " + Utility.beautifulDate(timeBetweenRecords));
+                            LogA.d("Appspy","totalCont " + Utility.beautifulDate(totalContinuousActivityTimeBeforeCurrent) + " = " + totalContinuousActivityTimeBeforeCurrent);
+                            LogA.d("Appspy"," set in middle:" + record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent + "   =    " + Utility.beautifulDate(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent));
+
                             totalContinuousActivityTimeBeforeCurrent -= 60000;
 
                         }
 
-                        LogA.d("Appspy","record FT:" + record.getForegroundTime() + "   -" + activeTimeInCurrentInterval);
+                        LogA.d("Appspy","record FT:" + record.getForegroundTime() + "   / total Cont" + totalContinuousActivityTimeBeforeCurrent);
+                        //LogA.d("Appspy"," set:" + record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent + "   =    " + Utility.beautifulDate(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent));
 
                         //update the FG time
+                        long toSet = record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent;
+                        LogA.d("Appspy"," set:" + toSet + "   =    " + Utility.beautifulDate(toSet));
+
                         record.setForegroundTime(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent);
                         record.setWasForeground(true);
                         record.setDownloadedData(-1000000);
@@ -474,8 +495,11 @@ public class Database extends SQLiteOpenHelper {
                         updateApplicationActivityRecord(record);
                         LogA.d("Appspy-DB", "one update");
                         lastRecordProcessed = record;
-
+                        LogA.d("Appspy","totalCont " + Utility.beautifulDate(totalContinuousActivityTimeBeforeCurrent));
                         totalContinuousActivityTimeBeforeCurrent -= 60000;
+
+                        LogA.d("Appspy","SO: " + record.getRecordTime() + " => " + record.getForegroundTime());
+                        LogA.d("Appspy","====");
 
                     }
                 }
@@ -506,6 +530,10 @@ public class Database extends SQLiteOpenHelper {
 
             long id = db.insert(TABLE_APPS_ACTIVITY, null, values);
             newRecord.setRecordId(id);
+
+            setLastAppActivity(newRecord.getPackageName(), newRecord.getRecordTime(), newRecord.getForegroundTime(), newRecord.getLastTimeUsed());
+
+
             LogA.d("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
         }
     }
@@ -578,8 +606,42 @@ public class Database extends SQLiteOpenHelper {
      * @param uploadedData
      * @param downloadedData
      */
-    public void setLastActivity(String packageName, long uploadedData, long downloadedData){
+    public void setLastDataUsageActivity(String packageName, long uploadedData, long downloadedData){
         addLastInternetUse(packageName, uploadedData, downloadedData);
+    }
+
+    private void setLastAppActivity(String packageName, long recordTime, long foregroundTime, long lastTimeUsed){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY_LAST_TIME +
+                       " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
+
+        Cursor result = db.rawQuery(query, null);
+
+        LogA.d("Appspy-DB","setLastAppActivity");
+
+        if (result.moveToFirst()) {
+            ContentValues values = new ContentValues();
+            values.put(COL_RECORD_ID, result.getLong(result.getColumnIndex(COL_RECORD_ID)));
+            values.put(COL_RECORD_TIME, recordTime);
+            values.put(COL_APP_PKG_NAME, packageName);
+            values.put(COL_FOREGROUND_TIME_USAGE, foregroundTime);
+            values.put(COL_LAST_TIME_USE, lastTimeUsed);
+            LogA.d("Appspy-DB","setLastAppActivity - update");
+
+            db.update(TABLE_APPS_ACTIVITY_LAST_TIME, values, COL_APP_PKG_NAME + "=\"" + packageName + "\"", null);
+        }
+        else{
+            ContentValues values = new ContentValues();
+            values.put(COL_APP_PKG_NAME, packageName);
+            values.put(COL_RECORD_TIME, recordTime);
+            values.put(COL_FOREGROUND_TIME_USAGE, foregroundTime);
+            values.put(COL_LAST_TIME_USE, lastTimeUsed);
+            LogA.d("Appspy-DB","setLastAppActivity - insert");
+
+            db.insert(TABLE_APPS_ACTIVITY_LAST_TIME, null, values);
+        }
+
+        result.close();
     }
 
     /**
@@ -699,6 +761,33 @@ public class Database extends SQLiteOpenHelper {
         }
         result.close();
         return uploaded;
+    }
+
+    private ApplicationActivityRecord getLastAppActivityRecord(String packageName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT *" + " FROM " + TABLE_APPS_ACTIVITY_LAST_TIME +
+                       " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
+
+        Cursor result = db.rawQuery(query, null);
+
+        ApplicationActivityRecord toReturn = null;
+
+        if (result.moveToFirst()) {
+            long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
+            long bootTime = java.lang.System.currentTimeMillis() - android.os.SystemClock.elapsedRealtime();
+
+            if(Utility.getDay(recordTime) == Utility.getDay(System.currentTimeMillis()) && recordTime > bootTime){
+                long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
+                long lastTimeUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
+                toReturn = new ApplicationActivityRecord(packageName,recordTime,foregroundTime,lastTimeUsed,0,0, false);
+            }
+            else {
+                LogA.d("Appspy","Record was from yesterday and there was a boot inbetween");
+            }
+        }
+
+        result.close();
+        return toReturn;
     }
 
 

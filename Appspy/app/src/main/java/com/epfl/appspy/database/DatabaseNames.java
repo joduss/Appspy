@@ -7,7 +7,7 @@ public class DatabaseNames {
 
 
     //Database version
-    protected static final int DB_VERSION = 162;
+    protected static final int DB_VERSION = 164;
     protected static final String DB_NAME = "Appspy_database";
 
     //Tables names
@@ -15,6 +15,8 @@ public class DatabaseNames {
     protected static final String TABLE_INSTALLED_APPS = "Table_installed_apps";
     protected static final String TABLE_PERMISSIONS = "Table_permissions";
     protected static final String TABLE_APPS_INTERNET_USE_LAST_TIME = "Table_internet_use_last_time";
+    protected static final String TABLE_APPS_ACTIVITY_LAST_TIME = "Table_app_activity_last_time";
+
     protected static final String TABLE_GPS_LOCATION = "Table_GPS_location";
 
     //SHARED columns names
@@ -93,6 +95,15 @@ public class DatabaseNames {
             COL_RECORD_TIME + " INTEGER, " +
             COL_DOWNLOADED_DATA + " INTEGER, " +
             COL_UPLOADED_DATA + " INTEGER " +
+            ")";
+
+    protected static final String CREATE_TABLE_APPS_ACTIVITY_LAST_TIME =
+            "CREATE TABLE " + TABLE_APPS_ACTIVITY_LAST_TIME + "(" + COL_RECORD_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+            COL_APP_PKG_NAME + " TEXT, " +
+            COL_RECORD_TIME + " INTEGER, " +
+            COL_FOREGROUND_TIME_USAGE + " INTEGER, " +
+            COL_LAST_TIME_USE + " INTEGER " +
             ")";
 
     protected static final String CREATE_TABLE_GPS_LOCATION = "CREATE TABLE " + TABLE_GPS_LOCATION + "(" +
