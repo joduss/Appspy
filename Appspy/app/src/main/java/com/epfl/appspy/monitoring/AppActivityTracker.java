@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -26,8 +25,6 @@ import com.epfl.appspy.Utility;
 import com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.database.Database;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -162,9 +159,8 @@ public class AppActivityTracker extends BroadcastReceiver {
 
                 for(PackageInfo pi : runningApps){
                     final int uid = pi.applicationInfo.uid;
-                    db.setLastActivity(pi.packageName,
-                                       appInformation.getUploadedDataAmount(uid),
-                                       appInformation.getDownloadedDataAmount(uid));
+                    db.setLastDataUsageActivity(pi.packageName, appInformation.getUploadedDataAmount(uid),
+                                                appInformation.getDownloadedDataAmount(uid));
                 }
 
 
