@@ -1,5 +1,6 @@
 package com.epfl.appspy.database;
 
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -8,10 +9,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
+import com.epfl.appspy.Utility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -376,15 +382,70 @@ public class Database extends SQLiteOpenHelper {
             long activeTime = newRecord.getForegroundTime();
             if(lastRecord !=null && wasForeground){
                 activeTime = activeTime - lastRecord.getForegroundTime();
-                long beginActivity = newRecord.getLastTimeUsed() - activeTime - 59000; //TODO: 60000 = interval of sampling, dynamic please
+                long beginActivity = newRecord.getLastTimeUsed() - activeTime - (GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS - 1000);
                 List<ApplicationActivityRecord> records = getRecordIntImeRange(beginActivity, newRecord.getRecordTime(), newRecord.getPackageName());
 
 
-                for(ApplicationActivityRecord record : records){
-                    //these were on foreground. Need to update them
-                    record.setWasForeground(true);
-                    updateApplicationActivityRecord(record);
-                    LogA.d("Appspy-DB", "one update");
+
+                if(records.size() > 0) {
+
+
+
+                    /*
+                    *  last record was not updated with foreground time in case of long activity
+                     */
+
+                    //Can't use lastRecord: maybe it was older than 1 minutes in case long continuous use
+                    long activeTimeInCurrentInterval = newRecord.getLastTimeUsed() - (newRecord.getRecordTime() - 60000);
+                    long totalContinuousActivityTimeBeforeCurrent = newRecord.getForegroundTime() - lastRecord.getForegroundTime() - activeTimeInCurrentInterval;
+                    LogA.d("Appspy","newRecord:" + newRecord.getPackageName());
+                    LogA.d("Appspy","newRecord ft" + newRecord.getForegroundTime());
+                    LogA.d("Appspy","last ft:" + lastRecord.getForegroundTime());
+                    LogA.d("Appspy","active " + activeTimeInCurrentInterval);
+                    LogA.d("Appspy","total:" + totalContinuousActivityTimeBeforeCurrent);
+
+
+
+                    //sorted by time ascending, invert it to have order in reverse time order
+                    Collections.reverse(records);
+
+
+                    ApplicationActivityRecord lastRecordProcessed = newRecord;
+
+                    //look one by one, from the newest to the oldest
+                    for (ApplicationActivityRecord record : records) {
+
+                        //these were on foreground. Need to update them
+                        long timeBetweenRecords = lastRecordProcessed.getRecordTime() - record.getRecordTime();
+                        LogA.d("Appspy","between: " + timeBetweenRecords);
+                        LogA.d("Appspy","lastRecordProcessed.getRecordTime()" + Utility.beautifulDate( lastRecordProcessed.getRecordTime()));
+                        LogA.d("Appspy","record.getRecordTime()" + Utility.beautifulDate( record.getRecordTime()));
+
+                        while(timeBetweenRecords > 70000){
+                            //there is a missing record => need to add it
+                            //last time used is right at time of record, as the use hasn't stopped
+                            ApplicationActivityRecord toAdd = new ApplicationActivityRecord(newRecord.getPackageName(), lastRecordProcessed.getRecordTime() - 60000, record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent, lastRecordProcessed.getRecordTime() - 60000, 0, -500000, true, false);
+                            simpleAddActivityRecord(toAdd);
+                            LogA.d("Appspy-DB","missing added");
+                            lastRecordProcessed = toAdd;
+                            timeBetweenRecords = lastRecordProcessed.getRecordTime() - record.getRecordTime();
+                            LogA.d("Appspy","new between: " + timeBetweenRecords);
+                            totalContinuousActivityTimeBeforeCurrent -= 60000;
+
+                        }
+
+                        LogA.d("Appspy","record FT:" + record.getForegroundTime() + "   -" + activeTimeInCurrentInterval);
+                        record.setForegroundTime(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent);
+                        record.setWasForeground(true);
+                        record.setDownloadedData(-1000000);
+                        record.setLastTimeUsed(record.getRecordTime()); //last time is right at time of record, as the use hasn't stopped
+                        updateApplicationActivityRecord(record);
+                        LogA.d("Appspy-DB", "one update");
+                        lastRecordProcessed = record;
+
+                        totalContinuousActivityTimeBeforeCurrent -= 60000;
+
+                    }
                 }
 
                 LogA.d("Appspy-DB", "UPDATE foreground " + newRecord.getPackageName());
@@ -394,7 +455,6 @@ public class Database extends SQLiteOpenHelper {
 
             //fix border effect when booting
             //at boot, every apps are in background if active
-            //TODO verify that
             if(checkIfFirstRecordOfDay(newRecord.getPackageName())) {
                 wasForeground = false;
             }
@@ -418,6 +478,24 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
+    private void simpleAddActivityRecord(ApplicationActivityRecord newRecord){
+        ContentValues values = new ContentValues();
+        //id will be created, none exist for the new record
+        values.put(COL_APP_PKG_NAME, newRecord.getPackageName());
+        values.put(COL_RECORD_TIME, newRecord.getRecordTime());
+        values.put(COL_FOREGROUND_TIME_USAGE, newRecord.getForegroundTime());
+        values.put(COL_LAST_TIME_USE, newRecord.getLastTimeUsed());
+        values.put(COL_DOWNLOADED_DATA, newRecord.getDownloadedData());
+        values.put(COL_UPLOADED_DATA, newRecord.getUploadedData());
+        values.put(COL_AVG_CPU_USAGE, newRecord.getAvgCpuUsage());
+        values.put(COL_MAX_CPU_USAGE, newRecord.getMaxCpuUsage());
+        values.put(COL_WAS_FOREGROUND, newRecord.isWasForeground());
+        values.put(COL_BOOT, newRecord.isBoot());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long id = db.insert(TABLE_APPS_ACTIVITY, null, values);
+        newRecord.setRecordId(id);
+    }
 
 
     /**
@@ -461,6 +539,13 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
+
+    /**
+     * Stores the last activity for data usage. Will be used to compute the dif between each minute of activity
+     * @param packageName
+     * @param uploadedData
+     * @param downloadedData
+     */
     public void setLastActivity(String packageName, long uploadedData, long downloadedData){
         addLastInternetUse(packageName, uploadedData, downloadedData);
     }
@@ -507,36 +592,6 @@ public class Database extends SQLiteOpenHelper {
         }
         return null;
     }
-
-
-//    /**
-//     * @param state
-//     * @return
-//     */
-//    //TODO adapt according to state (and also system app or not system app)
-//    public List<ApplicationActivityRecord> getApplicationActivityRecords(ACTIVE_STATE state, boolean includeSystem) {
-////        SQLiteDatabase db = getReadableDatabase();
-////
-////        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + "=0";
-////
-////        Cursor cursor = db.rawQuery(query, null);
-////
-////        ArrayList<ApplicationActivityRecord> records = new ArrayList<ApplicationActivityRecord>();
-////
-////        if (cursor.moveToFirst()) {
-////            do {
-//////                int id = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
-//////                String name = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
-//////                String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
-//////                long timestampTime = cursor.getLong(cursor.getColumnIndex(COL_TIMESTAMP));
-//////                boolean wasBackground = cursor.getInt(cursor.getColumnIndex(COL_WAS_BACKGROUND)) == 1;
-//////                records.add(new ApplicationActivityRecord(id,name,pkgName, timestampTime, wasBackground));
-////            } while (cursor.moveToNext());
-////        }
-////
-////        return records;
-//        return null;
-//    }
 
 
     /**
@@ -636,18 +691,26 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-
-
-
+    /**
+     * Return a list that is ordered by time, in ascending order
+     * @param begining
+     * @param end
+     * @param packageName
+     * @return
+     */
     public List<ApplicationActivityRecord> getRecordIntImeRange(long begining, long end, String packageName){
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query =
                 "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
-                " AND " + COL_RECORD_TIME + "<=" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\"";
+                " AND " + COL_RECORD_TIME + "<=" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
+                + " ORDER BY " + COL_RECORD_TIME + " DESC ";
 
         Cursor result = db.rawQuery(query, null);
+        //result are ordered descending
+
+        //but by adding one by one, it revert the order.
 
         ArrayList<ApplicationActivityRecord> records = new ArrayList<>();
 
@@ -737,14 +800,6 @@ public class Database extends SQLiteOpenHelper {
     public void updatePermissionsForUninstalledApp(String packageName){
         updatePermissionRecordsForApp(packageName, new HashMap<String, PermissionRecord>());
     }
-
-//    public enum ACTIVE_STATE {
-//        ACTIVE_BACKGROUND,
-//        ACTIVE_FOREGROUND,
-//        ACTIVE //active not depending if the app is in background or in foreground
-//    }
-
-
 
 
     //##################################################################################################################
