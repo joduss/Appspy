@@ -2,6 +2,7 @@ package com.epfl.appspy.activity;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -158,6 +159,7 @@ public class DatabaseActivity extends ActionBarActivity {
         gpsTaskReceiver.setAction(Intent.ACTION_SEND);
         gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.MANUAL);
         sendBroadcast(activityTaskReceiver);
+
     }
 
 
