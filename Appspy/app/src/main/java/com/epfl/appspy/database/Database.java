@@ -375,14 +375,22 @@ public class Database extends SQLiteOpenHelper {
         //If is was active in a way, we add the record to the DB
         if(wasForeground || wasActiveInBackground){
 
+
+            //update the LastInternetUse: to be able to compute how much data were up/down next time
             addLastInternetUse(newRecord.getPackageName(), newRecord.getUploadedData(), newRecord.getDownloadedData());
 
-            //if the app was used a long time and no stat were fired for a moment, some records may say the app was in
-            //background. So need to update correctly these
+            /*
+            * if the app was used a long time and no stat were fired for a moment, some records may say the app was in
+            * background. So need to update correctly these
+             */
+
             long activeTime = newRecord.getForegroundTime();
-            if(lastRecord !=null && wasForeground){
+            if (lastRecord != null && wasForeground){
                 activeTime = activeTime - lastRecord.getForegroundTime();
                 long beginActivity = newRecord.getLastTimeUsed() - activeTime - (GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS - 1000);
+
+                //get all record between opening of app and current recognized on FG record.
+                //they need to be fixed, because they were recognized wrongly as on BG (background)
                 List<ApplicationActivityRecord> records = getRecordIntImeRange(beginActivity, newRecord.getRecordTime(), newRecord.getPackageName());
 
 
@@ -392,11 +400,26 @@ public class Database extends SQLiteOpenHelper {
 
 
                     /*
-                    *  last record was not updated with foreground time in case of long activity
+                    *  last record was not updated with foreground time in case of long activity without interaction
+                    *  (watching a movie for example)
+                    *
+                    *  So we need to fix the wasForeground field that would be false instead of true
+                    *  We need also to fix the ForegroundTime. If the app was used for a 1h movie without screen
+                    *  interaction,there would be a record when the movie begin and when the user close the app
+                    *  => need to add record inbetween
+                    *  But there may be records in case internet was used by the app at the same time. Need to update
+                    *  the up/down data for them
                      */
 
-                    //Can't use lastRecord: maybe it was older than 1 minutes in case long continuous use
+                    //Can't use lastRecord
+                    // maybe it is older than 1 minutes in case long continuous use
+                    //last record is the last record where app was active (interaction recognized by stat or data usage)
+                    //last record FG is the last FG known by stats. But maybe not up-to-date
+
+                    //first compute in the current interval, how long the app was open, because the all was certainly closed
                     long activeTimeInCurrentInterval = newRecord.getLastTimeUsed() - (newRecord.getRecordTime() - 60000);
+
+                    //compute how much time the app was used continuously since last record with usage stat
                     long totalContinuousActivityTimeBeforeCurrent = newRecord.getForegroundTime() - lastRecord.getForegroundTime() - activeTimeInCurrentInterval;
                     LogA.d("Appspy","newRecord:" + newRecord.getPackageName());
                     LogA.d("Appspy","newRecord ft" + newRecord.getForegroundTime());
@@ -412,17 +435,24 @@ public class Database extends SQLiteOpenHelper {
 
                     ApplicationActivityRecord lastRecordProcessed = newRecord;
 
-                    //look one by one, from the newest to the oldest
+                    /**
+                     * Look at all the record (recognized wrongly as on background
+                     */
                     for (ApplicationActivityRecord record : records) {
 
                         //these were on foreground. Need to update them
                         long timeBetweenRecords = lastRecordProcessed.getRecordTime() - record.getRecordTime();
+
                         LogA.d("Appspy","between: " + timeBetweenRecords);
                         LogA.d("Appspy","lastRecordProcessed.getRecordTime()" + Utility.beautifulDate( lastRecordProcessed.getRecordTime()));
                         LogA.d("Appspy","record.getRecordTime()" + Utility.beautifulDate( record.getRecordTime()));
 
+                        //
+
                         while(timeBetweenRecords > 70000){
-                            //there is a missing record => need to add it
+                            //there is a missing record (time between the record and the previous one too large) => need to add it
+                            //add new until interval is ~60000
+
                             //last time used is right at time of record, as the use hasn't stopped
                             ApplicationActivityRecord toAdd = new ApplicationActivityRecord(newRecord.getPackageName(), lastRecordProcessed.getRecordTime() - 60000, record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent, lastRecordProcessed.getRecordTime() - 60000, 0, -500000, true, false);
                             simpleAddActivityRecord(toAdd);
@@ -435,6 +465,8 @@ public class Database extends SQLiteOpenHelper {
                         }
 
                         LogA.d("Appspy","record FT:" + record.getForegroundTime() + "   -" + activeTimeInCurrentInterval);
+
+                        //update the FG time
                         record.setForegroundTime(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent);
                         record.setWasForeground(true);
                         record.setDownloadedData(-1000000);
@@ -705,12 +737,10 @@ public class Database extends SQLiteOpenHelper {
         String query =
                 "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
                 " AND " + COL_RECORD_TIME + "<=" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
-                + " ORDER BY " + COL_RECORD_TIME + " DESC ";
+                + " ORDER BY " + COL_RECORD_TIME + " ASC ";
 
         Cursor result = db.rawQuery(query, null);
         //result are ordered descending
-
-        //but by adding one by one, it revert the order.
 
         ArrayList<ApplicationActivityRecord> records = new ArrayList<>();
 
