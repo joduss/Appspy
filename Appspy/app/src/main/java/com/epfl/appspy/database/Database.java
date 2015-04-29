@@ -396,7 +396,7 @@ public class Database extends SQLiteOpenHelper {
                 LogA.d("Appspy","sampling: " + GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS + "   |   " + Utility.beautifulDate(GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS));
 
 
-                final long beginActivity = newRecord.getLastTimeUsed() - activeTime - GlobalConstant.APP_ACTIVITY_SAMPLING_TIME_MILLIS/2;
+                final long beginActivity = newRecord.getLastTimeUsed() - activeTime-1000; //threshold
 
                 //get all record between opening of app and current recognized on FG record.
                 //they need to be fixed, because they were recognized wrongly as on BG (background)
@@ -432,6 +432,7 @@ public class Database extends SQLiteOpenHelper {
 
                     //first compute in the current interval, how long the app was open, because the app was certainly closed
                     long activeTimeInCurrentInterval = newRecord.getLastTimeUsed() - (newRecord.getRecordTime() - 60000);
+                    // the app when we record the app at xx, it means it was close at (xx-1):mm. so it was active during mm.
 
                     //compute how much time the app was used continuously since last record with usage stat
                     long totalContinuousActivityTimeBeforeCurrent = newRecord.getForegroundTime() - lastRecord.getForegroundTime() - activeTimeInCurrentInterval;
@@ -468,7 +469,7 @@ public class Database extends SQLiteOpenHelper {
                             //add new until interval is ~60000
 
                             //last time used is right at time of record, as the use hasn't stopped
-                            ApplicationActivityRecord toAdd = new ApplicationActivityRecord(newRecord.getPackageName(), lastRecordProcessed.getRecordTime() - 60000, record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent, lastRecordProcessed.getRecordTime() - 60000, 0, -500000, true, false);
+                            ApplicationActivityRecord toAdd = new ApplicationActivityRecord(newRecord.getPackageName(), lastRecordProcessed.getRecordTime() - 60000, record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent, lastRecordProcessed.getRecordTime() - 60000, 0, 0, true, false);
                             simpleAddActivityRecord(toAdd);
                             LogA.d("Appspy-DB","missing added");
                             lastRecordProcessed = toAdd;
@@ -480,26 +481,33 @@ public class Database extends SQLiteOpenHelper {
                             totalContinuousActivityTimeBeforeCurrent -= 60000;
 
                         }
+                        //show not be < 0, but because of threshold, it may. So we exclude that case
+                        if(totalContinuousActivityTimeBeforeCurrent > 0) {
+                            LogA.d("Appspy", "record FT:" + record.getForegroundTime() + "   / total Cont" +
+                                             totalContinuousActivityTimeBeforeCurrent);
+                            //LogA.d("Appspy"," set:" + record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent + "   =    " + Utility.beautifulDate(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent));
 
-                        LogA.d("Appspy","record FT:" + record.getForegroundTime() + "   / total Cont" + totalContinuousActivityTimeBeforeCurrent);
-                        //LogA.d("Appspy"," set:" + record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent + "   =    " + Utility.beautifulDate(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent));
+                            //update the FG time
+                            long toSet = record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent;
+                            LogA.d("Appspy", " set:" + toSet + "   =    " + Utility.beautifulDate(toSet));
 
-                        //update the FG time
-                        long toSet = record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent;
-                        LogA.d("Appspy"," set:" + toSet + "   =    " + Utility.beautifulDate(toSet));
+                            record.setForegroundTime(
+                                    record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent);
+                            record.setWasForeground(true);
+                            record.setLastTimeUsed(record.getRecordTime()); //last time is right at time of record, as the use hasn't stopped
+                            updateApplicationActivityRecord(record);
+                            LogA.d("Appspy-DB", "one update");
+                            lastRecordProcessed = record;
+                            LogA.d("Appspy",
+                                   "totalCont " + Utility.beautifulDate(totalContinuousActivityTimeBeforeCurrent));
+                            totalContinuousActivityTimeBeforeCurrent -= 60000;
 
-                        record.setForegroundTime(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent);
-                        record.setWasForeground(true);
-                        record.setDownloadedData(-1000000);
-                        record.setLastTimeUsed(record.getRecordTime()); //last time is right at time of record, as the use hasn't stopped
-                        updateApplicationActivityRecord(record);
-                        LogA.d("Appspy-DB", "one update");
-                        lastRecordProcessed = record;
-                        LogA.d("Appspy","totalCont " + Utility.beautifulDate(totalContinuousActivityTimeBeforeCurrent));
-                        totalContinuousActivityTimeBeforeCurrent -= 60000;
-
-                        LogA.d("Appspy","SO: " + record.getRecordTime() + " => " + record.getForegroundTime());
-                        LogA.d("Appspy","====");
+                            LogA.d("Appspy", "SO: " + record.getRecordTime() + " => " + record.getForegroundTime());
+                            LogA.d("Appspy", "====");
+                        }
+                        else {
+                            LogA.d("Appspy","IS SMALLER");
+                        }
 
                     }
                 }
