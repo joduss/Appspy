@@ -455,10 +455,8 @@ public class Database extends SQLiteOpenHelper {
                             totalContinuousActivityTimeBeforeCurrent -= 60000;
 
                         }
-                        //show not be < 0, but because of threshold, it may. So we exclude that case
+                        //should not be < 0, but because of threshold, it may. So we exclude that case
                         if(totalContinuousActivityTimeBeforeCurrent > 0) {
-                                             totalContinuousActivityTimeBeforeCurrent);
-                            //LogA.d("Appspy"," set:" + record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent + "   =    " + Utility.beautifulDate(record.getForegroundTime() + totalContinuousActivityTimeBeforeCurrent));
 
                             //update the FG time
                             //as the app was used a long time, no update of FG were made. Here we update it.
