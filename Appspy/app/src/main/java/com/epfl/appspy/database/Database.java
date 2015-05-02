@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.epfl.appspy.database.DatabaseNames.COL_ACCURACY;
 import static com.epfl.appspy.database.DatabaseNames.COL_ALTITUDE;
@@ -319,22 +321,77 @@ public class Database extends SQLiteOpenHelper {
         //Verify that the is exactly one record. As the package name is unique, there is 0 or 1 row in the cursor.
         //if 0, moveToFirst returns false
         if (cursor.moveToFirst()) {
-            int appId = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
-            //String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
-            String appName = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
-            long installationDate = cursor.getLong(cursor.getColumnIndex(COL_INSTALLATION_DATE));
-            long uninstallationDate = cursor.getLong(cursor.getColumnIndex(COL_UNINSTALLATION_DATE));
-            boolean appIsSystem = cursor.getInt(cursor.getColumnIndex(COL_IS_SYSTEM)) == 1;
+
+            ApplicationInstallationRecord record = cursorToAppInstallationRecord(cursor);
 
             cursor.close();
-            return new ApplicationInstallationRecord(appId, appName, packageName, installationDate, uninstallationDate,
-                                                     appIsSystem);
+            return record;
         } else {
             //As packageName is unique, there is anyway at maximum one. The other case is
             //therefore when no record is found. In such case, we return null
             cursor.close();
             return null;
         }
+    }
+
+
+    /**
+     * return a list of ApplicationInstallationRecord for app that were installed (present) on the devices in the
+     * give time range.
+     * @param begin
+     * @param end
+     * @return
+     */
+    public Set<ApplicationInstallationRecord> getApplicationInstalledTimeRange(long begin, long end){
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT * FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_INSTALLATION_DATE + "<" + end + " AND " + COL_UNINSTALLATION_DATE + ">" + begin + " AND " + COL_UNINSTALLATION_DATE + "!=0" ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        HashSet<ApplicationInstallationRecord> apps = new HashSet<>();
+
+
+        if (cursor.moveToFirst()) {
+            apps.add(cursorToAppInstallationRecord(cursor));
+        }
+
+        cursor.close();
+        return apps;
+    }
+
+    public Set<ApplicationInstallationRecord> getAllTimeApplicationInstalled(){
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT * FROM " + TABLE_INSTALLED_APPS ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        HashSet<ApplicationInstallationRecord> apps = new HashSet<>();
+
+
+        if (cursor.moveToFirst()) {
+            apps.add(cursorToAppInstallationRecord(cursor));
+        }
+
+        cursor.close();
+        return apps;
+    }
+
+
+    /**
+     * If cursor contains all field and is being iterate: create a AppInstallationRecord from it (only the current iteration)
+     * @param cursor
+     * @return
+     */
+    private ApplicationInstallationRecord cursorToAppInstallationRecord(Cursor cursor){
+        int appId = cursor.getInt(cursor.getColumnIndex(COL_APP_ID));
+        String pkgName = cursor.getString(cursor.getColumnIndex(COL_APP_PKG_NAME));
+        String appName = cursor.getString(cursor.getColumnIndex(COL_APP_NAME));
+        long installationDate = cursor.getLong(cursor.getColumnIndex(COL_INSTALLATION_DATE));
+        long uninstallationDate = cursor.getLong(cursor.getColumnIndex(COL_UNINSTALLATION_DATE));
+        boolean appIsSystem = cursor.getInt(cursor.getColumnIndex(COL_IS_SYSTEM)) == 1;
+
+        return new ApplicationInstallationRecord(appId, appName, pkgName, installationDate, uninstallationDate,
+                                                  appIsSystem);
     }
 
 
@@ -546,7 +603,8 @@ public class Database extends SQLiteOpenHelper {
             long id = db.insert(TABLE_APPS_ACTIVITY, null, values);
             newRecord.setRecordId(id);
 
-            setLastAppActivity(newRecord.getPackageName(), newRecord.getRecordTime(), newRecord.getForegroundTime(), newRecord.getLastTimeUsed());
+            setTemporaryLastAppActivity(newRecord.getPackageName(), newRecord.getRecordTime(),
+                                        newRecord.getForegroundTime(), newRecord.getLastTimeUsed());
 
 
             LogA.d("Appspy-DB", "New application activity record added for " + newRecord.getPackageName());
@@ -630,14 +688,24 @@ public class Database extends SQLiteOpenHelper {
         addLastInternetUse(packageName, uploadedData, downloadedData);
     }
 
-    private void setLastAppActivity(String packageName, long recordTime, long foregroundTime, long lastTimeUsed){
+
+    /**
+     * Add the usage stats for that app in the temporary DB. It will be used to compare with the next future record, to
+     * compute the usage over a time interval
+     * @param packageName
+     * @param recordTime
+     * @param foregroundTime
+     * @param lastTimeUsed
+     */
+    private void setTemporaryLastAppActivity(String packageName, long recordTime, long foregroundTime,
+                                             long lastTimeUsed){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY_LAST_TIME +
                        " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
 
         Cursor result = db.rawQuery(query, null);
 
-        LogA.d("Appspy-DB","setLastAppActivity");
+        LogA.d("Appspy-DB","setTemporaryLastAppActivity");
 
         if (result.moveToFirst()) {
             ContentValues values = new ContentValues();
@@ -646,7 +714,7 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_APP_PKG_NAME, packageName);
             values.put(COL_FOREGROUND_TIME_USAGE, foregroundTime);
             values.put(COL_LAST_TIME_USE, lastTimeUsed);
-            LogA.d("Appspy-DB","setLastAppActivity - update");
+            LogA.d("Appspy-DB","setTemporaryLastAppActivity - update");
 
             db.update(TABLE_APPS_ACTIVITY_LAST_TIME, values, COL_APP_PKG_NAME + "=\"" + packageName + "\"", null);
         }
@@ -656,7 +724,7 @@ public class Database extends SQLiteOpenHelper {
             values.put(COL_RECORD_TIME, recordTime);
             values.put(COL_FOREGROUND_TIME_USAGE, foregroundTime);
             values.put(COL_LAST_TIME_USE, lastTimeUsed);
-            LogA.d("Appspy-DB","setLastAppActivity - insert");
+            LogA.d("Appspy-DB","setTemporaryLastAppActivity - insert");
 
             db.insert(TABLE_APPS_ACTIVITY_LAST_TIME, null, values);
         }

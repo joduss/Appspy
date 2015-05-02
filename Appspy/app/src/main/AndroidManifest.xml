@@ -67,12 +67,16 @@
 
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".activity.MainActivity" >
+        >
         </activity>
 
         <activity
             android:name=".activity.GraphActivity"
-            android:label="@string/title_activity_graph" >
+            android:label="@string/title_activity_graph"
+            android:parentActivityName=".activity.MainActivity" >
+            >
         </activity>
     </application>
 
