@@ -4,23 +4,23 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 import com.epfl.appspy.LogA;
 import com.epfl.appspy.R;
 import com.epfl.appspy.Utility;
 import com.epfl.appspy.monitoring.AppActivityTracker;
 import com.epfl.appspy.monitoring.GPSTracker;
 import com.epfl.appspy.monitoring.InstalledAppsTracker;
-import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 
 
 public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -205,6 +205,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             LogA.i("Appspy-MainActivity", "Settings for GPS interval changed to " + newInterval / 1000 + " seconds");
         }
 
+    }
+
+
+    public void goGraphActivity(View v){
+        Intent nextActivity = new Intent(this, GraphActivity.class);
+        startActivity(nextActivity);
     }
 
 

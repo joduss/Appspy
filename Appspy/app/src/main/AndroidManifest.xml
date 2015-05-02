@@ -32,12 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.DatabaseActivity"
-            android:label="@string/title_activity_rights"
+            android:label="@string/title_activity_database"
             android:parentActivityName=".activity.MainActivity" >
-
         </activity>
+
 
         <receiver android:name=".monitoring.AppActivityTracker" >
             <intent-filter>
@@ -67,6 +68,11 @@
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" >
+        </activity>
+
+        <activity
+            android:name=".activity.GraphActivity"
+            android:label="@string/title_activity_graph" >
         </activity>
     </application>
 

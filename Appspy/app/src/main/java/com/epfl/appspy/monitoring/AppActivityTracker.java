@@ -16,12 +16,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.epfl.appspy.ApplicationsInformation;
-import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 import com.epfl.appspy.LogA;
-import com.epfl.appspy.activity.MainActivity;
 import com.epfl.appspy.R;
 import com.epfl.appspy.Utility;
+import com.epfl.appspy.activity.MainActivity;
 import com.epfl.appspy.database.ApplicationActivityRecord;
 import com.epfl.appspy.database.Database;
 

@@ -1,6 +1,5 @@
 package com.epfl.appspy.database;
 
-import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -10,18 +9,61 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.LogA;
 import com.epfl.appspy.Utility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.epfl.appspy.database.DatabaseNames.*;
+import static com.epfl.appspy.database.DatabaseNames.COL_ACCURACY;
+import static com.epfl.appspy.database.DatabaseNames.COL_ALTITUDE;
+import static com.epfl.appspy.database.DatabaseNames.COL_APP_ID;
+import static com.epfl.appspy.database.DatabaseNames.COL_APP_NAME;
+import static com.epfl.appspy.database.DatabaseNames.COL_APP_PKG_NAME;
+import static com.epfl.appspy.database.DatabaseNames.COL_AVG_CPU_USAGE;
+import static com.epfl.appspy.database.DatabaseNames.COL_BOOT;
+import static com.epfl.appspy.database.DatabaseNames.COL_DOWNLOADED_DATA;
+import static com.epfl.appspy.database.DatabaseNames.COL_FOREGROUND_TIME_USAGE;
+import static com.epfl.appspy.database.DatabaseNames.COL_GPS_TYPE;
+import static com.epfl.appspy.database.DatabaseNames.COL_INSTALLATION_DATE;
+import static com.epfl.appspy.database.DatabaseNames.COL_IS_SYSTEM;
+import static com.epfl.appspy.database.DatabaseNames.COL_LAST_TIME_USE;
+import static com.epfl.appspy.database.DatabaseNames.COL_LATITUDE;
+import static com.epfl.appspy.database.DatabaseNames.COL_LONGITUDE;
+import static com.epfl.appspy.database.DatabaseNames.COL_MAX_CPU_USAGE;
+import static com.epfl.appspy.database.DatabaseNames.COL_PERMISSION_GAIN_ACCESS;
+import static com.epfl.appspy.database.DatabaseNames.COL_PERMISSION_LOST_ACCESS;
+import static com.epfl.appspy.database.DatabaseNames.COL_PERMISSION_NAME;
+import static com.epfl.appspy.database.DatabaseNames.COL_RECORD_ID;
+import static com.epfl.appspy.database.DatabaseNames.COL_RECORD_TIME;
+import static com.epfl.appspy.database.DatabaseNames.COL_UNINSTALLATION_DATE;
+import static com.epfl.appspy.database.DatabaseNames.COL_UPLOADED_DATA;
+import static com.epfl.appspy.database.DatabaseNames.COL_WAS_FOREGROUND;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_TABLE_APPS_ACTIVITY;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_TABLE_APPS_ACTIVITY_LAST_TIME;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_TABLE_GPS_LOCATION;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_TABLE_INSTALLED_APPS;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_TABLE_PERMISSIONS;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_VIEW_APP_ACTIVITY;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_VIEW_GPS;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_VIEW_INSTALLED_APPS;
+import static com.epfl.appspy.database.DatabaseNames.CREATE_VIEW_PERMISSIONS;
+import static com.epfl.appspy.database.DatabaseNames.DB_NAME;
+import static com.epfl.appspy.database.DatabaseNames.DB_VERSION;
+import static com.epfl.appspy.database.DatabaseNames.TABLE_APPS_ACTIVITY;
+import static com.epfl.appspy.database.DatabaseNames.TABLE_APPS_ACTIVITY_LAST_TIME;
+import static com.epfl.appspy.database.DatabaseNames.TABLE_APPS_INTERNET_USE_LAST_TIME;
+import static com.epfl.appspy.database.DatabaseNames.TABLE_GPS_LOCATION;
+import static com.epfl.appspy.database.DatabaseNames.TABLE_INSTALLED_APPS;
+import static com.epfl.appspy.database.DatabaseNames.TABLE_PERMISSIONS;
+import static com.epfl.appspy.database.DatabaseNames.VIEW_APP_ACTIVITY;
+import static com.epfl.appspy.database.DatabaseNames.VIEW_GPS;
+import static com.epfl.appspy.database.DatabaseNames.VIEW_INSTALLED_APPS;
+import static com.epfl.appspy.database.DatabaseNames.VIEW_PERMISSIONS;
 
 /**
  * Manage the database of the app
@@ -215,22 +257,22 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public List<ApplicationInstallationRecord> getAllApplicationInstallationRecords() {
-        //TODO implement for real
-//        SQLiteDatabase db = getReadableDatabase();
-//
-//        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + " = 0 ";
-//
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Log.d("Appspy", "IS IN DB:" + cursor.getString(cursor.getColumnIndex(COL_APP_NAME)));
-//            } while (cursor.moveToNext());
-//        }
-        return null;
-    }
+//    public List<ApplicationInstallationRecord> getAllApplicationInstallationRecords() {
+//        //TODO implement for real
+////        SQLiteDatabase db = getReadableDatabase();
+////
+////        String query = "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_WAS_BACKGROUND + " = 0 ";
+////
+////        Cursor cursor = db.rawQuery(query, null);
+////
+////
+////        if (cursor.moveToFirst()) {
+////            do {
+////                Log.d("Appspy", "IS IN DB:" + cursor.getString(cursor.getColumnIndex(COL_APP_NAME)));
+////            } while (cursor.moveToNext());
+////        }
+//        return null;
+//    }
 
 
     /**
@@ -324,9 +366,9 @@ public class Database extends SQLiteOpenHelper {
 
         /**
          * Add activity record and automatically set if the app was active on foreground. In the othercase, it check
-         * if an activity occured on background. Otherwise, no record is added
+         * if an activity occured on background. Otherwise, no record is added.
+         * If previous was considered as not active, it will fill the missing records
          * @param newRecord new record, with down/uploaded data total for that app that day. Computation will be made autmatically
-         * @return if a record was added, meaning if app was active on foreground
          */
     public void addApplicationActivityRecordIntelligent(ApplicationActivityRecord newRecord) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -511,6 +553,11 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * Add an activity record in the most simple way possible
+     * @param newRecord
+     */
     private void simpleAddActivityRecord(ApplicationActivityRecord newRecord){
         ContentValues values = new ContentValues();
         //id will be created, none exist for the new record

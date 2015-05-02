@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.epfl.appspy.ApplicationsInformation;
 import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 import com.epfl.appspy.LogA;
 import com.epfl.appspy.ToastDebug;
 import com.epfl.appspy.database.ApplicationInstallationRecord;
@@ -19,7 +20,6 @@ import com.epfl.appspy.database.PermissionRecord;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
-import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 
 /**
  * This class is responsible to monitor app installation update, or  uninstallation.

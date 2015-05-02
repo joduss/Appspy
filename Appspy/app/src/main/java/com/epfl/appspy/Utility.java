@@ -1,21 +1,9 @@
 package com.epfl.appspy;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.AppOpsManager;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
-
-import com.epfl.appspy.ApplicationsInformation;
-import com.epfl.appspy.R;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 

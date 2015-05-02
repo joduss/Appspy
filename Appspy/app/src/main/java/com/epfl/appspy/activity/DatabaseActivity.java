@@ -2,7 +2,6 @@ package com.epfl.appspy.activity;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,9 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 
 import com.epfl.appspy.GlobalConstant;
+import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 import com.epfl.appspy.LogA;
 import com.epfl.appspy.R;
 import com.epfl.appspy.Utility;

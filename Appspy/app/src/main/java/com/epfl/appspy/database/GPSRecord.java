@@ -1,7 +1,5 @@
 package com.epfl.appspy.database;
 
-import com.epfl.appspy.LocationType;
-
 /**
  * Created by Jonathan Duss on 30.03.15.
  */

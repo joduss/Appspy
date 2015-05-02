@@ -5,11 +5,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,12 +15,10 @@ import com.epfl.appspy.GlobalConstant;
 import com.epfl.appspy.GlobalConstant.EXTRA_ACTION;
 import com.epfl.appspy.LocationType;
 import com.epfl.appspy.LogA;
-import com.epfl.appspy.R;
 import com.epfl.appspy.Settings;
-import com.epfl.appspy.database.GPSRecord;
-
 import com.epfl.appspy.ToastDebug;
 import com.epfl.appspy.database.Database;
+import com.epfl.appspy.database.GPSRecord;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;

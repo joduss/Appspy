@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class GlobalConstant implements Serializable {
 
     public static final boolean DEBUG = true;
-    public static final boolean DEBUG_TOAST = true;
+    public static final boolean DEBUG_TOAST = false;
     public static final boolean LOG = true;
 
 
