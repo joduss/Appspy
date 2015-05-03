@@ -49,19 +49,37 @@ public class Utility {
      */
     public static void startLogging(){
         try {
-            File path = Environment.getExternalStorageDirectory();
-            //if folver /tmp/appspy does not exists, create it
-            File appspyTmpFolder = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR);
-            appspyTmpFolder.mkdirs();
 
-            if(p != null){
-                p.destroy();
+            boolean running = true;
+            try {
+                //check if p has been init already. If the case, check if still runing
+                if (p != null) {
+                    p.exitValue(); // return something is thread has terminated
+                    running = false;
+                }
+                //thread is not running for the log. Start it now
+                File path = Environment.getExternalStorageDirectory();
+                //if folver /tmp/appspy does not exists, create it
+                File appspyTmpFolder = new File(path + "/" + GlobalConstant.APPSPY_TMP_DIR);
+                appspyTmpFolder.mkdirs();
+
+
+                p = Runtime.getRuntime().exec(
+                        "logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:d " +
+                        " SQLiteLog:S");
+
+
+                LogA.d("Appspy-AppActivityTracker","Start logging in file " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME );
+
+
+            } catch(IllegalThreadStateException e){
+                //mean it is still running
+                // do nothing
+                LogA.d("Appspy-AppActivityTracker","Logging process is still running" );
             }
-            //p = Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:I " + " SQLiteLog:S");
-            p = Runtime.getRuntime().exec("logcat -v time -f " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME + " *:d " + " SQLiteLog:S");
 
 
-            //LogA.i("Appspy-AppActivityTracker","Start logging in file " + appspyTmpFolder + "/" + GlobalConstant.LOG_FILENAME );
+
 
         } catch (IOException e) {
             e.printStackTrace();

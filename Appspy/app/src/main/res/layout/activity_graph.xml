@@ -43,7 +43,8 @@
                 android:text="Modify start time"
                 android:id="@+id/button_start_time"
                 android:layout_below="@+id/graph"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:onClick="clickChangeBeginning"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,7 +142,8 @@
                 android:text="Modify end time"
                 android:id="@+id/button_end_time"
                 android:layout_below="@+id/graph"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:onClick="clickChangeEnding"/>
 
 
         </RelativeLayout>

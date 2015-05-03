@@ -494,7 +494,9 @@ public class Database extends SQLiteOpenHelper {
 
                 //get all record between opening of app and current recognized on FG record.
                 //they need to be fixed, because they were recognized wrongly as on BG (background)
-                List<ApplicationActivityRecord> records = getRecordIntImeRange(beginActivity, newRecord.getRecordTime(), newRecord.getPackageName());
+                List<ApplicationActivityRecord> records = getAppActivityInTimeRange(beginActivity,
+                                                                                    newRecord.getRecordTime(),
+                                                                                    newRecord.getPackageName());
 
 
 
@@ -914,14 +916,16 @@ public class Database extends SQLiteOpenHelper {
      * @param packageName
      * @return
      */
-    public List<ApplicationActivityRecord> getRecordIntImeRange(long begining, long end, String packageName){
+    public List<ApplicationActivityRecord> getAppActivityInTimeRange(long begining, long end, String packageName){
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query =
                 "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
-                " AND " + COL_RECORD_TIME + "<=" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
+                " AND " + COL_RECORD_TIME + "<" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
                 + " ORDER BY " + COL_RECORD_TIME + " ASC ";
+
+        LogA.d("Appspy", "query:" + query);
 
         Cursor result = db.rawQuery(query, null);
         //result are ordered descending

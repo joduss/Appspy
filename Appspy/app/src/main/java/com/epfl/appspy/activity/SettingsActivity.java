@@ -3,6 +3,7 @@ package com.epfl.appspy.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.view.Menu;
 
 import com.epfl.appspy.R;
 
@@ -27,6 +28,9 @@ public class SettingsActivity extends Activity {
                             .commit();
     }
 
+
+
+
     public static class SettingsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class SettingsActivity extends Activity {
             addPreferencesFromResource(R.xml.preferences);
         }
     }
+
+
+
 }
 
 
