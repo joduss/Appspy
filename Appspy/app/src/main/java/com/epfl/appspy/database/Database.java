@@ -378,6 +378,20 @@ public class Database extends SQLiteOpenHelper {
 
 
     /**
+     *
+     * @return
+     */
+    public Cursor getAllTimeApplicationInstalledCursor(){
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT " + COL_APP_ID + " as _id, * FROM " + TABLE_INSTALLED_APPS + " ORDER BY " + COL_APP_NAME ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor;
+    }
+
+
+    /**
      * If cursor contains all field and is being iterate: create a AppInstallationRecord from it (only the current iteration)
      * @param cursor
      * @return
@@ -393,6 +407,7 @@ public class Database extends SQLiteOpenHelper {
         return new ApplicationInstallationRecord(appId, appName, pkgName, installationDate, uninstallationDate,
                                                   appIsSystem);
     }
+
 
 
 
@@ -934,26 +949,70 @@ public class Database extends SQLiteOpenHelper {
 
         if(result.moveToFirst()){
             do{
-                long recordID = result.getLong(result.getColumnIndex(COL_RECORD_ID));
-                long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
-                long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
-                long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
-                long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
-                long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
-                double avgCpuUsage = result.getDouble(result.getColumnIndex(COL_AVG_CPU_USAGE));
-                int maxCpuUsage = result.getInt(result.getColumnIndex(COL_MAX_CPU_USAGE));
-                boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
-                boolean boot = result.getInt(result.getColumnIndex(COL_BOOT)) == 1;
-
-
-                records.add(new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
-                                                     uploaded, downloaded, wasForeground, boot));
+                ApplicationActivityRecord newRec = cursorStartQueryToApplicationActivityRecord(result);
+                records.add(newRec);
             } while(result.moveToNext());
         }
 
         result.close();
         return records;
     }
+
+
+    /**
+     * Return a list that is ordered by time, in ascending order
+     * @param begining
+     * @param end
+     * @param packageName
+     * @return
+     */
+    public List<ApplicationActivityRecord> getAppActivityInTimeRange(long begining, long end, String packageName, boolean foreground){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        int foregroundValue = foreground? 1:0;
+
+        String query =
+                "SELECT * FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begining +
+                " AND " + COL_RECORD_TIME + "<" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
+                + " AND " + COL_WAS_FOREGROUND + "=" + foregroundValue + " ORDER BY " + COL_RECORD_TIME + " ASC ";
+
+        LogA.d("Appspy", "query:" + query);
+
+        Cursor result = db.rawQuery(query, null);
+        //result are ordered descending
+
+        ArrayList<ApplicationActivityRecord> records = new ArrayList<>();
+
+        if(result.moveToFirst()){
+            do{
+                ApplicationActivityRecord newRec = cursorStartQueryToApplicationActivityRecord(result);
+                records.add(newRec);
+            } while(result.moveToNext());
+        }
+
+        result.close();
+        return records;
+    }
+
+    private ApplicationActivityRecord cursorStartQueryToApplicationActivityRecord(Cursor result){
+        long recordID = result.getLong(result.getColumnIndex(COL_RECORD_ID));
+        long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
+        String packageName = result.getString(result.getColumnIndex(COL_APP_PKG_NAME));
+        long foregroundTime = result.getLong(result.getColumnIndex(COL_FOREGROUND_TIME_USAGE));
+        long lastUsed = result.getLong(result.getColumnIndex(COL_LAST_TIME_USE));
+        long downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
+        long uploaded = result.getLong(result.getColumnIndex(COL_UPLOADED_DATA));
+        double avgCpuUsage = result.getDouble(result.getColumnIndex(COL_AVG_CPU_USAGE));
+        int maxCpuUsage = result.getInt(result.getColumnIndex(COL_MAX_CPU_USAGE));
+        boolean wasForeground = result.getInt(result.getColumnIndex(COL_WAS_FOREGROUND)) == 1;
+        boolean boot = result.getInt(result.getColumnIndex(COL_BOOT)) == 1;
+
+        return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
+                                             uploaded, downloaded, wasForeground, boot);
+    }
+
+
 
 
     //##################################################################################################################

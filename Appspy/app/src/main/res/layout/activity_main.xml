@@ -17,10 +17,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_to_graph"
+        android:id="@+id/button_to_list_apps"
         android:layout_below="@+id/button_db"
-        android:text="@string/button_to_graph_title"
-        android:onClick="goGraphActivity"
+        android:text="@string/button_to_list_apps_title"
+        android:onClick="showAllInstalledApps"
         />
 
 </RelativeLayout>

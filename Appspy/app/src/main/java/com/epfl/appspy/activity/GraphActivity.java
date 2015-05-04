@@ -45,6 +45,7 @@ public class GraphActivity extends ActionBarActivity {
     private int endYear = 0;
     private int endHour = 0;
     private int endMinute = 0;
+    private int i;
 
 
     @Override
@@ -130,9 +131,9 @@ public class GraphActivity extends ActionBarActivity {
 
             @Override
             public void onDateSet(DatePicker view, final int yearInput, final int monthOfYear, final int dayOfMonth) {
-                startDay = dayOfMonth;
-                startMonth = monthOfYear;
-                startYear = yearInput;
+                endDay = dayOfMonth;
+                endMonth = monthOfYear;
+                endYear = yearInput;
                 updateScreenInformation();
             }
         }, year, month, day);
@@ -165,11 +166,11 @@ public class GraphActivity extends ActionBarActivity {
 //
 //        List<ApplicationActivityRecord> recordsInInterval = db.getAppActivityInTimeRange(start, end, "com.facebook.katana");
 //
-//        LogA.d("Appspy","start = " + start);
-//        LogA.d("Appspy","end = " + end);
+//        LogA.d("Appspy-Graph","start = " + start);
+//        LogA.d("Appspy-Graph","end = " + end);
 //
-//        LogA.d("Appspy","end - start = " + (end-start));
-//        LogA.d("Appspy", "NB record from DB: " + recordsInInterval.size());
+//        LogA.d("Appspy-Graph","end - start = " + (end-start));
+//        LogA.d("Appspy-Graph", "NB record from DB: " + recordsInInterval.size());
 //
 //
 //
@@ -191,7 +192,7 @@ public class GraphActivity extends ActionBarActivity {
 //
 //        long foregroundTime = 0;
 //        for(ApplicationActivityRecord record : recordsInInterval){
-//            LogA.d("Appspy","record time:" + record.getRecordTime());
+//            LogA.d("Appspy-Graph","record time:" + record.getRecordTime());
 //            if(record.getRecordTime() >= startCurrentSubInterval && record.getRecordTime() < (startCurrentSubInterval + subIntervalsLength)){
 //
 //                if(record.isWasForeground()){
@@ -235,7 +236,7 @@ public class GraphActivity extends ActionBarActivity {
 //
 //        } // END FOR
 //
-//        LogA.d("Appspy", "NB foreground aggr. record: " + activityAggregatedForeground.size());
+//        LogA.d("Appspy-Graph", "NB foreground aggr. record: " + activityAggregatedForeground.size());
 //
 //
 //        GraphView graph = (GraphView) findViewById(R.id.graph);
@@ -275,14 +276,14 @@ public class GraphActivity extends ActionBarActivity {
         c.set(startYear, startMonth, startDay, 0, 0, 0);
         long start = c.getTimeInMillis();
         c.set(endYear, endMonth, endDay, 0, 0, 0);
-        c.add(Calendar.DAY_OF_MONTH, 1);
+        c.add(Calendar.DAY_OF_MONTH, 1); //to include the selected end day, add 24h
         long end = c.getTimeInMillis();
 
 
-        LogA.d("Appspy", "start = " + start);
-        LogA.d("Appspy", "end = " + end);
+        LogA.d("Appspy-Graph", "start = " + start);
+        LogA.d("Appspy-Graph", "end = " + end);
 
-        LogA.d("Appspy", "end - start = " + (end - start));
+        LogA.d("Appspy-Graph", "end - start = " + (end - start));
 
 
         long intervalLength = end - start;
@@ -296,18 +297,20 @@ public class GraphActivity extends ActionBarActivity {
         ArrayList<ApplicationActivityRecord> activityAggregatedForeground = new ArrayList<>();
         ArrayList<ApplicationActivityRecord> activityAggregatedBackground = new ArrayList<>();
 
+        long totForegroundTimeInInterval = 0;
+
         while (startCurrentSubInterval < end) {
 
             String packageName ="com.facebook.katana";
 
-            List<ApplicationActivityRecord> recordsInInterval = db.getAppActivityInTimeRange(startCurrentSubInterval,
+            List<ApplicationActivityRecord> recordsForegroundInInterval = db.getAppActivityInTimeRange(startCurrentSubInterval,
                                                                                              (startCurrentSubInterval +
                                                                                               subIntervalsLength - 1),
-                                                                                             packageName);
+                                                                                             packageName, true);
 
             long foregroundTime = 0;
-            for (ApplicationActivityRecord record : recordsInInterval) {
-                LogA.d("Appspy", "record time:" + record.getRecordTime());
+            for (ApplicationActivityRecord record : recordsForegroundInInterval) {
+                LogA.d("Appspy-Graph", "record time:" + record.getRecordTime());
 
                 if (record.isWasForeground()) {
                     ApplicationActivityRecord r = getIndexNoException(activityAggregatedForeground, index);
@@ -322,57 +325,66 @@ public class GraphActivity extends ActionBarActivity {
                         if (record.getForegroundTime() < r.getForegroundTime() && record.isBoot()) {
                             //means the stat were reseted (change of day with reboot?)
                             r.setForegroundTime(r.getForegroundTime() + record.getForegroundTime());
+                            totForegroundTimeInInterval += record.getForegroundTime();
                             foregroundTime = record.getForegroundTime();
                         }
                         r.setForegroundTime(r.getForegroundTime() + (record.getForegroundTime() - foregroundTime));
+                        totForegroundTimeInInterval += (record.getForegroundTime() - foregroundTime);
                         r.setUploadedData(r.getUploadedData() + record.getUploadedData());
                         r.setDownloadedData(r.getDownloadedData() + record.getDownloadedData());
                     }
 
                 }
-                else {
-                    //background activity
-                    ApplicationActivityRecord r = getIndexNoException(activityAggregatedBackground, index);
-                    if (r == null) {
-                        r = new ApplicationActivityRecord(record.getPackageName(), subIntervalsLength, 0, 0,
-                                                          record.getUploadedData(), record.getDownloadedData(),
-                                                          record.isWasForeground(), record.isBoot());
-                        activityAggregatedBackground.add(r);
-                    }
-                    else {
-                        r.setUploadedData(r.getUploadedData() + record.getUploadedData());
-                        r.setDownloadedData(r.getDownloadedData() + record.getDownloadedData());
-                    }
-                }
+//                else {
+//                    //background activity
+//                    ApplicationActivityRecord r = getIndexNoException(activityAggregatedBackground, index);
+//                    if (r == null) {
+//                        r = new ApplicationActivityRecord(record.getPackageName(), subIntervalsLength, 0, 0,
+//                                                          record.getUploadedData(), record.getDownloadedData(),
+//                                                          record.isWasForeground(), record.isBoot());
+//                        activityAggregatedBackground.add(r);
+//                    }
+//                    else {
+//                        r.setUploadedData(r.getUploadedData() + record.getUploadedData());
+//                        r.setDownloadedData(r.getDownloadedData() + record.getDownloadedData());
+//                    }
+//                }
 
 
 
             } // END FOR
 
-            if(recordsInInterval.size() == 0){
+            LogA.d("Appspy-Graph","index: " + index);
+
+            if(recordsForegroundInInterval.size() == 0){
                 ApplicationActivityRecord r = new ApplicationActivityRecord(packageName, startCurrentSubInterval, 0, 0,
                                                                             0, 0,
                                                                             false, false);
                 activityAggregatedForeground.add(r);
             }
 
+            //set values on textview
+            TextView totalForegroundTimeTV = (TextView) findViewById(R.id.tot_foregroundtime_tv);
+            totalForegroundTimeTV.setText("" + totForegroundTimeInInterval);
+
 
             //go to next interval
             foregroundTime = 0;
             index++;
             startCurrentSubInterval += subIntervalsLength;
-        }
+        } //END WHILE
 
-        LogA.d("Appspy", "NB foreground aggr. record: " + activityAggregatedForeground.size());
+        LogA.d("Appspy-Graph", "NB foreground aggr. record: " + activityAggregatedForeground.size());
 
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> foregroundSeries = new LineGraphSeries<DataPoint>();
 
-        int i = 0;
+        i = 0;
         for (ApplicationActivityRecord r : activityAggregatedForeground) {
             DataPoint p = new DataPoint(i, r.getForegroundTime()/1000);
             foregroundSeries.appendData(p, true, nbPoints);
+            LogA.d("Appspy-Graph","r.getForegroundTime()/1000: " + r.getForegroundTime()/1000);
             i++;
         }
 
@@ -389,6 +401,8 @@ public class GraphActivity extends ActionBarActivity {
         //series2.setColor(Color.RED);
 
         foregroundSeries.setTitle("Foreground time");
+        graph.removeAllSeries();
+        graph.getViewport().setMaxX(50);
         graph.addSeries(foregroundSeries);
         graph.getViewport().setMaxX(50);
         graph.getViewport().setScalable(true);

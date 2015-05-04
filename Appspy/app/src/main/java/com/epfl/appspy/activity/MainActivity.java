@@ -213,5 +213,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         startActivity(nextActivity);
     }
 
+    public void showAllInstalledApps(View v){
+        Intent nextActivity = new Intent(this, AppsListActivity.class);
+        startActivity(nextActivity);
+    }
+
 
 }

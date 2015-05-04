@@ -71,10 +71,14 @@
 
     <!-- ########################################################################################################### -->
     <!--GRAPH ACTIVITY-->
-    <string name="button_to_graph_title">Graph</string>
+    <string name="button_to_list_apps_title">Show all time installed apps</string>
 
     <string name="title_activity_rights">Database options</string>
     <string name="title_activity_graph">GraphActivity</string>
+
+    <!-- ########################################################################################################### -->
+    <!--LIST APPS ACTIVITY-->
+    <string name="title_activity_apps_list">AppsListActivity</string>
 
 
 </resources>

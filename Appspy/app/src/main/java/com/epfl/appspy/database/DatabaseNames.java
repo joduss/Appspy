@@ -21,7 +21,7 @@ public class DatabaseNames {
 
     //SHARED columns names
     protected static final String COL_RECORD_ID = "record_id"; //id in any table, except in installed apps
-    protected static final String COL_APP_NAME = "app_name";
+    public static final String COL_APP_NAME = "app_name";
     protected static final String COL_APP_PKG_NAME = "package_name";
 
 
