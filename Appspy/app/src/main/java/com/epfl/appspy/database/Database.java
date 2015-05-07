@@ -408,6 +408,17 @@ public class Database extends SQLiteOpenHelper {
                                                   appIsSystem);
     }
 
+    public ApplicationInstallationRecord getAppInstallRecordForId(long id){
+        String query = "SELECT * FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_ID + "=" + id;
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            return cursorToAppInstallationRecord(cursor);
+        }
+        return null;
+    }
+
 
 
 

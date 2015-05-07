@@ -3,6 +3,7 @@ package com.epfl.appspy.activity;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.epfl.appspy.R;
 import com.epfl.appspy.database.Database;
@@ -37,6 +40,8 @@ public class AppsListActivity extends ListActivity implements LoaderManager.Load
         setListAdapter(adapter);
 
         getLoaderManager().initLoader(0,null,this);
+
+
     }
 
 
@@ -53,6 +58,7 @@ public class AppsListActivity extends ListActivity implements LoaderManager.Load
             }
         };
     }
+
 
     // Called when a previously created loader has finished loading
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -72,6 +78,9 @@ public class AppsListActivity extends ListActivity implements LoaderManager.Load
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Do something when a list item is clicked
+        Intent nextIntent = new Intent(this, GraphActivity.class);
+        nextIntent.putExtra("AppId", id);
+        startActivity(nextIntent);
     }
 
 

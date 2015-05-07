@@ -72,7 +72,7 @@
         <activity
             android:name=".activity.GraphActivity"
             android:label="@string/title_activity_graph"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.AppsListActivity" >
             >
         </activity>
         <activity

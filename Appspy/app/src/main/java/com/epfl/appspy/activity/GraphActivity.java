@@ -1,9 +1,11 @@
 package com.epfl.appspy.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,6 +49,7 @@ public class GraphActivity extends ActionBarActivity {
     private int endMinute = 0;
     private int i;
 
+    private ApplicationInstallationRecord record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,27 @@ public class GraphActivity extends ActionBarActivity {
         endMonth = month;
         startDay = day;
         endDay = day;
+
+
+        long appId = this.getIntent().getLongExtra("AppId", -1);
+        LogA.d("Appspy-Graph","Extra: " + appId);
+        record = Database.getDatabaseInstance(this).getAppInstallRecordForId(appId);
+
+        if(record != null) {
+            this.setTitle(record.getApplicationName());
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("No data for that application in the given time interval")
+                   .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                           // FIRE ZE MISSILES!
+                       }
+                   });
+            builder.create().show();
+            // Create the AlertDialog object and return it
+        }
+
 
     }
 
