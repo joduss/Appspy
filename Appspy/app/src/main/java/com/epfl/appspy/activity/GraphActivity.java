@@ -179,120 +179,6 @@ public class GraphActivity extends ActionBarActivity {
     }
 
 
-//    private void getInfo(){
-//        Database db = Database.getDatabaseInstance(getApplicationContext());
-//
-//        Calendar c = Calendar.getInstance();
-//        c.set(startYear, startMonth, startDay,0,0,0);
-//        long start = c.getTimeInMillis();
-//        c.set(endYear, endMonth, endDay,0,0,0);
-//        c.add(Calendar.DAY_OF_MONTH, 1);
-//        long end = c.getTimeInMillis();
-//
-//        List<ApplicationActivityRecord> recordsInInterval = db.getAppActivityInTimeRange(start, end, "com.facebook.katana");
-//
-//        LogA.d("Appspy-Graph","start = " + start);
-//        LogA.d("Appspy-Graph","end = " + end);
-//
-//        LogA.d("Appspy-Graph","end - start = " + (end-start));
-//        LogA.d("Appspy-Graph", "NB record from DB: " + recordsInInterval.size());
-//
-//
-//
-//        long intervalLength = end - start;
-//        int nbPoints = 48;
-//
-//        long subIntervalsLength = intervalLength / 48;
-//
-//        long startCurrentSubInterval = start;
-//
-//        int index = 0;
-//        ArrayList<ApplicationActivityRecord> activityAggregatedForeground = new ArrayList<>();
-//        ArrayList<ApplicationActivityRecord> activityAggregatedBackground = new ArrayList<>();
-//
-//
-//        if(recordsInInterval.size() > 0){
-//            startCurrentSubInterval = recordsInInterval.get(0).getRecordTime();
-//        }
-//
-//        long foregroundTime = 0;
-//        for(ApplicationActivityRecord record : recordsInInterval){
-//            LogA.d("Appspy-Graph","record time:" + record.getRecordTime());
-//            if(record.getRecordTime() >= startCurrentSubInterval && record.getRecordTime() < (startCurrentSubInterval + subIntervalsLength)){
-//
-//                if(record.isWasForeground()){
-//                    ApplicationActivityRecord r = activityAggregatedForeground.get(index);
-//                    if(r == null){
-//                        foregroundTime = record.getForegroundTime();
-//                        r = new ApplicationActivityRecord(record.getPackageName(),subIntervalsLength, 0,0,record.getUploadedData(), record.getDownloadedData(),record.isWasForeground(), record.isBoot());
-//                        activityAggregatedForeground.add(r);
-//                    }
-//                    else{
-//                        if(record.getForegroundTime() < r.getForegroundTime() && record.isBoot()){
-//                            //means the stat were reseted (change of day with reboot?)
-//                            r.setForegroundTime(r.getForegroundTime() + record.getForegroundTime());
-//                            foregroundTime = record.getForegroundTime();
-//                        }
-//                        r.setForegroundTime(r.getForegroundTime() + (record.getForegroundTime() - foregroundTime));
-//                        r.setUploadedData(r.getUploadedData() + record.getUploadedData());
-//                        r.setDownloadedData(r.getDownloadedData() + record.getDownloadedData());
-//                    }
-//
-//                }
-//                else {
-//                    //background activity
-//                    ApplicationActivityRecord r = activityAggregatedBackground.get(index);
-//                    if(r == null){
-//                        r = new ApplicationActivityRecord(record.getPackageName(),subIntervalsLength, 0,0,record.getUploadedData(), record.getDownloadedData(),record.isWasForeground(), record.isBoot());
-//                        activityAggregatedBackground.add(r);
-//                    }
-//                    else{
-//                        r.setUploadedData(r.getUploadedData() + record.getUploadedData());
-//                        r.setDownloadedData(r.getDownloadedData() + record.getDownloadedData());
-//                    }
-//                }
-//
-//            }
-//            else {
-//                //we did the whole interval
-//                startCurrentSubInterval += subIntervalsLength;
-//                index ++;
-//            }
-//
-//        } // END FOR
-//
-//        LogA.d("Appspy-Graph", "NB foreground aggr. record: " + activityAggregatedForeground.size());
-//
-//
-//        GraphView graph = (GraphView) findViewById(R.id.graph);
-//        LineGraphSeries<DataPoint> foregroundSeries = new LineGraphSeries<DataPoint>();
-//
-//        int i = 0;
-//        for(ApplicationActivityRecord r : activityAggregatedForeground){
-//            DataPoint p = new DataPoint(i, r.getForegroundTime());
-//            foregroundSeries.appendData(p, true, nbPoints);
-//            i++;
-//        }
-//
-//        //LineGraphSeries<DataPoint> backgroundSeries = new LineGraphSeries<DataPoint>();
-//
-////            i = 0;
-////            for(ApplicationActivityRecord r : activityAggregatedForeground){
-////                DataPoint p = new DataPoint(i, r.getForegroundTime());
-////                backgroundSeries.appendData(p, true, nbPoints);
-////                i++;
-////            }
-//
-//
-//
-//
-//        //series2.setColor(Color.RED);
-//
-//
-//        graph.addSeries(foregroundSeries);
-//        //graph.addSeries(series2);
-//    }
-
 
     private void getInfo() {
         Database db = Database.getDatabaseInstance(getApplicationContext());
@@ -374,67 +260,6 @@ public class GraphActivity extends ActionBarActivity {
         //END NEW
 
 
-
-//        while (startCurrentSubInterval < end) {
-//
-//            String packageName ="com.facebook.katana";
-//
-//            List<ApplicationActivityRecord> recordsForegroundInInterval = db.getAppActivityInTimeRange(startCurrentSubInterval,
-//                                                                                             (startCurrentSubInterval +
-//                                                                                              subIntervalsLength - 1),
-//                                                                                             packageName, true);
-//
-//
-//            //Compute foreground time + foreground up/download
-//            //long foregroundTime = 0;
-//            for (ApplicationActivityRecord record : recordsForegroundInInterval) {
-//                LogA.d("Appspy-Graph", "record time:" + record.getRecordTime());
-//
-//                if (record.isWasForeground()) {
-//                    ApplicationActivityRecord r = getIndexNoException(activityAggregatedForeground, index);
-//                    if (r == null) {
-//                        foregroundTime = record.getForegroundTime();
-//                        r = new ApplicationActivityRecord(record.getPackageName(), subIntervalsLength, 0, 0,
-//                                                          record.getUploadedData(), record.getDownloadedData(),
-//                                                          record.isWasForeground(), record.isBoot());
-//                        activityAggregatedForeground.add(r);
-//                    }
-//                    else {
-//                        if (record.getForegroundTime() < r.getForegroundTime() && record.isBoot()) {
-//                            //means the stat were reseted (change of day with reboot?)
-//                            r.setForegroundTime(r.getForegroundTime() + record.getForegroundTime());
-//                            totForegroundTimeInInterval += record.getForegroundTime();
-//                            foregroundTime = record.getForegroundTime();
-//                        }
-//                        r.setForegroundTime(r.getForegroundTime() + (record.getForegroundTime() - foregroundTime));
-//                        totForegroundTimeInInterval += (record.getForegroundTime() - foregroundTime);
-//                        r.setUploadedData(r.getUploadedData() + record.getUploadedData());
-//                        r.setDownloadedData(r.getDownloadedData() + record.getDownloadedData());
-//                    }
-//
-//                }
-//            } // END FOR
-//
-//            LogA.d("Appspy-Graph","index: " + index);
-//
-//            if(recordsForegroundInInterval.size() == 0){
-//                ApplicationActivityRecord r = new ApplicationActivityRecord(packageName, startCurrentSubInterval, 0, 0,
-//                                                                            0, 0,
-//                                                                            false, false);
-//                activityAggregatedForeground.add(r);
-//            }
-//
-//            //set values on textview
-//            TextView totalForegroundTimeTV = (TextView) findViewById(R.id.tot_foregroundtime_tv);
-//            totalForegroundTimeTV.setText("" + totForegroundTimeInInterval);
-//
-//
-//            //go to next interval
-//            foregroundTime = 0;
-//            index++;
-//            startCurrentSubInterval += subIntervalsLength;
-//        } //END WHILE
-
         LogA.d("Appspy-Graph", "NB foreground aggr. record: " + activityAggregatedForeground.size());
 
 
@@ -443,10 +268,14 @@ public class GraphActivity extends ActionBarActivity {
 
         //Create data for the line
         i = 0;
+        //foregroundSeries.appendData(new DataPoint(-5, -5), false, nbPoints+1);
+
+        double max = 0;
         for (ApplicationActivityRecord r : activityAggregatedForeground) {
+            max = (r.getForegroundTime()/1000) > max ? r.getForegroundTime()/1000 : max;
             DataPoint p = new DataPoint(i, r.getForegroundTime()/1000);
-            foregroundSeries.appendData(p, true, nbPoints);
-            LogA.d("Appspy-Graph","r.getForegroundTime()/1000: " + r.getForegroundTime()/1000);
+            foregroundSeries.appendData(p, false, nbPoints);
+            LogA.d("Appspy-Graph","i:"+ i +  " r.getForegroundTime()/1000: " + r.getForegroundTime());
             i++;
         }
 
@@ -469,8 +298,20 @@ public class GraphActivity extends ActionBarActivity {
         foregroundSeries.setTitle("Foreground time");
         graph.removeAllSeries();
         graph.addSeries(foregroundSeries);
+
+        //customize the graph
+        graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMaxX(50);
+        graph.getViewport().setMinX(0);
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        max = max > 0 ? max*1.1 : 10;
+        graph.getViewport().setMaxY(max);
+        graph.getViewport().setMinY(0);
+
         graph.getViewport().setScalable(true);
+
+
         //graph.addSeries(series2);
 
 
@@ -521,6 +362,7 @@ public class GraphActivity extends ActionBarActivity {
         totDataDownTV.setText("" + totalDown + " Bytes");
         totDataUpTV.setText("" + totalUp + " Bytes");
         totFGTimeTV.setText("" + (totalFGTime / 1000) + "seconds");
+
 
 
     }

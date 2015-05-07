@@ -951,8 +951,6 @@ public class Database extends SQLiteOpenHelper {
                 " AND " + COL_RECORD_TIME + "<" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
                 + " ORDER BY " + COL_RECORD_TIME + " ASC ";
 
-        LogA.d("Appspy", "query:" + query);
-
         Cursor result = db.rawQuery(query, null);
         //result are ordered descending
 
