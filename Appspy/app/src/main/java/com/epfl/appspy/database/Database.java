@@ -846,6 +846,8 @@ public class Database extends SQLiteOpenHelper {
      * @return total downloaded data in byte for that packageName
      */
     private long getLastTotalDataDownloaded(String packageName){
+        //LogA.i("Appspy-DB-DEBUG","last total data downloaded");
+
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + COL_DOWNLOADED_DATA + " FROM " + TABLE_APPS_INTERNET_USE_LAST_TIME +
                        " WHERE " + COL_APP_PKG_NAME + "=\"" + packageName  +"\"";
@@ -854,7 +856,9 @@ public class Database extends SQLiteOpenHelper {
         long downloaded = 0;
         if (result.moveToFirst()) {
             downloaded = result.getLong(result.getColumnIndex(COL_DOWNLOADED_DATA));
+            //LogA.i("Appspy-DB-DEBUG","For " + packageName + " last totalDataDownloaded = " + downloaded);
         }
+
 
         result.close();
         return downloaded;
@@ -1019,6 +1023,46 @@ public class Database extends SQLiteOpenHelper {
 
         return new ApplicationActivityRecord(recordID, packageName, recordTime, foregroundTime, lastUsed,
                                              uploaded, downloaded, wasForeground, boot);
+    }
+
+
+    public long getDataUploadedInTimeRange(String packageName, long begin, long end, boolean foreground){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int foregroundValue = foreground? 1:0;
+
+        String query =
+                "SELECT SUM(" + COL_UPLOADED_DATA +  ") FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begin +
+                " AND " + COL_RECORD_TIME + "<" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
+                + " AND " + COL_WAS_FOREGROUND + "=" + foregroundValue;
+
+        Cursor result = db.rawQuery(query, null);
+
+        long uploaded = 0;
+        if(result.moveToFirst()){
+            uploaded = result.getLong(0);
+        }
+
+        result.close();
+        return uploaded;
+    }
+
+    public long getDataDownloadedInTimeRange(String packageName, long begin, long end, boolean foreground){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int foregroundValue = foreground? 1:0;
+        String query =
+                "SELECT SUM(" + COL_DOWNLOADED_DATA +  ") FROM " + TABLE_APPS_ACTIVITY + " WHERE " + COL_RECORD_TIME + ">=" + begin +
+                " AND " + COL_RECORD_TIME + "<" + end + " AND " + COL_APP_PKG_NAME + "=\"" + packageName + "\""
+                + " AND " + COL_WAS_FOREGROUND + "=" + foregroundValue;
+
+        Cursor result = db.rawQuery(query, null);
+
+        long downloaded = 0;
+        if(result.moveToFirst()){
+            downloaded = result.getLong(0);
+        }
+
+        result.close();
+        return downloaded;
     }
 
 

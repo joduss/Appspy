@@ -126,11 +126,13 @@ public class AppActivityTracker extends BroadcastReceiver {
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
                 boot = true;
+                Database db = Database.getDatabaseInstance(context);
+                db.deviceStarted();//SETUP DB
+
+
                 analyseAppActivity();
                 //setupCPUMonitoring();
 
-                Database db = Database.getDatabaseInstance(context);
-                db.deviceStarted();
                 boot = false;
 
             }
@@ -157,8 +159,10 @@ public class AppActivityTracker extends BroadcastReceiver {
 
                 Database db = Database.getDatabaseInstance(context);
 
+
                 for(PackageInfo pi : runningApps){
                     final int uid = pi.applicationInfo.uid;
+
                     db.setLastDataUsageActivity(pi.packageName, appInformation.getUploadedDataAmount(uid),
                                                 appInformation.getDownloadedDataAmount(uid));
                 }
@@ -216,7 +220,6 @@ public class AppActivityTracker extends BroadcastReceiver {
 
                     final int uid = pi.applicationInfo.uid;
 
-
                     //does not set if was in foreground or not, because we don't know yet
                     ApplicationActivityRecord record = new ApplicationActivityRecord(stat.getPackageName(), now, stat.getTotalTimeInForeground(),
                                                                                      stat.getLastTimeUsed(),
@@ -224,7 +227,7 @@ public class AppActivityTracker extends BroadcastReceiver {
                                                                                      appInformation.getDownloadedDataAmount(uid), boot);
                     db.addApplicationActivityRecordIntelligent(record);
 
-                    lastAddedRecordCpuToBeAdded.put(stat.getPackageName(), record);
+                    //lastAddedRecordCpuToBeAdded.put(stat.getPackageName(), record);
 
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
