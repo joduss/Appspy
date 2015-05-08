@@ -29,7 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
     compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.jjoe64:graphview:4.0.0'
+    compile 'com.jjoe64:graphview:4.0.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
 
 }
