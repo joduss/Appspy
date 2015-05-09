@@ -51,12 +51,33 @@
                 android:layout_alignParentStart="true"
                 android:gravity="center"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Background"
+                android:id="@+id/graph_legend_foreground"
+                android:layout_below="@+id/graph_up_data"
+                android:layout_alignParentStart="true"
+                android:textColor="#ffee1f0f"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Foreground"
+                android:id="@+id/graph_legend_background"
+                android:textColor="#ff0200eb"
+                android:layout_above="@+id/button_start_time"
+                android:layout_toEndOf="@+id/graph_legend_foreground"/>
+
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start time"
                 android:id="@+id/button_start_time"
-                android:layout_below="@+id/graph_up_data"
+                android:layout_below="@+id/graph_legend_foreground"
                 android:layout_alignParentStart="true"
                 android:onClick="clickChangeBeginning"/>
 
@@ -66,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="End time"
                 android:id="@+id/button_end_time"
-                android:layout_below="@+id/graph_up_data"
+                android:layout_below="@+id/graph_legend_foreground"
                 android:layout_alignParentEnd="true"
                 android:onClick="clickChangeEnding"/>
 

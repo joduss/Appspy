@@ -178,6 +178,16 @@ public class GraphActivity extends ActionBarActivity {
 
 
     private void setupGraph() {
+
+        //SETUP GRAPH COMMON
+        //************
+        int nbPoints = 48;
+
+        int numLabelHorizontal = 7;
+        int numLabelVertical = 6;
+
+
+
         Database db = Database.getDatabaseInstance(getApplicationContext());
 
         Calendar c = Calendar.getInstance();
@@ -195,7 +205,6 @@ public class GraphActivity extends ActionBarActivity {
 
         long intervalLength = end - start;
 
-        int nbPoints = 48;
 
         long subIntervalsLength = intervalLength / nbPoints;
 
@@ -227,7 +236,7 @@ public class GraphActivity extends ActionBarActivity {
 
         LogA.d("Appspy-Graph","NB record found: " + recordsForegroundInInterval.size());
 
-        //fill bins
+        //fill bins for foreground
         long lastFGTime = -1;
         long lastRecordTime = -1;
         for(ApplicationActivityRecord activityRecord : recordsForegroundInInterval){
@@ -260,6 +269,19 @@ public class GraphActivity extends ActionBarActivity {
 
         }
 
+        //fill bins for background
+        //sorted, from oldest to newest
+        List<ApplicationActivityRecord> recordsBackgroundInInterval = db.getAppActivityInTimeRange(start,
+                                                                                                   end,
+                                                                                                   record.getPackageName(),
+                                                                                                   false);
+        for(ApplicationActivityRecord activityRec : recordsBackgroundInInterval){
+            int interval = whatInterval(activityRec.getRecordTime(), beginInterval, endInterval);
+            ApplicationActivityRecord currentRecord = activityAggregatedBackground.get(interval);
+            currentRecord.setDownloadedData(currentRecord.getDownloadedData() + activityRec.getDownloadedData());
+            currentRecord.setUploadedData(currentRecord.getUploadedData() + activityRec.getUploadedData());
+        }
+
         //END FILL BINS
 
 
@@ -273,16 +295,20 @@ public class GraphActivity extends ActionBarActivity {
         i = 0;
         //foregroundSeries.appendData(new DataPoint(-5, -5), false, nbPoints+1);
 
-        double max = 0;
+        long max = 0;
         for (ApplicationActivityRecord r : activityAggregatedForeground) {
             max = (r.getForegroundTime()) > max ? r.getForegroundTime() : max;
             DataPoint p = new DataPoint(i, r.getForegroundTime());
             foregroundSeries.appendData(p, false, nbPoints);
-            LogA.d("Appspy-Graph","i:"+ i +  " r.getForegroundTime()/1000: " + r.getForegroundTime());
+            //LogA.d("Appspy-Graph","i:"+ i +  " r.getForegroundTime()/1000: " + r.getForegroundTime());
             i++;
         }
 
-        //SETUP GRAPH TGTIME
+        max = max > 0 ? goodRoundingForTime(max, numLabelVertical) : 10;
+
+
+        //SETUP GRAPH TGTime
+        //************
 
         //Set the graph data
         foregroundSeries.setTitle("Foreground time");
@@ -295,7 +321,7 @@ public class GraphActivity extends ActionBarActivity {
         graphFGTime.getViewport().setMinX(0);
 
         graphFGTime.getViewport().setYAxisBoundsManual(true);
-        max = max > 0 ? max*1.1 : 10;
+
         graphFGTime.getViewport().setMaxY(max);
         graphFGTime.getViewport().setMinY(0);
 
@@ -308,7 +334,8 @@ public class GraphActivity extends ActionBarActivity {
 
         graphFGTime.getGridLabelRenderer().setLabelsSpace(3);
 
-        graphFGTime.getGridLabelRenderer().setNumHorizontalLabels(7);
+        graphFGTime.getGridLabelRenderer().setNumHorizontalLabels(numLabelHorizontal);
+        graphFGTime.getGridLabelRenderer().setNumVerticalLabels(numLabelVertical);
 
 
 
@@ -340,6 +367,8 @@ public class GraphActivity extends ActionBarActivity {
 
 
 
+
+
         //graph.addSeries(series2);
 
         //SETUP GRAPH DOWN_DATA
@@ -357,9 +386,12 @@ public class GraphActivity extends ActionBarActivity {
             DataPoint pFore = new DataPoint(i, foreRec.getDownloadedData());
             downloadForegroundSeries.appendData(pFore, false, nbPoints);
 
+            maxDown = (backRec.getDownloadedData()) > maxDown ? backRec.getDownloadedData() : maxDown;
             DataPoint pBack = new DataPoint(i, backRec.getDownloadedData());
             downloadBackgroundSeries.appendData(pBack, false, nbPoints);
         }
+        maxDown = maxDown == 0 ? 10240 : goodRoundingForData(maxDown, numLabelVertical);
+
 
         //customize lines
         downloadForegroundSeries.setColor(Color.BLUE);
@@ -382,6 +414,9 @@ public class GraphActivity extends ActionBarActivity {
         graphDownData.getGridLabelRenderer().setVerticalAxisTitle("Data downloaded [kB]");
         graphDownData.getGridLabelRenderer().setHorizontalAxisTitle("Time [h]");
 
+        graphDownData.getGridLabelRenderer().setNumVerticalLabels(numLabelVertical);
+        graphDownData.getGridLabelRenderer().setNumHorizontalLabels(numLabelHorizontal);
+
         graphDownData.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -394,10 +429,10 @@ public class GraphActivity extends ActionBarActivity {
                     return s;
                 }
                 else {
-                    DecimalFormat df = new DecimalFormat("#0.000");
-                    if(value < 10) {
-                        return "" + df.format(value / 1024.0);
-                    }
+//                    DecimalFormat df = new DecimalFormat("#0.00");
+//                    if(value < 100 * 1024) {
+//                        return "" + df.format(value / 1024.0);
+//                    }
                     return "" + (long)(value / 1024.0);
                 }
             }
@@ -418,11 +453,13 @@ public class GraphActivity extends ActionBarActivity {
             DataPoint pFore = new DataPoint(i, foreRec.getUploadedData());
             UploadForegroundSeries.appendData(pFore, false, nbPoints);
 
+            maxUp = (backRec.getUploadedData()) > maxUp ? backRec.getUploadedData() : maxUp;
             DataPoint pBack = new DataPoint(i, backRec.getUploadedData());
+            //LogA.d("Appspy-Graph","DATA UP BACK " + backRec.getUploadedData());
             UploadBackgroundSeries.appendData(pBack, false, nbPoints);
         }
 
-        maxUp = maxUp == 0 ? 100 : maxUp;
+        maxUp = maxUp == 0 ? 10240 : goodRoundingForData(maxUp, numLabelVertical);
 
         //customize lines
         UploadForegroundSeries.setColor(Color.BLUE);
@@ -445,6 +482,9 @@ public class GraphActivity extends ActionBarActivity {
         graphUpData.getGridLabelRenderer().setVerticalAxisTitle("Data Uploaded [kB]");
         graphUpData.getGridLabelRenderer().setHorizontalAxisTitle("Time [h]");
 
+        graphUpData.getGridLabelRenderer().setNumVerticalLabels(numLabelVertical);
+        graphUpData.getGridLabelRenderer().setNumHorizontalLabels(numLabelHorizontal);
+
         graphUpData.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -457,16 +497,14 @@ public class GraphActivity extends ActionBarActivity {
                     return s;
                 }
                 else {
-                    DecimalFormat df = new DecimalFormat("#0.000");
-                    if(value < 10) {
-                        return "" + df.format(value / 1024.0);
-                    }
+                    DecimalFormat df = new DecimalFormat("#0.00");
+//                    if(value < 100 * 1024) {
+//                        return "" + df.format(value / 1024.0);
+//                    }
                     return "" + (long)(value / 1024.0);
                 }
             }
         });
-
-
 
 
 
@@ -561,6 +599,36 @@ public class GraphActivity extends ActionBarActivity {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Return a good value that is the smallest value greater or equal to "bytes", that is divisible by divisor.
+     * Works for kiloBytes
+     * @param bytes
+     * @param divisor
+     * @return
+     */
+    private long goodRoundingForData(long bytes, long divisor){
+        double kB = bytes / 1024.0;
+        long guess = (long) Math.ceil(kB);
+
+        while(guess % (divisor-1) != 0){
+            guess ++;
+        }
+
+        return guess * 1024;
+    }
+
+    private long goodRoundingForTime(long timeMillis, long divisor){
+
+        double secondesDouble = timeMillis / 1000.0;
+        long seconds = (long) Math.ceil(secondesDouble);
+
+        while(seconds % (divisor-1) != 0){
+            seconds ++;
+        }
+        return seconds*1000;
     }
 
 }
