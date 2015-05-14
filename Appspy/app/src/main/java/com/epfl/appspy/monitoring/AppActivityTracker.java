@@ -125,6 +125,8 @@ public class AppActivityTracker extends BroadcastReceiver {
 
             //Executes the correct task according to the notified action in the broadcast
             if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+                LogA.i("AppActivityTracker","Boot completed");
+                
                 boot = true;
                 Database db = Database.getDatabaseInstance(context);
                 db.deviceStarted();//SETUP DB
@@ -134,7 +136,6 @@ public class AppActivityTracker extends BroadcastReceiver {
                 //setupCPUMonitoring();
 
                 boot = false;
-
             }
             else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
                 //setupCPUMonitoring(); not possible to do it, as the recording is not over yet
