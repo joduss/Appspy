@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +28,9 @@ import java.util.Calendar;
 import java.util.List;
 
 
+/**
+ * Activity showing graph and statistic to the user
+ */
 public class GraphActivity extends ActionBarActivity {
 
     TextView intervalTV;
@@ -55,6 +57,7 @@ public class GraphActivity extends ActionBarActivity {
         setContentView(R.layout.activity_graph);
 
 
+        //Setup default value for graph: takes the statistics of the current day
         intervalTV = (TextView) findViewById(R.id.tv_interval);
 
         final Calendar c = Calendar.getInstance();
@@ -122,6 +125,10 @@ public class GraphActivity extends ActionBarActivity {
     }
 
 
+    /**
+     * The user want to change the beginning of the displayed stats.
+     * @param v
+     */
     public void clickChangeBeginning(View v) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -142,7 +149,10 @@ public class GraphActivity extends ActionBarActivity {
         dpd.show();
     }
 
-
+    /**
+     * The user want to change the end of the displayed stats.
+     * @param v
+     */
     public void clickChangeEnding(View v) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -162,8 +172,6 @@ public class GraphActivity extends ActionBarActivity {
         dpd.setTitle("Interval end day");
         dpd.show();
     }
-
-
 
 
 
@@ -202,30 +210,32 @@ public class GraphActivity extends ActionBarActivity {
         LogA.d("Appspy-Graph", "end = " + end);
         LogA.d("Appspy-Graph", "end - start = " + (end - start));
 
-
+        //How long the interval of displayed stats is
         long intervalLength = end - start;
 
-
+        //time between each point
         long subIntervalsLength = intervalLength / nbPoints;
 
+        //subinterval in hours
         final double sbIntervalDurationHours = (intervalLength / nbPoints) / 1000.0 / 60.0 / 60.0;
 
 
-
+        //Aggragate data by subinterval
         ArrayList<ApplicationActivityRecord> activityAggregatedForeground = new ArrayList<>();
         ArrayList<ApplicationActivityRecord> activityAggregatedBackground = new ArrayList<>();
 
-        ArrayList<Long> beginInterval = new ArrayList<>();
-        ArrayList<Long> endInterval = new ArrayList<>();
+        //Store when subinterval starts and ends
+        ArrayList<Long> beginSubInterval = new ArrayList<>();
+        ArrayList<Long> endSubInterval = new ArrayList<>();
 
 
         //BEGIN NEW
-        //Create "bins"
+        //Create "bins" (subintervals)
         for(i = 0; i < nbPoints; i++){
             activityAggregatedForeground.add(new ApplicationActivityRecord(this.record.getPackageName(),0,0,0,0,0,false, false));
             activityAggregatedBackground.add(new ApplicationActivityRecord(this.record.getPackageName(),0,0,0,0,0,false, false));
-            beginInterval.add(start + i * subIntervalsLength);
-            endInterval.add(start + (i+1) * subIntervalsLength);
+            beginSubInterval.add(start + i * subIntervalsLength);
+            endSubInterval.add(start + (i + 1) * subIntervalsLength);
         }
 
         //sorted, from oldest to newest
@@ -240,7 +250,7 @@ public class GraphActivity extends ActionBarActivity {
         long lastFGTime = -1;
         long lastRecordTime = -1;
         for(ApplicationActivityRecord activityRecord : recordsForegroundInInterval){
-            int interval = whatInterval(activityRecord.getRecordTime(), beginInterval, endInterval);
+            int interval = whatSubInterval(activityRecord.getRecordTime(), beginSubInterval, endSubInterval);
 
             long fgTime = activityRecord.getForegroundTime() - lastFGTime;
             long down = activityRecord.getDownloadedData();
@@ -276,14 +286,13 @@ public class GraphActivity extends ActionBarActivity {
                                                                                                    record.getPackageName(),
                                                                                                    false);
         for(ApplicationActivityRecord activityRec : recordsBackgroundInInterval){
-            int interval = whatInterval(activityRec.getRecordTime(), beginInterval, endInterval);
+            int interval = whatSubInterval(activityRec.getRecordTime(), beginSubInterval, endSubInterval);
             ApplicationActivityRecord currentRecord = activityAggregatedBackground.get(interval);
             currentRecord.setDownloadedData(currentRecord.getDownloadedData() + activityRec.getDownloadedData());
             currentRecord.setUploadedData(currentRecord.getUploadedData() + activityRec.getUploadedData());
         }
 
         //END FILL BINS
-
 
         LogA.d("Appspy-Graph", "NB foreground aggr. record: " + activityAggregatedForeground.size());
 
@@ -307,7 +316,7 @@ public class GraphActivity extends ActionBarActivity {
         max = max > 0 ? goodRoundingForTime(max, numLabelVertical) : 10;
 
 
-        //SETUP GRAPH TGTime
+        //SETUP GRAPH for foreground time usage
         //************
 
         //Set the graph data
@@ -338,7 +347,7 @@ public class GraphActivity extends ActionBarActivity {
         graphFGTime.getGridLabelRenderer().setNumVerticalLabels(numLabelVertical);
 
 
-
+        //setup formating for the axis labels
         graphFGTime.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -371,7 +380,7 @@ public class GraphActivity extends ActionBarActivity {
 
         //graph.addSeries(series2);
 
-        //SETUP GRAPH DOWN_DATA
+        //SETUP GRAPH for downloaded_DATA
         //************
         GraphView graphDownData = (GraphView) findViewById(R.id.graph_down_data);
         LineGraphSeries<DataPoint> downloadBackgroundSeries = new LineGraphSeries<>();
@@ -417,6 +426,7 @@ public class GraphActivity extends ActionBarActivity {
         graphDownData.getGridLabelRenderer().setNumVerticalLabels(numLabelVertical);
         graphDownData.getGridLabelRenderer().setNumHorizontalLabels(numLabelHorizontal);
 
+        //setup formating for the axis labels
         graphDownData.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -438,7 +448,7 @@ public class GraphActivity extends ActionBarActivity {
             }
         });
 
-        //SETUP GRAPH UP DATA
+        //SETUP GRAPH FOR UPLOADED DATA
         //************
         GraphView graphUpData = (GraphView) findViewById(R.id.graph_up_data);
         LineGraphSeries<DataPoint> UploadBackgroundSeries = new LineGraphSeries<>();
@@ -459,6 +469,7 @@ public class GraphActivity extends ActionBarActivity {
             UploadBackgroundSeries.appendData(pBack, false, nbPoints);
         }
 
+        //setup axis limit
         maxUp = maxUp == 0 ? 10240 : goodRoundingForData(maxUp, numLabelVertical);
 
         //customize lines
@@ -485,6 +496,7 @@ public class GraphActivity extends ActionBarActivity {
         graphUpData.getGridLabelRenderer().setNumVerticalLabels(numLabelVertical);
         graphUpData.getGridLabelRenderer().setNumHorizontalLabels(numLabelHorizontal);
 
+        //setup formating for the axis labels
         graphUpData.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
@@ -509,7 +521,7 @@ public class GraphActivity extends ActionBarActivity {
 
 
 
-        //SETUP TEXTVIEW VALUES
+        //SETUP TEXTVIEW VALUES (text data shown to user)
         //************
 
         long foregroundDataDownloaded = db.getDataDownloadedInTimeRange(record.getPackageName(), start,end, true);
@@ -561,33 +573,47 @@ public class GraphActivity extends ActionBarActivity {
     }
 
 
+//    /**
+//     * Always return. If index is out of bound, return null
+//     * @param list
+//     * @param index
+//     * @param <K>
+//     * @return
+//     */
+//@Nullable
+//    private static <K> K getIndexNoException(List<K> list, int index){
+//        if(index > 0 && index < list.size()){
+//            return list.get(index);
+//        }
+//        else {
+//            return null;
+//        }
+//    }
+
+
     /**
-     * Always return. If index is out of bound, return null
-     * @param list
-     * @param index
-     * @param <K>
+     * Return in what subinterval the current time is
+     * @param current Time in which interval we want to know it is
+     * @param begin the list of beginning of each subinterval
+     * @param endthe list of ending of each subinterval
      * @return
      */
-@Nullable
-    private static <K> K getIndexNoException(List<K> list, int index){
-        if(index > 0 && index < list.size()){
-            return list.get(index);
-        }
-        else {
-            return null;
-        }
-    }
-
-
-    private int whatInterval(long current, List<Long> begin, List<Long> end){
+    private int whatSubInterval(long current, List<Long> begin, List<Long> end){
         for(int i = 0; i < begin.size(); i++){
-            if(current > begin.get(i) && current < end.get(i)){
+            if(current > begin.get(i) && current <= end.get(i)){
                 return i;
             }
         }
         return -1;
     }
 
+
+    /**
+     * Check if midnight is between the lastRecordTime and the currentRecordTime
+     * @param lastRecordTime
+     * @param currentRecordTime
+     * @return
+     */
     private boolean rebootOnMidnight(long lastRecordTime, long currentRecordTime){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(lastRecordTime);
@@ -620,6 +646,13 @@ public class GraphActivity extends ActionBarActivity {
         return guess * 1024;
     }
 
+
+    /**
+     * Return a good rounder value for the time, that is >= to timeMillis and divisible by divisor
+     * @param timeMillis
+     * @param divisor
+     * @return
+     */
     private long goodRoundingForTime(long timeMillis, long divisor){
 
         double secondesDouble = timeMillis / 1000.0;

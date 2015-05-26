@@ -128,6 +128,10 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(CREATE_VIEW_PERMISSIONS);
     }
 
+
+    /**
+     * Notify that the device was just turn on. Do some cleaning
+     */
     public void deviceStarted(){
         this.getWritableDatabase().execSQL("DROP TABLE " + TABLE_APPS_INTERNET_USE_LAST_TIME);
         this.getWritableDatabase().execSQL(CREATE_TABLE_APPS_INTERNET_USE_LAST_TIME);
@@ -359,6 +363,11 @@ public class Database extends SQLiteOpenHelper {
         return apps;
     }
 
+
+    /**
+     * Return set of ApplicationInstallationRecord of every appplications that are or were installed on the device
+     * @return
+     */
     public Set<ApplicationInstallationRecord> getAllTimeApplicationInstalled(){
         SQLiteDatabase db = getReadableDatabase();
         String query =
@@ -378,7 +387,7 @@ public class Database extends SQLiteOpenHelper {
 
 
     /**
-     *
+     *  Return a cursor that contains data about appplications that are or were installed on the device
      * @return
      */
     public Cursor getAllTimeApplicationInstalledCursor(){
@@ -408,6 +417,12 @@ public class Database extends SQLiteOpenHelper {
                                                   appIsSystem);
     }
 
+
+    /**
+     * Returns the ApplicationInstallationRecord associated with the given id
+     * @param id
+     * @return
+     */
     public ApplicationInstallationRecord getAppInstallRecordForId(long id){
         String query = "SELECT * FROM " + TABLE_INSTALLED_APPS + " WHERE " + COL_APP_ID + "=" + id;
 
@@ -918,6 +933,10 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Update the record in the DB
+     * @param record
+     */
     public void updateApplicationActivityRecord(ApplicationActivityRecord record){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1008,6 +1027,12 @@ public class Database extends SQLiteOpenHelper {
         return records;
     }
 
+
+    /**
+     * Create an ApplicationActivityRecord from a cursor (the cursor needs to come from a query on the app activity table
+     * @param result
+     * @return
+     */
     private ApplicationActivityRecord cursorStartQueryToApplicationActivityRecord(Cursor result){
         long recordID = result.getLong(result.getColumnIndex(COL_RECORD_ID));
         long recordTime = result.getLong(result.getColumnIndex(COL_RECORD_TIME));
@@ -1026,6 +1051,14 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Return the sum of data uploaded in the given interval for the given state of the app
+     * @param packageName
+     * @param begin
+     * @param end
+     * @param foreground
+     * @return
+     */
     public long getDataUploadedInTimeRange(String packageName, long begin, long end, boolean foreground){
         SQLiteDatabase db = this.getReadableDatabase();
         int foregroundValue = foreground? 1:0;
@@ -1046,6 +1079,15 @@ public class Database extends SQLiteOpenHelper {
         return uploaded;
     }
 
+
+    /**
+     * Return the sum of data downloaded in the given interval for the given state of the app
+     * @param packageName
+     * @param begin
+     * @param end
+     * @param foreground
+     * @return
+     */
     public long getDataDownloadedInTimeRange(String packageName, long begin, long end, boolean foreground){
         SQLiteDatabase db = this.getReadableDatabase();
         int foregroundValue = foreground? 1:0;
@@ -1127,6 +1169,11 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
+
+    /**
+     * Update the permission record and mark them as not used anymore as the app was uninstalled
+     * @param packageName
+     */
     public void updatePermissionsForUninstalledApp(String packageName){
         updatePermissionRecordsForApp(packageName, new HashMap<String, PermissionRecord>());
     }

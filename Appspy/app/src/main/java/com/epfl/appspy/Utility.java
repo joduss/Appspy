@@ -16,6 +16,8 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Created by Jonathan Duss on 11.04.15.
+ *
+ * Utility calss
  */
 public class Utility {
 
@@ -89,6 +91,12 @@ public class Utility {
     }
 
 
+    /**
+     * Copy files from sourceFile to destinationFile
+     * @param sourceFile
+     * @param destFile
+     * @throws IOException
+     */
     //Solution provided on Stackoverflow
     // http://stackoverflow.com/questions/9292954/how-to-make-a-copy-of-a-file-in-android
     public static void copyFile(File sourceFile, File destFile) throws IOException {
@@ -177,7 +185,11 @@ public class Utility {
     }
 
 
-
+    /**
+     * Format date into a beautiful representation
+     * @param millis
+     * @return
+     */
     public static String beautifulDate(long millis){
         Calendar d = Calendar.getInstance();
         d.setTimeInMillis(millis);
@@ -190,6 +202,11 @@ public class Utility {
     }
 
 
+    /**
+     * Return the day of the given millis time
+     * @param millis
+     * @return
+     */
     public static int getDay(long millis){
         Calendar d = Calendar.getInstance();
         d.setTimeInMillis(millis);

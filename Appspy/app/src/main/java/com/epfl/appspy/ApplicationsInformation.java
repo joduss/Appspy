@@ -179,7 +179,11 @@ public class ApplicationsInformation {
         return (String) packageInfo.applicationInfo.loadLabel(packageManager);
     }
 
-
+    /**
+     * Read the uploaded data amount from system file for the given uid
+     * @param uid
+     * @return
+     */
     protected long getUploadedDataAmountFromFile(int uid){
         String result = "";
         try {
@@ -195,6 +199,12 @@ public class ApplicationsInformation {
         }
     }
 
+
+    /**
+     * Read the downlaoded data amount from system file for the given uid
+     * @param uid
+     * @return
+     */
     protected long getDownloadedDataAmountFromFile(int uid){
         String result = "";
         try {
@@ -211,7 +221,11 @@ public class ApplicationsInformation {
     }
 
 
-
+    /**
+     * Returns the uploaded data amount since device start
+     * @param uid
+     * @return
+     */
     public long getUploadedDataAmount(int uid){
         long uploadedData = TrafficStats.getUidTxBytes(uid);
         long snd = getUploadedDataAmountFromFile(uid);
@@ -222,6 +236,12 @@ public class ApplicationsInformation {
         return (uploadedData != 0) ? uploadedData : snd;
     }
 
+
+    /**
+     * Returns the downlaoded data amonnt since device start
+     * @param uid
+     * @return
+     */
     public long getDownloadedDataAmount(int uid){
         long downloadedData = TrafficStats.getUidRxBytes(uid);
         long snd = getDownloadedDataAmountFromFile(uid);

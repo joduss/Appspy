@@ -6,7 +6,9 @@ package com.epfl.appspy.database;
 
 /**
  * This class is a record of the activity of an app at a given time. Ex: MeteoSwiss, was active in background, 20.1.2015
- * at 22:30 Facebook, was active in foreground, 20.1.2015 at 22:30
+ * at 22:30 Facebook, was active in foreground, 20.1.2015 at 22:30.
+ * It stores internet usage (up/download), how much time the app has been on the foregrounf since the last boot,
+ * and if the record happened just after a boot
  */
 public class ApplicationActivityRecord {
 

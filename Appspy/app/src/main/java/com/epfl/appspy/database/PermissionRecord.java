@@ -2,6 +2,8 @@ package com.epfl.appspy.database;
 
 /**
  * Created by Jonathan Duss on 08.03.15.
+ *
+ * This class represents a record for one permission, at a given time for a given application
  */
 public class PermissionRecord {
 

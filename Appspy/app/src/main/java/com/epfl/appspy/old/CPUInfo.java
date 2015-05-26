@@ -1,4 +1,4 @@
-package com.epfl.appspy.monitoring;
+package com.epfl.appspy.old;
 
 /**
  * Created by Jonathan Duss on 11.04.15.

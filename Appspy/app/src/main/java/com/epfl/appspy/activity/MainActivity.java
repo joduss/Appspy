@@ -208,11 +208,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
 
-    public void goGraphActivity(View v){
-        Intent nextActivity = new Intent(this, GraphActivity.class);
-        startActivity(nextActivity);
-    }
-
+    /**
+     * Go to list of apps
+     * @param v
+     */
     public void showAllInstalledApps(View v){
         Intent nextActivity = new Intent(this, AppsListActivity.class);
         startActivity(nextActivity);

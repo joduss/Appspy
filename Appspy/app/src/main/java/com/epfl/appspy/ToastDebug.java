@@ -5,6 +5,8 @@ import android.widget.Toast;
 
 /**
  * Created by Jonathan Duss on 10.04.15.
+ *
+ * Custom Toast used for debug
  */
 public class ToastDebug {
 

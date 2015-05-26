@@ -2,6 +2,8 @@ package com.epfl.appspy.database;
 
 /**
  * Created by Jonathan Duss on 25.04.15.
+ *
+ * This class store the constants for the name of the tables, views and tables fields
  */
 public class DatabaseNames {
 

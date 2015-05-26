@@ -21,6 +21,10 @@ import com.epfl.appspy.database.Database;
 import com.epfl.appspy.database.DatabaseNames;
 
 
+/**
+ * Show the list of application that are currently installed on the device, or that were installed on the device while
+ * Appspy was monitoring
+ */
 public class AppsListActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>  {
 
     private SimpleCursorAdapter adapter;
@@ -52,7 +56,8 @@ public class AppsListActivity extends ListActivity implements LoaderManager.Load
             @Override
             public Cursor loadInBackground() {
 
-                c = Database.getDatabaseInstance(getApplicationContext()).getAllTimeApplicationInstalledCursor(); // get all data from DataBase
+                // get all data from DataBase
+                c = Database.getDatabaseInstance(getApplicationContext()).getAllTimeApplicationInstalledCursor();
 
                 return c;
             }

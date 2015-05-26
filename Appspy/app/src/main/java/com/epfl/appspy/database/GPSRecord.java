@@ -2,6 +2,8 @@ package com.epfl.appspy.database;
 
 /**
  * Created by Jonathan Duss on 30.03.15.
+ *
+ * This class represents a gps record
  */
 public class GPSRecord {
 

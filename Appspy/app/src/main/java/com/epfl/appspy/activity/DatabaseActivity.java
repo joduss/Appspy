@@ -25,6 +25,11 @@ import java.io.File;
 import java.io.IOException;
 
 
+/**
+ *
+ *  Show activity where user can send DB or remove temp files
+ *
+ * */
 public class DatabaseActivity extends ActionBarActivity {
 
 
@@ -65,6 +70,9 @@ public class DatabaseActivity extends ActionBarActivity {
     }
 
 
+    /**
+     * Send the DB
+     */
     public void sendDB(View v){
 
         LogA.i("Appspy", "click on sendDB");
@@ -91,15 +99,14 @@ public class DatabaseActivity extends ActionBarActivity {
             }
 
 
+            //Create a copy of the db file
             Utility.copyFile(originalDB, copiedDB);
 
+            //zip the folder containing the db file and the log file
             Utility.zipFolder(folderToZip.getAbsolutePath(), zippedFolder.getAbsolutePath());
 
-
+            //Send the file to an email client
             Uri uriFileToSend = Uri.parse("file://" + zippedFolder.getAbsolutePath());
-
-
-
             try {
                 Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
                 intent.setType("application/zip");
@@ -130,8 +137,10 @@ public class DatabaseActivity extends ActionBarActivity {
     }
 
 
-
-
+    /**
+     * Compute the stats right now. For some, just setup the periodic check of the stat
+     * @param v
+     */
     public void computeStatNow(View v){
 
         Utility.startLogging();
@@ -153,14 +162,18 @@ public class DatabaseActivity extends ActionBarActivity {
         sendBroadcast(gpsTaskReceiver);
 
 
+        //Launch the app activity tracker it not already launched (or if crashed). Does nothing otherwise.
         Intent activityTaskReceiver = new Intent(getApplicationContext(), AppActivityTracker.class);
-        gpsTaskReceiver.setAction(Intent.ACTION_SEND);
-        gpsTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.MANUAL);
+        activityTaskReceiver.setAction(Intent.ACTION_SEND);
+        activityTaskReceiver.putExtra(GlobalConstant.EXTRA_TAG, EXTRA_ACTION.MANUAL);
         sendBroadcast(activityTaskReceiver);
-
     }
 
 
+    /**
+     * Remove the log file and the temporary file create when sending the db
+     * @param v
+     */
     public void removeTmpFiles(View v){
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         String zipName = "appspy.zip";
@@ -174,14 +187,6 @@ public class DatabaseActivity extends ActionBarActivity {
 
         //restart logging as it stopped when removing the file
         Utility.startLogging();
-
     }
-
-
-
-
-
-
-
 
 }

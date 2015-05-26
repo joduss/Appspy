@@ -46,6 +46,11 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
     //location: lost -> suspended
 
 
+    /**
+     * Receive broadcast messages
+     * @param context
+     * @param intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -67,6 +72,8 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
         }
         //END INIT phase
 
+
+        //Check the kind of broadcast message that was received
 
         if(intent.getAction().equals(Intent.ACTION_SEND) &&
              intent.getSerializableExtra(GlobalConstant.EXTRA_TAG) == EXTRA_ACTION.FIRST_LAUNCH){
@@ -119,6 +126,10 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
 
     }
 
+
+    /**
+     * Add a record in the DB saying the location are unknown because disabled
+     */
     private void addRecordIfNoLocation(){
         if(getLocationType().equals(LocationType.NO_PROVIDER)){
             GPSRecord record = new GPSRecord(System.currentTimeMillis(), LocationType.NO_PROVIDER, LocationType.NO_VALUE,
@@ -128,6 +139,10 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
     }
 
 
+    /**
+     * Called by the LocationProvider when the location changed
+     * @param location
+     */
     @Override
     public void
     onLocationChanged(Location location) {
@@ -137,28 +152,26 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
         ToastDebug.makeText(this.context,
                             "loca changed to: " + location.getLatitude() + "  -  " + location.getLongitude(),
                             Toast.LENGTH_LONG).show();
-        //location.acc
-
 
         String locationType= getLocationType();
 
-
         GPSRecord record = new GPSRecord(System.currentTimeMillis(), locationType,location.getLongitude(),
                                          location.getLatitude(), location.getAltitude(), location.getAccuracy());
-
         Database.getDatabaseInstance(context).insertGPSRecord(record);
-
     }
 
 
-
-
+    /**
+     * Called by the LocationProvider when the GPS/locationprovider is connected
+     * @param bundle
+     */
     @Override
     public void onConnected(Bundle bundle) {
         long interval = Settings.getSettings(context).getGPSIntervalMillis();
         LogA.i("Appspy-GPS","GoogleAPIClient is now onConnected. Will be updated every " + interval / 1000 + " seconds");
 
 
+        //setup under what condition the LocationProvider will notify that the location changed
         locationRequest = new LocationRequest();
         locationRequest.setInterval(interval);
         locationRequest.setFastestInterval((long) (interval*(1-intervalPrecision)));
@@ -179,6 +192,10 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
         }
     }
 
+
+    /**
+     * Setup the periodic check of the gps status
+     */
     private void setPeriodicCheck(){
         long interval = Settings.getSettings(context).getGPSIntervalMillis();
         if(getLocationType().equals(LocationType.NO_PROVIDER)) {
@@ -203,6 +220,10 @@ public class GPSTracker extends BroadcastReceiver implements LocationListener,
 
     }
 
+
+    /**
+     * Cancel the periodic check of gps status
+     */
     private void cancelPeriodicCheck(){
         Intent gpsTracker = new Intent(context, GPSTracker.class);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

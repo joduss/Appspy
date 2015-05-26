@@ -44,8 +44,6 @@ public class AppActivityTracker extends BroadcastReceiver {
     private static Context context;
     private static ApplicationsInformation appInformation;
 
-    private final static int NOTIFICATION_ID = 382383;
-
     //private final boolean INCLUDE_SYSTEM = true; //SHOULD BE TRUE UNLESS DEBUG
 
 
@@ -60,7 +58,10 @@ public class AppActivityTracker extends BroadcastReceiver {
     HashMap<String, ApplicationActivityRecord> lastAddedRecordCpuToBeAdded = new HashMap<>();
 
 
-
+    /**
+     * Setup the next check of apps activity
+     * @param context
+     */
     public static void createAlarms(Context context) {
 
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -182,7 +183,7 @@ public class AppActivityTracker extends BroadcastReceiver {
 
 
     /**
-     * Handle of the tasks that should be done often
+     * Analyse the app activity
      */
     private void analyseAppActivity() {
         Log.d("Appspy", "%%%%%%%%%%%% PERIODIC TASK Analyse apps activity");
@@ -278,7 +279,9 @@ public class AppActivityTracker extends BroadcastReceiver {
     }
 
 
-
+    /**
+     * Show a notification to ask the user to grant access to Usage Statistics
+     */
     private void showNotificationForUsageStatsPermission() {
 
         LogA.d("Appspy-AppActivityTracker", "Show notification to user to grant access to Usage Stats");

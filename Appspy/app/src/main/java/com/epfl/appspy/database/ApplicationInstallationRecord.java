@@ -2,6 +2,8 @@ package com.epfl.appspy.database;
 
 /**
  * Created by Jonathan Duss on 26.02.15.
+ *
+ * This class represent a record of installation/uninstallation of an app
  */
 public class ApplicationInstallationRecord {
 
