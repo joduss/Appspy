@@ -1,0 +1,2 @@
+"sep=,"
+record_id,record_time,package_name,foreground_time_usage,last_time_use,downloaded_data,uploaded_data,was_foreground,boot,record_time_human
