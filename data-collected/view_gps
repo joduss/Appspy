@@ -1,0 +1,1 @@
+select record_id, datetime(record_time/1000, 'unixepoch', 'localtime') as record_time, gps_enable, latitude,longitude,accuracy from Table_GPS_location

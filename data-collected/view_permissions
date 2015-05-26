@@ -1,0 +1,1 @@
+SELECT record_id, package_name, permission_name, datetime(gain_access/1000, 'unixepoch', 'localtime') as gain_access, datetime(lost_access/1000, 'unixepoch', 'localtime') as lost_access from Table_permissions

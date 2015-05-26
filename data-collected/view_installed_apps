@@ -1,0 +1,1 @@
+SELECT app_id, package_name, app_name, datetime(installation_date/1000, 'unixepoch', 'localtime') as installation_date, datetime(uninstallation_date/1000, 'unixepoch', 'localtime') as uninstallation_date, is_system FROM Table_installed_apps

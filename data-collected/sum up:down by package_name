@@ -1,0 +1,26 @@
+
+INFO: //EXCLUDE FIRST: DATA FOR THE WHOLE DAY before app launched for the first time
+//fix error where data can be negative (happens when reboot phone. One of my mistakes) 
+
+
+## COMPUTE UPLOADED DATA IN KB FOR EVERY APP
+---------------------------------------
+SELECT package_name, sum(uploaded_data_kb)/1024.0 as uploaded_MB FROM view_app_activity WHERE was_foreground=0 AND uploaded_data_kb >= 0 AND record_time > (SELECT record_time from view_app_activity where record_id=1 limit 1)   GROUP BY package_name ORDER BY uploaded_MB DESC;
+
+
+
+## SHOW RECORD TO SAVE CSV FOR ONE APP
+---------------------------------------
+select * from table_applications_activity where package_name like '%keyboard%' ORDER BY record_time
+
+
+## COMPUTE DOWNLOADED DATA IN KB FOR EVERY APP
+---------------------------------------
+SELECT package_name, sum(downloaded_data_kb)/1024.0 as downloaded_MB FROM view_app_activity WHERE was_foreground=0 AND downloaded_data_kb >= 0 AND record_time > (SELECT record_time from view_app_activity where record_id=1 limit 1)   GROUP BY package_name ORDER BY downloaded_MB DESC;
+
+
+
+
+
+
+SELECT package_name, sum(uploaded_data_kb)/1024.0 as uploaded_MB FROM view_app_activity WHERE was_foreground=0 GROUP BY package_name ORDER BY uploaded_MB DESC;
