@@ -10,18 +10,37 @@ legendText = {};
 
 %add data to figure for upload
 if(strcmp(showParam,'b') || strcmp(showParam,'a'))
-    scatter(dataX_back,dataY_back,50,'filled','m');
-    legendText = [legendText 'Background'];
+    if(numel(dataX_back) > 0)
+        scatter(dataX_back,dataY_back,50,'filled','m');
+        legendText = [legendText 'Background'];
+    end
+    
 end
 if(strcmp(showParam,'f') || strcmp(showParam,'a'))
-    scatter(dataX_fore,dataY_fore,50,'filled','g');
-    legendText = [legendText 'Foreground'];
+    if(numel(dataX_fore') > 0)
+        scatter(dataX_fore,dataY_fore,50,'filled','g');
+        legendText = [legendText 'Foreground'];
+    end
+    
 end
-scatter(dataX_ibtw,dataY_ibtw,50,'filled','b');
-legendText = [legendText 'Inbetween'];
-legend(legendText,'FontSize',20);
-
+if(numel(dataX_ibtw') > 0)
+    scatter(dataX_ibtw,dataY_ibtw,50,'filled','b');
+    legendText = [legendText 'Inbetween'];
+end
+% legendText
+% numel(dataX_back)
+% numel(dataX_fore)
+% numel(dataX_ibtw)
 hold off;
+ 
+if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)    
+    legend(legendText,'FontSize',20);
+end
+
+
+if(logYaxis == 1)
+    set(gca,'YScale','log');
+end
 
 allXValues = [dataX_back', dataX_fore', dataX_back'];
 minX = min(allXValues(allXValues > 0));
@@ -29,18 +48,12 @@ maxX = max(allXValues);
 
 
 
-if(logYaxis == 1)
-    set(gca,'YScale','log');
-end
 
 %set axis limit
 if(minX ~=maxX)
-    addTime = datetime([0 0 0 1 0 0],'InputFormat','dd-MMM-yyyy HH:mm:ss');
-    timeOffset = abs(datenum(addTime));
-    xlim([minX - timeOffset, maxX + timeOffset]);
-
-    
+    xlim([minX, maxX])
 end
+
 dynamicDateTicks();
 
 
