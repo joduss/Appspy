@@ -59,7 +59,7 @@ for nameIdx = 1 : numel(dbnames)
                 lastStatus(lastIdx) = 0;
             end
         end
-            
+        
         
         if(row.was_foreground == 0 && sum(lastStatus) == 0)
             dataY_back(rowIdx) = results(rowIdx).uploaded_data/1024.0;
@@ -101,8 +101,8 @@ for nameIdx = 1 : numel(dbnames)
     p(1) = p(1) - 0.05/numel(dbnames);
     set(ax(nameIdx), 'pos', p);
     
-    if(strcmp('type', 'bar'))
-        bar(dataX_back, dataY_back,'BarWidth',1, 'stacked');
+    if(strcmp(type, 'bar'))
+        bar(dataX_back, dataY_back,'BarWidth',1);
         %bar(dataY,1);
         
     else
@@ -112,7 +112,7 @@ for nameIdx = 1 : numel(dbnames)
             scatter(dataX_back,dataY_back,'filled','m');
             legendText = [legendText 'Background'];
         end
-        if(strcmp(show,'f') || strcmp(show,'a'))           
+        if(strcmp(show,'f') || strcmp(show,'a'))
             scatter(dataX_fore,dataY_fore,'filled','g');
             legendText = [legendText 'Foreground'];
         end
@@ -121,16 +121,14 @@ for nameIdx = 1 : numel(dbnames)
         legend(legendText);
         hold off;
         
-        
-        
-        if(log == 1)
-            set(gca,'YScale','log');
-        end
-        title(strcat(dbname,{' - '}, packageName));
-        ylabel('data uploaded [kB]');
-        dynamicDateTicks();
-
     end
+    
+    if(log == 1)
+        set(gca,'YScale','log');
+    end
+    title(strcat(dbname,{' - '}, packageName));
+    ylabel('data uploaded [kB]');
+    dynamicDateTicks();
     
     
     %display some stats:
@@ -138,8 +136,8 @@ for nameIdx = 1 : numel(dbnames)
     display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back))));
     display(strcat({'Uploaded data on foreground: '}, num2str(sum(dataY_fore))));
     display(strcat({'Uploaded data on iwbt: '}, num2str(sum(dataY_ibtw))));
-
-
+    
+    
     
     
 end
