@@ -52,7 +52,7 @@ for idx = 1 : numel(dataY_ibtw)
 end
 
 
-B = bar(dataX, stackedDataY','stacked','LineStyle','none');
+B = bar(dataX, stackedDataY','stacked');
 
 color={[0 0 1],[0.4 1 0.4],[1 0 0]};
 dynamicDateTicks();
@@ -62,13 +62,12 @@ for i = 1:numel(B)
    set(B(i),'facecolor', color{i}); 
 end
 
-if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)    
+if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)    
     legend(legendText,'FontSize',20);
 end
 
 
 if(logYaxis == 1)
-    display('haaaaa');
     set(gca,'YScale','log');
 end
 

@@ -7,25 +7,37 @@ function [ dataX_back_out, dataY_back_out, dataX_fore_out, dataY_fore_out, dataX
 %day of the first record
 %until day of last record
 
-firstDayTS = (min([dataX_back(:)', dataY_fore(:)', dataY_ibtw(:)'])+2*60*60000)/1000;
-firstDayDT = datetime([1970 1 1 0 0 firstDayTS]);
-firstDay  = firstDayDT.Day;
+firstDayDN = min([dataX_back(dataX_back > 0)', dataX_fore(dataX_fore > 0)', dataX_ibtw(dataX_ibtw > 0)']);
+if(numel(firstDayDN) == 0)
+    firstDayDN = 0; %in case all dataset are empty
+end
+firstDayDT = datetime(firstDayDN,'ConvertFrom', 'datenum');
+firstDayDT.Second = 0;
+firstDayDT.Minute = 0;
+firstDayDT.Hour = 0;
 firstDayDN = datenum(firstDayDT);
 
-lastDayTS = (max([dataX_back(:)', dataY_fore(:)', dataY_ibtw(:)'])+2*60*60000)/1000;
-lastDayDT = datetime([1970 1 1 0 0 lastDayTS]);
-lastDay  = lastDayDT.Day;
 
-timeIntervalLength = (firstDay - lastDay) * 24 * 60; %length interval in minutes
+lastDayDN = max([0 dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']);
+lastDayDT = datetime(lastDayDN,'ConvertFrom', 'datenum');
+lastDayDT.Second = 0;
+lastDayDT.Minute = 0;
+lastDayDT.Hour = 0;
+lastDayDT.Day = lastDayDT.Day + 1;
+lastDayDN = datenum(lastDayDT);
+
+%transform aggregatedTime into datenum
+aggregatedTimeDN = datenum(datetime([0,1,0,0,aggregatedTime,0]));
+
+%timeIntervalLength = (firstDay - lastDay) * 24 * 60; %length interval in minutes
 
 %nbSubIntervals = timeIntervalLength / aggregatedTime;
 
 
 
-
-[dataX_back_out, dataY_back_out] = aggregate(dataX_back, dataY_back, aggregateTime, firstDayDN);
-[dataX_fore_out, dataY_fore_out] = aggregate(dataX_fore, dataY_fore, aggregateTime, firstDayDN);
-[dataX_ibtw_out, dataY_ibtw_out] = aggregate(dataX_ibtw, dataY_ibtw, aggregateTime, firstDayDN);
+[dataX_back_out, dataY_back_out] = aggregate(dataX_back, dataY_back, aggregatedTimeDN, firstDayDN);
+[dataX_fore_out, dataY_fore_out] = aggregate(dataX_fore, dataY_fore, aggregatedTimeDN, firstDayDN);
+[dataX_ibtw_out, dataY_ibtw_out] = aggregate(dataX_ibtw, dataY_ibtw, aggregatedTimeDN, firstDayDN);
 
 
 end
@@ -35,22 +47,24 @@ function[dataX_out, dataY_out] = aggregate(dataX, dataY, aggregatedTime, startTi
 
 %currentInterval is designed by its end time (record what happened in the
 %past aggregatedTimeMinutes
-currentInterval = firstDayDN + aggregatedTime;
 currentInterval = startTime + aggregatedTime;
+dataX_out = [];
+dataY_out = [];
 
 aggrData = 0;
-while idx < numel(dataX_back)
-    recordTime = dataX_back(idx);
-    %     recordValue = dataY_back(idx);
-    %     recordTimeTS = (recordTime+2*60*60000)/1000;
-    %     recordTimeDT = datetime([1970 1 1 0 0 recordTimeTS]);
-    
-    if(recordTimeDT >= (currentInterval - aggregatedTime) && recordTimeDT < currentInterval )
-        aggrData = aggrData + dataY_back;
+idx=1;
+while idx < numel(dataX)
+    recordTime = dataX(idx);
+    if(recordTime >= (currentInterval - aggregatedTime) && recordTime < currentInterval )
+        aggrData = aggrData + dataY(idx);
+        idx = idx + 1;
     elseif aggrData > 0
-        dataX_out = [dataXt aggrData];
-        dataY_out = [dataY recordTime]
+        dataX_out = [dataX_out currentInterval];
+        dataY_out = [dataY_out aggrData];
+        currentInterval = currentInterval + aggregatedTime;
+        aggrData=0;
+    else
+        currentInterval = currentInterval + aggregatedTime;
     end
-    currentInterval = currentInterval + minutes(10);
 end
 end

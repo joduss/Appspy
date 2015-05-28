@@ -13,7 +13,7 @@ logYaxis = 1; %display log scale? (1 = true)
 axisLink = 'xy'; %x, y or xy
 showParam = 'a'; %a = all, b = back, f = fore
 offset=3;
-aggregateTime = 1; %1 = no aggregation
+aggregatedTime = 6*60; %1 = no aggregation
 
 %TO ADAPT FIGURE SIZE: LOOK FOR "f = figure"
 
@@ -134,14 +134,12 @@ for nameIdx = 1 : numel(dbnames)
         dataY_down_ibtw = dataY_down_ibtw(idxZero);
         
         %aggregate
-        if(aggregateTime > 1)
-            
+        if(aggregatedTime > 1)
+            [ dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw ] = aggregateData(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, aggregatedTime);
+            [ dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw ] = aggregateData(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, aggregatedTime);
         end
         
         %% NOW PLOT THE DATA
-        close all;
-        f_uploaded = figure('units','normalized','outerposition',[0 0 1 1],'visible','off');
-        f_downloaded = figure('units','normalized','outerposition',[0 0 1 1],'visible','off');
         
         %find y axis limit, same for all graph to be able to compare
         [minY_upload, maxY_upload, minY_download, maxY_download, minY_global, maxY_global] = findCommonAxisLimits(databases, packageName);
@@ -152,31 +150,42 @@ for nameIdx = 1 : numel(dbnames)
             %% PLOT BAR
             titleFontSize = 28;
             axisLabelFontSize = 24;
-            figureNameUpload = strcat('figures/',dbName,'-',packageName, 'bar-upload.pdf');
-            figureNameDownload = strcat('figures/',dbName,'-',packageName, 'bar-download.pdf');
-            close all;
-            fig_upload = plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'on');
-            title(strcat({'Uploaded data for '},dbName,'-',packageName),'FontSize',titleFontSize);
+            figureNameUpload = strcat('figures/',dbName,'-',packageName,'-aggr',num2str(aggregatedTime), '-bar-upload.pdf');
+            figureNameDownload = strcat('figures/',dbName,'-',packageName,'-aggr',num2str(aggregatedTime), '-bar-download.pdf');
+            
+            close all;           
+            fig_upload = plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
+            title(strcat({'Uploaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
             ylabel('Uploaded data [kB]','FontSize',axisLabelFontSize);
             set(gca, 'FontSize', axisLabelFontSize);
             grid on;
             ylim([minY_global, maxY_global]);
-            if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)
+            if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)
                 saveTightFigure(fig_upload, figureNameUpload);
             end
-            pause;
+            
+            close all;
+            fig_download = plotBar(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off');
+            title(strcat({'Downloaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+            ylabel('Downloaded data [kB]','FontSize',axisLabelFontSize);
+            set(gca, 'FontSize', axisLabelFontSize);
+            grid on;
+            ylim([minY_global, maxY_global]);
+            if(numel([dataX_down_back(:)', dataX_down_fore(:)', dataX_down_ibtw(:)']) > 0)
+                saveTightFigure(fig_download, figureNameDownload);
+            end
             
         else
             %% PLOT POINTS
             titleFontSize = 28;
             axisLabelFontSize = 24;
             %save figure and remove borders
-            figureNameUpload = strcat('figures/',dbName,'-',packageName, 'scatter-upload.pdf');
-            figureNameDownload = strcat('figures/',dbName,'-',packageName, 'scatter-download.pdf');
+            figureNameUpload = strcat('figures/',dbName,'-',packageName,'-aggr',num2str(aggregatedTime), '-scatter-upload.pdf');
+            figureNameDownload = strcat('figures/',dbName,'-',packageName,'-aggr',num2str(aggregatedTime), '-scatter-download.pdf');
             
             close all;
             fig_upload = plotDataPoint(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
-            title(strcat({'Uploaded data for '},dbName,'-',packageName),'FontSize',titleFontSize);
+            title(strcat({'Uploaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
             ylabel('Uploaded data [kB]','FontSize',axisLabelFontSize);
             set(gca, 'FontSize', axisLabelFontSize);
             grid on;
@@ -187,7 +196,7 @@ for nameIdx = 1 : numel(dbnames)
             
             close all;
             fig_download = plotDataPoint(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off');
-            title(strcat({'Downloaded data for '},dbName,'-',packageName),'FontSize',titleFontSize);
+            title(strcat({'Downloaded data for '},dbName,'-',packageName, {'  aggr. '}, aggregatedTime, {'min.'}),'FontSize',titleFontSize);
             ylabel('Downloaded data [kB]','FontSize',axisLabelFontSize);
             set(gca, 'FontSize', axisLabelFontSize);
             grid on;
