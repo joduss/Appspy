@@ -55,8 +55,17 @@ end
 B = bar(dataX, stackedDataY','stacked');
 
 color={[0 0 1],[0.4 1 0.4],[1 0 0]};
+
+%  if(numel(dataX) > 1)
+%      minT = min(dataX) 
+%      set(gca,'Xtick',linspace(minT, max(dataX),40))
+%  end
+% datetick('x','mm yyyy','keeplimits', 'keepticks')
+
 dynamicDateTicks();
 
+ax=gca;
+ax.XTickLabelRotation = 45;
 
 for i = 1:numel(B)
    set(B(i),'facecolor', color{i}); 
