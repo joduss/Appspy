@@ -8,7 +8,7 @@ clear;
 dbDirectory = 'db';
 dbnames = dir(strcat(dbDirectory, '/db*.db'));
 
-type = 'point'; %type = 'bar' or 'point'
+type = 'bar'; %type = 'bar' or 'point'
 logYaxis = 1; %display log scale? (1 = true)
 axisLink = 'xy'; %x, y or xy
 showParam = 'a'; %a = all, b = back, f = fore
@@ -66,7 +66,7 @@ for nameIdx = 1 : numel(dbnames)
         end
         
         
-        %PROCESS UPLOADED
+        %PROCESS 
         for rowIdx = 1:numel(results)
             timestamp = (results(rowIdx).record_time+2*60*60000)/1000;
             time = [1970 1 1 0 0 timestamp];
@@ -133,6 +133,11 @@ for nameIdx = 1 : numel(dbnames)
         dataX_down_ibtw = dataX_down_ibtw(idxZero);
         dataY_down_ibtw = dataY_down_ibtw(idxZero);
         
+        %aggregate
+        if(aggregateTime > 1)
+            
+        end
+        
         %% NOW PLOT THE DATA
         close all;
         f_uploaded = figure('units','normalized','outerposition',[0 0 1 1],'visible','off');
@@ -144,19 +149,36 @@ for nameIdx = 1 : numel(dbnames)
         
         
         if(strcmp(type, 'bar'))
-            bar(dataX_back, dataY_back,'BarWidth',1);
-            %bar(dataY,1);
+            %% PLOT BAR
+            titleFontSize = 28;
+            axisLabelFontSize = 24;
+            figureNameUpload = strcat('figures/',dbName,'-',packageName, 'bar-upload.pdf');
+            figureNameDownload = strcat('figures/',dbName,'-',packageName, 'bar-download.pdf');
+            close all;
+            fig_upload = plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'on');
+            title(strcat({'Uploaded data for '},dbName,'-',packageName),'FontSize',titleFontSize);
+            ylabel('Uploaded data [kB]','FontSize',axisLabelFontSize);
+            set(gca, 'FontSize', axisLabelFontSize);
+            grid on;
+            ylim([minY_global, maxY_global]);
+            if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)
+                saveTightFigure(fig_upload, figureNameUpload);
+            end
+            pause;
             
         else
+            %% PLOT POINTS
+            titleFontSize = 28;
+            axisLabelFontSize = 24;
             %save figure and remove borders
             figureNameUpload = strcat('figures/',dbName,'-',packageName, 'scatter-upload.pdf');
             figureNameDownload = strcat('figures/',dbName,'-',packageName, 'scatter-download.pdf');
             
             close all;
             fig_upload = plotDataPoint(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
-            title(strcat({'Uploaded data for '},dbName,'-',packageName),'FontSize',25);
-            ylabel('Uploaded data [kB]','FontSize',22);
-            set(gca, 'FontSize', 22);
+            title(strcat({'Uploaded data for '},dbName,'-',packageName),'FontSize',titleFontSize);
+            ylabel('Uploaded data [kB]','FontSize',axisLabelFontSize);
+            set(gca, 'FontSize', axisLabelFontSize);
             grid on;
             ylim([minY_global, maxY_global]);
             if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)
@@ -165,25 +187,24 @@ for nameIdx = 1 : numel(dbnames)
             
             close all;
             fig_download = plotDataPoint(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off');
-            title(strcat({'Downloaded data for '},dbName,'-',packageName),'FontSize',25);
-            ylabel('Downloaded data [kB]','FontSize',22);
-            set(gca, 'FontSize', 22);
+            title(strcat({'Downloaded data for '},dbName,'-',packageName),'FontSize',titleFontSize);
+            ylabel('Downloaded data [kB]','FontSize',axisLabelFontSize);
+            set(gca, 'FontSize', axisLabelFontSize);
             grid on;
             ylim([minY_global, maxY_global]);
-            
             if(numel([dataX_down_back', dataX_down_fore', dataX_down_ibtw']) > 0)
-                tada = numel([dataX_back', dataX_fore', dataX_ibtw'])
                 saveTightFigure(fig_download, figureNameDownload);
             end
+
         end
         
         %save figure and remove borders
         
         %display some stats:
         display(strcat({'###### '}, dbName, '-', packageName));
-        display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back))));
-        display(strcat({'Uploaded data on foreground: '}, num2str(sum(dataY_fore))));
-        display(strcat({'Uploaded data on iwbt: '}, num2str(sum(dataY_ibtw))));
+%         display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back))));
+%         display(strcat({'Uploaded data on foreground: '}, num2str(sum(dataY_fore))));
+%         display(strcat({'Uploaded data on iwbt: '}, num2str(sum(dataY_ibtw))));
         
         display('next');
         %pause;
