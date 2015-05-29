@@ -1,7 +1,7 @@
 %mex -setup C++;
 %qlite3.make
 
-%PLOT FORE + BACK on the same plot
+%PLOT FORE + BACK  on the same plot
 % + possibility to have diff color for "in between"
 clear;
 dbDirectory = 'db';
@@ -147,10 +147,14 @@ for nameIdx = 1 : numel(dbnames)
         
         %find y axis limit, same for all graph to be able to compare
         if(aggregatedTime == 1)
-        [minY_upload, maxY_upload, minY_download, maxY_download, minY_global, maxY_global] = findCommonAxisLimits(databases, packageName);
+            [minY_upload, maxY_upload, minY_download, maxY_download, minY_global, maxY_global] = findCommonAxisLimits(databases, packageName);
         else
-            minY_global = 0;
+            minY_global = 10^(-1);
             maxY_global = 10^6; %1GB
+        end
+        
+        if(logYaxis ==1)
+            minY_global = 10^(-1);
         end
         
         

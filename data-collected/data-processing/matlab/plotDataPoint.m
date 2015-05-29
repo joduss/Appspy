@@ -52,6 +52,8 @@ maxX = max(allXValues);
 %set axis limit
 if(minX ~=maxX)
     xlim([minX, maxX])
+else
+    minX = minX - datenum(minutes(5));
 end
 
 dynamicDateTicks();
