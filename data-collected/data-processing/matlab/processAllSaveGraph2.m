@@ -1,7 +1,6 @@
 %mex -setup C++;
 %qlite3.make
 
-
 %PLOT FORE + BACK on the same plot
 % + possibility to have diff color for "in between"
 clear;
@@ -147,7 +146,12 @@ for nameIdx = 1 : numel(dbnames)
         %% NOW PLOT THE DATA
         
         %find y axis limit, same for all graph to be able to compare
+        if(aggregatedTime == 1)
         [minY_upload, maxY_upload, minY_download, maxY_download, minY_global, maxY_global] = findCommonAxisLimits(databases, packageName);
+        else
+            minY_global = 0;
+            maxY_global = 10^6; %1GB
+        end
         
         
         if(strcmp(type, 'bar'))
@@ -167,6 +171,7 @@ for nameIdx = 1 : numel(dbnames)
                 grid on;
                 ylim([minY_global, maxY_global]);
                 saveTightFigure(fig_upload, figureNameUpload);
+                %pause;
             end
             
             if(numel([dataX_down_back(:)', dataX_down_fore(:)', dataX_down_ibtw(:)']) > 0)
@@ -178,6 +183,7 @@ for nameIdx = 1 : numel(dbnames)
                 grid on;
                 ylim([minY_global, maxY_global]);
                 saveTightFigure(fig_download, figureNameDownload);
+                %pause;
             end
             
         else
