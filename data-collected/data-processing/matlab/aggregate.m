@@ -34,7 +34,12 @@ while idx <= numel(dataX)
         currentInterval = currentInterval + aggregatedTime;
         aggrData=0;
     else
+        dataX_out = [dataX_out currentInterval];
+         %put some small value. Avoid problem with log, and small enough not to
+         %interfere with the graph
+        dataY_out = [dataY_out 10^(-10)]; 
         currentInterval = currentInterval + aggregatedTime;
+        aggrData=0;
     end
 end
 end

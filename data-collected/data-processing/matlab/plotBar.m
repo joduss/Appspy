@@ -69,8 +69,8 @@ color={[0 0 1],[0.4 1 0.4],[1 0 0]};
 % datetick('x','mm yyyy','keeplimits', 'keepticks')
 if(padded == 1)
     %need to focus the axis. No need to show the 0 padded.
-    maxX = max(dataX);
-   xlim([maxX - datenum(minutes(10)), maxX]); 
+    maxX = max(dataX) + datenum(minutes(1));
+   xlim([maxX - datenum(minutes(1)), maxX]); 
 end
 
 dynamicDateTicks();
