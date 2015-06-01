@@ -383,6 +383,7 @@ public class GraphActivity extends ActionBarActivity {
         //SETUP GRAPH for downloaded_DATA
         //************
         GraphView graphDownData = (GraphView) findViewById(R.id.graph_down_data);
+        graphDownData.removeAllSeries();
         LineGraphSeries<DataPoint> downloadBackgroundSeries = new LineGraphSeries<>();
         LineGraphSeries<DataPoint> downloadForegroundSeries = new LineGraphSeries<>();
 
@@ -451,6 +452,7 @@ public class GraphActivity extends ActionBarActivity {
         //SETUP GRAPH FOR UPLOADED DATA
         //************
         GraphView graphUpData = (GraphView) findViewById(R.id.graph_up_data);
+        graphUpData.removeAllSeries();
         LineGraphSeries<DataPoint> UploadBackgroundSeries = new LineGraphSeries<>();
         LineGraphSeries<DataPoint> UploadForegroundSeries = new LineGraphSeries<>();
 
