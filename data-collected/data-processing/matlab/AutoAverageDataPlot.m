@@ -5,9 +5,9 @@ dbDirectory = 'db';
 dbFiles = dir(strcat(dbDirectory, '/db*.db'));
 dbFilePaths = {};
 
-logYaxis = 0; %display log scale? (1 = true)
+logYaxis = 1; %display log scale? (1 = true)
 aggregatedTime = 60; %1 = no aggregation
-visible = 'off';
+visible = 'on';
 
 %% preprocessing
 databases = [];
@@ -51,8 +51,7 @@ endDT.Day = endDT.Day + 1;
 endDN = datenum(endDT);
 
 
-%figure('Visible', 'on'); plot(xlim, Y(:,1)) ;ax = gca; ax.XTick = xlim; dynamicDateTicks(ax);
-%figure(); boxplot(Y'); set(gca, 'XTickLabel',ax.XTickLabel)
+
 
 
 %% processing
@@ -114,10 +113,6 @@ for dbIdx = 1:numel(databases)
             dataX_up(dbIdx,pkgIdx,1:numel(dataX_aggr)) = num2cell(dataX_aggr);
             dataY_up(dbIdx,pkgIdx,1:numel(dataY_aggr)) = num2cell(dataY_aggr);
             
-            if(numel(dataX_aggr) > 321)
-                aaaa = 1000;
-            end
-            
             %for download
             dataY = [dataResults.downloaded_data]/1024;
             
@@ -127,25 +122,34 @@ for dbIdx = 1:numel(databases)
             dataY_down(dbIdx,pkgIdx,1:numel(dataY_aggr)) = num2cell(dataY_aggr);
             
             
-            %         while drIdx < numel(drIdx) + 1
-            %             dataR = dataResults(drIdx);
-            %             time = millisToDatenumRoundSec(dataR.record_time);
-            %
-            %             if(time >= currentTimeIntervalBegin - begindDN && time < currentTimeIntervalBegin)
-            %                 upload = dataR.uploaded_data/1024.0;
-            %                 download = dataR.download_data/1024.0;
-            %             elseif()
-            %             end
-            %
-            %
-            %
-            %         end
         end
         
         %% Process time usage
+        if(numel(timeResults) > 0)
+            
+            timeX_proc = [];
+            timeY_proc = [];
+            lastFT = 0;
+            %process time usage, store in in cell
+            for(recordIdx = 1:numel(timeResults))
+                rec = timeResults(recordIdx);
+                time = millisToDatenumRoundSec(rec.record_time)               
+                
+                timeX_proc(recordIdx) = time;
+                ft = rec.foreground_time_usage /1000 / 60; %in minutes
+                if(ft < lastFT)
+                    lastFT = 0;
+                end
+                timeY_proc(recordIdx) = ft - lastFT;
+                lastFT = ft;
+            end                   
+                        
+            [timeX_aggr, timeY_aggr] = aggregate(timeX_proc, timeY_proc, aggregatedTimeDN, beginDN);
+            
+            timeX(dbIdx,pkgIdx,1:numel(timeX_aggr)) = num2cell(timeX_aggr);
+            timeY(dbIdx,pkgIdx,1:numel(timeY_aggr)) = num2cell(timeY_aggr);
+        end
         
-        
-        aaa = 10;
         
     end
     
@@ -156,10 +160,63 @@ end
 
 %% PLOT DATA
 for pkgIdx = 1 : numel(packages)
+
+    close all;
     package = packages{pkgIdx};
     
-    data = reshape([dataY_up{:,pkgIdx,:}],[numel(databases) numel([dataY_up{1,pkgIdx,:}])]);
-    boxplot(data)
     
+    %generate a fake graph just to take the X axis label for the boxplot
+    %later
+    figureForLabels = figure('units','normalized','outerposition',[0 0 1 1],'visible','off');
+    scatter([dataX_up{1,1,:}], [dataY_up{1,1,:}]);
+    xlim([beginDN endDN]);
+    ax = gca;
+    dynamicDateTicks(ax);
+    
+    % postprocess data (remove line only zero, as has not used the app)
+    %only consider for user that used the app
+    
+    %%upload data
+    dataY_plot = reshape([dataY_up{:,pkgIdx,:}],[numel(databases) numel([dataY_up{1,pkgIdx,:}])]);
+    idxNotZero = find(sum(dataY_plot,2) > 0);
+    dataY_plot = dataY_plot(idxNotZero,:);
+    
+    fig_up = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);       
+    boxplot(dataY_plot);
+    title(strcat('upload-',package,'-','aggr=',num2str(aggregatedTime)));
+       
+    copySetAxis(ax, gca, logYaxis);    
+    pause;
+    close(fig_up);
+
+    %download data
+    dataY_plot = reshape([dataY_down{:,pkgIdx,:}],[numel(databases) numel([dataY_down{1,pkgIdx,:}])]);
+    idxNotZero = find(sum(dataY_plot,2) > 0);
+    dataY_plot = dataY_plot(idxNotZero,:);
+    
+    fig_down = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);       
+    boxplot(dataY_plot);
+    title(strcat('download-',package,'-','aggr=',num2str(aggregatedTime)));
+       
+    copySetAxis(ax, gca, logYaxis);
+    pause;
+    close(fig_down);
+    
+    %% time usage
+    dataY_plot = reshape([timeY{:,pkgIdx,:}],[numel(databases) numel([timeY{1,pkgIdx,:}])]);
+    idxNotZero = find(sum(dataY_plot,2) > 0);
+    dataY_plot = dataY_plot(idxNotZero,:);
+    
+    fig_FT = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);       
+    boxplot(dataY_plot/1000);
+    
+    
+    title(strcat('usagetime-',package,'-','aggr=',num2str(aggregatedTime)));
+       
+    ax.XTick
+    
+    copySetAxis(ax, gca, logYaxis);
+    pause;
 end
+
 
