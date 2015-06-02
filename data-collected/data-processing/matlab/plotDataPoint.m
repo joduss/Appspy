@@ -33,7 +33,7 @@ end
 % numel(dataX_ibtw)
 hold off;
  
-if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)    
+if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)    
     legend(legendText,'FontSize',20);
 end
 
@@ -42,7 +42,7 @@ if(logYaxis == 1)
     set(gca,'YScale','log');
 end
 
-allXValues = [dataX_back', dataX_fore', dataX_back'];
+allXValues = [dataX_back(:)', dataX_fore(:)', dataX_back(:)'];
 minX = min(allXValues(allXValues > 0));
 maxX = max(allXValues);
 

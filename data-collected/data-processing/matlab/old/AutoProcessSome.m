@@ -8,16 +8,16 @@
 clear;
 dbDirectory = 'db';
 dbFiles = dir(strcat(dbDirectory, '/db*.db'));
-dbFilePaths = {}
+dbFilePaths = {};
 
 type = 'point'; %type = 'bar' or 'point'
 logYaxis = 1; %display log scale? (1 = true)
 axisLink = 'xy'; %x, y or xy
 showParam = 'a'; %a = all, b = back, f = fore
 offset=3;
-aggregatedTime = 60; %1 = no aggregation
+aggregatedTime = 5; %1 = no aggregation
 
-packagesToProcess = {'com.facebook.katana', 'com.whatsapp'};
+packagesToProcess = {'com.facebook.katana', 'com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
 
 
 
@@ -31,7 +31,7 @@ end
 
 close all;
 for nameIdx = 1 : numel(dbFilePaths)
-    dbPath = dbFilePaths{nameIdx}
+    dbPath = dbFilePaths{nameIdx};
     [~,dbName,~] = fileparts(dbPath);
     
     database = databases(nameIdx);
@@ -207,7 +207,7 @@ for nameIdx = 1 : numel(dbFilePaths)
                 %save figure and remove borders
                 close all;
                 
-                if(numel([dataX_back', dataX_fore', dataX_ibtw']) > 0)
+                if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)
                     figureNameUpload = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-upload.pdf');
                     figureNameDownload = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-download.pdf');
                     
@@ -220,10 +220,10 @@ for nameIdx = 1 : numel(dbFilePaths)
                     saveTightFigure(fig_upload, figureNameUpload);
                 end
                 
-                if(numel([dataX_down_back', dataX_down_fore', dataX_down_ibtw']) > 0)
+                if(numel([dataX_down_back(:)', dataX_down_fore(:)', dataX_down_ibtw(:)']) > 0)
                     close all;
                     fig_download = plotDataPoint(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off');
-                    title(strcat({'Downloaded data for '},dbName,'-',packageName, {'  aggr. '}, aggregatedTime, {'min.'}),'FontSize',titleFontSize);
+                    title(strcat({'Downloaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
                     ylabel('Downloaded data [kB]','FontSize',axisLabelFontSize);
                     set(gca, 'FontSize', axisLabelFontSize);
                     grid on;
@@ -233,18 +233,17 @@ for nameIdx = 1 : numel(dbFilePaths)
                 
             end
             
-            %save figure and remove borders
-            
-            %display some stats:
-            display(strcat({'###### '}, dbName, '-', packageName));
-            %         display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back))));
-            %         display(strcat({'Uploaded data on foreground: '}, num2str(sum(dataY_fore))));
-            %         display(strcat({'Uploaded data on iwbt: '}, num2str(sum(dataY_ibtw))));
-            
-            display('next');
-            %pause;
         end
         
+    end
+end
+
+%% show stats for all pkg
+for pkgIdx = 1:numel(packagesNames)
+    packageName = packagesNames{pkgIdx};
+    r = strfind(packagesToProcess,packageName);
+    if(sum([r{:}]) > 0)
+        statsFunc(packageName, offset,dbFilePaths);
     end
 end
 

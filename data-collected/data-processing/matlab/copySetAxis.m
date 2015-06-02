@@ -1,4 +1,7 @@
 function[] = copySetAxis(axToCopy, axToSet, logYaxis)
+%copy labels form axis "axToCopy" to axes "axToSet" and set it to log is
+%asked
+
 if(logYaxis == 1)
     set(gca,'YScale','log');
     ylim([10^(-2) 10^6]);
