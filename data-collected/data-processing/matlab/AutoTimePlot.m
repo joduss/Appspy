@@ -12,12 +12,11 @@ logYaxis = 0; %display log scale? (1 = true)
 aggregatedTime = 60; %1 = no aggregation
 visible = 'off';
 
-%TO ADAPT FIGURE SIZE: LOOK FOR "f = figure"
 
-dataX = {};
-dataY = {};
 
 %% COMPUTATIONS
+dataX = {};
+dataY = {};
 
 databases = ones(1,numel(dbFiles));
 for dbIdx = 1 : numel(dbFiles)
@@ -37,7 +36,7 @@ for dbIdx = 1 : numel(dbFiles)
     for packageIdx = 1:numel(packagesNames)
         package = packagesNames{packageIdx};
         
-        results = sqlite3.execute(database, strcat('SELECT * from table_applications_activity WHERE package_name =''', package, ''' AND was_foreground=1'));
+        results = sqlite3.execute(database, strcat('SELECT * from table_applications_activity WHERE package_name =''', package, ''' AND was_foreground=1 order by record_time'));
         
         display(strcat({'processing ' }, dbName, {': '}, num2str(packageIdx),'/',num2str(numel(packagesNames)), {' packages processed'}));
         
@@ -65,7 +64,11 @@ for dbIdx = 1 : numel(dbFiles)
                 dataY{dbIdx, recordIdx,packageIdx} = ft - lastFT;
                 lastFT = ft;
             end
+        else
+            dataY{dbIdx, 1,packageIdx} = []; % need to add, otherwise package ignored. Cause problem later
+            dataX{dbIdx, 1,packageIdx} = [];
         end
+        
     end
     
 end

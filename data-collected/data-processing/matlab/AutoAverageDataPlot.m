@@ -73,7 +73,7 @@ dataY_down(:) = deal({0});
 timeX=cell(numel(dbFiles), numel(packages), nb);
 timeX(:) = deal({0});
 timeY=cell(numel(dbFiles), numel(packages), nb);
-timeX(:) = deal({0});
+timeY(:) = deal({0});
 
 clear('results');
 
@@ -82,47 +82,47 @@ for dbIdx = 1:numel(databases)
     [~,dbName,~] = fileparts(dbFilePaths{dbIdx});
     
 
-    for pkgIdx = 1:numel(packages);
-        package = packages{pkgIdx};
-        
-        dataResults = sqlite3.execute(database, strcat('SELECT * from table_applications_activity WHERE package_name =''', package, ''' AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time'));
-        timeResults = sqlite3.execute(database, strcat('SELECT * from table_applications_activity WHERE package_name =''', package, ''' AND was_foreground=1'));
-        
-        %% Process data usage
-        %data results processing
-        %up/down value < 0 set to 0
-        if(numel(dataResults) > 0)
-            idx = find([dataResults.uploaded_data] < 0);
-            a = mat2cell(zeros(1,numel(idx))+5, 1, ones(1,numel(idx))) ;
-            [dataResults(idx).uploaded_data] = a{:};
-            
-            
-            %         idx=1;
-            %         aggr_up = 0;
-            %         aggr_down = 0;
-            %         currentTimeIntervalBegin = aggregatedTimeDN + begindDN
-            
-            dataX = arrayfun(@millisToDatenumRoundSec, [dataResults.record_time]);
-
-                        
-            %for upload
-            dataY = [dataResults.uploaded_data]/1024;
-            
-            [dataX_aggr, dataY_aggr] = aggregate(dataX, dataY, aggregatedTimeDN, beginDN);
-
-            dataX_up(dbIdx,pkgIdx,1:numel(dataX_aggr)) = num2cell(dataX_aggr);
-            dataY_up(dbIdx,pkgIdx,1:numel(dataY_aggr)) = num2cell(dataY_aggr);
-            
-            %for download
-            dataY = [dataResults.downloaded_data]/1024;
-            
-            [dataX_aggr, dataY_aggr] = aggregate(dataX, dataY, aggregatedTimeDN, beginDN);
-            
-            dataX_down(dbIdx,pkgIdx,1:numel(dataX_aggr)) = num2cell(dataX_aggr);
-            dataY_down(dbIdx,pkgIdx,1:numel(dataY_aggr)) = num2cell(dataY_aggr);
-            
-            
-        end
+     for pkgIdx = 1:numel(packages);
+         package = packages{pkgIdx};
+         
+         dataResults = sqlite3.execute(database, strcat('SELECT * from table_applications_activity WHERE package_name =''', package, ''' AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time'));
+         timeResults = sqlite3.execute(database, strcat('SELECT * from table_applications_activity WHERE package_name =''', package, ''' AND was_foreground=1 order by record_time'));
+%         
+%         %% Process data usage
+%         %data results processing
+%         %up/down value < 0 set to 0
+%         if(numel(dataResults) > 0)
+%             idx = find([dataResults.uploaded_data] < 0);
+%             a = mat2cell(zeros(1,numel(idx))+5, 1, ones(1,numel(idx))) ;
+%             [dataResults(idx).uploaded_data] = a{:};
+%             
+%             
+%             %         idx=1;
+%             %         aggr_up = 0;
+%             %         aggr_down = 0;
+%             %         currentTimeIntervalBegin = aggregatedTimeDN + begindDN
+%             
+%             dataX = arrayfun(@millisToDatenumRoundSec, [dataResults.record_time]);
+% 
+%                         
+%             %for upload
+%             dataY = [dataResults.uploaded_data]/1024;
+%             
+%             [dataX_aggr, dataY_aggr] = aggregate(dataX, dataY, aggregatedTimeDN, beginDN);
+% 
+%             dataX_up(dbIdx,pkgIdx,1:numel(dataX_aggr)) = num2cell(dataX_aggr);
+%             dataY_up(dbIdx,pkgIdx,1:numel(dataY_aggr)) = num2cell(dataY_aggr);
+%             
+%             %for download
+%             dataY = [dataResults.downloaded_data]/1024;
+%             
+%             [dataX_aggr, dataY_aggr] = aggregate(dataX, dataY, aggregatedTimeDN, beginDN);
+%             
+%             dataX_down(dbIdx,pkgIdx,1:numel(dataX_aggr)) = num2cell(dataX_aggr);
+%             dataY_down(dbIdx,pkgIdx,1:numel(dataY_aggr)) = num2cell(dataY_aggr);
+%             
+%             
+%         end
         
         %% Process time usage
         if(numel(timeResults) > 0)
@@ -133,7 +133,7 @@ for dbIdx = 1:numel(databases)
             %process time usage, store in in cell
             for(recordIdx = 1:numel(timeResults))
                 rec = timeResults(recordIdx);
-                time = millisToDatenumRoundSec(rec.record_time)               
+                time = millisToDatenumRoundSec(rec.record_time);               
                 
                 timeX_proc(recordIdx) = time;
                 ft = rec.foreground_time_usage /1000 / 60; %in minutes
@@ -208,14 +208,15 @@ for pkgIdx = 1 : numel(packages)
     dataY_plot = dataY_plot(idxNotZero,:);
     
     fig_FT = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);       
-    boxplot(dataY_plot/1000);
+    boxplot(dataY_plot);
     
     
     title(strcat('usagetime-',package,'-','aggr=',num2str(aggregatedTime)));
        
     ax.XTick
-    
-    copySetAxis(ax, gca, logYaxis);
+    copySetAxis(ax, gca, 0);
+        ylim([0, aggregatedTime]);
+
     pause;
 end
 
