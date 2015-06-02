@@ -3,29 +3,33 @@
 
 %PLOT FORE + BACK  on the same plot
 % + possibility to have diff color for "in between"
+
+%% PARAMETERS
 clear;
 dbDirectory = 'db';
-dbnames = dir(strcat(dbDirectory, '/db*.db'));
+dbFiles = dir(strcat(dbDirectory, '/db*.db'));
+dbFilePaths = {}
 
 type = 'bar'; %type = 'bar' or 'point'
 logYaxis = 1; %display log scale? (1 = true)
 axisLink = 'xy'; %x, y or xy
 showParam = 'a'; %a = all, b = back, f = fore
 offset=3;
-aggregatedTime = 2*60; %1 = no aggregation
+aggregatedTime = 60; %1 = no aggregation
 
-%TO ADAPT FIGURE SIZE: LOOK FOR "f = figure"
 
-databases = ones(1,numel(dbnames));
-for nameIdx = 1 : numel(dbnames)
-    dbPath = strcat(dbDirectory, '/', dbnames(nameIdx).name);
-    databases(nameIdx) = sqlite3.open(dbPath);
+
+%% PROCESSING
+databases = ones(1,numel(dbFiles));
+for nameIdx = 1 : numel(dbFiles)
+    dbFilePaths{nameIdx} = strcat(dbDirectory, '/', dbFiles(nameIdx).name);
+    databases(nameIdx) = sqlite3.open(dbFilePaths{nameIdx});
 end
 
 
 close all;
-for nameIdx = 1 : numel(dbnames)
-    dbPath = strcat(dbDirectory, '/', dbnames(nameIdx).name);
+for nameIdx = 1 : numel(dbFilePaths)
+    dbPath = dbFilePaths{nameIdx}
     [~,dbName,~] = fileparts(dbPath);
     
     database = databases(nameIdx);
