@@ -97,9 +97,9 @@ for nameIdx = 1 : numel(dbFilePaths)
     %display some stats:
     display(strcat({'###### '}, dbName));
     display(strcat({'sum_was_foreground (nb records where app was open): '}, num2str(results2.sum_was_foreground)));
-    display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back))));
-    display(strcat({'Uploaded data on foreground: '}, num2str(sum(dataY_fore))));
-    display(strcat({'Uploaded data on iwbt: '}, num2str(sum(dataY_ibtw))));
+    display(strcat({'Uploaded data[kb] on background: '}, num2str(sum(dataY_back))));
+    display(strcat({'Uploaded data[kb] on foreground: '}, num2str(sum(dataY_fore))));
+    display(strcat({'Uploaded data[kb] on iwbt: '}, num2str(sum(dataY_ibtw))));
 
 
     

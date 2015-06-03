@@ -9,9 +9,10 @@ dbFilePaths = {}
 
 type = 'point'; %type = 'bar' or 'point'
 logYaxis = 0; %display log scale? (1 = true)
-aggregatedTime = 60; %1 = no aggregation
+aggregatedTime = 1; %1 = no aggregation
 visible = 'off';
 
+packagesToPlot = {'com.facebook.katana'};
 
 
 %% COMPUTATIONS
@@ -76,10 +77,11 @@ end
 %% PLOT
 
 %remove variables no used to avoid problem with indices
-clearvars -except databases aggregatedTime dataX dataY logYaxis visible type dbFilePaths
+clearvars -except databases aggregatedTime dataX dataY logYaxis visible type dbFilePaths packagesToPlot
 
 
 minYaxis = datenum(seconds(0));
+aggregatedTimeDN = datenum(datetime([0,1,0,0,aggregatedTime,0]));
 
 
 for(dbIdx = 1:numel(dbFilePaths))
@@ -98,7 +100,9 @@ for(dbIdx = 1:numel(dbFilePaths))
             
             %process graph only if there are more than 4 records and the
             %total foreground time > 0
-            if(numel([dataX{dbIdx,:,packageIdx}]) > 4 && sum([dataY{dbIdx,:,packageIdx}]) > 0)
+            r = strfind(packagesToPlot,package);
+            
+            if(numel([dataX{dbIdx,:,packageIdx}]) > 4 && sum([dataY{dbIdx,:,packageIdx}]) > 0 && sum([r{:}]) > 0)
                 % PLOT BAR
                 titleFontSize = 28;
                 axisLabelFontSize = 24;
@@ -135,7 +139,6 @@ for(dbIdx = 1:numel(dbFilePaths))
                     lastDayDN = datenum(lastDayDT);
                     
                     %transform aggregatedTime into datenum
-                    aggregatedTimeDN = datenum(datetime([0,1,0,0,aggregatedTime,0]));
                     
                     [dataX_plot, dataY_plot] = aggregate(dataX_plot, dataY_plot, aggregatedTimeDN, firstDayDN);                 
                 end
@@ -164,7 +167,8 @@ for(dbIdx = 1:numel(dbFilePaths))
             
         else
             % PLOT POINTS
-            if(numel([dataX{dbIdx,:,packageIdx}]) > 4 && sum([dataY{dbIdx,:,packageIdx}]) > 0)
+            r = strfind(packagesToPlot,package);
+            if(numel([dataX{dbIdx,:,packageIdx}]) > 4 && sum([dataY{dbIdx,:,packageIdx}]) > 0 && sum([r{:}]) > 0 )
                 % PLOT BAR
                 titleFontSize = 28;
                 axisLabelFontSize = 24;
@@ -201,14 +205,15 @@ for(dbIdx = 1:numel(dbFilePaths))
                     lastDayDN = datenum(lastDayDT);
                     
                     %transform aggregatedTime into datenum
-                    aggregatedTimeDN = datenum(datetime([0,1,0,0,aggregatedTime,0]));
                     
                     [dataX_plot, dataY_plot] = aggregate(dataX_plot, dataY_plot, aggregatedTimeDN, firstDayDN);                 
                 end
                 
                 maxYaxis = max(dataY_plot) + datenum(seconds(1));
                 
-                scatter(dataX_plot, dataY_plot) %plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
+                
+                
+                scatter(dataX_plot, dataY_plot, 'filled') %plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
                 title(strcat({'Time usage for '},dbName,'-',package, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
                 
                 ylabel('Time used [hh:mm(:ss)]','FontSize',axisLabelFontSize);

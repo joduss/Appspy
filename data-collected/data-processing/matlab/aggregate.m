@@ -1,7 +1,8 @@
 function[dataX_out, dataY_out] = aggregate(dataX, dataY, aggregatedTime, startTime)
-
 %currentInterval is designed by its end time (record what happened in the
 %past aggregatedTimeMinutes
+%aggregatedTime and startTime in datenum !!!!!
+
 currentInterval = startTime + aggregatedTime;
 dataX_out = [];
 dataY_out = [];

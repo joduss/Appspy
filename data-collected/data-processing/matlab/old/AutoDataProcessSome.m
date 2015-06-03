@@ -15,7 +15,7 @@ logYaxis = 1; %display log scale? (1 = true)
 axisLink = 'xy'; %x, y or xy
 showParam = 'a'; %a = all, b = back, f = fore
 offset=3;
-aggregatedTime = 5; %1 = no aggregation
+aggregatedTime = 20; %1 = no aggregation
 
 packagesToProcess = {'com.facebook.katana', 'com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
 
@@ -217,6 +217,8 @@ for nameIdx = 1 : numel(dbFilePaths)
                     set(gca, 'FontSize', axisLabelFontSize);
                     grid on;
                     ylim([minY_global, maxY_global]);
+                                    axx=gca;
+                axx.XTickLabelRotation = 45;
                     saveTightFigure(fig_upload, figureNameUpload);
                 end
                 
@@ -228,6 +230,8 @@ for nameIdx = 1 : numel(dbFilePaths)
                     set(gca, 'FontSize', axisLabelFontSize);
                     grid on;
                     ylim([minY_global, maxY_global]);
+                                    axx=gca;
+                axx.XTickLabelRotation = 45
                     saveTightFigure(fig_download, figureNameDownload);
                 end
                 

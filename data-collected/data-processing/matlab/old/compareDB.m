@@ -106,7 +106,6 @@ for nameIdx = 1 : numel(dbnames)
         %bar(dataY,1);
         
     else
-        hold all;
         legendText = {};
         if(strcmp(show,'b') || strcmp(show,'a'))
             scatter(dataX_back,dataY_back,'filled','m');
@@ -118,9 +117,7 @@ for nameIdx = 1 : numel(dbnames)
         end
         scatter(dataX_ibtw,dataY_ibtw,'filled','b');
         legendText = [legendText 'Inbetween'];
-        legend(legendText);
-        hold off;
-        
+        legend(legendText);        
     end
     
     if(log == 1)
