@@ -583,6 +583,9 @@ public class Database extends SQLiteOpenHelper {
 
 
                         //there is a missing record (time between the record and the previous one too large) => need to add it
+                        //this can be the case, because when is should have been added, it hasn't been added, because
+                        //it was considered as not active (no data exchange and on background). But now, we see it was active
+                        //on the foreground. So we need to add it.
                         //add new until interval is ~60000
                         while(timeBetweenRecords > 70000){
 
