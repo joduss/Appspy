@@ -216,7 +216,9 @@ for pkgIdx = 1 : numel(packages)
     ax.XTick
     copySetAxis(ax, gca, 0);
     ylim([0, aggregatedTime]);
-    
+    ax=gca;
+    ax.XTickLabelRotation = 45;
+
     pause;
 end
 

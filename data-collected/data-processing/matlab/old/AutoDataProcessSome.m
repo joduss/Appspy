@@ -15,10 +15,10 @@ logYaxis = 1; %display log scale? (1 = true)
 axisLink = 'xy'; %x, y or xy
 showParam = 'a'; %a = all, b = back, f = fore
 offset=3;
-aggregatedTime = 20; %1 = no aggregation
+aggregatedTime = 1; %1 = no aggregation
 
-packagesToProcess = {'com.facebook.katana', 'com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
-
+packagesToProcess = {'com.facebook.katana', 'ch.admin.meteoswiss','com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
+%packagesToProcess = {'ch.admin.meteoswiss'};
 
 
 %% PROCESSING
@@ -169,18 +169,23 @@ for nameIdx = 1 : numel(dbFilePaths)
             
             if(strcmp(type, 'bar'))
                 %% PLOT BAR
-                titleFontSize = 28;
-                axisLabelFontSize = 24;
+                titleFontSize = 34;
+                axisLabelFontSize = 28;
+                
+                resultName = sqlite3.execute(database, strcat('SELECT app_name from table_installed_apps WHERE package_name =''', packageName,''''));
+                appname = resultName(1).app_name;
                 
                 close all;
                 if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)
                     
-                    figureNameUpload = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-upload.pdf');
-                    figureNameDownload = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-download.pdf');
+                    mkdir('D-processSome')
+                    figureNameUpload = strcat('D-processSome/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-upload.pdf');
+                    figureNameDownload = strcat('D-processSome/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-download.pdf');
                     fig_upload = plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
-                    title(strcat({'Uploaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+                    title(strcat(appname, {' - upload for candidate '},dbName, {'. Aggregation by '}, num2str(aggregatedTime), {' min.'}),'FontSize',titleFontSize);
                     ylabel('Uploaded data [kB]','FontSize',axisLabelFontSize);
                     set(gca, 'FontSize', axisLabelFontSize);
+                    
                     grid on;
                     ylim([minY_global, maxY_global]);
                     saveTightFigure(fig_upload, figureNameUpload);
@@ -190,7 +195,7 @@ for nameIdx = 1 : numel(dbFilePaths)
                 if(numel([dataX_down_back(:)', dataX_down_fore(:)', dataX_down_ibtw(:)']) > 0)
                     close all;
                     fig_download = plotBar(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off');
-                    title(strcat({'Downloaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+                    title(strcat(appname, {' - download for candidate '},dbName, {'. Aggregation by '}, num2str(aggregatedTime), {' min.'}),'FontSize',titleFontSize);
                     ylabel('Downloaded data [kB]','FontSize',axisLabelFontSize);
                     set(gca, 'FontSize', axisLabelFontSize);
                     grid on;
@@ -201,37 +206,41 @@ for nameIdx = 1 : numel(dbFilePaths)
                 
             else
                 %% PLOT POINTS
-                titleFontSize = 28;
-                axisLabelFontSize = 24;
+                titleFontSize = 34;
+                axisLabelFontSize = 30;
                 
                 %save figure and remove borders
                 close all;
+                resultName = sqlite3.execute(database, strcat('SELECT app_name from table_installed_apps WHERE package_name =''', packageName,''''));
+                appname = resultName(1).app_name;
                 
                 if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)
-                    figureNameUpload = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-upload.pdf');
-                    figureNameDownload = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-download.pdf');
+                                        mkdir('D-processSome')
+                    figureNameUpload = strcat('D-processSome/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-upload.pdf');
+                    figureNameDownload = strcat('D-processSome/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-download.pdf');
                     
-                    fig_upload = plotDataPoint(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
-                    title(strcat({'Uploaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+                    fig_upload = plotDataPoint(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off',axisLabelFontSize);
+                    title(strcat(appname, {' - upload for candidate '},dbName, {'. Aggregation by '}, num2str(aggregatedTime), {' min.'}),'FontSize',axisLabelFontSize);
                     ylabel('Uploaded data [kB]','FontSize',axisLabelFontSize);
-                    set(gca, 'FontSize', axisLabelFontSize);
                     grid on;
                     ylim([minY_global, maxY_global]);
-                                    axx=gca;
-                axx.XTickLabelRotation = 45;
+                    axx=gca;
+                    axx.XTickLabelRotation = 45;
+                    set(gca, 'FontSize', axisLabelFontSize);
+                    
                     saveTightFigure(fig_upload, figureNameUpload);
                 end
                 
                 if(numel([dataX_down_back(:)', dataX_down_fore(:)', dataX_down_ibtw(:)']) > 0)
                     close all;
-                    fig_download = plotDataPoint(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off');
-                    title(strcat({'Downloaded data for '},dbName,'-',packageName, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+                    fig_download = plotDataPoint(dataX_down_back, dataY_down_back, dataX_down_fore, dataY_down_fore, dataX_down_ibtw, dataY_down_ibtw, showParam, logYaxis, 'off', axisLabelFontSize);
+                    title(strcat(appname, {' - download for candidate '},dbName, {'. Aggregation by '}, num2str(aggregatedTime), {' min.'}),'FontSize',titleFontSize);
                     ylabel('Downloaded data [kB]','FontSize',axisLabelFontSize);
-                    set(gca, 'FontSize', axisLabelFontSize);
                     grid on;
                     ylim([minY_global, maxY_global]);
-                                    axx=gca;
-                axx.XTickLabelRotation = 45
+                    axx=gca;
+                    axx.XTickLabelRotation = 45;
+                    set(gca, 'FontSize', axisLabelFontSize);
                     saveTightFigure(fig_download, figureNameDownload);
                 end
                 

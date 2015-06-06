@@ -7,12 +7,12 @@ dbDirectory = 'db';
 dbFiles = dir(strcat(dbDirectory, '/db*.db'));
 dbFilePaths = {}
 
-type = 'point'; %type = 'bar' or 'point'
+type = 'bar'; %type = 'bar' or 'point'
 logYaxis = 0; %display log scale? (1 = true)
-aggregatedTime = 1; %1 = no aggregation
+aggregatedTime = 60; %1 = no aggregation
 visible = 'off';
 
-packagesToPlot = {'com.facebook.katana'};
+packagesToPlot = {'com.facebook.katana', 'com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
 
 
 %% COMPUTATIONS
@@ -102,14 +102,17 @@ for(dbIdx = 1:numel(dbFilePaths))
             %total foreground time > 0
             r = strfind(packagesToPlot,package);
             
-            if(numel([dataX{dbIdx,:,packageIdx}]) > 4 && sum([dataY{dbIdx,:,packageIdx}]) > 0 && sum([r{:}]) > 0)
+            if(numel([dataX{dbIdx,:,packageIdx}]) > 0 && sum([dataY{dbIdx,:,packageIdx}]) > 0 && sum([r{:}]) > 0)
                 % PLOT BAR
                 titleFontSize = 28;
                 axisLabelFontSize = 24;
                 
+
+                
                 %if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)
                 
-                figureNameFT = strcat('figures/',package,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-ft.pdf');
+                mkdir('D-ft')
+                figureNameFT = strcat('D-ft/',package,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-ft.pdf');
                 % figureNameFB = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-bt.pdf');
                 fig_FT = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);
                 
@@ -145,8 +148,11 @@ for(dbIdx = 1:numel(dbFilePaths))
                 
                 maxYaxis = max(dataY_plot) + datenum(seconds(1));
                 
+                resultName = sqlite3.execute(database, strcat('SELECT app_name from table_installed_apps WHERE package_name =''', package,''''));
+                appname = resultName(1).app_name;
+                
                 bar(dataX_plot, dataY_plot) %plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
-                title(strcat({'Time usage for '},dbName,'-',package, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+                title(strcat(appname, {' - Time usage for '},dbName, {'  - aggregation by '}, num2str(aggregatedTime), {' min'}),'FontSize',titleFontSize);
                 
                 ylabel('Time used [hh:mm(:ss)]','FontSize',axisLabelFontSize);
                 set(gca, 'FontSize', axisLabelFontSize);
@@ -168,14 +174,15 @@ for(dbIdx = 1:numel(dbFilePaths))
         else
             % PLOT POINTS
             r = strfind(packagesToPlot,package);
-            if(numel([dataX{dbIdx,:,packageIdx}]) > 4 && sum([dataY{dbIdx,:,packageIdx}]) > 0 && sum([r{:}]) > 0 )
+            if(numel([dataX{dbIdx,:,packageIdx}]) > 0 && sum([dataY{dbIdx,:,packageIdx}]) > 0 && sum([r{:}]) > 0 )
                 % PLOT BAR
                 titleFontSize = 28;
                 axisLabelFontSize = 24;
                 
                 %if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)
                 
-                figureNameFT = strcat('figures/',package,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-ft.pdf');
+                mkdir('D-ft')
+                figureNameFT = strcat('D-ft/',package,'-',dbName,'-aggr',num2str(aggregatedTime), '-scatter-ft.pdf');
                 % figureNameFB = strcat('figures/',packageName,'-',dbName,'-aggr',num2str(aggregatedTime), '-bar-bt.pdf');
                 fig_FT = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);
                 
@@ -211,10 +218,11 @@ for(dbIdx = 1:numel(dbFilePaths))
                 
                 maxYaxis = max(dataY_plot) + datenum(seconds(1));
                 
-                
+                                resultName = sqlite3.execute(database, strcat('SELECT app_name from table_installed_apps WHERE package_name =''', package,''''));
+                appname = resultName(1).app_name;
                 
                 scatter(dataX_plot, dataY_plot, 'filled') %plotBar(dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw, showParam, logYaxis, 'off');
-                title(strcat({'Time usage for '},dbName,'-',package, {'  aggr. '}, num2str(aggregatedTime), {'min.'}),'FontSize',titleFontSize);
+                title(strcat(appname, {' - Time usage for '},dbName, {'  - aggregation by '}, num2str(aggregatedTime), {' min'}),'FontSize',titleFontSize);
                 
                 ylabel('Time used [hh:mm(:ss)]','FontSize',axisLabelFontSize);
                 set(gca, 'FontSize', axisLabelFontSize);

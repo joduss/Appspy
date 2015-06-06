@@ -6,8 +6,8 @@
 % + possibility to have diff color for "in between"
 
 
-dbnames = {'db1.db','db2.db','db3.db','db4.db','db5.db', };
-packageName = 'com.google.android.apps.maps';
+dbnames = {'db/db1.db','db/db2.db','db/db3.db','db/db4.db','db/db5.db', };
+packageName = 'com.facebook.katana';
 
 offset=2;
 
@@ -21,7 +21,7 @@ display(strcat(packageName, '\n'))
 for nameIdx = 1 : numel(dbnames)
     dbname = dbnames{nameIdx};
     database = sqlite3.open(dbname);
-    results = sqlite3.execute(database, 'SELECT * from table_applications_activity WHERE package_name = ? AND uploaded_data>0 AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time', packageName);
+    results = sqlite3.execute(database, 'SELECT * from table_applications_activity WHERE package_name = ? AND uploaded_data>0 AND uploaded_data<500000 AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time', packageName);
     
     results2 = sqlite3.execute(database, 'SELECT sum(was_foreground) from table_applications_activity WHERE package_name = ? AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time', packageName);
 

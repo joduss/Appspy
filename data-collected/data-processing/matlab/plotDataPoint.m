@@ -1,7 +1,11 @@
 function [fig ] = plotDataPoint( dataX_back, dataY_back, dataX_fore, dataY_fore, dataX_ibtw, dataY_ibtw,...
-    showParam, logYaxis, visible )
+    showParam, logYaxis, visible, fsize)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
+
+if (~exist('fsize', 'var'))
+    fsize = 24;
+end
 
 fig = figure('units','normalized','outerposition',[0 0 1 1],'visible',visible);
 
@@ -24,7 +28,7 @@ if(strcmp(showParam,'f') || strcmp(showParam,'a'))
     
 end
 if(numel(dataX_ibtw') > 0)
-    scatter(dataX_ibtw,dataY_ibtw,50,'filled','b');
+    scatter(dataX_ibtw,dataY_ibtw,70,'filled','b');
     legendText = [legendText 'Inbetween'];
 end
 % legendText
@@ -34,7 +38,8 @@ end
 hold off;
  
 if(numel([dataX_back(:)', dataX_fore(:)', dataX_ibtw(:)']) > 0)    
-    legend(legendText,'FontSize',20);
+    l = legend(legendText,'FontSize',20);
+    set(l,'FontSize',fsize);
 end
 
 
