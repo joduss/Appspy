@@ -7,8 +7,8 @@
 
 
 dbnames = {'db/db1.db','db/db2.db','db/db3.db','db/db4.db','db/db5.db', };
-packageName = 'com.facebook.katana';
-
+%packageName = 'com.google.android.apps.plus';
+packageName = 'com.kitkatandroid.keyboard';
 offset=2;
 
 
@@ -21,7 +21,8 @@ display(strcat(packageName, '\n'))
 for nameIdx = 1 : numel(dbnames)
     dbname = dbnames{nameIdx};
     database = sqlite3.open(dbname);
-    results = sqlite3.execute(database, 'SELECT * from table_applications_activity WHERE package_name = ? AND uploaded_data>0 AND uploaded_data<500000 AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time', packageName);
+    up = 10^3 * 1000;
+    results = sqlite3.execute(database, 'SELECT * from table_applications_activity WHERE package_name = ? AND uploaded_data>0 AND uploaded_data < 2500000 AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time', packageName);
     
     results2 = sqlite3.execute(database, 'SELECT sum(was_foreground) from table_applications_activity WHERE package_name = ? AND record_time > (SELECT record_time from table_applications_activity where record_id=1 limit 1) ORDER BY record_time', packageName);
 
@@ -100,7 +101,7 @@ for nameIdx = 1 : numel(dbnames)
     %display some stats:
     display(strcat({'###### '}, dbname));
     display(strcat({'sum_was_foreground (nb records where app was open): '}, num2str(results2.sum_was_foreground)));
-    display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back))));
+    display(strcat({'Uploaded data on background: '}, num2str(sum(dataY_back)), ' mean:', num2str(mean(dataY_back))));
     display(strcat({'Uploaded data on foreground: '}, num2str(sum(dataY_fore))));
     display(strcat({'Uploaded data on iwbt: '}, num2str(sum(dataY_ibtw))));
 

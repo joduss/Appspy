@@ -17,8 +17,8 @@ showParam = 'a'; %a = all, b = back, f = fore
 offset=3;
 aggregatedTime = 1; %1 = no aggregation
 
-packagesToProcess = {'com.facebook.katana', 'ch.admin.meteoswiss','com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
-%packagesToProcess = {'ch.admin.meteoswiss'};
+%packagesToProcess = {'com.facebook.katana', 'ch.admin.meteoswiss','com.facebook.orca', 'com.google.android.gm', 'com.whatsapp','com.google.android.gms','com.google.android.googlequicksearchbox','com.google.android.apps.maps','com.kitkatandroid.keyboard','com.zoodles.kidmode','com.google.android.apps.plus'};
+packagesToProcess = {'com.google.android.apps.plus'};
 
 
 %% PROCESSING
